@@ -1,0 +1,59 @@
+<!-- <?php 
+    
+?>
+
+<h1>Hello stock</h1> -->
+
+<div class="header-container">
+            <h1 class="h1stock">Stock Products</h1>
+            <div class="header-controls">
+              <div class="search-container">
+                <input type="text" id="searchProducts" placeholder="Search products...">
+                <span class="material-symbols-outlined search-icon">search</span>
+              </div>
+              <div class="category-filter">
+                <select id="categoryFilter">
+                  <option value="">All Categories</option>
+                  <option value="tshirt">T-shirt</option>
+                  <option value="bags">Bags</option>
+                  <option value="hat">Hat</option>
+                  <option value="pants">Pants</option>
+                  <option value="dress">Dress</option>
+                  <option value="shoes">Shoes</option>
+                </select>
+              </div>
+              <div class="excel-controls">
+                <button class="excel-btn add-btn" id="addNewBtn">
+                  <span class="material-symbols-outlined">add</span>
+                  Add New
+                </button>
+                <button class="excel-btn import-btn" onclick="importExcel()">
+                  <span class="material-symbols-outlined">upload</span>
+                  Import
+                </button>
+                <button class="excel-btn export-btn" onclick="exportExcel()">
+                  <span class="material-symbols-outlined">download</span>
+                  Export
+                </button>
+              </div>
+            </div>
+          </div>
+         
+          <section id="stocks">
+            <table>
+              <thead>
+                <tr>
+                  <th class="name-cell">ProductName</th>
+                  <th>Stocks</th>
+                  <th class="stock-cell">Category</th>
+                  <th >Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Rows with stock data will go here -->
+              </tbody>
+            </table>
+          </section>
+        </main>
+      </div>
