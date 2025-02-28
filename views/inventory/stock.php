@@ -52,16 +52,24 @@
               </thead>
               <tbody>
                 <!-- Rows with stock data will go here -->
-                 <tr>
-                  <td>Chanel</td>
-                  <td>5</td>
-                  <td>Bags</td>
-                  <td>Instock</td>
-                  <td>
-                  <span class="material-symbols-outlined" id="edit">border_color</span>
-                  <span class="material-symbols-outlined" id="delete">delete</span>
-                  </td>
-                 </tr>
+                <?php foreach ($products as $product): ?>
+            <tr>
+                <td><?= $product['name'] ?></td>
+                <td><?= $product['stocks']?></td>
+                <td><?= $product['category_id'] ?></td>
+                <td class="<?= ($product['status'] == 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
+                  <?= ucfirst($product['status']) ?>
+                </td>
+                <td>
+                    <a href="/inventory/edit/<?= $product['id'] ?>">
+                      <span class="material-symbols-outlined" id="edit">border_color</span>
+                    </a>
+                    <a href="/inventory/delete/<?= $product['id'] ?>">
+                      <span class="material-symbols-outlined" id="delete">delete</span>
+                    </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
               </tbody>
             </table>
           </section>
