@@ -52,6 +52,16 @@
               </thead>
               <tbody>
                 <!-- Rows with stock data will go here -->
+                 <tr>
+                  <td>Chanel</td>
+                  <td>5</td>
+                  <td>Bags</td>
+                  <td>Instock</td>
+                  <td>
+                  <span class="material-symbols-outlined" id="edit">border_color</span>
+                  <span class="material-symbols-outlined" id="delete">delete</span>
+                  </td>
+                 </tr>
               </tbody>
             </table>
           </section>
