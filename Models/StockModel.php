@@ -1,16 +1,15 @@
-<?php 
-    class ProductModel {
-        private $db;
+<?php
+class ProductModel
+{
+    private $pdo;
 
-        public function __construct() {
-            $this->db=new Database ("localhost", "beauty_store_data", "root", "");
-        }
-
-        public function getAllProducts()
-        {
-            $result = $this->db->query("SELECT * FROM products");
-            return $result->fetchAll(PDO::FETCH_ASSOC);
-        }
-
+    function __construct()
+    {
+        $this->pdo = new Database();
     }
-?>
+    public function getAllProducts()
+    {
+        $result = $this->pdo->query("SELECT * FROM products");
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+}

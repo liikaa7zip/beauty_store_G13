@@ -1,7 +1,7 @@
 <?php 
 
     require_once "Models/StockModel.php";
-    class StockController extends Basecontroller{
+    class StockController extends BaseController{
         private $products;
         public function stock_inventory(){
             $this->view('/inventory/stock');
