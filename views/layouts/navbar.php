@@ -1,6 +1,6 @@
 <div class="app-wrapper">
       <!--begin::Header-->
-      <nav class="app-header navbar navbar-expand bg-body">
+      <nav class="app-header navbar navbar-expand bg-body" >
         <!--begin::Container-->
         <div class="container-fluid">
           <!--begin::Start Navbar Links-->
@@ -205,14 +205,14 @@
           <!--begin::Brand Link-->
           <a href="./index.html" class="brand-link">
             <!--begin::Brand Image-->
-            <!-- <img
-              src="../../dist/assets/img/AdminLTELogo.png"
+            <img
+              src="/views/assets/img/lo.png"
               alt="AdminLTE Logo"
               class="brand-image opacity-75 shadow"
-            /> -->
+            />
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light" >Beauty Store</span>
+            <span class="brand-text fw-light">Beauty Store</span>
             <!--end::Brand Text-->
           </a>
           <!--end::Brand Link-->
