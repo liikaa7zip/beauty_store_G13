@@ -1,3 +1,9 @@
+<?php 
+    if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+  }
+  if (isset($_SESSION['user_id'])) :
+?>
 <main class="app-main">
     <!--begin::App Content Header-->
     <div class="app-content-header">
@@ -925,3 +931,9 @@
 </main>
 <!--end::App Main-->
 <!--begin::Footer-->
+
+<?php 
+else: 
+    $this->redirect("/users/signUp"); 
+endif;   
+?>

@@ -5,12 +5,21 @@ require_once "Database/Database.php";
 require_once "Controllers/WelcomeController.php";
 require_once "Controllers/StockController.php";
 require_once "Controllers/SellController.php";
+require_once "Controllers/UserController.php";
 
 
 
 
 $route = new Router();
 $route->get("/", [WelcomeController::class, 'welcome']);
+
+//Users
+$route->get("/", [UserController::class, 'login']);
+$route->get("/users/signUp", [UserController::class, 'login']);
+$route->post("/users/create", [UserController::class, 'create']);
+$route->post("/users/store", [UserController::class, 'store']);
+$route->get("/users/signIn", [UserController::class, 'signIn']);
+$route->post("/users/authenticate", [UserController::class, 'authenticate']);
 
 
 //Inventory

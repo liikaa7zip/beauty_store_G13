@@ -1,8 +1,10 @@
-<!-- <?php 
-    
+<?php 
+    if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+  }
+  if (isset($_SESSION['user_id'])) :
 ?>
 
-<h1>Hello stock</h1> -->
 
 <div class="header-container">
             <h1 class="h1stock">Stock Products</h1>
@@ -75,3 +77,9 @@
           </section>
         </main>
       </div>
+
+      <?php 
+else: 
+    $this->redirect("/users/signUp"); 
+endif;   
+?>

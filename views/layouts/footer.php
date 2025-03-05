@@ -1,4 +1,11 @@
-  <!--begin::Footer-->
+<?php 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_SESSION['user_id'])) :
+?>
+ 
+ <!--begin::Footer-->
   <footer class="app-footer">
         <!--begin::To the end-->
         <div class="float-end d-none d-sm-inline">Anything you want</div>
@@ -266,3 +273,12 @@
   </body>
   <!--end::Body-->
 </html>
+<?php 
+else: 
+    // Avoid redirection loop by checking the current URL
+    if ($_SERVER['REQUEST_URI'] !== '/users/signUp') {
+        header("Location: /users/signUp");
+        exit();
+    }
+endif;   
+?>

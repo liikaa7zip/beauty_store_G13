@@ -1,3 +1,9 @@
+<?php 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_SESSION['user_id'])) :
+?>
 <div class="app-wrapper">
       <!--begin::Header-->
       <nav class="app-header navbar navbar-expand bg-body" >
@@ -348,3 +354,13 @@
       <!--end::Sidebar-->
       <!--begin::App Main-->
       <main class="app-main">
+
+<?php 
+else: 
+    // Avoid redirection loop by checking the current URL
+    if ($_SERVER['REQUEST_URI'] !== '/users/signUp') {
+        header("Location: /users/signUp");
+        exit();
+    }
+endif;   
+?>
