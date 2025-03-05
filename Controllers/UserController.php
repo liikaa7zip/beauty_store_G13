@@ -8,6 +8,9 @@
             $this->view('users/signUp');
         }
 
+        public function signIn() {
+            $this->view('users/signIn');
+        }
        
     }
 ?>

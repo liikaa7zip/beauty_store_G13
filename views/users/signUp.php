@@ -12,7 +12,7 @@
       </ul>
     </div>
     <div class="form-container">
-      <form id="signInForm" action = "/users/store" method = "post">
+      <form id="signInForm" action="/users/store" method="post">
         <h1>Sign Up</h1>
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Enter your username" required>
@@ -31,9 +31,9 @@
           <option value="staff">Staff</option>
         </select>
 
-        <a class = "signIn" href="/users/signIn">Sign in</a>
+        <a class="signIn" href="/users/signIn">Sign in</a>
         
         <button type="submit" id="submit">Sign Up</button>
       </form>
     </div>
-  </div>
+</div>

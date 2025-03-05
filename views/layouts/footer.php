@@ -275,8 +275,7 @@ if (isset($_SESSION['user_id'])) :
 </html>
 <?php 
 else: 
-    // Avoid redirection loop by checking the current URL
-    if ($_SERVER['REQUEST_URI'] !== '/users/signUp') {
+    if ($_SERVER['REQUEST_URI'] !== '/users/signUp' && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
         header("Location: /users/signUp");
         exit();
     }

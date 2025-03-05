@@ -9,6 +9,9 @@ if (isset($_SESSION['user_id'])) :
 </div>
 <?php 
 else: 
-    $this->redirect("/users/signUp"); 
+    if ($_SERVER['REQUEST_URI'] !== '/users/signUp' && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
+        header("Location: /users/signUp");
+        exit();
+    }
 endif;   
 ?>
