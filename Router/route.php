@@ -6,6 +6,7 @@ require_once "Controllers/WelcomeController.php";
 require_once "Controllers/StockController.php";
 require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
+require_once "Models/UserModel.php";
 
 $route = new Router();
 $route->get("/", [UserController::class, 'login']);

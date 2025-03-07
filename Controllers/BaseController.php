@@ -11,10 +11,11 @@ class BaseController
     protected function view($view, $data = [])
     {
         extract($data);
-        ob_start();
+        ob_start(); // Start output buffering
         require "views/{$view}.php";
         $content = ob_get_clean();
         require "views/layout.php";
+        ob_end_flush(); // Flush the output buffer
     }
 
     /**
@@ -24,7 +25,10 @@ class BaseController
      */
     protected function redirect($url)
     {
+        ob_start(); // Start output buffering
         header("Location: $url");
+        ob_end_flush(); // Flush the output buffer
         exit;
     }
 }
+?>
