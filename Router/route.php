@@ -8,7 +8,7 @@ require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 
 $route = new Router();
-$route->get("/", [WelcomeController::class, 'welcome']);
+$route->get("/", [UserController::class, 'login']);
 
 // Users
 $route->get("/users/signUp", [UserController::class, 'login']);
