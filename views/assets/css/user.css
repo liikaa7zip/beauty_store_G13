@@ -30,6 +30,12 @@ body {
     margin-left: 200px;
     margin-top: 150px;
 }
+
+.info {
+    display: flex !important;
+}
+
+
 .info h1 {
     margin-top: -20px;
     font-size: 64px;
@@ -169,3 +175,22 @@ form button:hover {
     margin-left: 310px;
     color: #FF85A2;
 }
+
+@media (max-width: 768px) {
+    .info {
+        display: none;
+    }
+}
+
+/* Form container */
+.form-container {
+    width: 40%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 8px;
+    height: 85%;
+}
+

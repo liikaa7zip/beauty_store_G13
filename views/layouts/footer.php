@@ -7,21 +7,23 @@ if (isset($_SESSION['user_id'])) :
  
  <!--begin::Footer-->
   <footer class="app-footer">
-        <!--begin::To the end-->
+
         <div class="float-end d-none d-sm-inline">Anything you want</div>
-        <!--end::To the end-->
-        <!--begin::Copyright-->
+
         <strong>
           Copyright &copy; 2014-2024&nbsp;
           <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
         </strong>
         All rights reserved.
-        <!--end::Copyright-->
+
       </footer>
       <!--end::Footer-->
     </div>
+
     <!--end::App Wrapper-->
     <!--begin::Script-->
+    <script src="/views/assets/js/users.js"></script>
+    <script src="/views/assets/js/stock.js"></script>
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script
       src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"

@@ -323,18 +323,18 @@ if (isset($_SESSION['user_id'])) :
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/users/signUp" class="nav-link">
                                 <i class="nav-icon bi bi-box-arrow-in-right"></i>
                                 <p>
-                                    Login                      
+                                    SignUp                    
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/users/signIn" class="nav-link">
                                 <i class="nav-icon bi bi-box-arrow-in-right"></i>
                                 <p>
-                                    Register                      
+                                    SignIn                      
                                 </p>
                             </a>
                         </li>                 

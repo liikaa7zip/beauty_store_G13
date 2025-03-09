@@ -12,7 +12,7 @@
       </ul>
     </div>
 <div class="form-container">
-  <form id="signInForm" action = "/users/authenticate" method = "post">
+  <form id="signInForm" action="/users/authenticate" method="post">
     <h1>Sign In</h1>
     <label for="email">Email</label>
     <input type="email" id="email" name="email" placeholder="Enter your email" required>

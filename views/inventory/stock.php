@@ -25,10 +25,10 @@
                 </select>
               </div>
               <div class="excel-controls">
-                <button class="excel-btn add-btn" id="addNewBtn">
+                <!-- <button class="excel-btn add-btn" id="addNewBtn">
                   <span class="material-symbols-outlined">add</span>
                   Add New
-                </button>
+                </button> -->
                 <button class="excel-btn import-btn" onclick="importExcel()">
                   <span class="material-symbols-outlined">upload</span>
                   Import
