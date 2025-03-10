@@ -44,6 +44,7 @@
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="/views/assets/css/stock.css" />
     <link rel="stylesheet" href="/views/assets/css/adminlte.css" />
+    <link rel="stylesheet" href="/views/assets/css/promotion.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <!--end::Required Plugin(AdminLTE)-->
     <!-- apexcharts -->
@@ -60,7 +61,6 @@
       integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
       crossorigin="anonymous"
     />
-
   </head>
   <!--end::Head-->
   <!--begin::Body-->

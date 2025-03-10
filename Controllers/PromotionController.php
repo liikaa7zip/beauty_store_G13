@@ -15,5 +15,18 @@
             $this->view("promotion/promotion", ['promotions' => $promotions]);
         }
 
+        public function create () {
+           
+           $this->view("promotion/create");
+        }
 
+        function store () {
+            
+        }
+
+        function destroy($id)
+        {
+            $this->products->deletePromotion($id);
+            $this -> redirect('/promotion/promotion');   
+        }
     }
