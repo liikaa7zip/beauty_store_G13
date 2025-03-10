@@ -1,3 +1,5 @@
+  </div>
+  <!--begin::Footer-->
 <?php 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -25,6 +27,7 @@ if (isset($_SESSION['user_id'])) :
     <script src="/views/assets/js/users.js"></script>
     <script src="/views/assets/js/stock.js"></script>
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
+    <script src="../assets/js/promotion.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
       integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ="
