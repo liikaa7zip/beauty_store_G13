@@ -1,8 +1,13 @@
-<?php 
-    if (session_status() == PHP_SESSION_NONE) {
-      session_start();
-  }
-  if (isset($_SESSION['user_id'])) :
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Redirect if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /users/signUp");
+    exit();
+}
 ?>
 
 
@@ -78,11 +83,3 @@
         </main>
       </div>
 
-      <?php 
-else: 
-    if ($_SERVER['REQUEST_URI'] !== '/users/signUp' && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
-        header("Location: /users/signUp");
-        exit();
-    }
-endif;   
-?>

@@ -1,9 +1,17 @@
-<?php 
+<?php
+// Ensure no output before session_start
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if (isset($_SESSION['user_id'])) :
+
+// Check if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    header("Location: /dashboard/sell");
+    exit();
+}
 ?>
+
+
 
 <div class="container">
 <div class="info">
@@ -34,11 +42,3 @@ if (isset($_SESSION['user_id'])) :
 </div>
 </div>
 
-<?php 
-else: 
-    if ($_SERVER['REQUEST_URI'] !== '/users/signUp' && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
-        header("Location: /users/signUp");
-        exit();
-    }
-endif;   
-?>

@@ -1,8 +1,17 @@
-<?php 
+<?php
+// Start the session
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if (isset($_SESSION['user_id'])) :
+
+// Check if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    // Redirect to the dashboard if already logged in
+    header("Location: /dashboard/sell");
+    exit();
+}
+
+// If not logged in, show the sign-up form
 ?>
 
 <div class="container">
@@ -44,11 +53,3 @@ if (isset($_SESSION['user_id'])) :
       </form>
     </div>
 </div>
-<?php 
-else: 
-    if ($_SERVER['REQUEST_URI'] !== '/users/signUp' && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
-        header("Location: /users/signUp");
-        exit();
-    }
-endif;   
-?>

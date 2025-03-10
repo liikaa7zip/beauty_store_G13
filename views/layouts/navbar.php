@@ -1,11 +1,12 @@
 <?php
-// Start the session at the beginning of the page
+// Start session at the top of the file
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Check if the user is logged in by verifying the session variable
+// Check if the user is logged in
 if (isset($_SESSION['user_id'])) :
+    // User is logged in, show the navbar and main content
 ?>
 <div class="app-wrapper">
     <!--begin::Header-->
