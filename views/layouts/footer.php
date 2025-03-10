@@ -1,12 +1,5 @@
-  </div>
-  <!--begin::Footer-->
-<?php 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-if (isset($_SESSION['user_id'])) :
-?>
- 
+
+
  <!--begin::Footer-->
   <footer class="app-footer">
 
@@ -279,11 +272,3 @@ if (isset($_SESSION['user_id'])) :
   </body>
   <!--end::Body-->
 </html>
-<?php 
-else: 
-    if ($_SERVER['REQUEST_URI'] !== '/users/signUp' && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
-        header("Location: /users/signUp");
-        exit();
-    }
-endif;   
-?>

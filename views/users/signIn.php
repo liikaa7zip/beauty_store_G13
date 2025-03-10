@@ -1,3 +1,18 @@
+<?php
+// Ensure no output before session_start
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    header("Location: /dashboard/sell");
+    exit();
+}
+?>
+
+
+
 <div class="container">
 <div class="info">
       <h1>Welcome Back To</h1>
@@ -26,3 +41,4 @@
   </form>
 </div>
 </div>
+
