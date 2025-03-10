@@ -1,8 +1,13 @@
-<?php 
-    if (session_status() == PHP_SESSION_NONE) {
-      session_start();
-  }
-  if (isset($_SESSION['user_id'])) :
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Redirect if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /users/signUp");
+    exit();
+}
 ?>
 
 <link rel="stylesheet" href="/css/create.css">
@@ -81,20 +86,40 @@
               </tbody>
             </table>
           </section>
+          <div class="container">
+        <h3>Stock summary:</h3>
+        <div class="stock-summary">
+            <div class="card">
+                <div class="icon">📦</div>
+                <p>Total Products</p>
+                <h3>100</h3>
+            </div>
+            <div class="card">
+                <div class="icon low-stock">🔻</div>
+                <p>Low-stocks</p>
+                <h3>250</h3>
+            </div>
+            <div class="card">
+                <div class="icon in-stock">📈</div>
+                <p>In-stocks</p>
+                <h3>103</h3>
+            </div>
+            <div class="card">
+                <p>Last Day Update</p>
+                <h3>1/28/2025, 6:50PM</h3>
+            </div>
+            <div class="card">
+                <div class="icon waste">🗑️</div>
+                <p>Waste</p>
+            </div>
+            <div class="card">
+                <div class="icon add">➕</div>
+                <p>Add products</p>
+            </div>
+        </div>
+    </div>
         </main>
       </div>
 
-      <?php 
-else: 
-    if ($_SERVER['REQUEST_URI'] !== '/users/signUp' && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
-        header("Location: /users/signUp");
-        exit();
-    }
-endif;   
-?>
+    
 
-<?php
-if (isset($_POST['create'])) {
-    echo "Create button clicked!";
-}
-?>

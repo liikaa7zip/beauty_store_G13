@@ -1,3 +1,19 @@
+<?php
+// Start the session
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check if the user is already logged in
+if (isset($_SESSION['user_id'])) {
+    // Redirect to the dashboard if already logged in
+    header("Location: /dashboard/sell");
+    exit();
+}
+
+// If not logged in, show the sign-up form
+?>
+
 <div class="container">
     <div class="info">
       <h1>Welcome To</h1>
