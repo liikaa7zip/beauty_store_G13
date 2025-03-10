@@ -1,7 +1,10 @@
-<?php 
+<?php
+// Start the session at the beginning of the page
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+// Check if the user is logged in by verifying the session variable
 if (isset($_SESSION['user_id'])) :
 ?>
 <div class="app-wrapper">
@@ -349,11 +352,6 @@ if (isset($_SESSION['user_id'])) :
     <!--end::Sidebar-->
     <!--begin::App Main-->
     <main class="app-main">
-    <?php 
-else: 
-    if ($_SERVER['REQUEST_URI'] !== '/users/signUp' && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
-        header("Location: /users/signUp");
-        exit();
-    }
-endif;   
+    <?php
+endif;
 ?>

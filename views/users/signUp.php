@@ -1,3 +1,10 @@
+<?php 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_SESSION['user_id'])) :
+?>
+
 <div class="container">
     <div class="info">
       <h1>Welcome To</h1>
@@ -37,3 +44,11 @@
       </form>
     </div>
 </div>
+<?php 
+else: 
+    if ($_SERVER['REQUEST_URI'] !== '/users/signUp' && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
+        header("Location: /users/signUp");
+        exit();
+    }
+endif;   
+?>
