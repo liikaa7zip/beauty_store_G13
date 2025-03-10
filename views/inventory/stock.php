@@ -77,7 +77,7 @@ if (!isset($_SESSION['user_id'])) {
                     <a href="/inventory/edit/<?= $product['id'] ?>">
                       <span class="material-symbols-outlined" id="edit">border_color</span>
                     </a>
-                    <a href="/inventory/delete/<?= $product['id'] ?>">
+                    <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirm('Are you sure you want to delete this product?');">
                       <span class="material-symbols-outlined" id="delete">delete</span>
                     </a>
                 </td>
@@ -121,5 +121,5 @@ if (!isset($_SESSION['user_id'])) {
         </main>
       </div>
 
-    
+
 

@@ -24,6 +24,9 @@ $route->post("/users/authenticate", [UserController::class, 'authenticate']);
 
 // Inventory
 $route->get("/inventory/stock", [StockController::class, 'index']);
+$route->get("/inventory/delete/{id}", [StockController::class, 'delete']);
+
+
 
 //Promotion
 $route->get("/promotion", [PromotionController::class, 'index']);
