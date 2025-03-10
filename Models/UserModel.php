@@ -5,7 +5,7 @@ class UserModel {
     private $db;
 
     public function __construct() {
-        $this->db = new Database('localhost', 'beauty_store', 'root', '');
+        $this->db = new Database('localhost', 'beauty_store_data', 'root', '');
     }
 
     public function createUser($username, $email, $password, $role) {

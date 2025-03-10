@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 
-
+<link rel="stylesheet" href="/css/create.css">
 <div class="header-container">
             <h1 class="h1stock">Stock Products</h1>
             <div class="header-controls">
@@ -34,6 +34,11 @@ if (!isset($_SESSION['user_id'])) {
                   <span class="material-symbols-outlined">add</span>
                   Add New
                 </button> -->
+                <!-- <button onclick="createFunction()">Create</button> -->
+                <!-- <form method="post">
+                  <button type="submit" name="create">Create</button>
+                </form> -->
+
                 <button class="excel-btn import-btn" onclick="importExcel()">
                   <span class="material-symbols-outlined">upload</span>
                   Import
@@ -42,6 +47,7 @@ if (!isset($_SESSION['user_id'])) {
                   <span class="material-symbols-outlined">download</span>
                   Export
                 </button>
+                <button class="excel-btn import-btn" onclick="ADD()">
               </div>
             </div>
           </div>
