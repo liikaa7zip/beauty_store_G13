@@ -272,6 +272,7 @@ if (isset($_SESSION['user_id'])) :
       sparkline3.render();
     </script>
     <!--end::Script-->
+    <script src="../views/assets/js/research.js"></script>
   </body>
   <!--end::Body-->
 </html>
