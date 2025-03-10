@@ -6,7 +6,7 @@ body{
 }
 
 .main-content{
-  width: 70%;
+  width: 100%;
   height: 100vh;
 }
 
@@ -21,6 +21,7 @@ body{
   padding: 0 25px;
   margin-bottom: 20px;
   margin-top: 25px;
+  width: 100%;
 }
 
 .header-controls {
@@ -44,14 +45,18 @@ border-radius: 6px;
 cursor: pointer;
 font-size: 14px;
 transition: all 0.3s ease;
+margin-left: -60%;
+margin-top: 5px;
 }
 
 .import-btn {
+margin-left: 70%;
 background-color: #ebf8ff;
 color: #3182ce;
 }
 
 .export-btn {
+margin-right: 165px;
 background-color: #f0fff4;
 color: #38a169;
 }
@@ -72,7 +77,7 @@ color: white;
 
 .h1stock{
   font-size: 50px;
-  margin: 0;
+  margin-top: 20px;
   text-align: left;
   margin-bottom: 25px;
 }
@@ -522,7 +527,7 @@ th:nth-child(5) { /* Action header */
   text-align: center;
 }
 
-/* Ensure content within these cells is centered */
+
 td:nth-child(2), 
 td.stock-cell,
 td.status-cell {
@@ -530,7 +535,7 @@ td.status-cell {
   vertical-align: middle;
 }
 
-/* Add new styles for stock container, sidebar, and summary */
+
 .stock-container {
 display: flex;
 gap: 20px;
@@ -639,7 +644,7 @@ font-weight: 600;
 }
 }
 
-/* Add new styles for stats container and summary items */
+
 .stats-container {
 margin: 30px 25px;
 display: flex;
@@ -681,7 +686,7 @@ display: flex;
 gap: 20px;
 }
 
-/* Update responsive styles */
+
 @media screen and (max-width: 1200px) {
 .stats-container {
   flex-direction: column;
@@ -700,7 +705,7 @@ gap: 20px;
 }
 }
 
-/* Update stats layout */
+
 .bottom-stats {
 padding: 25px;
 margin-top: 20px;
@@ -748,7 +753,7 @@ border-radius: 8px;
 box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Remove any old container styles */
+
 .stock-container,
 .stats-container {
 display: none;
@@ -766,7 +771,7 @@ transform: translateY(-2px);
 box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
 }
 
-/* Updated Modern Modal Styles */
+
 .modal {
 display: none;
 position: fixed;
@@ -877,9 +882,9 @@ justify-content: center;
 }
 
 .modal-footer button {
-flex: 0 1 auto;  /* Change from flex: 1 to flex: 0 1 auto */
-padding: 12px 30px;  /* Increased horizontal padding */
-min-width: 120px;    /* Added minimum width */
+flex: 0 1 auto;  
+padding: 12px 30px;  
+min-width: 120px;    
 border-radius: 8px;
 font-size: 14px;
 font-weight: 500;
@@ -910,14 +915,14 @@ background-color: #f1f5f9;
 border-color: #cbd5e0;
 }
 
-/* Remove any styles that were specific to the two-column layout */
+
 .form-left,
 .form-right,
 .button-group {
 display: none;
 }
 
-/* Updated animation */
+
 @keyframes modalSlideIn {
 from {
   transform: translateY(-8px);
@@ -929,7 +934,6 @@ to {
 }
 }
 
-/* Responsive styles for modal */
 @media screen and (max-width: 768px) {
 .modal-content {
   margin: 0;
@@ -988,7 +992,7 @@ to {
 }
 }
 
-/* Responsive styles for modal */
+
 @media screen and (max-width: 600px) {
 .modal-content {
   margin: 10% auto;
@@ -1007,7 +1011,7 @@ to {
 }
 }
 
-/* ...existing code... */
+
 
 .category-filter {
 position: relative;
@@ -1063,7 +1067,7 @@ transform: translateY(-50%) translateY(2px);
   gap: 10px;
 }
 
-/* Responsive styles update */
+
 @media screen and (max-width: 992px) {
   .header-controls {
       flex-wrap: wrap;
@@ -1082,9 +1086,6 @@ transform: translateY(-50%) translateY(2px);
   }
 }
 
-/* ...existing code... */
-
-/* Tablet-specific styles */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
 .main-content {
   width: 100%;
@@ -1122,7 +1123,7 @@ transform: translateY(-50%) translateY(2px);
   font-size: 13px;
 }
 
-/* Table adjustments */
+
 table {
   width: 100%;
   margin-left: 0;
@@ -1138,7 +1139,7 @@ th, td {
   font-size: 12px;
 }
 
-/* Bottom stats adjustments */
+
 .bottom-stats {
   padding: 15px;
 }
@@ -1161,7 +1162,7 @@ th, td {
   min-width: 200px;
 }
 
-/* Modal adjustments */
+
 .modal-content {
   width: 80%;
   max-width: 600px;
@@ -1175,9 +1176,7 @@ th, td {
 }
 }
 
-/* ...existing code... */
 
-/* Mobile-specific styles */
 @media screen and (max-width: 480px) {
 .main-content {
   width: 100%;
@@ -1225,7 +1224,7 @@ th, td {
   padding: 8px;
 }
 
-/* Table adjustments */
+
 #stocks {
   margin: 10px 0;
   overflow-x: auto;
@@ -1265,7 +1264,7 @@ td.name-cell {
   padding: 4px;
 }
 
-/* Bottom stats adjustments */
+
 .bottom-stats {
   padding: 10px;
 }
@@ -1292,7 +1291,7 @@ td.name-cell {
   padding: 12px;
 }
 
-/* Pagination adjustments */
+
 .pagination-wrapper {
   flex-direction: column;
   gap: 10px;
@@ -1310,7 +1309,7 @@ td.name-cell {
   justify-content: center;
 }
 
-/* Modal adjustments */
+
 .modal-content {
   width: 95%;
   margin: 10px auto;
@@ -1341,11 +1340,11 @@ td.name-cell {
   padding: 10px;
 }
 
-/* Category badges adjustment */
+
 td:nth-child(2) span {
   padding: 4px 8px;
   font-size: 11px;
 }
 }
 
-/* ...existing code... */
+

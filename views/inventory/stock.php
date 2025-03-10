@@ -1,8 +1,10 @@
-<!-- <?php 
-    
+<?php 
+    if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+  }
+  if (isset($_SESSION['user_id'])) :
 ?>
 
-<h1>Hello stock</h1> -->
 
 <div class="header-container">
             <h1 class="h1stock">Stock Products</h1>
@@ -23,10 +25,10 @@
                 </select>
               </div>
               <div class="excel-controls">
-                <button class="excel-btn add-btn" id="addNewBtn">
+                <!-- <button class="excel-btn add-btn" id="addNewBtn">
                   <span class="material-symbols-outlined">add</span>
                   Add New
-                </button>
+                </button> -->
                 <button class="excel-btn import-btn" onclick="importExcel()">
                   <span class="material-symbols-outlined">upload</span>
                   Import
@@ -75,3 +77,12 @@
           </section>
         </main>
       </div>
+
+      <?php 
+else: 
+    if ($_SERVER['REQUEST_URI'] !== '/users/signUp' && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
+        header("Location: /users/signUp");
+        exit();
+    }
+endif;   
+?>
