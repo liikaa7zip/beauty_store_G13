@@ -8,13 +8,17 @@
                 <path d="m21 21-4.3-4.3" />
             </svg>
         </div>
-        <button class="add-button" id="addButton" data-bs-toggle="modal" data-bs-target="#promotionModal">
+        <!-- Add New Button -->
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#promotionModal">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 12h14" />
                 <path d="M12 5v14" />
             </svg>
             Add New
         </button>
+
+        <!-- Create Promotion Modal -->
+        <?php require "create.php" ?>
     </div>
 </div>
 
@@ -22,7 +26,7 @@
 <div class="mobile-cards">
     <?php foreach ($promotions as $promotion): ?>
         <div class="card">
-            <div class="card-header">
+            <div class="card-header1">
                 <h2><?= htmlspecialchars($promotion['promotion_name']) ?></h2>
                 <span class="badge 
                         <?php

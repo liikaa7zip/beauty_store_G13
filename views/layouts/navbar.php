@@ -244,61 +244,6 @@ if (isset($_SESSION['user_id'])) :
                     </a>
                 </li>
 
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-box-seam-fill"></i>
-                  <p>
-                    Widgets
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/promotion/promotion" class="nav-link">
-                <i class="nav-icon bi bi-table"></i>
-                  <p>
-                    Promotions
-                  </p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-clipboard-fill"></i>
-                  <p>
-                    Expiration
-                  </p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                <i class="nav-icon bi bi-tree-fill"></i>
-                  <p>
-                    Notification
-                  </p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-clipboard-fill"></i>
-                  <p>
-                    Histories
-                  </p>
-                </a>
-              </li>
-
-                
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-box-arrow-in-right"></i>
-                  <p>
-                    Auth
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-box-seam-fill"></i>
@@ -332,7 +277,7 @@ if (isset($_SESSION['user_id'])) :
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/promotion" class="nav-link">
                     <i class="nav-icon bi bi-table"></i>
                         <p>
                             Promotions

@@ -257,7 +257,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <!-- /.card-header -->
+                                <!-- /z -->
                                 <div class="card-body">
                                     <!-- Conversations are loaded here -->
                                     <div class="direct-chat-messages">

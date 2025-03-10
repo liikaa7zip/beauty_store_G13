@@ -26,12 +26,12 @@ $route->post("/users/authenticate", [UserController::class, 'authenticate']);
 $route->get("/inventory/stock", [StockController::class, 'index']);
 
 //Promotion
-$route->get("/promotion/promotion", [PromotionController::class, 'promotion']);
-$route->get("/promotion/promotion", [PromotionController::class, 'index']);
+$route->get("/promotion", [PromotionController::class, 'index']);
 $route->get("/promotion/create", [PromotionController::class, 'create']);
 $route->post("/promotion/store", [PromotionController::class, 'store']);
-$route->put("/promotion/update", [PromotionController::class, 'update']);
-$route->delete("/promotion/delete", [PromotionController::class, 'destroy']);
+$route->post("/promotion/update", [PromotionController::class, 'update']);
+$route->delete("/promotion/delete", [PromotionController::class, 'delete']);
+
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);
 
