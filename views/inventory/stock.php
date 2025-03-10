@@ -1,11 +1,16 @@
-<?php 
-    if (session_status() == PHP_SESSION_NONE) {
-      session_start();
-  }
-  if (isset($_SESSION['user_id'])) :
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Redirect if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /users/signUp");
+    exit();
+}
 ?>
 
-
+<link rel="stylesheet" href="/css/create.css">
 <div class="header-container">
             <h1 class="h1stock">Stock Products</h1>
             <div class="header-controls">
@@ -29,6 +34,11 @@
                   <span class="material-symbols-outlined">add</span>
                   Add New
                 </button> -->
+                <!-- <button onclick="createFunction()">Create</button> -->
+                <!-- <form method="post">
+                  <button type="submit" name="create">Create</button>
+                </form> -->
+
                 <button class="excel-btn import-btn" onclick="importExcel()">
                   <span class="material-symbols-outlined">upload</span>
                   Import
@@ -37,6 +47,7 @@
                   <span class="material-symbols-outlined">download</span>
                   Export
                 </button>
+                <button class="excel-btn import-btn" onclick="ADD()">
               </div>
             </div>
           </div>
@@ -75,14 +86,40 @@
               </tbody>
             </table>
           </section>
+          <div class="container">
+        <h3>Stock summary:</h3>
+        <div class="stock-summary">
+            <div class="card">
+                <div class="icon">📦</div>
+                <p>Total Products</p>
+                <h3>100</h3>
+            </div>
+            <div class="card">
+                <div class="icon low-stock">🔻</div>
+                <p>Low-stocks</p>
+                <h3>250</h3>
+            </div>
+            <div class="card">
+                <div class="icon in-stock">📈</div>
+                <p>In-stocks</p>
+                <h3>103</h3>
+            </div>
+            <div class="card">
+                <p>Last Day Update</p>
+                <h3>1/28/2025, 6:50PM</h3>
+            </div>
+            <div class="card">
+                <div class="icon waste">🗑️</div>
+                <p>Waste</p>
+            </div>
+            <div class="card">
+                <div class="icon add">➕</div>
+                <p>Add products</p>
+            </div>
+        </div>
+    </div>
         </main>
       </div>
 
-      <?php 
-else: 
-    if ($_SERVER['REQUEST_URI'] !== '/users/signUp' && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
-        header("Location: /users/signUp");
-        exit();
-    }
-endif;   
-?>
+    
+
