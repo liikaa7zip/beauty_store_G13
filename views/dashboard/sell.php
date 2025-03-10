@@ -1,9 +1,18 @@
-<?php 
-    if (session_status() == PHP_SESSION_NONE) {
-      session_start();
-  }
-  if (isset($_SESSION['user_id'])) :
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Redirect if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /users/signUp");
+    exit();
+}
 ?>
+<h1>Welcome to the Dashboard</h1>
+<p>You are logged in!</p>
+<a href="/users/logout.php">Logout</a>
+
 <main class="app-main">
     <!--begin::App Content Header-->
     <div class="app-content-header">
@@ -932,11 +941,3 @@
 <!--end::App Main-->
 <!--begin::Footer-->
 
-<?php 
-else: 
-    if ($_SERVER['REQUEST_URI'] !== '/users/signUp' && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
-        header("Location: /users/signUp");
-        exit();
-    }
-endif;   
-?>

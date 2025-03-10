@@ -4,6 +4,10 @@ require_once "Controllers/BaseController.php";
 require_once "Database/Database.php";
 require_once "Controllers/WelcomeController.php";
 require_once "Controllers/StockController.php";
+require_once "Controllers/PromotionController.php";
+
+
+
 require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
@@ -21,6 +25,13 @@ $route->post("/users/authenticate", [UserController::class, 'authenticate']);
 // Inventory
 $route->get("/inventory/stock", [StockController::class, 'index']);
 
+//Promotion
+$route->get("/promotion/promotion", [PromotionController::class, 'promotion']);
+$route->get("/promotion/promotion", [PromotionController::class, 'index']);
+$route->get("/promotion/create", [PromotionController::class, 'create']);
+$route->post("/promotion/store", [PromotionController::class, 'store']);
+$route->put("/promotion/update", [PromotionController::class, 'update']);
+$route->delete("/promotion/delete", [PromotionController::class, 'destroy']);
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);
 
