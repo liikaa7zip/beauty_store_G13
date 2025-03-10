@@ -66,5 +66,9 @@
                 $this->view('users/signIn');
             }
         }
+        public function create()
+    {
+        $this->view('inventory/create');
+    }
     }
 ?>
