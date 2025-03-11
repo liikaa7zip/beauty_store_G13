@@ -31,9 +31,10 @@ $route->get("/inventory/delete/{id}", [StockController::class, 'delete']);
 //Promotion
 $route->get("/promotion", [PromotionController::class, 'index']);
 $route->get("/promotion/create", [PromotionController::class, 'create']);
+$route->get("/promotion/edit/{id}", [PromotionController::class, 'edit']);
 $route->post("/promotion/store", [PromotionController::class, 'store']);
-$route->post("/promotion/update", [PromotionController::class, 'update']);
-$route->delete("/promotion/delete", [PromotionController::class, 'delete']);
+$route->put("/promotion/update/{id}", [PromotionController::class, 'update']);
+$route->delete("/promotion/delete/{id}", [PromotionController::class, 'delete']);
 
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);

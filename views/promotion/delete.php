@@ -23,7 +23,7 @@
 
             <!-- Modal Footer -->
             <div class="modal-footer d-flex justify-content-center">
-                <form action="/promotion/delete?id=<?= $promotion['id'] ?>" method="POST" class="w-100">
+                <form action="/promotion/delete/<?= $promotion['id'] ?>" method="POST" class="w-100">
                     <div class="d-flex gap-2">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                         <form action="/promotion/delete/<?= $promotion['id']; ?>" method="post">
