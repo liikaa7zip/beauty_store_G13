@@ -17,6 +17,7 @@
 
     <!--end::App Wrapper-->
     <!--begin::Script-->
+    <script src="views/assets/js/add.js"></script>
     <script src="/views/assets/js/users.js"></script>
     <script src="/views/assets/js/stock.js"></script>
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
@@ -269,6 +270,7 @@
     </script>
     <!--end::Script-->
     <script src="../views/assets/js/research.js"></script>
+    <script src="../views/assets/js/add.js"></script>
   </body>
   <!--end::Body-->
 </html>
