@@ -73,10 +73,6 @@ class UserController extends BaseController {
             $_SESSION['error'] = "Invalid email or password.";
             $this->redirect("/users/signIn");
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     }
 
     // SignIn page view
