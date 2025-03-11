@@ -11,6 +11,7 @@ if (isset($_SESSION['user_id'])) :
 <div class="app-wrapper">
     <!--begin::Header-->
 
+
     <!--end::Header-->
     <!--begin::Sidebar-->
     <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">

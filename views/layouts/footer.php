@@ -1,7 +1,7 @@
 
 
  <!--begin::Footer-->
-  <footer class="app-footer">
+  <!-- <footer class="app-footer">
 
         <div class="float-end d-none d-sm-inline">Anything you want</div>
 
@@ -11,14 +11,14 @@
         </strong>
         All rights reserved.
 
-      </footer>
+      </footer> -->
       <!--end::Footer-->
     </div>
 
     <!--end::App Wrapper-->
     <!--begin::Script-->
-    <script src="/views/assets/js/users.js"></script>
-    <script src="/views/assets/js/stock.js"></script>
+    <script src="../views/assets/js/users.js"></script>
+    <script src="../views/assets/js/stock.js"></script>
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script src="../assets/js/promotion.js"></script>
     <script

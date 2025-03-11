@@ -11,9 +11,10 @@ if (!isset($_SESSION['user_id'])) {
 ?>
 
 <link rel="stylesheet" href="/css/create.css">
-<div class="header-container">
-            <h1 class="h1stock">Stock Products</h1>
-            <div class="header-controls">
+<div class="header-container"> 
+    <div class="h1stock">Stock Products</div>
+    <div class="header-controls">
+
               <div class="search-container">
                 <input type="text" id="searchProducts" placeholder="Search products...">
                 <span class="material-symbols-outlined search-icon">search</span>
@@ -39,7 +40,7 @@ if (!isset($_SESSION['user_id'])) {
                   <button type="submit" name="create">Create</button>
                 </form> -->
 
-                <button class="excel-btn import-btn" onclick="importExcel()">
+                <!-- <button class="excel-btn import-btn" onclick="importExcel()">
                   <span class="material-symbols-outlined">upload</span>
                   Import
                 </button>
@@ -47,13 +48,13 @@ if (!isset($_SESSION['user_id'])) {
                   <span class="material-symbols-outlined">download</span>
                   Export
                 </button>
-                <button class="excel-btn import-btn" onclick="ADD()">
+                <button class="excel-btn import-btn" onclick="ADD()"> -->
               </div>
             </div>
           </div>
          
           <section id="stocks">
-            <table>
+            <table id="productTable" class="display">
               <thead>
                 <tr>
                   <th class="name-cell">ProductName</th>
@@ -86,7 +87,8 @@ if (!isset($_SESSION['user_id'])) {
               </tbody>
             </table>
           </section>
-          <div class="container">
+          <div class="pagination" id="pagination"></div>
+        <div class="stocks-container">
         <h3>Stock summary:</h3>
         <div class="stock-summary">
             <div class="card">
@@ -96,7 +98,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
             <div class="card">
                 <div class="icon low-stock">🔻</div>
-                <p>Low-stocks</p>
+                <p class="p-low">Low-stocks</p>
                 <h3>250</h3>
             </div>
             <div class="card">
@@ -118,8 +120,35 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
     </div>
-        </main>
       </div>
+
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<!-- jQuery & DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+
+<script>
+$(document).ready(function() {
+    $('#productTable').DataTable({
+        "pageLength": 7, // Show 7 products per page
+        "lengthChange": false, // Hide "Show X entries"
+        "searching": false, // Enable search bar
+        "ordering": true, // Enable sorting
+        "paging": true // Enable pagination  
+        
+    });
+});
+</script>
+
+
+
+
+
+
+
 
 
 
