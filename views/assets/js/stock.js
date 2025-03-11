@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
 import { getDatabase, ref, onValue, update, remove, push, set } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
 import { read, utils, write } from 'https://cdn.sheetjs.com/xlsx-0.19.3/package/xlsx.mjs';
@@ -484,3 +486,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+>>>>>>> main

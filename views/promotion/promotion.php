@@ -8,13 +8,16 @@
                 <path d="m21 21-4.3-4.3" />
             </svg>
         </div>
-        <button class="add-button" id="addButton" data-bs-toggle="modal" data-bs-target="#promotionModal">
+        <!-- Add New Button -->
+        <a href="/promotion/create" class="btn btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 12h14" />
                 <path d="M12 5v14" />
             </svg>
             Add New
-        </button>
+        </a>
+
+        <!-- Create Promotion Modal -->
     </div>
 </div>
 
@@ -22,7 +25,7 @@
 <div class="mobile-cards">
     <?php foreach ($promotions as $promotion): ?>
         <div class="card">
-            <div class="card-header">
+            <div class="card-header1">
                 <h2><?= htmlspecialchars($promotion['promotion_name']) ?></h2>
                 <span class="badge 
                         <?php
@@ -64,12 +67,12 @@
                 </div>
             </div>
             <div class="card-actions">
-                <a href="#" aria-label="Edit Promotion" class="action-button edit">
+                <a href="/promotion/edit/<?= $promotion['id'] ?>" aria-label="Edit Promotion" class="action-button edit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
                     </svg>
                 </a>
-                <button type="button" class="action-button delete" data-bs-toggle="modal" data-bs-target="#promotion1<?= $promotion['id'] ?>">
+                <button type="button" class="action-button delete" data-bs-toggle="modal" data-bs-target="#promotionOne<?= $promotion['id'] ?>">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M3 6h18" />
                         <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
@@ -77,7 +80,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="modal fade" id="promotion1<?= $promotion['id'] ?>" tabindex="-1" aria-labelledby="deletePromotionModalLabel<?= $promotion['id'] ?>" aria-hidden="true">
+            <div class="modal fade" id="promotionOne<?= $promotion['id'] ?>" tabindex="-1" aria-labelledby="deletePromotionModalLabel<?= $promotion['id'] ?>" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <!-- Modal Header -->
@@ -102,7 +105,7 @@
 
                         <!-- Modal Footer -->
                         <div class="modal-footer d-flex justify-content-center">
-                            <form action="/promotion/delete?id=<?= $promotion['id'] ?>" method="POST" class="w-100">
+                            <form action="/promotion/delete/<?= $promotion['id'] ?>" method="POST" class="w-100">
                                 <div class="d-flex gap-2">
                                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-danger d-flex align-items-center gap-2 justify-content-center">
@@ -157,7 +160,7 @@
                     </td>
                     <td>
                         <div class="table-actions">
-                            <a href="#" aria-label="Edit Promotion" class="action-button edit">
+                            <a href="/promotion/edit/<?= $promotion['id'] ?>" aria-label="Edit Promotion" class="action-button edit">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
                                 </svg>

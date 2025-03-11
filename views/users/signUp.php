@@ -14,7 +14,7 @@ if (isset($_SESSION['user_id'])) {
 // If not logged in, show the sign-up form
 ?>
 
-<div class="container">
+<div class="user-container">
     <div class="info">
       <h1>Welcome To</h1>
       <h4>Beauty Store System!</h4>

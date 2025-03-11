@@ -13,7 +13,7 @@ if (isset($_SESSION['user_id'])) {
 
 
 
-<div class="container">
+<div class="user-container">
 <div class="info">
       <h1>Welcome Back To</h1>
       <h4>Beauty Store System!</h4>
