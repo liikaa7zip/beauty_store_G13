@@ -92,17 +92,17 @@ if (!isset($_SESSION['user_id'])) {
             <div class="card">
                 <div class="icon">📦</div>
                 <p>Total Products</p>
-                <h3>100</h3>
+                <h3>0.00</h3>
             </div>
             <div class="card">
                 <div class="icon low-stock">🔻</div>
                 <p>Low-stocks</p>
-                <h3>250</h3>
+                <h3>0.00</h3>
             </div>
             <div class="card">
                 <div class="icon in-stock">📈</div>
                 <p>In-stocks</p>
-                <h3>103</h3>
+                <h3>0.00</h3>
             </div>
             <div class="card">
                 <p>Last Day Update</p>
