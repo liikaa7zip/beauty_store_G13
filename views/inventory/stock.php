@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 
-
+<link rel="stylesheet" href="/css/create.css">
 <div class="header-container">
             <h1 class="h1stock">Stock Products</h1>
             <div class="header-controls">
@@ -34,6 +34,11 @@ if (!isset($_SESSION['user_id'])) {
                   <span class="material-symbols-outlined">add</span>
                   Add New
                 </button> -->
+                <!-- <button onclick="createFunction()">Create</button> -->
+                <!-- <form method="post">
+                  <button type="submit" name="create">Create</button>
+                </form> -->
+
                 <button class="excel-btn import-btn" onclick="importExcel()">
                   <span class="material-symbols-outlined">upload</span>
                   Import
@@ -42,6 +47,7 @@ if (!isset($_SESSION['user_id'])) {
                   <span class="material-symbols-outlined">download</span>
                   Export
                 </button>
+                <button class="excel-btn import-btn" onclick="ADD()">
               </div>
             </div>
           </div>
@@ -71,7 +77,7 @@ if (!isset($_SESSION['user_id'])) {
                     <a href="/inventory/edit/<?= $product['id'] ?>">
                       <span class="material-symbols-outlined" id="edit">border_color</span>
                     </a>
-                    <a href="/inventory/delete/<?= $product['id'] ?>">
+                    <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirm('Are you sure you want to delete this product?');">
                       <span class="material-symbols-outlined" id="delete">delete</span>
                     </a>
                 </td>
@@ -115,5 +121,5 @@ if (!isset($_SESSION['user_id'])) {
         </main>
       </div>
 
-    
+
 

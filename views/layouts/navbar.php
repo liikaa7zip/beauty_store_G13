@@ -86,7 +86,7 @@ if (isset($_SESSION['user_id'])) :
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/promotion/promotion" class="nav-link">
+                <a href="/promotion" class="nav-link">
                 <i class="nav-icon bi bi-table"></i>
                   <p>
                     Promotions
