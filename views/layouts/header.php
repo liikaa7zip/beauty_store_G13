@@ -47,5 +47,5 @@
   </head>
   <!--end::Head-->
   
-  <!--begin::Body-->
+  <!--begin::Body-->  
   <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
