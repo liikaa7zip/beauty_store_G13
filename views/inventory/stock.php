@@ -144,15 +144,7 @@ $(document).ready(function() {
 </script>
 
 
-
-
-
-
-
-
-
-
-<div class="container">
+<!-- <div class="container">
     <h3>Stock Summary:</h3>
     <div class="stock-summary">
         <div class="card"><div class="icon">📦</div><p>Total Products</p><h3>100</h3></div>
@@ -161,8 +153,7 @@ $(document).ready(function() {
         <div class="card"><p>Last Update</p><h3>1/28/2025, 6:50 PM</h3></div>
         <div class="card"><div class="icon waste">🗑️</div><p>Waste</p></div>
         <div class="card add-product-btn" id="addProductBtn" style="cursor: pointer;"><div class="icon">➕</div><p>Add Product</p></div>
-    </div>
-</div>
+    </div> -->
 
 
 <div id="addProductModal" class="modal">
