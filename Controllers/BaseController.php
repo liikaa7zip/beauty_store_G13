@@ -8,11 +8,11 @@ class BaseController
      * @param string $view The view file to render.
      * @param array $data The data to pass to the view.
      */
-    protected function view($view, $data = [])
+    protected function view($viewPath, $data = [])
     {
         extract($data);
         ob_start(); // Start output buffering
-        require "views/{$view}.php";
+        require_once __DIR__ . '/../views/' . $viewPath . '.php';
         $content = ob_get_clean();
         require "views/layout.php";
         ob_end_flush(); // Flush the output buffer

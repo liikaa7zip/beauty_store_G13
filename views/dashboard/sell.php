@@ -5,13 +5,13 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /users/signUp");
+    header("Location: /users/signIn");
     exit();
 }
 ?>
-<h1>Welcome to the Dashboard</h1>
-<p>You are logged in!</p>
-<a href="/users/logout.php">Logout</a>
+<h1 id="h1-dashboard">Welcome to the Dashboard</h1>
+<!-- <p>You are logged in!</p>
+<a href="/users/logout.php">Logout</a> -->
 
 <main class="app-main">
     <!--begin::App Content Header-->
