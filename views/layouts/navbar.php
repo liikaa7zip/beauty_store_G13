@@ -1,11 +1,13 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-  session_start();
-}
+// if (session_status() == PHP_SESSION_NONE) {
+//   session_start();
+// }
 
-if (isset($_SESSION['user_id'])) :
+// if (isset($_SESSION['user_id'])) :
 ?>
   <div class="app-wrapper">
+
+
     <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
       <div class="sidebar-brand">
         <a href="./index.html" class="brand-link">
@@ -28,10 +30,10 @@ if (isset($_SESSION['user_id'])) :
                 <p>Inventory<i class="nav-arrow bi bi-chevron-right"></i></p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item"><a href="/inventory/stock" class="nav-link"><i class="nav-icon bi bi-circle"></i>
-                    <p>Stocks</p>
+                <li class="nav-item"><a href="/inventory/products" class="nav-link"><i class="nav-icon bi bi-circle"></i>
+                    <p>Products</p>
                   </a></li>
-                <li class="nav-item"><a href="./widgets/info-box.html" class="nav-link"><i class="nav-icon bi bi-circle"></i>
+                <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-circle"></i>
                     <p>Categories</p>
                   </a></li>
               </ul>
@@ -55,10 +57,7 @@ if (isset($_SESSION['user_id'])) :
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item"><a href="/users/signUp" class="nav-link"><i class="nav-icon bi bi-box-arrow-in-right"></i>
-                    <p>SignUp</p>
-                  </a></li>
-                <li class="nav-item"><a href="/users/signIn" class="nav-link"><i class="nav-icon bi bi-box-arrow-in-right"></i>
-                    <p>SignIn</p>
+                    <p>SignOut</p>
                   </a></li>
               </ul>
             </li>
@@ -69,5 +68,5 @@ if (isset($_SESSION['user_id'])) :
   <!-- </div> -->
   <main class="app-main">
   <?php
-endif;
+// endif;
   ?>

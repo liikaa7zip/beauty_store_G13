@@ -26,7 +26,7 @@
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     
     <!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="/views/assets/css/stock.css" />
+    <link rel="stylesheet" href="/views/assets/css/products.css" />
     <link rel="stylesheet" href="/views/assets/css/adminlte.css" />
     <link rel="stylesheet" href="/views/assets/css/promotion.css" />
     <link rel="stylesheet" href="/views/assets/css/user.css" />
@@ -44,6 +44,22 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css" integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=" crossorigin="anonymous" />
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+
+        <!-- Bootstrap 5 CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css" rel="stylesheet">
+
+    <!-- jQuery (Required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- DataTables Bootstrap 5 JS -->
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
   </head>
   <!--end::Head-->
   

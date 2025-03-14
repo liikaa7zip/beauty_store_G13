@@ -3,8 +3,9 @@ require_once "Router.php";
 require_once "Controllers/BaseController.php";
 require_once "Database/Database.php";
 require_once "Controllers/WelcomeController.php";
-require_once "Controllers/StockController.php";
 require_once "Controllers/PromotionController.php";
+require_once "Controllers/ProductsController.php";
+
 
 
 
@@ -23,8 +24,15 @@ $route->get("/users/signIn", [UserController::class, 'signIn']);
 $route->post("/users/authenticate", [UserController::class, 'authenticate']);
 
 // Inventory
-$route->get("/inventory/stock", [StockController::class, 'index']);
-$route->get("/inventory/delete/{id}", [StockController::class, 'delete']);
+
+
+
+//Inventory
+
+$route->get("/inventory/products", [ProductsController::class, 'index']);
+$route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
+
+
 
 
 
@@ -38,5 +46,6 @@ $route->delete("/promotion/delete/{id}", [PromotionController::class, 'delete'])
 
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);
+
 
 $route->route();

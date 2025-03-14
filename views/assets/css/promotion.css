@@ -123,7 +123,8 @@
 .desktop-table {
   width: 100%;
   border-collapse: collapse;
-
+  margin: auto;
+  margin-left: 60px;
 }
 
 .desktop-table th,
