@@ -74,25 +74,19 @@
     /* box-shadow: 0 2px 2 px rgba(245, 101, 101, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.2); */
   
-    color: rgb(226, 10, 10);
-    font-weight: bold;
+    color: rgb(249, 45, 45);
   
   }
 
   .status-instock {
-    color: green;
-    font-weight: bold;
+    color: rgb(1, 235, 1);
     }
 
 
   #productTable {
     max-height: 450px;
   }
-  
 
-#productTable th {
-    text-align: center;
-}
 
 #productTable tr td p {
   border: 2px solid #4CAF50; /* Green border */
@@ -101,7 +95,6 @@
   margin: auto; /* Remove default margin */
   border-radius: 18px; /* Rounded corners */
   font-size: 16px; /* Larger, easier-to-read text */
-  font-weight: bold; /* Bold text */
   color: #333; /* Dark text color */
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
   transition: all 0.3s ease; /* Smooth transition on hover */
@@ -231,11 +224,11 @@ h3 {
 }
 
 .low-stock {
-  color: #ff4d4d;
+  color: #ff6464;
 }
 
 .in-stock {
-  color: #28a745;
+  color: #40ff6d;
 }
 
 .waste {
@@ -284,3 +277,259 @@ h3 {
 
 
 
+/* General styles for the body and container */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.container-fluid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+}
+
+/* Card styling */
+.card {
+  width: 100%;
+  max-width: 800px; /* Max width of the card */
+  padding: 25px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title Styling */
+.card p.display-5 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Form groups and fields */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  color: #495057;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+/* Button styling */
+button,
+a.btn {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+a.btn.btn-outline-secondary {
+  background-color: transparent;
+  color: #333;
+  border: 1px solid #ced4da;
+}
+
+a.btn.btn-outline-secondary:hover {
+  background-color: #f1f1f1;
+}
+
+/* Flex container for buttons */
+.d-flex {
+  display: flex;
+  gap: 1rem;
+}
+
+.d-flex a,
+.d-flex button {
+  flex: 1;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .container-fluid {
+      padding: 10px;
+  }
+
+  .card {
+      padding: 20px;
+  }
+
+  .card p.display-5 {
+      font-size: 1.8rem;
+  }
+
+  .form-group {
+      margin-bottom: 15px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+      font-size: 0.95rem;
+  }
+
+  .d-flex {
+      flex-direction: column;
+  }
+
+  .d-flex a,
+  .d-flex button {
+      flex: unset;
+      margin-bottom: 10px;
+  }
+}
+
+.container-fluid {
+  margin-top: 20%;
+
+}
+/* .display-5 {
+  margin-top: 20%;
+} */
+
+/* General container styling */
+.create_product_container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Form container with two columns */
+.edit-form,
+.create-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+/* Left and Right Columns */
+.left-column, .right-column {
+  width: 48%;
+}
+
+/* Form input fields */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #f9f9f9;
+  color: #333;
+}
+
+/* Button styles */
+.d-flex {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-outline-secondary {
+  background-color: transparent;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .edit-form,
+  .create-form {
+      flex-direction: column;
+  }
+
+  .left-column, .right-column {
+      width: 100%;
+  }
+
+  .d-flex {
+      flex-direction: column;
+  }
+}

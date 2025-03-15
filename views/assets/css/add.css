@@ -30,7 +30,7 @@ body, html {
     text-align: center;
     font-size: 2.5rem;
     color: #333;
-    margin-top: -40px;
+    margin-top: -10px;
 }
 
 .create-pro {
@@ -59,6 +59,11 @@ body, html {
     justify-content: space-between;
     flex-wrap: wrap;
     margin: auto;
+    margin-top: 50px;
+}
+
+.edit-form {
+    margin-top: 50px;
 }
 
 /* Left side (Product Name, Stocks, Price) */
@@ -93,18 +98,27 @@ body, html {
     background: #fff;
 }
 
-.form-control {
-    padding: 21px;
+#category_id {
+    padding: 24px;
     margin-top: -2px;
+    background: #fff;
 }
 
 #productImage {
     padding: 60px;
+    background: #fff;
 }
 
 #description {
     padding: 30px;
     margin-left: -8px;
+    background: #fff;
+}
+
+#create-btn {
+    margin-left: 30%;
+    width: 40%;
+    padding: 14px;
 }
 
 label {
@@ -190,4 +204,28 @@ body {
         font-size: 1rem;
         padding: 10px 15px;
     }
+}
+
+#h1edit {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-top: -10px;
+}
+
+#btn-edit {
+    margin: auto;
+}
+
+#backedit {
+    margin-bottom: 10px;
+    padding: 18px;
+    background: linear-gradient(135deg, #ed5aa4, #ef56e7); /* Neon Gradient */
+    color: white;
+}
+
+#save-change {
+    width: 300px;
+    margin-bottom: 10px;
+    padding: 18px;
 }

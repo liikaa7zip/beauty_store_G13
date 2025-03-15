@@ -20,17 +20,17 @@ class UserController extends BaseController {
     // Store new user (SignUp)
     public function store() {
         session_start();
-        if (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['role'])) {
+        if (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password'])) {
             $_SESSION['error'] = "All fields are required.";
             $this->redirect("/users/signUp");
             return;
         }
 
         $username = htmlentities($_POST['username']);
-        $email = htmlentities($_POST['email']);
-        $password = htmlentities($_POST['password']);
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
         $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
-        $role = htmlentities($_POST['role']);
+        $role = 'user';
         
         if ($this->users->getUserByUsername($username)) {
             $_SESSION['error'] = "Username already exists.";
@@ -47,7 +47,7 @@ class UserController extends BaseController {
         // Create the user and redirect
         $this->users->createUser($username, $email, $encrypted_password, $role);
         $_SESSION['success'] = "Account created successfully!";
-        $this->redirect("/dashboard/sell");
+        $this->redirect("/users/signIn");
     }
 
     // Authenticate user (SignIn)

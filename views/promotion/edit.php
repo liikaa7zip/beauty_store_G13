@@ -1,3 +1,10 @@
+<?php 
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+      }
+
+?>
+
 <div class="full-screen-form-container">
     <form id="createPromotionForm" action="/promotion/update/<?= $promotion['id'] ?>" method="POST">
         <!-- Promotion Name -->
