@@ -1,8 +1,15 @@
 h2 {
     margin-bottom: 40px; /* Adjust as needed */
-    }
-
-    .modal {
+}
+.btn-submit {
+    margin-top: 10px; /* Adjust margin */
+    cursor: pointer; /* Makes the cursor a hand when hovered */
+}
+.card{
+    margin-top: 10px;
+    cursor: pointer;
+}
+.modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -10,25 +17,34 @@ h2 {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5); /* Adds a dark overlay */
     transition: opacity 0.3s ease;
     opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal.open {
-    display: block;
+    display: flex; /* Ensures modal stays centered when open */
     opacity: 1;
 }
+
 .modal-content {
-    width: 50%; /* Adjust width */
-    max-width: 500px; /* Set a max width */
-    padding: 20px; /* Add padding for spacing */
-    height: 90vh;
+    background: white;
+    width: 70%; /* Increase from 50% to 70% for a wider form */
+    max-width: 700px; /* Increase from 500px to 700px */
+    padding: 30px; /* Increase padding for better spacing inside a larger form */
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
 }
-.btn-submit{
-    margin-top: 0.1px;
+
+.btn-submit {
+    margin-top: 10px; /* Adjust margin */
 }
+
 #addProductForm label {
     display: block;
     margin-bottom: 5px; /* Adds spacing below the label */
@@ -38,7 +54,7 @@ h2 {
 #addProductForm select {
     width: 100%;
     padding: 15px;
-    margin-top: -0.1px; /* Adds space above the input fields */
+    margin-top: 5px; /* Adjust space above the input fields */
     border: 1px solid #ccc;
     border-radius: 10px;
 }
