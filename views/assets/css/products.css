@@ -17,6 +17,7 @@
     cursor: pointer;
     padding: 10px;
     font-size: 20px;
+    color: #545a55;
   }
   
   /* Dropdown content (hidden by default) */
@@ -26,8 +27,8 @@
     top: 50%;
     right: 100%; /* Moves the dropdown to the left */
     transform: translateY(-50%);
-    background-color: white;
-    min-width: 120px;
+    background-color: rgb(144, 144, 144);
+    min-width: 120px; 
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     z-index: 1;
