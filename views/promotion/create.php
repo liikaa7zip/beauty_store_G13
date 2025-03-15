@@ -1,3 +1,10 @@
+<?php 
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+      }
+
+?>
+
 <div class="full-screen-form-container">
     <form id="createPromotionForm" action="/promotion/store" method="POST">
         <!-- Promotion Name -->
@@ -41,7 +48,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Save Promotion</button>
+        <button type="submit" class="btn btn-primary" id="addpromotions">Save Promotion</button>
     </form>
 </div>
 

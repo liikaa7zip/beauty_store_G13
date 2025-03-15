@@ -19,6 +19,7 @@ if (isset($_SESSION['user_id'])) {
     <div class="form-container">
       <form id="signInForm" action="/users/store" method="post">
         <h1>Register</h1>
+        <p> <?php echo  $_SESSION['error'] ?? ""; ?> </p>
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Enter your username" required>
         

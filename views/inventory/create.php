@@ -3,6 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+
 // Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: /users/signIn");
@@ -33,6 +34,8 @@ if (!isset($_SESSION['user_id'])) {
                 <label for="price">Price</label>
                 <input type="text" id="price" name="price" class="form-control" step="0.01" required>
             </div>
+
+            <button type="submit" class="btn btn-primary" id="create-btn">Create Product</button>
         </div>
 
         <!-- Right Column -->
@@ -55,7 +58,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Create Product</button>
+
     </form>
 </div>
 

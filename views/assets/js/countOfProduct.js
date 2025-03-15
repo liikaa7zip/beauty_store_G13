@@ -22,11 +22,5 @@ document.addEventListener("DOMContentLoaded", function () {
     
     updateStockSummary(); // Run on page load
     
-    // Button to manually update count
-    let countButton = document.createElement("button");
-    countButton.textContent = "Update Stock Count";
-    countButton.classList.add("update-button");
-    countButton.onclick = updateStockSummary;
-    
-    document.querySelector(".stocks-container").appendChild(countButton);
+
 });

@@ -18,11 +18,11 @@ if (!isset($_SESSION['user_id'])) {
     <table id="productTable" class="display">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Stock</th>
-            <th>Category</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th style="text-align: center;">Name</th>
+            <th style="text-align: center;">Stock</th>
+            <th style="text-align: center;">Category</th>
+            <th style="text-align: center;">Status</th>
+            <th style="text-align: center;">Actions</th>
         </tr>
     </thead>
     <tbody>

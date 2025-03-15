@@ -18,6 +18,7 @@ if (isset($_SESSION['user_id'])) {
 <div class="form-container">
   <form id="signInForm" action="/users/authenticate" method="post">
     <h1>Login</h1>
+    <p> <?php echo  $_SESSION['error'] ?? ""; ?> </p>
     <label for="email">Email</label>
     <input type="email" id="email" name="email" placeholder="Enter your email" required>
     
