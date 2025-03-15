@@ -26,19 +26,19 @@ if (!isset($_SESSION['user_id'])) {
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($products as $product): ?>
-            <tr>
-                <td><?= htmlspecialchars($product['name']) ?></td>
-                <td><?= htmlspecialchars($product['stocks']) ?></td>
-                <td><?= htmlspecialchars($product['category_id']) ?></td>
-                <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
-                    <?= ucfirst(htmlspecialchars($product['status'])) ?>
-                </td>
-                <td>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="toggleDropdown(this)">
-                        <span class="material-symbols-outlined">more_horiz</span>
-                    </button>
+    <?php foreach ($products as $product): ?>
+    <tr>
+        <td><?= htmlspecialchars($product['name']) ?></td>
+        <td><?= htmlspecialchars($product['stocks']) ?></td>
+        <td><p><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></p></td> <!-- Display category name -->
+        <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
+            <?= ucfirst(htmlspecialchars($product['status'])) ?>
+        </td>
+        <td>
+            <div class="dropdown">
+                <button class="dropbtn" onclick="toggleDropdown(this)">
+                    <span class="material-symbols-outlined">more_horiz</span>
+                </button>
                 <div class="dropdown-content">
                     <a href="/inventory/edit/<?= $product['id'] ?>">
                         <span class="material-symbols-outlined" id="edit">border_color</span> Edit
@@ -46,11 +46,12 @@ if (!isset($_SESSION['user_id'])) {
                     <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirm('Are you sure you want to delete this product?');">
                         <span class="material-symbols-outlined" id="delete">delete</span> Delete
                     </a>
-                </div> 
-    </div>
-                </td>
-            </tr>
-        <?php endforeach; ?>
+                </div>
+            </div>
+        </td>
+    </tr>
+<?php endforeach; ?>
+
     </tbody>
 </table>
 
