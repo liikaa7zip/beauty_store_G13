@@ -30,6 +30,9 @@ $route->post("/users/authenticate", [UserController::class, 'authenticate']);
 //Inventory
 
 $route->get("/inventory/products", [ProductsController::class, 'index']);
+$route->get("/inventory/edit/{id}", [ProductsController::class, 'edit']);
+$route->put("/inventory/products/update/{id}", [ProductsController::class, 'update']);
+$route->post("/inventory/products/store", [ProductsController::class, 'store']);
 $route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
 $route->get("/inventory/create", [ProductsController::class, 'create']);
 
