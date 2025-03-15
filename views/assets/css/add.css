@@ -1,14 +1,31 @@
-h2 {
-    margin-bottom: 40px; /* Adjust as needed */
+.modal-content h2 {
+    margin-bottom: 40px; /* Reduced margin */
+    position: sticky; /* Fix heading at the top */
+    top: 0; /* Sticks to the top of the modal-content */
+    background: white; /* Prevents transparency when scrolling */
+    padding: 10px 0; /* Adds padding for better spacing */
+    z-index: 10; /* Ensures it stays above form content */
+    font-size: 24px; /* Matches the heading style from the image */
+    font-weight: bold; /* Bold text as per the image */
 }
+
 .btn-submit {
-    margin-top: 10px; /* Adjust margin */
+    margin-top: 15px; /* Adjust margin */
     cursor: pointer; /* Makes the cursor a hand when hovered */
+    padding: 10px 20px; /* Slightly smaller button */
+    font-size: 16px; /* Maintain font size */
+    background-color: #ff4d94; /* Pink color from the image */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold; /* Bold text for consistency */
 }
-.card{
+
+.card {
     margin-top: 10px;
     cursor: pointer;
 }
+
 .modal {
     display: none;
     position: fixed;
@@ -32,29 +49,94 @@ h2 {
 
 .modal-content {
     background: white;
-    width: 70%; /* Increase from 50% to 70% for a wider form */
-    max-width: 700px; /* Increase from 500px to 700px */
-    padding: 30px; /* Increase padding for better spacing inside a larger form */
-    height: auto;
+    width: 80%; /* Keep width wide */
+    max-width: 1000px; /* Keep max-width */
+    padding: 30px; /* Reduced padding */
+    height: auto; /* Make height dynamic */
+    max-height: 100vh; /* Limit height to 90% of viewport height */
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     text-align: center;
+    overflow-y: auto; /* Add scroll if content overflows */
+    position: relative; /* Needed for positioning the close button */
 }
 
 .btn-submit {
-    margin-top: 10px; /* Adjust margin */
+    margin-top: 15px; /* Adjust margin */
 }
 
 #addProductForm label {
     display: block;
-    margin-bottom: 5px; /* Adds spacing below the label */
+    margin-bottom: 8px; /* Slightly reduced spacing */
+    text-align: left; /* Aligns label text to the left */
+    font-size: 16px; /* Slightly smaller font size */
+    font-weight: bold; /* Bold labels for clarity */
+    color: #666; /* Lighter color to match the image */
 }
 
 #addProductForm input,
 #addProductForm select {
     width: 100%;
-    padding: 15px;
-    margin-top: 5px; /* Adjust space above the input fields */
+    padding: 12px; /* Reduced padding */
+    margin-top: 8px; /* Adjust space above the input fields */
+    margin-bottom: 15px; /* Added spacing between fields */
     border: 1px solid #ccc;
     border-radius: 10px;
+    font-size: 14px; /* Slightly smaller font size */
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+/* New Styles for Product Name and Price in the same line */
+.row {
+    display: flex;
+    gap: 20px; /* Space between the two fields */
+    margin-bottom: 15px; /* Space below the row */
+}
+
+.form-group {
+    flex: 1; /* Each field takes equal space */
+}
+
+.form-group input {
+    width: 100%; /* Ensure input fields take full width */
+}
+
+/* Style for the file input */
+#productImage {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 15px; /* Consistent spacing */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    height: auto; /* Adjusted height to fit content */
+}
+
+#productImage::file-selector-button {
+    padding: 8px 25px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#productImage::file-selector-button:hover {
+    background-color: #e1e1e1;
+}
+
+/* Add styling for the close button */
+.modal-content .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    z-index: 20; /* Ensures it stays above the sticky heading */
+    line-height: 1; /* Aligns the "x" properly */
 }

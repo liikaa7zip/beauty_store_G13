@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="/views/assets/css/adminlte.css" />
     <link rel="stylesheet" href="/views/assets/css/promotion.css" />
     <link rel="stylesheet" href="/views/assets/css/user.css" />
+    <link rel="stylesheet" href="/views/assets/css/add.css">
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,6 +66,7 @@
     
     <!-- DataTables Bootstrap 5 JS -->
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
+
   </head>
   <!--end::Head-->
   

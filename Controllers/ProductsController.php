@@ -1,17 +1,26 @@
 <?php
 require_once "Models/ProductModel.php";
+require_once "Models/CategoryModel.php";
 
 class ProductsController extends BaseController {
-    private $products;
+    private $productModel;
+    private $categoryModel;
 
     public function __construct() {
-        $this->products = new ProductModel();
+        $this->productModel = new ProductModel();
+        $this->categoryModel = new CategoryModel();
     }
 
     public function index() {
-        $products = $this->products->getAllProducts();
+        $products = $this->productModel->getAllProducts();
+    
+        foreach ($products as &$product) {
+            $product['category_name'] = $this->categoryModel->getCategoryNameById($product['category_id']);
+        }
+    
         $this->view("inventory/products", ['products' => $products]);
     }
+    
 
 
 
@@ -99,7 +108,7 @@ class ProductsController extends BaseController {
             }
         }
     public function delete($id) {
-        if ($this->products->deleteProducts($id)) {
+        if ($this->productModel->deleteProducts($id)) {
             $_SESSION['success'] = "Product deleted successfully!";
         } else {
             $_SESSION['error'] = "Failed to delete product.";
@@ -107,6 +116,6 @@ class ProductsController extends BaseController {
         header("Location: /inventory/products");
         exit;
     }
-    
 }
 ?>
+

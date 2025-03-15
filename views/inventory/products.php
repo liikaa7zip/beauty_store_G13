@@ -26,19 +26,19 @@ if (!isset($_SESSION['user_id'])) {
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($products as $product): ?>
-            <tr>
-                <td><?= htmlspecialchars($product['name']) ?></td>
-                <td><?= htmlspecialchars($product['stocks']) ?></td>
-                <td><?= htmlspecialchars($product['category_id']) ?></td>
-                <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
-                    <?= ucfirst(htmlspecialchars($product['status'])) ?>
-                </td>
-                <td>
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="toggleDropdown(this)">
-                        <span class="material-symbols-outlined">more_horiz</span>
-                    </button>
+    <?php foreach ($products as $product): ?>
+    <tr>
+        <td><?= htmlspecialchars($product['name']) ?></td>
+        <td><?= htmlspecialchars($product['stocks']) ?></td>
+        <td><p><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></p></td> <!-- Display category name -->
+        <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
+            <?= ucfirst(htmlspecialchars($product['status'])) ?>
+        </td>
+        <td>
+            <div class="dropdown">
+                <button class="dropbtn" onclick="toggleDropdown(this)">
+                    <span class="material-symbols-outlined">more_horiz</span>
+                </button>
                 <div class="dropdown-content">
                     <a href="/inventory/edit/<?= $product['id'] ?>">
                         <span class="material-symbols-outlined" id="edit">border_color</span> Edit
@@ -46,11 +46,12 @@ if (!isset($_SESSION['user_id'])) {
                     <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirm('Are you sure you want to delete this product?');">
                         <span class="material-symbols-outlined" id="delete">delete</span> Delete
                     </a>
-                </div> 
-    </div>
-                </td>
-            </tr>
-        <?php endforeach; ?>
+                </div>
+            </div>
+        </td>
+    </tr>
+<?php endforeach; ?>
+
     </tbody>
 </table>
 
@@ -112,3 +113,45 @@ $(document).ready(function() {
 </script>
 
 
+<div id="addProductModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add New Product</h2>
+        <form id="addProductForm">
+            <!-- Product Name and Price in the same line -->
+            <div class="row">
+                <div class="form-group">
+                    <label for="productName">Product Name:</label>
+                    <input type="text" id="productName" name="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" name="price" step="0.01" required>
+                </div>
+            </div>
+
+            <!-- Other fields -->
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="tshirt">T-shirt</option>
+                <option value="bags">Bags</option>
+                <option value="hat">Hat</option>
+                <option value="pants">Pants</option>
+                <option value="dress">Dress</option>
+                <option value="shoes">Shoes</option>
+            </select>
+
+            <label for="stocks">Stocks:</label>
+            <input type="number" id="stocks" name="stocks" required>
+
+            <label for="inscription">Inscription:</label>
+            <input type="text" id="inscription" name="inscription">
+
+            <!-- Product Image field -->
+            <label for="productImage">Product Image:</label>
+            <input type="file" id="productImage" name="productImage" accept="image/*">
+
+            <button type="submit" class="btn-submit">Add Product</button>
+        </form>
+    </div>
+</div>
