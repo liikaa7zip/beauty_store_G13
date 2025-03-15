@@ -19,6 +19,8 @@
     <!--begin::Script-->
     <script src="../views/assets/js/users.js"></script>
     <script src="../views/assets/js/stock.js"></script>
+    <script src="../views/assets/js/add.js"></script>
+
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script src="../assets/js/promotion.js"></script>
     <script
