@@ -13,14 +13,11 @@ class ProductsController extends BaseController {
 
     public function index() {
         $products = $this->productModel->getAllProducts();
-    
         foreach ($products as &$product) {
             $product['category_name'] = $this->categoryModel->getCategoryNameById($product['category_id']);
         }
-    
         $this->view("inventory/products", ['products' => $products]);
     }
-    
 
     public function delete($id) {
         if ($this->productModel->deleteProducts($id)) {
@@ -30,6 +27,25 @@ class ProductsController extends BaseController {
         }
         header("Location: /inventory/products");
         exit;
+    }
+
+    public function create() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $stocks = $_POST['stocks'];
+            $category_id = $_POST['category_id'];
+            $status = $_POST['status'] ?? 'in-stock'; // Default to 'in-stock' if not provided
+
+            if ($this->productModel->createProduct($name, $stocks, $category_id, $status)) {
+                $_SESSION['success'] = "Product created successfully!";
+                header("Location: /inventory/products");
+                exit;
+            } else {
+                $_SESSION['error'] = "Failed to create product.";
+            }
+        }
+        $categories = $this->categoryModel->getAllCategories();
+        $this->view("inventory/create", ['categories' => $categories]);
     }
 }
 ?>

@@ -11,6 +11,11 @@ class CategoryModel {
         $stmt = $this->db->query("SELECT name FROM categories WHERE id = ?", [$id]);
         return $stmt->fetchColumn();
     }
+
+    public function getAllCategories() {
+        $stmt = $this->db->query("SELECT * FROM categories");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 ?>
