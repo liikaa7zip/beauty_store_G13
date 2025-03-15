@@ -13,6 +13,7 @@ class UserController extends BaseController {
     // Login page view
     public function login() {
         session_start(); // This can be moved to a centralized location like BaseController
+        session_destroy();
         $this->view('users/signUp');
     }
 
@@ -73,10 +74,6 @@ class UserController extends BaseController {
             $_SESSION['error'] = "Invalid email or password.";
             $this->redirect("/users/signIn");
         }
-        public function create()
-    {
-        $this->view('inventory/create');
-    }
     }
 
     // SignIn page view

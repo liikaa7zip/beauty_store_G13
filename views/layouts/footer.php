@@ -1,7 +1,7 @@
 
 
  <!--begin::Footer-->
-  <footer class="app-footer">
+  <!-- <footer class="app-footer">
 
         <div class="float-end d-none d-sm-inline">Anything you want</div>
 
@@ -11,14 +11,14 @@
         </strong>
         All rights reserved.
 
-      </footer>
+      </footer> -->
       <!--end::Footer-->
     </div>
 
     <!--end::App Wrapper-->
     <!--begin::Script-->
-    <script src="/views/assets/js/users.js"></script>
-    <script src="/views/assets/js/stock.js"></script>
+    <script src="../views/assets/js/users.js"></script>
+    <script src="../views/assets/js/stock.js"></script>
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script src="../assets/js/promotion.js"></script>
     <script
@@ -267,8 +267,10 @@
       const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
       sparkline3.render();
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!--end::Script-->
     <script src="../views/assets/js/research.js"></script>
+    <script src="../views/assets/js/add.js"></script>
   </body>
   <!--end::Body-->
 </html>

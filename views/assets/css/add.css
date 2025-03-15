@@ -1,0 +1,44 @@
+h2 {
+    margin-bottom: 40px; /* Adjust as needed */
+    }
+
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.modal.open {
+    display: block;
+    opacity: 1;
+}
+.modal-content {
+    width: 50%; /* Adjust width */
+    max-width: 500px; /* Set a max width */
+    padding: 20px; /* Add padding for spacing */
+    height: 90vh;
+}
+.btn-submit{
+    margin-top: 0.1px;
+}
+#addProductForm label {
+    display: block;
+    margin-bottom: 5px; /* Adds spacing below the label */
+}
+
+#addProductForm input,
+#addProductForm select {
+    width: 100%;
+    padding: 15px;
+    margin-top: -0.1px; /* Adds space above the input fields */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}

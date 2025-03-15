@@ -3,8 +3,9 @@ require_once "Router.php";
 require_once "Controllers/BaseController.php";
 require_once "Database/Database.php";
 require_once "Controllers/WelcomeController.php";
-require_once "Controllers/StockController.php";
 require_once "Controllers/PromotionController.php";
+require_once "Controllers/ProductsController.php";
+
 
 
 
@@ -23,16 +24,28 @@ $route->get("/users/signIn", [UserController::class, 'signIn']);
 $route->post("/users/authenticate", [UserController::class, 'authenticate']);
 
 // Inventory
-$route->get("/inventory/stock", [StockController::class, 'index']);
+
+
+
+//Inventory
+
+$route->get("/inventory/products", [ProductsController::class, 'index']);
+$route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
+
+
+
+
 
 //Promotion
-$route->get("/promotion/promotion", [PromotionController::class, 'promotion']);
-$route->get("/promotion/promotion", [PromotionController::class, 'index']);
+$route->get("/promotion", [PromotionController::class, 'index']);
 $route->get("/promotion/create", [PromotionController::class, 'create']);
+$route->get("/promotion/edit/{id}", [PromotionController::class, 'edit']);
 $route->post("/promotion/store", [PromotionController::class, 'store']);
-$route->put("/promotion/update", [PromotionController::class, 'update']);
-$route->delete("/promotion/delete", [PromotionController::class, 'destroy']);
+$route->put("/promotion/update/{id}", [PromotionController::class, 'update']);
+$route->delete("/promotion/delete/{id}", [PromotionController::class, 'delete']);
+
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);
+
 
 $route->route();
