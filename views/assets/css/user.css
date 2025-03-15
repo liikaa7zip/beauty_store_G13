@@ -12,59 +12,18 @@ body {
 }
 
 .user-container {
-    display: flex;
+    background-image: url('../img/bgs.jpg'); /* Replace with your actual image URL */
+    background-size: cover; /* Ensures the image covers the whole container */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeating */
     width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    overflow: hidden;
-    /* background-color: #F6F6F6; */
-}
-
-.info {
-    width: 50%;
-    padding: 10px;
+    height: 100vh; /* Full viewport height */
     display: flex;
-    flex-direction: column;
-    text-align: start;
-    margin-left: 200px;
-    margin-top: 150px;
-}
-
-.info {
-    display: flex !important;
+    justify-content: center;
+    align-items: center;
 }
 
 
-.info h1 {
-    margin-top: -20px;
-    font-size: 64px;
-    color: #000000b0;
-}
-
-.info h4 {
-    margin-top: 10px;
-    font-size: 30px;
-    color: #000000b0;
-}
-
-.info p {
-    margin-top: 10px;
-    color: #666;
-    line-height: 1.6;
-    font-size: 22px;
-}
-
-.info ul {
-    margin-top: 10px;
-    padding: 0;
-    list-style: none;
-}
-
-.info ul li {
-    margin-bottom: 25px;
-    font-size: 22px;
-    color: #666;
-}
 
 /* Form styles */
 
@@ -77,11 +36,11 @@ body {
     justify-content: center;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     border-radius: 8px;
-    margin-right: 230px;
+    margin: auto;
     height: 85%;
 }
 
-form {
+#signInForm {
     margin-top: -40px;  
     width: 85%;
     padding: 10px;
@@ -94,7 +53,7 @@ form h1 {
     color: #333;
 }
 
-form label {
+#signInForm label {
     display: block;
     font-weight: bold;
     margin-bottom: 3px;
@@ -105,7 +64,7 @@ form label {
     font-family: "Poppins", serif;
 }
 
-form input {
+#signInForm input {
     margin-top: 10px;
     margin-left: -8px;
     width: 100%;
@@ -119,20 +78,7 @@ form input {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
-form select {
-    margin-top: 15px;
-    margin-left: -8px;
-    width: 395px;
-    padding: 4px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    font-size: 14px;
-    font-family: "Poppins", serif;
-    height: 50px;
-    color: #666;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-}
+
 
 /* form input:focus {
     outline: none;
@@ -167,18 +113,32 @@ form button:hover {
 
 
 .signIn {
-    margin-left: 310px;
+    margin-left: 450px;
     color: #FF85A2;
     font-size: 18px;
+}
+
+.signIn:hover {
+    color: #58ac2b;
 }
 
 .signUp {
-    margin-left: 310px;
+    margin-left: 430px;
     color: #FF85A2;
     font-size: 18px;
 }
 
+.signUp:hover {
+    color: #58ac2b;
+}
 
+#username {
+    background: #fff;
+}
+
+#email {
+    background: #fff;
+}
 
 
 
