@@ -82,10 +82,12 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="icon waste">🗑️</div>
                 <p>Waste</p>
             </div>
-            <div class="card">
-                <div class="icon add">➕</div>
-                <p>Add products</p>
-            </div>
+            <a href="/inventory/create">
+                <div class="card">
+                    <div class="icon add">➕</div>
+                        <p>Add products</p>
+                </div>
+            </a>
         </div>
     </div>
 
@@ -113,45 +115,3 @@ $(document).ready(function() {
 </script>
 
 
-<div id="addProductModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Add New Product</h2>
-        <form id="addProductForm">
-            <!-- Product Name and Price in the same line -->
-            <div class="row">
-                <div class="form-group">
-                    <label for="productName">Product Name:</label>
-                    <input type="text" id="productName" name="productName" required>
-                </div>
-                <div class="form-group">
-                    <label for="price">Price:</label>
-                    <input type="number" id="price" name="price" step="0.01" required>
-                </div>
-            </div>
-
-            <!-- Other fields -->
-            <label for="category">Category:</label>
-            <select id="category" name="category" required>
-                <option value="tshirt">T-shirt</option>
-                <option value="bags">Bags</option>
-                <option value="hat">Hat</option>
-                <option value="pants">Pants</option>
-                <option value="dress">Dress</option>
-                <option value="shoes">Shoes</option>
-            </select>
-
-            <label for="stocks">Stocks:</label>
-            <input type="number" id="stocks" name="stocks" required>
-
-            <label for="inscription">Inscription:</label>
-            <input type="text" id="inscription" name="inscription">
-
-            <!-- Product Image field -->
-            <label for="productImage">Product Image:</label>
-            <input type="file" id="productImage" name="productImage" accept="image/*">
-
-            <button type="submit" class="btn-submit">Add Product</button>
-        </form>
-    </div>
-</div>

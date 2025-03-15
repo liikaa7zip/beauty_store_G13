@@ -1,142 +1,190 @@
-.modal-content h2 {
-    margin-bottom: 40px; /* Reduced margin */
-    position: sticky; /* Fix heading at the top */
-    top: 0; /* Sticks to the top of the modal-content */
-    background: white; /* Prevents transparency when scrolling */
-    padding: 10px 0; /* Adds padding for better spacing */
-    z-index: 10; /* Ensures it stays above form content */
-    font-size: 24px; /* Matches the heading style from the image */
-    font-weight: bold; /* Bold text as per the image */
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.btn-submit {
-    margin-top: 15px; /* Adjust margin */
-    cursor: pointer; /* Makes the cursor a hand when hovered */
-    padding: 10px 20px; /* Slightly smaller button */
-    font-size: 16px; /* Maintain font size */
-    background-color: #ff4d94; /* Pink color from the image */
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold; /* Bold text for consistency */
-}
-
-.card {
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
+body, html {
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Adds a dark overlay */
-    transition: opacity 0.3s ease;
-    opacity: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+.create_product_container {
+    margin-top: 2%;
+    padding: 30px;
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    box-sizing: border-box;
+}
+
+#h1create {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-top: -40px;
+}
+
+.create-pro {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-top: 60px;
+}
+
+.alert {
+    padding: 15px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.create-form {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+/* Left side (Product Name, Stocks, Price) */
+.left-column {
+    width: 48%;
+    margin-bottom: 15px;
+}
+
+/* Right side (Category, Image, Description) */
+.right-column {
+    width: 48%;
+    margin-bottom: 15px;
+}
+
+/* Form Inputs */
+.form-group {
+    margin-bottom: 15px;
+}
+
+#craete-name {
+    padding: 24px;
+}
+
+#stocks {
+    padding: 24px;
+}
+
+#price {
+    padding: 24px;
+}
+
+.form-control {
+    padding: 21px;
+    margin-top: -2px;
+}
+
+#productImage {
+    padding: 60px;
+}
+
+#description {
+    padding: 30px;
+    margin-left: -8px;
+}
+
+label {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #495057;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Full screen style */
+body {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    padding: 0;
 }
 
-.modal.open {
-    display: flex; /* Ensures modal stays centered when open */
-    opacity: 1;
-}
+@media (max-width: 768px) {
+    .create_product_container {
+        padding: 20px;
+    }
 
-.modal-content {
-    background: white;
-    width: 80%; /* Keep width wide */
-    max-width: 1000px; /* Keep max-width */
-    padding: 30px; /* Reduced padding */
-    height: auto; /* Make height dynamic */
-    max-height: 100vh; /* Limit height to 90% of viewport height */
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    overflow-y: auto; /* Add scroll if content overflows */
-    position: relative; /* Needed for positioning the close button */
-}
+    h1 {
+        font-size: 1.5rem;
+    }
 
-.btn-submit {
-    margin-top: 15px; /* Adjust margin */
-}
+    .form-group {
+        margin-bottom: 12px;
+    }
 
-#addProductForm label {
-    display: block;
-    margin-bottom: 8px; /* Slightly reduced spacing */
-    text-align: left; /* Aligns label text to the left */
-    font-size: 16px; /* Slightly smaller font size */
-    font-weight: bold; /* Bold labels for clarity */
-    color: #666; /* Lighter color to match the image */
-}
+    .left-column, .right-column {
+        width: 100%;
+    }
 
-#addProductForm input,
-#addProductForm select {
-    width: 100%;
-    padding: 12px; /* Reduced padding */
-    margin-top: 8px; /* Adjust space above the input fields */
-    margin-bottom: 15px; /* Added spacing between fields */
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 14px; /* Slightly smaller font size */
-    box-sizing: border-box; /* Ensures padding doesn't affect width */
-}
-
-/* New Styles for Product Name and Price in the same line */
-.row {
-    display: flex;
-    gap: 20px; /* Space between the two fields */
-    margin-bottom: 15px; /* Space below the row */
-}
-
-.form-group {
-    flex: 1; /* Each field takes equal space */
-}
-
-.form-group input {
-    width: 100%; /* Ensure input fields take full width */
-}
-
-/* Style for the file input */
-#productImage {
-    width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    margin-bottom: 15px; /* Consistent spacing */
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 14px;
-    background-color: #f9f9f9;
-    cursor: pointer;
-    height: auto; /* Adjusted height to fit content */
-}
-
-#productImage::file-selector-button {
-    padding: 8px 25px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f1f1f1;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-#productImage::file-selector-button:hover {
-    background-color: #e1e1e1;
-}
-
-/* Add styling for the close button */
-.modal-content .close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    cursor: pointer;
-    z-index: 20; /* Ensures it stays above the sticky heading */
-    line-height: 1; /* Aligns the "x" properly */
+    button {
+        font-size: 1rem;
+        padding: 10px 15px;
+    }
 }

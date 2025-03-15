@@ -31,6 +31,8 @@ $route->post("/users/authenticate", [UserController::class, 'authenticate']);
 
 $route->get("/inventory/products", [ProductsController::class, 'index']);
 $route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
+$route->get("/inventory/create", [ProductsController::class, 'create']);
+
 
 
 
