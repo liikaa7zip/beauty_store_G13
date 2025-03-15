@@ -50,8 +50,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </td>
     </tr>
-<?php endforeach; ?>
-
+    <?php endforeach; ?>
     </tbody>
 </table>
 
@@ -82,7 +81,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="icon waste">🗑️</div>
                 <p>Waste</p>
             </div>
-            <a href="/inventory/create">
+            <a id="add-products" href="/inventory/create">
                 <div class="card">
                     <div class="icon add">➕</div>
                         <p>Add products</p>
@@ -104,14 +103,19 @@ if (!isset($_SESSION['user_id'])) {
 <script>
 $(document).ready(function() {
     $('#productTable').DataTable({
-        "pageLength": 7, // Show 7 products per page
+        "pageLength": 6, // Show 7 products per page
         "lengthChange": false, // Hide "Show X entries"
         "searching": true, // Enable search bar
         "ordering": true, // Enable sorting
-        "paging": true // Enable pagination  
-        
+        "paging": true, // Enable pagination  
+        "scrollY": "400px", // Set the height of the table to 400px
+        "scrollCollapse": true, // Collapse empty space if less data
+        "autoWidth": false, // Prevents column width auto adjustment by DataTable
+        "responsive": true // Ensure it works well on smaller screens
     });
 });
+
+
 </script>
 
 

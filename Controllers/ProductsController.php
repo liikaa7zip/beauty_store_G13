@@ -19,11 +19,8 @@ class ProductsController extends BaseController {
         $this->view("inventory/products", ['products' => $products]);
     }
 
-
-
     public function edit($id) {
         $product = $this->productModel->getProductByID($id);
-    
         if ($product) {
             $this->view("inventory/edit", ['product' => $product]);
         } else {
@@ -31,81 +28,81 @@ class ProductsController extends BaseController {
             $this->redirect("/inventory/products");
         }
     }
-    
-        
-        public function store() {
-            // Get POST data
-            $name = $_POST['name'] ?? '';
-            $description = $_POST['description'] ?? '';
-            $price = $_POST['price'] ?? '';
-            $category_id = $_POST['category_id'] ?? '';
-            $stocks = $_POST['stocks'] ?? '';
-            $status = $_POST['status'] ?? 'instock';
-    
-            // Validation (basic example)
-            if (empty($name) || empty($price) || empty($category_id)) {
-                $_SESSION['error'] = "Please fill all required fields.";
-                $this->redirect("/inventory/products/create");
-                return;
-            }
-    
-            // Prepare data
-            $data = [
-                'name' => $name,
-                'description' => $description,
-                'price' => $price,
-                'category_id' => $category_id,
-                'stocks' => $stocks,
-                'status' => $status
-            ];
-    
-            // Store the product in the database
-            if ($this->productModel->storeProduct($data)) {
-                $_SESSION['success'] = "Product added successfully!";
-                $this->redirect("/inventory/products");
-            } else {
-                $_SESSION['error'] = "Failed to add product.";
-                $this->redirect("/inventory/products/create");
-            }
+
+    public function store() {
+        // Get POST data
+        $name = $_POST['name'] ?? '';
+        $description = $_POST['description'] ?? '';
+        $price = $_POST['price'] ?? '';
+        $category_id = $_POST['category_id'] ?? '';
+        $stocks = $_POST['stocks'] ?? '';
+        $status = $_POST['status'] ?? 'instock';
+
+        // Validation (basic example)
+        if (empty($name) || empty($price) || empty($category_id)) {
+            $_SESSION['error'] = "Please fill all required fields.";
+            $this->redirect("/inventory/products/create");
+            return;
         }
-    
-        public function update($id) {
-            // Get the POST data
-            $name = $_POST['name'] ?? '';
-            $description = $_POST['description'] ?? '';
-            $price = $_POST['price'] ?? '';
-            $category_id = $_POST['category_id'] ?? '';
-            $stocks = $_POST['stocks'] ?? '';
-            $status = $_POST['status'] ?? 'instock';
-    
-            // Validation (basic example)
-            if (empty($name) || empty($price) || empty($category_id)) {
-                $_SESSION['error'] = "Please fill all required fields.";
-                $this->redirect("/inventory/edit/$id");
-                return;
-            }
-    
-            // Prepare data for update
-            $data = [
-                'name' => $name,
-                'description' => $description,
-                'price' => $price,
-                'category_id' => $category_id,
-                'stocks' => $stocks,
-                'status' => $status
-            ];
-    
-            // Update the product
-            if ($this->productModel->updateProduct($id, $data)) {
-                $_SESSION['success'] = "Product updated successfully!";
-                $this->redirect("/inventory/products");
-            } else {
-                $_SESSION['error'] = "Failed to update product.";
-                $this->redirect("/inventory/edit/$id");
-            }
+
+        // Prepare data
+        $data = [
+            'name' => $name,
+            'description' => $description,
+            'price' => $price,
+            'category_id' => $category_id,
+            'stocks' => $stocks,
+            'status' => $status
+        ];
+
+        // Store the product in the database
+        if ($this->productModel->storeProduct($data)) {
+            $_SESSION['success'] = "Product added successfully!";
+            $this->redirect("/inventory/products");
+        } else {
+            $_SESSION['error'] = "Failed to add product.";
+            $this->redirect("/inventory/products/create");
         }
+    }
+
+    public function update($id) {
+        // Get the POST data
+        $name = $_POST['name'] ?? '';
+        $description = $_POST['description'] ?? '';
+        $price = $_POST['price'] ?? '';
+        $category_id = $_POST['category_id'] ?? '';
+        $stocks = $_POST['stocks'] ?? '';
+        $status = $_POST['status'] ?? 'instock';
+
+        // Validation (basic example)
+        if (empty($name) || empty($price) || empty($category_id)) {
+            $_SESSION['error'] = "Please fill all required fields.";
+            $this->redirect("/inventory/edit/$id");
+            return;
+        }
+
+        // Prepare data for update
+        $data = [
+            'name' => $name,
+            'description' => $description,
+            'price' => $price,
+            'category_id' => $category_id,
+            'stocks' => $stocks,
+            'status' => $status
+        ];
+
+        // Update the product
+        if ($this->productModel->updateProduct($id, $data)) {
+            $_SESSION['success'] = "Product updated successfully!";
+            $this->redirect("/inventory/products");
+        } else {
+            $_SESSION['error'] = "Failed to update product.";
+            $this->redirect("/inventory/edit/$id");
+        }
+    }
+
     public function delete($id) {
-        if ($this->productModel->deleteProducts($id)) {
+        if ($this->productModel->deleteProduct($id)) {
             $_SESSION['success'] = "Product deleted successfully!";
         } else {
             $_SESSION['error'] = "Failed to delete product.";

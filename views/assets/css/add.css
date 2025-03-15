@@ -80,14 +80,17 @@ body, html {
 
 #craete-name {
     padding: 24px;
+    background: #fff;
 }
 
 #stocks {
     padding: 24px;
+    background: #fff;
 }
 
 #price {
     padding: 24px;
+    background: #fff;
 }
 
 .form-control {

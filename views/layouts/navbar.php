@@ -1,9 +1,9 @@
 <?php
-// if (session_status() == PHP_SESSION_NONE) {
-//   session_start();
-// }
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 
-// if (isset($_SESSION['user_id'])) :
+if (isset($_SESSION['user_id'])) :
 ?>
   <div class="app-wrapper">
 
@@ -68,5 +68,5 @@
   <!-- </div> -->
   <main class="app-main">
   <?php
-// endif;
+endif;
   ?>

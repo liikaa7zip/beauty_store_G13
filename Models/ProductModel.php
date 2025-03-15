@@ -12,13 +12,15 @@ class ProductModel {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
+=======
+>>>>>>> d594a2d (fix(Display stock page):fix style form login and products page [BEATU-149])
     public function getProductByID($id) {
         $stmt = $this->db->query("SELECT * FROM products WHERE id = :id", [':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
 
     public function storeProduct($data) {
         $sql = "INSERT INTO products (name, description, price, category_id, stocks, status) 
@@ -54,10 +56,10 @@ class ProductModel {
 
         return $this->db->query($sql, $params);
     }
-    // Delete a product by ID and confirm deletion
+
     public function deleteProduct($id) {
         $stmt = $this->db->query("DELETE FROM products WHERE id = :id", [':id' => $id]);
-        return $stmt->rowCount() > 0; // Return true if deletion was successful
+        return $stmt->rowCount() > 0;
     }
 
 >>>>>>> 22f8fc0 (style(edit products):display edit form [BEATU-157])
