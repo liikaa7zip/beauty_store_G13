@@ -271,6 +271,7 @@
     <!--end::Script-->
     <script src="../views/assets/js/research.js"></script>
     <script src="../views/assets/js/add.js"></script>
+    <script src="../views/assets/js/countOfProduct.js"></script>
   </body>
   <!--end::Body-->
 </html>
