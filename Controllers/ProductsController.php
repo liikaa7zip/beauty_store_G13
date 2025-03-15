@@ -25,7 +25,7 @@ class ProductsController extends BaseController {
 
 
     public function edit($id) {
-        $product = $this->products->getProductByID($id);
+        $product = $this->productModel->getProductByID($id);
     
         if ($product) {
             $this->view("inventory/edit", ['product' => $product]);
@@ -63,7 +63,7 @@ class ProductsController extends BaseController {
             ];
     
             // Store the product in the database
-            if ($this->products->storeProduct($data)) {
+            if ($this->productModel->storeProduct($data)) {
                 $_SESSION['success'] = "Product added successfully!";
                 $this->redirect("/inventory/products");
             } else {
@@ -99,7 +99,7 @@ class ProductsController extends BaseController {
             ];
     
             // Update the product
-            if ($this->products->updateProduct($id, $data)) {
+            if ($this->productModel->updateProduct($id, $data)) {
                 $_SESSION['success'] = "Product updated successfully!";
                 $this->redirect("/inventory/products");
             } else {
