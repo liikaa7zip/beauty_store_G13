@@ -57,7 +57,7 @@
             </div>
 
             <div class="d-flex gap-3 mt-3">
-                <a href="inventory/stock.php" class="btn btn-outline-secondary w-100">Back</a>
+                <button href="inventory/products.php" class="btn btn-outline-secondary w-100 mt-4 h-3">Back</button>
                 <button type="submit" class="btn btn-primary w-100">Save Changes</button>
             </div>
         </form>
