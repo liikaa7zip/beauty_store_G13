@@ -17,6 +17,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
     <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -25,7 +26,7 @@
 
     <!--end::App Wrapper-->
     <!--begin::Script-->
-    <script src="../views/assets/js/users.js"></script>
+    <script src="../views/assets/js/user.js"></script>
     <script src="../views/assets/js/stock.js"></script>
     <script src="../views/assets/js/add.js"></script>
 
