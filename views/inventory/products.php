@@ -86,7 +86,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
             <div class="card">
                 <p>Last Day Update</p>
-                <h3>1/28/2025, 6:50PM</h3>
+                <h3 id="lastUpdate"></h3>
             </div>
             <div class="card">
                 <div class="icon waste">🗑️</div>
@@ -165,6 +165,83 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
     });
 });
 
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description">
 
 
-</script> -->
+            <button type="submit" class="btn-submit">Add Product</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    // Ensure DOM is fully loaded before running the script
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the last update element and add products card
+        const lastUpdateElement = document.getElementById('lastUpdate');
+        const lastUpdateCard = document.getElementById('lastUpdateCard');
+        const addProductsCard = document.querySelector('.card .icon.add').closest('.card');
+
+        // Check if elements exist
+        if (!lastUpdateElement || !lastUpdateCard || !addProductsCard) {
+            console.error('One or more elements not found:', {
+                lastUpdateElement,
+                lastUpdateCard,
+                addProductsCard
+            });
+            return;
+        }
+
+        // Function to get the current date and time in the desired format
+        function getCurrentDateTime() {
+            const now = new Date();
+            return `${now.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })}, ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
+        }
+
+        // On page load, set the last update time from localStorage
+        const storedLastUpdate = localStorage.getItem('lastUpdate');
+        if (storedLastUpdate) {
+            lastUpdateElement.textContent = storedLastUpdate;
+        } else {
+            lastUpdateElement.textContent = getCurrentDateTime();
+            localStorage.setItem('lastUpdate', lastUpdateElement.textContent);
+        }
+        console.log('Initial last update:', lastUpdateElement.textContent);
+
+        // Update last update time when the "Add products" card is clicked
+        addProductsCard.addEventListener('click', function() {
+            const currentTime = getCurrentDateTime();
+            lastUpdateElement.textContent = currentTime;
+            localStorage.setItem('lastUpdate', currentTime);
+            console.log('Last update updated to:', currentTime);
+            alert('Last update set to: ' + currentTime);
+        });
+
+        // Optional: Show the previous update when the last update card is clicked (if desired)
+        lastUpdateCard.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const previousUpdate = localStorage.getItem('previousUpdate') || 'No previous update';
+            console.log('Clicked last update card, previous update:', previousUpdate);
+            if (previousUpdate !== 'No previous update') {
+                alert('Previous Update: ' + previousUpdate);
+            } else {
+                alert('No previous update available');
+            }
+        });
+
+        // Ensure the h3 inside the card also triggers the click (if desired)
+        lastUpdateElement.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const previousUpdate = localStorage.getItem('previousUpdate') || 'No previous update';
+            console.log('Clicked last update text, previous update:', previousUpdate);
+            if (previousUpdate !== 'No previous update') {
+                alert('Previous Update: ' + previousUpdate);
+            } else {
+                alert('No previous update available');
+            }
+        });
+    });
+</script>
