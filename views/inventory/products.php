@@ -23,7 +23,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
   <!-- Table -->
-  <table id="productTable" class="table table-striped table-bordered">
+  <table id="productTable" class="table table-striped table-bordered display">
     <thead>
       <tr>
         <th>Name</th>
