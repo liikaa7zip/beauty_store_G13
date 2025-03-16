@@ -11,12 +11,7 @@ class ProductModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
-=======
->>>>>>> d594a2d (fix(Display stock page):fix style form login and products page [BEATU-149])
     public function getProductByID($id) {
         $stmt = $this->db->query("SELECT * FROM products WHERE id = :id", [':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -62,7 +57,7 @@ class ProductModel {
         return $stmt->rowCount() > 0;
     }
 
->>>>>>> 22f8fc0 (style(edit products):display edit form [BEATU-157])
+
     public function deleteProducts($id) {
         $sql = "DELETE FROM products WHERE id = :id";
         $params = [':id' => $id];

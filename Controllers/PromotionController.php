@@ -45,8 +45,14 @@ class PromotionController extends BaseController
             if (empty($data['promotion_name']) || empty($data['promotion_code'])) {
                 $this->view("promotion/create", ['error' => 'Please fill in all required fields']);
             } else {
-                $this->promotionModel->createPromotion($data);
-                $this->redirect('/promotion');
+                try {
+                    $this->promotionModel->createPromotion($data);
+                    $_SESSION['success'] = "Promotion created successfully!";
+                    $this->redirect('/promotion');
+                } catch (Exception $e) {
+                    $_SESSION['error'] = $e->getMessage();
+                    $this->redirect('/promotion/create');
+                }
             }
         }
     }
