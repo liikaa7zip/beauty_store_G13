@@ -15,6 +15,12 @@
       <!--end::Footer-->
     </div>
 
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- DataTables CSS (Bootstrap 5 version) -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap5.min.css">
+
     <!--end::App Wrapper-->
     <!--begin::Script-->
     <script src="../views/assets/js/users.js"></script>

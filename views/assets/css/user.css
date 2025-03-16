@@ -92,24 +92,49 @@ form h1 {
     margin-top: 20px;
     margin-left: 32%;
 }
-form button {
-    width: 150px;
-    padding: 20px;
-    background-color: #F5097F;
+
+#submit {
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    color: white;
     border: none;
-    color: #fff;
-    font-size: 16px;
+    padding: 14px 28px;
+    font-size: 18px;
     font-weight: bold;
-    border-radius: 20px;
+    border-radius: 12px;
     cursor: pointer;
-    display: block;
-    margin: auto;
-    /* margin: auto; */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 20, 147, 0.4);
+    position: relative;
+    overflow: hidden;
 }
 
-form button:hover {
-    background-color: #E67391;
+#submit::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 50%);
+    transition: transform 0.5s ease;
+    transform: translate(-50%, -50%) scale(0);
 }
+
+#submit:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#submit:hover {
+    background: linear-gradient(135deg, #ff1493, #ff69b4);
+    transform: scale(1.08);
+    box-shadow: 0 6px 15px rgba(255, 20, 147, 0.6);
+}
+
+#submit:active {
+    transform: scale(0.96);
+    box-shadow: 0 3px 8px rgba(255, 20, 147, 0.5);
+}
+
 
 
 .signIn {

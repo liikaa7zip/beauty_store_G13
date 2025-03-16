@@ -25,9 +25,9 @@ if (isset($_SESSION['user_id'])) {
     <label for="password">Password</label>
     <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
-    <a class="signUp" href="/users/signUp">Sign up</a>
+    <a class="signUp" href="/users/signUp">Register</a>
     
-    <button type="submit" id="submit">Sign In</button>
+    <button type="submit" id="submit">Login</button>
   </form>
 </div>
 </div>

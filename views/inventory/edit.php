@@ -1,19 +1,14 @@
 <?php 
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-      }
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
+// Redirect if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /users/signIn");
+    exit();
+}
 ?>
-
-<?php if (isset($_SESSION['error'])): ?>
-    <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
-<?php endif; ?>
-
-<?php if (isset($_SESSION['success'])): ?>
-    <p style="color: green;"><?php echo $_SESSION['success']; unset($_SESSION['success']); ?></p>
-<?php endif; ?>
-
-
 
 <div class="create_product_container">
     <h1 id="h1edit">Edit Product</h1>
@@ -30,15 +25,15 @@
         <div class="left-column">
             <div class="form-group">
                 <label for="name">Product Name</label>
-                <input type="text" id="craete-name" name="name" class="form-control" value="<?php echo $product['name']; ?>" required>
+                <input type="text" id="craete-name" name="name" class="form-control" value="<?php echo htmlspecialchars($product['name']); ?>" required>
             </div>
             <div class="form-group">
                 <label for="stocks">Stocks</label>
-                <input type="number" id="stocks" name="stocks" class="form-control" value="<?php echo $product['stocks']; ?>" required>
+                <input type="number" id="stocks" name="stocks" class="form-control" value="<?php echo htmlspecialchars($product['stocks']); ?>" required>
             </div>
             <div class="form-group">
                 <label for="price">Price</label>
-                <input type="number" id="price" name="price" class="form-control" value="<?php echo $product['price']; ?>" step="0.01" required>
+                <input type="number" id="price" name="price" class="form-control" value="<?php echo htmlspecialchars($product['price']); ?>" step="0.01" required>
             </div>
 
             <div class="d-flex gap-3 mt-3" id="btn-edit">
@@ -61,7 +56,7 @@
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea id="description" name="description" class="form-control"><?php echo $product['description']; ?></textarea>
+                <textarea id="description" name="description" class="form-control"><?php echo htmlspecialchars($product['description']); ?></textarea>
             </div>
             <div class="form-group">
                 <label for="productImage">Product Image</label>
@@ -76,4 +71,4 @@
 
 
 
-    
+
