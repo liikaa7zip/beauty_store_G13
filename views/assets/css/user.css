@@ -166,4 +166,73 @@ form h1 {
 }
 
 
+/* Success Message */
+.success-box {
+    background: linear-gradient(135deg, #28a745, #2ecc71); /* Green gradient */
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 1;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    position: relative;
+    animation: fadeIn 0.5s ease-in-out;
+}
 
+/* Error Message */
+.error-box {
+    background: linear-gradient(135deg, #d9534f, #e74c3c); /* Red gradient */
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    opacity: 1;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    position: relative;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Close Button for Error Message */
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.close-btn:hover {
+    color: #f0f0f0;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .success-box,
+    .error-box {
+        width: 90%;
+        margin: 10px auto;
+        font-size: 14px;
+        padding: 12px;
+    }
+}
