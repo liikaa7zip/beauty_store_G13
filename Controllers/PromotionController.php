@@ -29,31 +29,31 @@ class PromotionController extends BaseController
     // Handle the creation of a new promotion
     public function store()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Collect and sanitize input data
-            $data = [
-                'promotion_name' => filter_input(INPUT_POST, 'promotion_name', FILTER_SANITIZE_STRING),
-                'promotion_description' => filter_input(INPUT_POST, 'promotion_description', FILTER_SANITIZE_STRING),
-                'promotion_code' => filter_input(INPUT_POST, 'promotion_code', FILTER_SANITIZE_STRING),
-                'start_date' => filter_input(INPUT_POST, 'start_date', FILTER_SANITIZE_STRING),
-                'end_date' => filter_input(INPUT_POST, 'end_date', FILTER_SANITIZE_STRING),
-                'discount_percentage' => filter_input(INPUT_POST, 'discount_percentage', FILTER_SANITIZE_NUMBER_INT),
-                'status' => filter_input(INPUT_POST, 'status', FILTER_SANITIZE_STRING)
-            ];
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Collect and sanitize input data
+                $data = [
+                    'promotion_name' => filter_input(INPUT_POST, 'promotion_name', FILTER_SANITIZE_STRING),
+                    'promotion_description' => filter_input(INPUT_POST, 'promotion_description', FILTER_SANITIZE_STRING),
+                    'promotion_code' => filter_input(INPUT_POST, 'promotion_code', FILTER_SANITIZE_STRING),
+                    'start_date' => filter_input(INPUT_POST, 'start_date', FILTER_SANITIZE_STRING),
+                    'end_date' => filter_input(INPUT_POST, 'end_date', FILTER_SANITIZE_STRING),
+                    'discount_percentage' => filter_input(INPUT_POST, 'discount_percentage', FILTER_SANITIZE_NUMBER_INT),
+                    'status' => filter_input(INPUT_POST, 'status', FILTER_SANITIZE_STRING)
+                ];
 
-            // Basic validation for required fields
-            if (empty($data['promotion_name']) || empty($data['promotion_code'])) {
-                $this->view("promotion/create", ['error' => 'Please fill in all required fields']);
-            } else {
-                try {
+                // Basic validation for required fields
+                if (empty($data['promotion_name']) || empty($data['promotion_code'])) {
+                    $this->view("promotion/create", ['error' => 'Please fill in all required fields']);
+                } else {
                     $this->promotionModel->createPromotion($data);
                     $_SESSION['success'] = "Promotion created successfully!";
                     $this->redirect('/promotion');
-                } catch (Exception $e) {
-                    $_SESSION['error'] = $e->getMessage();
-                    $this->redirect('/promotion/create');
                 }
             }
+        } catch (Exception $e) {
+            $_SESSION['error'] = $e->getMessage();
+            $this->redirect("/promotions/create");
         }
     }
 

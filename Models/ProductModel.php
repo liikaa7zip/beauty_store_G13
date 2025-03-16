@@ -11,7 +11,6 @@ class ProductModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
     public function getProductByID($id) {
         $stmt = $this->db->query("SELECT * FROM products WHERE id = :id", [':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -56,7 +55,6 @@ class ProductModel {
         $stmt = $this->db->query("DELETE FROM products WHERE id = :id", [':id' => $id]);
         return $stmt->rowCount() > 0;
     }
-
 
     public function deleteProducts($id) {
         $sql = "DELETE FROM products WHERE id = :id";

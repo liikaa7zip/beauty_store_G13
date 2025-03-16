@@ -19,19 +19,27 @@ class PromotionModel
     // Create a new promotion in the database
     public function createPromotion($data)
     {
-        $stmt = $this->pdo->query(
-            "INSERT INTO promotions (promotion_name, promotion_description, promotion_code, start_date, end_date, discount_percentage, status) 
-            VALUES (:promotion_name, :promotion_description, :promotion_code, :start_date, :end_date, :discount_percentage, :status)",
-            [
-                ':promotion_name' => $data['promotion_name'],
-                ':promotion_description' => $data['promotion_description'],
-                ':promotion_code' => $data['promotion_code'],
-                ':start_date' => $data['start_date'],
-                ':end_date' => $data['end_date'],
-                ':discount_percentage' => $data['discount_percentage'],
-                ':status' => $data['status']
-            ]
-        );
+        try {
+            $stmt = $this->pdo->query(
+                "INSERT INTO promotions (promotion_name, promotion_description, promotion_code, start_date, end_date, discount_percentage, status) 
+                VALUES (:promotion_name, :promotion_description, :promotion_code, :start_date, :end_date, :discount_percentage, :status)",
+                [
+                    ':promotion_name' => $data['promotion_name'],
+                    ':promotion_description' => $data['promotion_description'],
+                    ':promotion_code' => $data['promotion_code'],
+                    ':start_date' => $data['start_date'],
+                    ':end_date' => $data['end_date'],
+                    ':discount_percentage' => $data['discount_percentage'],
+                    ':status' => $data['status']
+                ]
+            );
+        } catch (PDOException $e) {
+            if ($e->getCode() == '23000') { // Integrity constraint violation
+                throw new Exception("Duplicate entry detected for promotion code.");
+            } else {
+                throw $e;
+            }
+        }
     }
 
     // Get a single promotion by its ID
