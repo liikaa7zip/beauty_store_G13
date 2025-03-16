@@ -14,45 +14,56 @@ if (!isset($_SESSION['user_id'])) {
     <h1 id="h1-products">Products Page</h1>
 
     <div class="container mt-4">
-        
-    <table id="productTable" class="display">
+    <div class="table-container">
+  <!-- Custom Search Bar -->
+  <div class="table-header">
+    <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
+    <button id="searchBtn">Search</button>
+</div>
+
+
+  <!-- Table -->
+  <table id="productTable" class="table table-striped table-bordered">
     <thead>
-        <tr>
-            <th style="text-align: center;">Name</th>
-            <th style="text-align: center;">Stock</th>
-            <th style="text-align: center;">Category</th>
-            <th style="text-align: center;">Status</th>
-            <th style="text-align: center;">Actions</th>
-        </tr>
+      <tr>
+        <th>Name</th>
+        <th>Stock</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
     </thead>
     <tbody>
-    <?php foreach ($products as $product): ?>
-    <tr>
-        <td><?= htmlspecialchars($product['name']) ?></td>
-        <td><?= htmlspecialchars($product['stocks']) ?></td>
-        <td><p><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></p></td> <!-- Display category name -->
-        <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
-            <?= ucfirst(htmlspecialchars($product['status'])) ?>
-        </td>
-        <td>
-            <div class="dropdown">
-                <button class="dropbtn" onclick="toggleDropdown(this)">
-                    <span class="material-symbols-outlined">more_horiz</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="/inventory/edit/<?= $product['id'] ?>">
-                        <span class="material-symbols-outlined" id="edit">border_color</span> Edit
-                    </a>
-                    <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirm('Are you sure you want to delete this product?');">
-                        <span class="material-symbols-outlined" id="delete">delete</span> Delete
-                    </a>
+      <?php foreach ($products as $product): ?>
+        <tr>
+          <td><?= htmlspecialchars($product['name']) ?></td>
+          <td><?= htmlspecialchars($product['stocks']) ?></td>
+          <td><p><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></p></td>
+          <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
+    <?= ucfirst(htmlspecialchars($product['status'])) ?>
+</td>
+
+          <td>
+                <div class="dropdown">
+                    <button class="dropbtn" onclick="toggleDropdown(this)">
+                        <span class="material-symbols-outlined">more_horiz</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="/inventory/edit/<?= $product['id'] ?>">
+                            <span class="material-symbols-outlined">border_color</span> Edit
+                        </a>
+                        <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
+                            <span class="material-symbols-outlined">delete</span> Delete
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </td>
-    </tr>
-    <?php endforeach; ?>
+            </td>
+        </tr>
+      <?php endforeach; ?>
     </tbody>
-</table>
+  </table>
+</div>
+
 
 <div class="pagination" id="pagination"></div>
         <div class="stocks-container">
@@ -93,29 +104,67 @@ if (!isset($_SESSION['user_id'])) {
 </div>
 </div>
 
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<!-- jQuery & DataTables JS -->
+
+
+
+
+<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- Custom JavaScript -->
 <script>
 $(document).ready(function() {
-    $('#productTable').DataTable({
-        "pageLength": 6, // Show 7 products per page
-        "lengthChange": false, // Hide "Show X entries"
-        "searching": true, // Enable search bar
-        "ordering": true, // Enable sorting
-        "paging": true, // Enable pagination  
-        "scrollY": "400px", // Set the height of the table to 400px
-        "scrollCollapse": true, // Collapse empty space if less data
-        "autoWidth": false, // Prevents column width auto adjustment by DataTable
-        "responsive": true // Ensure it works well on smaller screens
+    var table = $('#productTable').DataTable({
+        "pageLength": 10, // Show 8 products per page
+        "paging": true,  // Enable pagination
+        "info": true,    // Show the information (e.g., "Showing 1 to 8 of 25 entries")
+        "lengthChange": false, // Disable the option to change the number of items per page
+        "dom": '<"top"i>rt<"bottom"lp><"clear">' // Custom layout (pagination at bottom)
+    });
+
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+    let input = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#productTable tbody tr");
+
+    rows.forEach(row => {
+        let name = row.cells[0].textContent.toLowerCase();
+        let category = row.cells[2].textContent.toLowerCase();
+
+        if (name.includes(input) || category.includes(input)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+});
+});
+</script>
+
+
+<!-- <script>
+document.getElementById("searchInput").addEventListener("keyup", function() {
+    let input = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#productTable tbody tr");
+
+    rows.forEach(row => {
+        let name = row.cells[0].textContent.toLowerCase();
+        let category = row.cells[2].textContent.toLowerCase();
+
+        if (name.includes(input) || category.includes(input)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
     });
 });
 
 
-</script>
 
-
+</script> -->

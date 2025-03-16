@@ -32,7 +32,7 @@ if (isset($_SESSION['user_id'])) {
 
         <a class="signIn" href="/users/signIn">Login</a>
         
-        <button type="submit" id="submit">Sign Up</button>
+        <button type="submit" id="submit">Register</button>
       </form>
     </div>
 </div>

@@ -21,8 +21,9 @@ class ProductsController extends BaseController {
 
     public function edit($id) {
         $product = $this->productModel->getProductByID($id);
+        $categories = $this->categoryModel->getAllCategories();
         if ($product) {
-            $this->view("inventory/edit", ['product' => $product]);
+            $this->view("inventory/edit", ['product' => $product, 'categories' => $categories]);
         } else {
             $_SESSION['error'] = "Product not found!";
             $this->redirect("/inventory/products");
