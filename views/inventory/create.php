@@ -3,7 +3,6 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-
 // Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: /users/signIn");
@@ -19,7 +18,7 @@ if (!isset($_SESSION['user_id'])) {
         <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
-    <form action="/inventory/create" method="POST" class="create-form">
+    <form action="/inventory/create" method="POST" class="create-form" enctype="multipart/form-data">
         <!-- Left Column -->
         <div class="left-column">
             <div class="form-group">
@@ -54,11 +53,9 @@ if (!isset($_SESSION['user_id'])) {
             </div>
             <div class="form-group">
                 <label for="productImage">Product Image</label>
-                <input type="file" id="productImage" name="productImage" class="form-control" accept="image/*">
+                <input type="file" id="productImage" name="productImage" class="form-control" accept="uplaods/">
             </div>
         </div>
-
-
     </form>
 </div>
 

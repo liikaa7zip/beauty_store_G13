@@ -15,6 +15,7 @@ class ProductsController extends BaseController {
         $products = $this->productModel->getAllProducts();
         foreach ($products as &$product) {
             $product['category_name'] = $this->categoryModel->getCategoryNameById($product['category_id']);
+            $product['image'] = $this->getImagePath($product['image']);
         }
         $this->view("inventory/products", ['products' => $products]);
     }
@@ -39,6 +40,11 @@ class ProductsController extends BaseController {
             $stocks = $_POST['stocks'] ?? '';
             $status = $_POST['status'] ?? 'instock';
 
+            // Handle image upload
+            if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0) {
+                $imagePath = $this->uploadImage($_FILES['productImage']);
+            }
+
             if (empty($name) || empty($price) || empty($category_id)) {
                 $_SESSION['error'] = "Please fill all required fields.";
                 $this->redirect("/inventory/products/create");
@@ -51,7 +57,8 @@ class ProductsController extends BaseController {
                 'price' => $price,
                 'category_id' => $category_id,
                 'stocks' => $stocks,
-                'status' => $status
+                'status' => $status,
+                'image' => isset($imagePath) ? $this->getImagePath($imagePath) : ''
             ];
 
             if ($this->productModel->storeProduct($data)) {
@@ -85,7 +92,8 @@ class ProductsController extends BaseController {
                 'price' => $price,
                 'category_id' => $category_id,
                 'stocks' => $stocks,
-                'status' => $status
+                'status' => $status,
+                'image' => isset($imagePath) ? $this->getImagePath($imagePath) : ''
             ];
 
             if ($this->productModel->updateProduct($id, $data)) {
@@ -115,7 +123,20 @@ class ProductsController extends BaseController {
             $category_id = $_POST['category_id'];
             $status = $_POST['status'] ?? 'in-stock';
 
-            if ($this->productModel->createProduct($name, $stocks, $category_id, $status)) {
+            // Handle image upload
+            if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0) {
+                $imagePath = $this->uploadImage($_FILES['productImage']);
+            }
+
+            $data = [
+                'name' => $name,
+                'stocks' => $stocks,
+                'category_id' => $category_id,
+                'status' => $status,
+                'image' => isset($imagePath) ? $this->getImagePath($imagePath) : ''
+            ];
+
+            if ($this->productModel->createProduct($data)) {
                 $_SESSION['success'] = "Product created successfully!";
                 header("Location: /inventory/products");
                 exit;
@@ -125,6 +146,36 @@ class ProductsController extends BaseController {
         }
         $categories = $this->categoryModel->getAllCategories();
         $this->view("inventory/create", ['categories' => $categories]);
+    }
+
+    private function uploadImage($file) {
+        $uploadDir = 'uploads/';
+        $uploadFile = $uploadDir . basename($file['name']);
+    
+        // Ensure the directory exists and is writable
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+    
+        // Check for valid image and move the file
+        if (getimagesize($file['tmp_name'])) {
+            if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
+                return $uploadFile; // Return the image path to store in the database
+            } else {
+                $_SESSION['error'] = "File upload failed.";
+            }
+        } else {
+            $_SESSION['error'] = "Uploaded file is not a valid image.";
+        }
+    
+        return ''; // Return empty string if upload failed
+    }
+    
+    private function getImagePath($image) {
+        if (!empty($image) && file_exists($image)) {
+            return '/' . $image;
+        }
+        return '/path/to/default/image.png'; // Default image path
     }
 }
 ?>

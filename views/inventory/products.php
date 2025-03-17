@@ -36,7 +36,23 @@ if (!isset($_SESSION['user_id'])) {
     <tbody>
       <?php foreach ($products as $product): ?>
         <tr>
-          <td><?= htmlspecialchars($product['name']) ?></td>
+        <td>
+    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+        <div style="display: flex; align-items: center;">
+            <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
+                <!-- Correct the src path to be relative to the root -->
+                <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" width="60" style="margin-right: 10px;">
+            <?php else: ?>
+                <img src="/path/to/default-image.jpg" alt="Default Image" width="50" style="margin-right: 10px;">
+            <?php endif; ?>
+        </div>
+        <span id="pro-name" ><?= htmlspecialchars($product['name']) ?></span>
+    </div>
+</td>
+
+
+
+
           <td><?= htmlspecialchars($product['stocks']) ?></td>
           <td><p><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></p></td>
           <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
@@ -104,10 +120,6 @@ if (!isset($_SESSION['user_id'])) {
 </div>
 </div>
 
-
-
-
-
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -134,7 +146,7 @@ $(document).ready(function() {
     let rows = document.querySelectorAll("#productTable tbody tr");
 
     rows.forEach(row => {
-        let name = row.cells[0].textContent.toLowerCase();
+        let name = row.querySelector("td span").textContent.toLowerCase();
         let category = row.cells[2].textContent.toLowerCase();
 
         if (name.includes(input) || category.includes(input)) {
@@ -146,25 +158,3 @@ $(document).ready(function() {
 });
 });
 </script>
-
-
-<!-- <script>
-document.getElementById("searchInput").addEventListener("keyup", function() {
-    let input = this.value.toLowerCase();
-    let rows = document.querySelectorAll("#productTable tbody tr");
-
-    rows.forEach(row => {
-        let name = row.cells[0].textContent.toLowerCase();
-        let category = row.cells[2].textContent.toLowerCase();
-
-        if (name.includes(input) || category.includes(input)) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
-    });
-});
-
-
-
-</script> -->
