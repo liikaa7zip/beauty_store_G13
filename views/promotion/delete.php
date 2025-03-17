@@ -26,12 +26,10 @@
                 <form action="/promotion/delete/<?= $promotion['id'] ?>" method="POST" class="w-100">
                     <div class="d-flex gap-2">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <form action="/promotion/delete/<?= $promotion['id']; ?>" method="post">
-                            <button type="submit" class="btn btn-danger d-flex align-items-center gap-2 justify-content-center">
-                                <span class="material-symbols-outlined">delete</span>
-                                Delete
-                            </button>
-                        </form>
+                        <button type="submit" class="btn btn-danger d-flex align-items-center gap-2 justify-content-center">
+                            <span class="material-symbols-outlined">delete</span>
+                            Delete
+                        </button>
                     </div>
                 </form>
             </div>
