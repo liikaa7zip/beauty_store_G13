@@ -1,5 +1,10 @@
-<?php require_once('layouts/header.php'); ?>
-<?php require_once('layouts/navbar.php'); ?>
+<?php
+require_once('layouts/header.php');
+if ($_SESSION['user_id']) {
+    require_once('layouts/navbar.php');
+    require_once('layouts/sidebar.php');
+}
+?>
 
 
 <?= $content; ?>

@@ -12,11 +12,12 @@ class CategoryController {
     public function index() {
         $categories = $this->categoryModel->getAllCategories();
 
-        $category_id = isset($_GET['category']) ? $_GET['category'] : null;
-        $products = $this->productModel->getProductsByCategory($category_id);
+        $category_name = isset($_GET['category']) ? $_GET['category'] : null;
+        $products = $this->productModel->getProductsByCategoryName($category_name);
 
-        require_once 'categories/categories';
+        require_once 'views/category_view.php';
     }
 }
+
 
 ?>

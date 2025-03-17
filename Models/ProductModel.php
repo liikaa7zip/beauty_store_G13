@@ -6,6 +6,27 @@ class ProductModel {
         $this->db = new Database();
     }
 
+    public function getProductsByCategoryName($category_name = null) {
+        if ($category_name) {
+            $stmt = $this->db->prepare("SELECT * FROM products 
+                WHERE category_id = (SELECT id FROM categories WHERE name = ? LIMIT 1)");
+            $stmt->execute([$category_name]);
+        } else {
+            $stmt = $this->db->prepare("SELECT * FROM products");
+            $stmt->execute();
+        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Method to get products by category
+    public function getProductsByCategory($category_id) {
+        $sql = "SELECT products.*, categories.name AS category_name 
+                FROM products 
+                LEFT JOIN categories ON products.category_id = categories.id 
+                WHERE products.category_id = ?";
+        return $this->db->query($sql, [$category_id])->fetchAll();
+    }
+
     public function getAllProducts() {
         $stmt = $this->db->query("SELECT * FROM products");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

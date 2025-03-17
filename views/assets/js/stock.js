@@ -90,3 +90,32 @@ document.getElementById("searchBtn").addEventListener("click", function() {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const categorySelect = document.getElementById('categorySelect');
+    if (categorySelect) {
+        categorySelect.addEventListener('change', function() {
+            const categoryId = this.value;
+
+            fetch(`/path/to/filter?category=${categoryId}`)
+                .then(response => response.json())
+                .then(products => {
+                    const productsTableBody = document.getElementById('productsTableBody');
+                    if (productsTableBody) {
+                        productsTableBody.innerHTML = '';
+
+                        products.forEach(product => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${product.name}</td>
+                                <td>${product.category_name}</td>
+                                <td>${product.formatted_price}</td>
+                                <td><img src="${product.image}" alt="Product Image" width="50"></td>
+                            `;
+                            productsTableBody.appendChild(row);
+                        });
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    }
+});
