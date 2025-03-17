@@ -10,6 +10,15 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 
+<style>
+    .product-image {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+</style>
+
 <div class="products_container">
     <h1 id="h1-products">Products Page</h1>
 
@@ -23,7 +32,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
   <!-- Table -->
-  <table id="productTable" class="table table-striped table-bordered">
+  <table id="productTable" class="table table-striped table-bordered display">
     <thead>
       <tr>
         <th>Name</th>
@@ -36,7 +45,23 @@ if (!isset($_SESSION['user_id'])) {
     <tbody>
       <?php foreach ($products as $product): ?>
         <tr>
-          <td><?= htmlspecialchars($product['name']) ?></td>
+        <td>
+    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+        <div style="display: flex; align-items: center;">
+            <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
+                <!-- Correct the src path to be relative to the root -->
+                <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
+            <?php else: ?>
+                <img src="/path/to/default-image.jpg" alt="Default Image" class="product-image">
+            <?php endif; ?>
+        </div>
+        <span id="pro-name" ><?= htmlspecialchars($product['name']) ?></span>
+    </div>
+</td>
+
+
+
+
           <td><?= htmlspecialchars($product['stocks']) ?></td>
           <td><p><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></p></td>
           <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
@@ -104,10 +129,6 @@ if (!isset($_SESSION['user_id'])) {
 </div>
 </div>
 
-
-
-
-
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -134,7 +155,7 @@ $(document).ready(function() {
     let rows = document.querySelectorAll("#productTable tbody tr");
 
     rows.forEach(row => {
-        let name = row.cells[0].textContent.toLowerCase();
+        let name = row.querySelector("td span").textContent.toLowerCase();
         let category = row.cells[2].textContent.toLowerCase();
 
         if (name.includes(input) || category.includes(input)) {
@@ -146,25 +167,3 @@ $(document).ready(function() {
 });
 });
 </script>
-
-
-<!-- <script>
-document.getElementById("searchInput").addEventListener("keyup", function() {
-    let input = this.value.toLowerCase();
-    let rows = document.querySelectorAll("#productTable tbody tr");
-
-    rows.forEach(row => {
-        let name = row.cells[0].textContent.toLowerCase();
-        let category = row.cells[2].textContent.toLowerCase();
-
-        if (name.includes(input) || category.includes(input)) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
-    });
-});
-
-
-
-</script> -->

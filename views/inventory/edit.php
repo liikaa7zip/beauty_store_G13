@@ -18,7 +18,7 @@ if (!isset($_SESSION['user_id'])) {
         <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
-    <form method="POST" action="/inventory/products/update/<?php echo $product['id']; ?>" class="edit-form">
+    <form method="POST" action="/inventory/products/update/<?php echo $product['id']; ?>" class="edit-form" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= htmlspecialchars($product['id']) ?>">
 
         <!-- Left Column -->
@@ -61,10 +61,13 @@ if (!isset($_SESSION['user_id'])) {
             <div class="form-group">
                 <label for="productImage">Product Image</label>
                 <input type="file" id="productImage" name="productImage" class="form-control" accept="image/*">
+                <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
+                    <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
+                <?php else: ?>
+                    <img src="/path/to/default-image.jpg" alt="Default Image" class="product-image">
+                <?php endif; ?>
             </div>
         </div>
-
-
     </form>
 </div>
 

@@ -17,20 +17,22 @@ class ProductModel {
     }
 
     public function storeProduct($data) {
-        $sql = "INSERT INTO products (name, description, price, category_id, stocks, status) 
-                VALUES (:name, :description, :price, :category_id, :stocks, :status)";
-        
+        $sql = "INSERT INTO products (name, description, price, category_id, stocks, status, image) 
+                VALUES (:name, :description, :price, :category_id, :stocks, :status, :image)";
+    
         $params = [
             ':name' => $data['name'],
             ':description' => $data['description'],
             ':price' => $data['price'],
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
-            ':status' => $data['status']
+            ':status' => $data['status'],
+            ':image' => $data['image']  // Ensure the image path is saved in the database
         ];
-
+    
         return $this->db->query($sql, $params);
     }
+    
 
     public function updateProduct($id, $data) {
         $sql = "UPDATE products 
@@ -62,13 +64,14 @@ class ProductModel {
         return $this->db->query($sql, $params);
     }
 
-    public function createProduct($name, $stocks, $category_id, $status) {
-        $sql = "INSERT INTO products (name, stocks, category_id, status) VALUES (:name, :stocks, :category_id, :status)";
+    public function createProduct($data) {
+        $sql = "INSERT INTO products (name, stocks, category_id, status, image) VALUES (:name, :stocks, :category_id, :status, :image)";
         $params = [
-            ':name' => $name,
-            ':stocks' => $stocks,
-            ':category_id' => $category_id,
-            ':status' => $status
+            ':name' => $data['name'],
+            ':stocks' => $data['stocks'],
+            ':category_id' => $data['category_id'],
+            ':status' => $data['status'],
+            ':image' => $data['image']
         ];
         return $this->db->query($sql, $params);
     }

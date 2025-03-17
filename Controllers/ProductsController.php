@@ -15,6 +15,8 @@ class ProductsController extends BaseController {
         $products = $this->productModel->getAllProducts();
         foreach ($products as &$product) {
             $product['category_name'] = $this->categoryModel->getCategoryNameById($product['category_id']);
+            $product['image'] = $this->getImageUrl($product['image']);
+            error_log("Product Image Path: " . $product['image']); // Debugging step
         }
         $this->view("inventory/products", ['products' => $products]);
     }
@@ -31,74 +33,89 @@ class ProductsController extends BaseController {
     }
 
     public function store() {
-        // Get POST data
-        $name = $_POST['name'] ?? '';
-        $description = $_POST['description'] ?? '';
-        $price = $_POST['price'] ?? '';
-        $category_id = $_POST['category_id'] ?? '';
-        $stocks = $_POST['stocks'] ?? '';
-        $status = $_POST['status'] ?? 'instock';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'] ?? '';
+            $description = $_POST['description'] ?? '';
+            $price = $_POST['price'] ?? '';
+            $category_id = $_POST['category_id'] ?? '';
+            $stocks = $_POST['stocks'] ?? '';
+            $status = $_POST['status'] ?? 'instock';
 
-        // Validation (basic example)
-        if (empty($name) || empty($price) || empty($category_id)) {
-            $_SESSION['error'] = "Please fill all required fields.";
-            $this->redirect("/inventory/products/create");
-            return;
-        }
+            // Handle image upload
+            if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0) {
+                $imagePath = $this->uploadImage($_FILES['productImage']);
+            }
 
-        // Prepare data
-        $data = [
-            'name' => $name,
-            'description' => $description,
-            'price' => $price,
-            'category_id' => $category_id,
-            'stocks' => $stocks,
-            'status' => $status
-        ];
+            if (empty($name) || empty($price) || empty($category_id)) {
+                $_SESSION['error'] = "Please fill all required fields.";
+                $this->redirect("/inventory/products/create");
+                return;
+            }
 
-        // Store the product in the database
-        if ($this->productModel->storeProduct($data)) {
-            $_SESSION['success'] = "Product added successfully!";
-            $this->redirect("/inventory/products");
-        } else {
-            $_SESSION['error'] = "Failed to add product.";
-            $this->redirect("/inventory/products/create");
+            $data = [
+                'name' => $name,
+                'description' => $description,
+                'price' => $price,
+                'category_id' => $category_id,
+                'stocks' => $stocks,
+                'status' => $status,
+                'image' => isset($imagePath) ? $imagePath : ''
+            ];
+
+            if ($this->productModel->storeProduct($data)) {
+                $_SESSION['success'] = "Product added successfully!";
+                $this->redirect("/inventory/products");
+            } else {
+                $_SESSION['error'] = "Failed to add product.";
+                $this->redirect("/inventory/products/create");
+            }
         }
     }
 
     public function update($id) {
-        // Get the POST data
-        $name = $_POST['name'] ?? '';
-        $description = $_POST['description'] ?? '';
-        $price = $_POST['price'] ?? '';
-        $category_id = $_POST['category_id'] ?? '';
-        $stocks = $_POST['stocks'] ?? '';
-        $status = $_POST['status'] ?? 'instock';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'] ?? '';
+            $description = $_POST['description'] ?? '';
+            $price = $_POST['price'] ?? '';
+            $category_id = $_POST['category_id'] ?? '';
+            $stocks = $_POST['stocks'] ?? '';
+            $status = $_POST['status'] ?? 'instock';
 
-        // Validation (basic example)
-        if (empty($name) || empty($price) || empty($category_id)) {
-            $_SESSION['error'] = "Please fill all required fields.";
-            $this->redirect("/inventory/edit/$id");
-            return;
-        }
+            // Handle image upload
+            if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0) {
+                $imagePath = $this->uploadImage($_FILES['productImage']);
+                // Delete the old image if a new one is uploaded
+                $oldImage = $this->productModel->getProductByID($id)['image'];
+                if (!empty($oldImage) && file_exists($oldImage)) {
+                    unlink($oldImage);
+                }
+            } else {
+                $imagePath = $this->productModel->getProductByID($id)['image'];
+            }
 
-        // Prepare data for update
-        $data = [
-            'name' => $name,
-            'description' => $description,
-            'price' => $price,
-            'category_id' => $category_id,
-            'stocks' => $stocks,
-            'status' => $status
-        ];
+            if (empty($name) || empty($price) || empty($category_id)) {
+                $_SESSION['error'] = "Please fill all required fields.";
+                $this->redirect("/inventory/edit/$id");
+                return;
+            }
 
-        // Update the product
-        if ($this->productModel->updateProduct($id, $data)) {
-            $_SESSION['success'] = "Product updated successfully!";
-            $this->redirect("/inventory/products");
-        } else {
-            $_SESSION['error'] = "Failed to update product.";
-            $this->redirect("/inventory/edit/$id");
+            $data = [
+                'name' => $name,
+                'description' => $description,
+                'price' => $price,
+                'category_id' => $category_id,
+                'stocks' => $stocks,
+                'status' => $status,
+                'image' => $imagePath
+            ];
+
+            if ($this->productModel->updateProduct($id, $data)) {
+                $_SESSION['success'] = "Product updated successfully!";
+                $this->redirect("/inventory/products");
+            } else {
+                $_SESSION['error'] = "Failed to update product.";
+                $this->redirect("/inventory/edit/$id");
+            }
         }
     }
 
@@ -117,9 +134,22 @@ class ProductsController extends BaseController {
             $name = $_POST['name'];
             $stocks = $_POST['stocks'];
             $category_id = $_POST['category_id'];
-            $status = $_POST['status'] ?? 'in-stock'; // Default to 'in-stock' if not provided
+            $status = $_POST['status'] ?? 'in-stock';
 
-            if ($this->productModel->createProduct($name, $stocks, $category_id, $status)) {
+            // Handle image upload
+            if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0) {
+                $imagePath = $this->uploadImage($_FILES['productImage']);
+            }
+
+            $data = [
+                'name' => $name,
+                'stocks' => $stocks,
+                'category_id' => $category_id,
+                'status' => $status,
+                'image' => isset($imagePath) ? $imagePath : ''
+            ];
+
+            if ($this->productModel->createProduct($data)) {
                 $_SESSION['success'] = "Product created successfully!";
                 header("Location: /inventory/products");
                 exit;
@@ -129,6 +159,36 @@ class ProductsController extends BaseController {
         }
         $categories = $this->categoryModel->getAllCategories();
         $this->view("inventory/create", ['categories' => $categories]);
+    }
+
+    private function uploadImage($file) {
+        $uploadDir = 'uploads/';
+        $uploadFile = $uploadDir . basename($file['name']);
+    
+        // Ensure the directory exists and is writable
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+    
+        // Check for valid image and move the file
+        if (getimagesize($file['tmp_name'])) {
+            if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
+                return $uploadFile; // Return the image path to store in the database
+            } else {
+                $_SESSION['error'] = "File upload failed.";
+            }
+        } else {
+            $_SESSION['error'] = "Uploaded file is not a valid image.";
+        }
+    
+        return ''; // Return empty string if upload failed
+    }
+    
+    private function getImageUrl($imagePath) {
+        if (!empty($imagePath) && file_exists($imagePath)) {
+            return '/' . $imagePath;
+        }
+        return '/path/to/default/image.png'; // Default image path
     }
 }
 ?>
