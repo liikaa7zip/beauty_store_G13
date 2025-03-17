@@ -111,6 +111,8 @@
 /* Table container */
 
 
+
+
 /* Container for search bar and table */
 .table-container {
   width: 100%;
@@ -144,6 +146,7 @@
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-right: 60%;
 }
 
 #searchBtn:hover {
@@ -152,6 +155,7 @@
 }
 
 /* Table */
+
 #productTable {
   width: 100%;
   border-collapse: collapse;
