@@ -148,59 +148,6 @@ $(document).ready(function() {
 </script>
 
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const lastUpdateElement = document.getElementById('lastUpdate');
-    const lastUpdateCard = document.getElementById('lastUpdateCard');
-    const addProductsCard = document.querySelector('.card .icon.add')?.closest('.card');
-
-    if (!lastUpdateElement || !lastUpdateCard || !addProductsCard) {
-        console.error('One or more elements not found:', { lastUpdateElement, lastUpdateCard, addProductsCard });
-        return;
-    }
-
-    function getCurrentDateTime() {
-        const now = new Date();
-        return `${now.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })}, ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`;
-    }
-
-    function updateLastUpdate() {
-        const previousUpdate = localStorage.getItem('lastUpdate') || 'No previous update';
-        localStorage.setItem('previousUpdate', previousUpdate);
-
-        const currentTime = getCurrentDateTime();
-        lastUpdateElement.textContent = currentTime;
-        localStorage.setItem('lastUpdate', currentTime);
-
-        console.log('Last update set to:', currentTime);
-        alert('Last update set to: ' + currentTime);
-    }
-
-    // Initialize last update on page load
-    const storedLastUpdate = localStorage.getItem('lastUpdate') || getCurrentDateTime();
-    lastUpdateElement.textContent = storedLastUpdate;
-    localStorage.setItem('lastUpdate', storedLastUpdate);
-
-    console.log('Initial last update:', lastUpdateElement.textContent);
-
-    // Add click event listener to update last update time
-    addProductsCard.addEventListener('click', updateLastUpdate);
-
-    function showPreviousUpdate(event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        const previousUpdate = localStorage.getItem('previousUpdate') || 'No previous update available';
-        console.log('Clicked last update card, previous update:', previousUpdate);
-        alert('Previous Update: ' + previousUpdate);
-    }
-
-    // Attach click event listeners to both last update card and its text
-    lastUpdateCard.addEventListener('click', showPreviousUpdate);
-    lastUpdateElement.addEventListener('click', showPreviousUpdate);
-});
-
-</script>
 
 <!-- <script>
 document.getElementById("searchInput").addEventListener("keyup", function() {
