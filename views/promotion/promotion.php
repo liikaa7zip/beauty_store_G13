@@ -95,7 +95,7 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </div>
-        <?php require_once 'views/promotion/delete.php'; ?>
+        <?php require 'delete.php'; ?>
     <?php endforeach; ?>
 </div>
 
