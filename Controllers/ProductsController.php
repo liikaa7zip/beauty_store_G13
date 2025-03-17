@@ -15,7 +15,8 @@ class ProductsController extends BaseController {
         $products = $this->productModel->getAllProducts();
         foreach ($products as &$product) {
             $product['category_name'] = $this->categoryModel->getCategoryNameById($product['category_id']);
-            $product['image'] = $this->getImagePath($product['image']);
+            $product['image'] = $this->getImageUrl($product['image']);
+            error_log("Product Image Path: " . $product['image']); // Debugging step
         }
         $this->view("inventory/products", ['products' => $products]);
     }
@@ -58,7 +59,7 @@ class ProductsController extends BaseController {
                 'category_id' => $category_id,
                 'stocks' => $stocks,
                 'status' => $status,
-                'image' => isset($imagePath) ? $this->getImagePath($imagePath) : ''
+                'image' => isset($imagePath) ? $imagePath : ''
             ];
 
             if ($this->productModel->storeProduct($data)) {
@@ -80,6 +81,18 @@ class ProductsController extends BaseController {
             $stocks = $_POST['stocks'] ?? '';
             $status = $_POST['status'] ?? 'instock';
 
+            // Handle image upload
+            if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0) {
+                $imagePath = $this->uploadImage($_FILES['productImage']);
+                // Delete the old image if a new one is uploaded
+                $oldImage = $this->productModel->getProductByID($id)['image'];
+                if (!empty($oldImage) && file_exists($oldImage)) {
+                    unlink($oldImage);
+                }
+            } else {
+                $imagePath = $this->productModel->getProductByID($id)['image'];
+            }
+
             if (empty($name) || empty($price) || empty($category_id)) {
                 $_SESSION['error'] = "Please fill all required fields.";
                 $this->redirect("/inventory/edit/$id");
@@ -93,7 +106,7 @@ class ProductsController extends BaseController {
                 'category_id' => $category_id,
                 'stocks' => $stocks,
                 'status' => $status,
-                'image' => isset($imagePath) ? $this->getImagePath($imagePath) : ''
+                'image' => $imagePath
             ];
 
             if ($this->productModel->updateProduct($id, $data)) {
@@ -133,7 +146,7 @@ class ProductsController extends BaseController {
                 'stocks' => $stocks,
                 'category_id' => $category_id,
                 'status' => $status,
-                'image' => isset($imagePath) ? $this->getImagePath($imagePath) : ''
+                'image' => isset($imagePath) ? $imagePath : ''
             ];
 
             if ($this->productModel->createProduct($data)) {
@@ -171,9 +184,9 @@ class ProductsController extends BaseController {
         return ''; // Return empty string if upload failed
     }
     
-    private function getImagePath($image) {
-        if (!empty($image) && file_exists($image)) {
-            return '/' . $image;
+    private function getImageUrl($imagePath) {
+        if (!empty($imagePath) && file_exists($imagePath)) {
+            return '/' . $imagePath;
         }
         return '/path/to/default/image.png'; // Default image path
     }

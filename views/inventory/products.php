@@ -10,6 +10,15 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 
+<style>
+    .product-image {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+</style>
+
 <div class="products_container">
     <h1 id="h1-products">Products Page</h1>
 
@@ -41,9 +50,9 @@ if (!isset($_SESSION['user_id'])) {
         <div style="display: flex; align-items: center;">
             <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
                 <!-- Correct the src path to be relative to the root -->
-                <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" width="60" style="margin-right: 10px;">
+                <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
             <?php else: ?>
-                <img src="/path/to/default-image.jpg" alt="Default Image" width="50" style="margin-right: 10px;">
+                <img src="/path/to/default-image.jpg" alt="Default Image" class="product-image">
             <?php endif; ?>
         </div>
         <span id="pro-name" ><?= htmlspecialchars($product['name']) ?></span>
