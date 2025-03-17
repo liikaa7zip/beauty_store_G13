@@ -45,7 +45,7 @@ if (!isset($_SESSION['user_id'])) {
     <tbody>
       <?php foreach ($products as $product): ?>
         <tr>
-        <td>
+        <td id="td-name">
     <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
         <div style="display: flex; align-items: center;">
             <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
@@ -62,8 +62,8 @@ if (!isset($_SESSION['user_id'])) {
 
 
 
-          <td><?= htmlspecialchars($product['stocks']) ?></td>
-          <td><p><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></p></td>
+          <td id="get-stock"><?= htmlspecialchars($product['stocks']) ?></td>
+          <td id="get-cat"><p><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></p></td>
           <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
     <?= ucfirst(htmlspecialchars($product['status'])) ?>
 </td>
@@ -78,7 +78,7 @@ if (!isset($_SESSION['user_id'])) {
                             <span class="material-symbols-outlined">border_color</span> Edit
                         </a>
                         <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
-                            <span class="material-symbols-outlined">delete</span> Delete
+                            <span id="btn-delete" class="material-symbols-outlined">delete</span> Delete
                         </a>
                     </div>
                 </div>
@@ -143,7 +143,7 @@ if (!isset($_SESSION['user_id'])) {
 <script>
 $(document).ready(function() {
     var table = $('#productTable').DataTable({
-        "pageLength": 10, // Show 8 products per page
+        "pageLength": 8, // Show 8 products per page
         "paging": true,  // Enable pagination
         "info": true,    // Show the information (e.g., "Showing 1 to 8 of 25 entries")
         "lengthChange": false, // Disable the option to change the number of items per page

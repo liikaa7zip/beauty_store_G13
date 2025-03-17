@@ -1,7 +1,6 @@
-
 #h1-products {
     margin-left: 10px;
-    margin-top: 80%;
+    margin-top: 70%;
 }
 
 /* Dropdown container */
@@ -113,13 +112,7 @@
 
 
 
-/* Container for search bar and table */
-.table-container {
-  width: 100%;
-  margin: auto;
-  padding: 10px;
-  height: 60%;
-}
+
 
 /* Search bar */
 .table-header {
@@ -165,6 +158,7 @@
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin-top: 2%;
+  height: fit-content !important;
 }
 
 /* Optional: For making hidden rows completely transparent */
@@ -199,6 +193,7 @@
   padding: 8px;
   text-align: center;
   font-size: 14px;
+  height: fit-content !important;
 }
 
 /* Hide DataTables default search bar */
@@ -343,14 +338,16 @@
   transition: background 0.3s ease;
 }
 
-.dropdown-content a:hover {
-  background: rgba(255, 20, 147, 0.1);
-}
+
 
 .dropdown-content span {
   margin-right: 8px;
   font-size: 18px;
-  color: #ff1493;
+  color: #2fff14;
+}
+
+.dropdown-content #btn-delete {
+  color: red;
 }
 
 /* Show dropdown on click */
@@ -381,14 +378,7 @@ h3 {
   margin-bottom: 10px;
 }
 
-/* Stock Summary */
-/* General Styles */
-body {
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f9;
-}
+
 
 .stocks-container {
   max-width: 1200px;
@@ -406,13 +396,6 @@ h3 {
 }
 
 /* Stock Summary */
-/* General Styles */
-body {
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f9;
-}
 
 .stocks-container {
   max-width: 1200px;
@@ -511,7 +494,7 @@ h3 {
 }
 
 .pagination button {
-  background: #007bff;
+  background: #96c4f5;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -523,7 +506,7 @@ h3 {
 }
 
 .pagination button:hover {
-  background: #0056b3;
+  background: #afcded;
   transform: scale(1.1);
 }
 
@@ -786,9 +769,22 @@ a.btn.btn-outline-secondary:hover {
   }
 }
 
+#td-name {
+  width: 26%;
+}
+
+#get-stock {
+  width: 18%;
+}
+
+#get-category {
+  width: 18%;
+}
+
 #pro-name {
   flex-grow: 1; 
   text-align: center; 
   margin-left: -60px;
   font-size: 16px;
 }
+
