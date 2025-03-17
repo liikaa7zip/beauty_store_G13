@@ -16,10 +16,13 @@ class ProductsController extends BaseController {
         foreach ($products as &$product) {
             $product['category_name'] = $this->categoryModel->getCategoryNameById($product['category_id']);
             $product['image'] = $this->getImageUrl($product['image']);
+            // Format price with the dollar sign
+            $product['formatted_price'] = '$' . number_format($product['price'], 2);  // Format as $12.00
             error_log("Product Image Path: " . $product['image']); // Debugging step
         }
         $this->view("inventory/products", ['products' => $products]);
     }
+    
 
     public function edit($id) {
         $product = $this->productModel->getProductByID($id);
@@ -132,6 +135,8 @@ class ProductsController extends BaseController {
     public function create() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
+            $description = $_POST['description'] ?? '';
+            $price = $_POST['price'] ?? ''; 
             $stocks = $_POST['stocks'];
             $category_id = $_POST['category_id'];
             $status = $_POST['status'] ?? 'in-stock';
@@ -143,6 +148,8 @@ class ProductsController extends BaseController {
 
             $data = [
                 'name' => $name,
+                'description' => $description,
+                'price' => $price,
                 'stocks' => $stocks,
                 'category_id' => $category_id,
                 'status' => $status,
