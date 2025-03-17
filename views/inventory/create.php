@@ -29,11 +29,8 @@ if (!isset($_SESSION['user_id'])) {
                 <label for="stocks">Stocks</label>
                 <input type="number" id="stocks" name="stocks" class="form-control" required>
             </div>
-            <div class="form-group">
-                <label for="price">Price</label>
-                <input type="text" id="price" name="price" class="form-control" step="0.01" required>
-            </div>
-
+            <label for="price">Price</label>
+            <input type="text" id="price" name="price" value="<?= htmlspecialchars($product['price']) ?>" required />
             <button type="submit" class="btn btn-primary" id="create-btn">Create Product</button>
         </div>
 

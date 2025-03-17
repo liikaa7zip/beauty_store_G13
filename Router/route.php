@@ -9,6 +9,7 @@ require_once "Controllers/ProductsController.php";
 
 
 
+
 require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
@@ -35,8 +36,6 @@ $route->put("/inventory/products/update/{id}", [ProductsController::class, 'upda
 $route->post("/inventory/products/store", [ProductsController::class, 'store']);
 $route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
 $route->get("/inventory/create", [ProductsController::class, 'create']);
-
-
 
 
 

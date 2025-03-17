@@ -109,17 +109,15 @@ body, html {
     background: #fff;
 }
 
-#description {
-    padding: 30px;
-    margin-left: -8px;
-    background: #fff;
-}
+
 
 #create-btn {
     margin-left: 30%;
     width: 40%;
     padding: 14px;
 }
+
+
 
 label {
     font-size: 1.1rem;

@@ -17,21 +17,25 @@ class ProductModel {
     }
 
     public function storeProduct($data) {
+        // Remove the dollar sign if it exists
+        $price = str_replace('$', '', $data['price']);
+        
         $sql = "INSERT INTO products (name, description, price, category_id, stocks, status, image) 
                 VALUES (:name, :description, :price, :category_id, :stocks, :status, :image)";
-    
+        
         $params = [
             ':name' => $data['name'],
             ':description' => $data['description'],
-            ':price' => $data['price'],
+            ':price' => (float)$price,  // Store as decimal without $
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
             ':status' => $data['status'],
-            ':image' => $data['image']  // Ensure the image path is saved in the database
+            ':image' => isset($data['image']) ? $data['image'] : ''
         ];
-    
+        
         return $this->db->query($sql, $params);
     }
+    
     
 
     public function updateProduct($id, $data) {
@@ -65,15 +69,19 @@ class ProductModel {
     }
 
     public function createProduct($data) {
-        $sql = "INSERT INTO products (name, stocks, category_id, status, image) VALUES (:name, :stocks, :category_id, :status, :image)";
+        $sql = "INSERT INTO products (name, description, price, category_id, stocks, status, image) 
+                VALUES (:name, :description, :price, :category_id, :stocks, :status, :image)";
         $params = [
             ':name' => $data['name'],
-            ':stocks' => $data['stocks'],
+            ':description' => isset($data['description']) ? $data['description'] : null,  // Optional, can be NULL
+            ':price' => $data['price'],
             ':category_id' => $data['category_id'],
+            ':stocks' => $data['stocks'],
             ':status' => $data['status'],
-            ':image' => $data['image']
+            ':image' => isset($data['image']) ? $data['image'] : null // Optional, can be NULL
         ];
         return $this->db->query($sql, $params);
     }
+    
 }
 ?>
