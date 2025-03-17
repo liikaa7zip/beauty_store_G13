@@ -32,14 +32,15 @@ if (!isset($_SESSION['user_id'])) {
     <div class="table-header">
                 <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
 
-                <!-- Category Dropdown -->
-                <div class="category-container">
-                <select >
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></option>
-
-                    <?php endforeach; ?>
-                </select>
+<!-- Category Filter Dropdown -->
+<select id="categorySelect" name="category">
+    <option value="">Select a category</option>
+    <?php foreach ($categories as $category): ?>
+        <option value="<?= $category['id'] ?>">
+            <?= htmlspecialchars($category['name']) ?>
+        </option>
+    <?php endforeach; ?>
+</select>
 
 
                 </div>
@@ -57,9 +58,9 @@ if (!isset($_SESSION['user_id'])) {
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="productsTableBody">
       <?php foreach ($products as $product): ?>
-        <tr>
+        <tr data-category-id="<?= htmlspecialchars($product['category_id']) ?>"> <!-- Corrected data attribute for category ID -->
         <td>
             <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
                 <div style="display: flex; align-items: center;">
@@ -144,6 +145,7 @@ if (!isset($_SESSION['user_id'])) {
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -164,19 +166,34 @@ $(document).ready(function() {
     });
 
     document.getElementById("searchInput").addEventListener("keyup", function() {
-    let input = this.value.toLowerCase();
-    let rows = document.querySelectorAll("#productTable tbody tr");
+        let input = this.value.toLowerCase();
+        let rows = document.querySelectorAll("#productTable tbody tr");
 
-    rows.forEach(row => {
-        let name = row.querySelector("td span").textContent.toLowerCase();
-        let category = row.cells[2].textContent.toLowerCase();
+        rows.forEach(row => {
+            let name = row.querySelector("td span").textContent.toLowerCase();
+            let category = row.cells[3].textContent.toLowerCase(); // Corrected index for category
 
-        if (name.includes(input) || category.includes(input)) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
+            if (name.includes(input) || category.includes(input)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
     });
-});
+
+    document.getElementById("categorySelect").addEventListener("change", function() {
+        let selectedCategory = this.value;
+        let rows = document.querySelectorAll("#productTable tbody tr");
+
+        rows.forEach(row => {
+            let categoryId = row.getAttribute('data-category-id'); // Get category ID from data attribute
+
+            if (selectedCategory === "" || categoryId === selectedCategory) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
 });
 </script>
