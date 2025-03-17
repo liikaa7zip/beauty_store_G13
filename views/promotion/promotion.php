@@ -13,41 +13,81 @@ if (!isset($_SESSION['user_id'])) {
 <div class="header">
     <h1>Promotions</h1>
     <div class="search-container">
-    <div class="search-bar">
-        <div class="search-input">
-            <input type="text" id="searchInput" placeholder="Search promotions...">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.3-4.3" />
-            </svg>
+        <div class="search-bar">
+            <div class="search-input">
+                <input type="text" id="searchInput" placeholder="Search promotions...">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                </svg>
+            </div>
         </div>
+
+        <!-- Add New Button -->
+        <a href="/promotion/create" class="btn btn-primary" id="addNewButton">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+            </svg>
+            Add New
+        </a>
     </div>
 
-    <!-- Add New Button -->
-    <a href="/promotion/create" class="btn btn-primary" id="addNewButton">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14" />
-            <path d="M12 5v14" />
-        </svg>
-        Add New
-    </a>
+
+
+
+
+    <?php if (empty($promotions)): ?>
+        <div class="alert alert-info mt-5" role="alert">
+            No promotions available at the moment. Please create promotions!
+        </div>
+    <?php else: ?>
+
+
+
+    <?php endif; ?>
 </div>
-
-
-
-
-    
-</div>
-
 <div class="promotion-container">
     <?php foreach ($promotions as $promotion): ?>
         <div class="promotion-card">
             <div class="promotion-header"><?= htmlspecialchars($promotion['promotion_name']) ?></div>
-            <div class="promotion-details">
-                <strong>Date:</strong> <?= htmlspecialchars($promotion['start_date']) ?> - <?= htmlspecialchars($promotion['end_date']) ?><br>
-                <strong>Description:</strong> <?= htmlspecialchars($promotion['promotion_description']) ?><br>
-                <strong>Code:</strong> <span style="color: #ff69b4; font-weight: bold;"><?= htmlspecialchars($promotion['promotion_code']) ?></span><br>
-                <span class="promotion-status 
+            <div class="promotion-details ">
+                <p class="promotion-code d-flex flex-row align-items-center gap-2 mb-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                        <line x1="16" x2="16" y1="2" y2="6" />
+                        <line x1="8" x2="8" y1="2" y2="6" />
+                        <line x1="3" x2="21" y1="10" y2="10" />
+                    </svg>
+                    <strong>Date:</strong>
+                    <?php
+                    $startDate = new DateTime($promotion['start_date']);
+                    $endDate = new DateTime($promotion['end_date']);
+
+                    $formattedStartDate = $startDate->format('d-F');
+                    $formattedEndDate = $endDate->format('d-F-Y');
+
+                    echo htmlspecialchars($formattedStartDate) . ' to ' . htmlspecialchars($formattedEndDate);
+                    ?>
+
+                </p>
+                <p class="promotion-description d-flex flex-row align-items-center gap-2 mb-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                        <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                    <strong>Description:</strong>
+                    <?= htmlspecialchars($promotion['promotion_description']) ?>
+                </p>
+                <p class="promotion-code d-flex flex-row align-items-center gap-2 mb-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                        <line x1="7" y1="7" x2="7.01" y2="7" />
+                    </svg>
+                    <strong>Code:</strong>
+                    <span style="color: #ff69b4; font-weight: bold;"><?= htmlspecialchars($promotion['promotion_code']) ?></span>
+                </p>
+                <span class="promotion-status fw-bold text-white
                     <?= $promotion['status'] === 'completed' ? 'bg-warning' : ($promotion['status'] === 'active' ? 'bg-info' : 'bg-danger') ?>">
                     <?= htmlspecialchars($promotion['status']) ?>
                 </span>
@@ -57,30 +97,80 @@ if (!isset($_SESSION['user_id'])) {
             <div class="more-options">
                 <button class="more-button" onclick="toggleDropdown(this)">&#x22EE;</button> <!-- Three dots -->
                 <div class="dropdown-menu">
-                    <a href="/promotion/edit/<?= $promotion['id'] ?>" class="edit-button">✏️ Edit</a>
-                    <a href="/promotion/delete/<?= $promotion['id'] ?>" class="delete-button" onclick="return confirm('Are you sure you want to delete this promotion?')">🗑️ Delete</a>
+                    <a href="/promotion/edit/<?= $promotion['id'] ?>" class="edit-button d-flex flex-row align-items-center gap-2 fw-bold"><span class="material-symbols-outlined" id="edit">edit</span> Edit</a>
+                    <a href="/promotion/delete/<?= $promotion['id'] ?>" class="delete-button d-flex flex-row align-items-center gap-2 fw-bold" onclick="return ">
+                        <span class=" material-symbols-outlined" id="delete">delete</span> Delete
+                    </a>
                 </div>
             </div>
         </div>
+
     <?php endforeach; ?>
 </div>
 
 
 
-<script>
-function toggleDropdown(button) {
-    var dropdown = button.nextElementSibling; // Get the dropdown content
-    dropdown.style.display = "block"; // Show the dropdown
 
-    // Close dropdown if clicking outside
-    document.addEventListener("click", function (event) {
-        // Check if the click was outside the button or dropdown
-        if (!button.contains(event.target) && !dropdown.contains(event.target)) {
-            dropdown.style.display = "none";
+<script>
+    function toggleDropdown(button) {
+        var dropdown = button.nextElementSibling; // Get the dropdown content
+        dropdown.style.display = "block"; // Show the dropdown
+
+        // Close dropdown if clicking outside
+        document.addEventListener("click", function(event) {
+            // Check if the click was outside the button or dropdown
+            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.style.display = "none";
+            }
+        });
+    };
+
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const searchQuery = this.value.toLowerCase(); // Convert search query to lowercase
+        const promotionCards = document.querySelectorAll('.promotion-card'); // Get all promotion cards
+        const clearButton = document.getElementById('clearSearchButton'); // Get the clear button
+
+        promotionCards.forEach(card => {
+            const promotionName = card.querySelector('.promotion-header').textContent.toLowerCase(); // Convert name to lowercase
+            const promotionDescription = card.querySelector('.promotion-description').textContent.toLowerCase(); // Convert description to lowercase
+            const promotionCode = card.querySelector('.promotion-code').textContent.toLowerCase(); // Convert code to lowercase
+
+            // Check if the search query matches any part of the promotion name, description, or code
+            if (promotionName.includes(searchQuery) || promotionDescription.includes(searchQuery) || promotionCode.includes(searchQuery)) {
+                card.style.display = 'block'; // Show the card if it matches
+            } else {
+                card.style.display = 'none'; // Hide the card if it doesn't match
+            }
+        });
+
+        // Show or hide the clear button based on search input
+        if (searchQuery.trim() !== '') {
+            clearButton.style.display = 'block'; // Show the clear button if there's input
+        } else {
+            clearButton.style.display = 'none'; // Hide the clear button if the input is empty
         }
     });
-}
 
+
+
+    // Function to handle the delete confirmation
+    function confirmDelete(promotionId) {
+        var deleteModal = new bootstrap.Modal(document.getElementById('deletePromotionModal'));
+        deleteModal.show();
+
+        document.getElementById('confirmDeleteButton').onclick = function() {
+            window.location.href = '/promotion/delete/' + promotionId;
+        };
+    }
+
+    // Update the delete buttons to use the confirmDelete function
+    document.querySelectorAll('.delete-button').forEach(function(button) {
+        button.onclick = function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            var promotionId = this.getAttribute('href').split('/').pop();
+            confirmDelete(promotionId);
+        };
+    });
 </script>
 
 
