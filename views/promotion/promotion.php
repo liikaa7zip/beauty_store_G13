@@ -111,5 +111,27 @@ if (!isset($_SESSION['user_id'])) {
         });
     };
 
-    
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const searchQuery = this.value.toLowerCase();
+        const promotionCards = document.querySelectorAll('.promotion-card');
+        const clearButton = document.getElementById('clearSearchButton');
+
+        promotionCards.forEach(card => {
+            const promotionName = card.querySelector('.promotion-header').textContent.toLowerCase();
+            const promotionDescription = card.querySelector('.promotion-description').textContent.toLowerCase();
+            const promotionCode = card.querySelector('.promotion-code').textContent.toLowerCase();
+
+            if (promotionName.includes(searchQuery) || promotionDescription.includes(searchQuery) || promotionCode.includes(searchQuery)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        if (searchQuery.trim() !== '') {
+            clearButton.style.display = 'block';
+        } else {
+            clearButton.style.display = 'none';
+        }
+    });
 </script>
