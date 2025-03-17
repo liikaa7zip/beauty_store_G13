@@ -34,10 +34,14 @@ if (!isset($_SESSION['user_id'])) {
 
                 <!-- Category Dropdown -->
                 <div class="category-container">
-                    <select id="categorySelect" class="form-select">
-                        <option value="">Select Category</option>
-                        <!-- Categories will be dynamically loaded here -->
-                    </select>
+                <select >
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></option>
+
+                    <?php endforeach; ?>
+                </select>
+
+
                 </div>
             </div>
 

@@ -35,8 +35,6 @@ class ProductModel {
         
         return $this->db->query($sql, $params);
     }
-    
-    
 
     public function updateProduct($id, $data) {
         $sql = "UPDATE products 
@@ -82,6 +80,5 @@ class ProductModel {
         ];
         return $this->db->query($sql, $params);
     }
-    
 }
 ?>
