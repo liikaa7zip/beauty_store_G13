@@ -19,6 +19,8 @@ if (!isset($_SESSION['user_id'])) {
     }
 </style>
 
+
+
 <div class="products_container">
     <h1 id="h1-products">Products Page</h1>
 
@@ -143,7 +145,7 @@ if (!isset($_SESSION['user_id'])) {
 <script>
 $(document).ready(function() {
     var table = $('#productTable').DataTable({
-        "pageLength": 10, // Show 8 products per page
+        "pageLength": 8, // Show 8 products per page
         "paging": true,  // Enable pagination
         "info": true,    // Show the information (e.g., "Showing 1 to 8 of 25 entries")
         "lengthChange": false, // Disable the option to change the number of items per page

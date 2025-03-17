@@ -33,7 +33,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
             <div class="form-group">
                 <label for="price">Price</label>
-                <input type="number" id="price" name="price" class="form-control" value="<?php echo htmlspecialchars($product['price']); ?>" step="0.01" required>
+                <input type="text" id="price" name="price" class="form-control" value="<?php echo htmlspecialchars($product['price']); ?>" step="0.01" required>
             </div>
 
             <div class="d-flex gap-3 mt-3" id="btn-edit">
