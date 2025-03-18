@@ -27,6 +27,9 @@
                 <li class="nav-item"><a href="/promotion" class="nav-link"><i class="nav-icon bi bi-table"></i>
                         <p>Promotions</p>
                     </a></li>
+                <li class="nav-item"><a href="/sales" class="nav-link"><i class="bi bi-cash"></i></i></i>
+                        <p>Sales</p>
+                    </a></li>
                 <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>
                         <p>Expiration</p>
                     </a></li>
