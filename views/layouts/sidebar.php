@@ -2,7 +2,7 @@
 
 <aside class="app-sidebar bg-body-secondary shadow">
     <!--begin::Sidebar Brand-->
-    <div class="sidebar-brand">
+    <div class="sidebar-brand" style="padding: 33px;">
         <a href="/dashboard/sell" class="brand-link">
             <!-- <img src="/views/assets/img/lo.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" /> -->
             <span class="text">Beauty Store</span>

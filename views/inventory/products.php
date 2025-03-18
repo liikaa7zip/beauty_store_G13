@@ -10,19 +10,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 
-<style>
-    .product-image {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        object-fit: cover;
-        /* margin-right: 10px;
-        margin-left: 10px; */
-    }
-</style>
-
-
-
 <div class="products_container">
     <h1 id="h1-products">Products List</h1>
     <div class="container mt-4">
@@ -31,21 +18,17 @@ if (!isset($_SESSION['user_id'])) {
             <div class="table-header">
                 <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
 
-<!-- Category Filter Dropdown -->
-<div id="categoryWrapper">
-    <select id="categorySelect" name="category">
-        <option value="">Select a category</option>
-        <?php foreach ($categories as $category): ?>
-            <option value="<?= $category['id'] ?>">
-                <?= htmlspecialchars($category['name']) ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-</div>
-
-
-
-
+            <!-- Category Filter Dropdown -->
+                <div id="categoryWrapper">
+                     <select id="categorySelect" name="category">
+                        <option value="">Select a category</option>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= $category['id'] ?>">
+                        <?= htmlspecialchars($category['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -87,11 +70,8 @@ if (!isset($_SESSION['user_id'])) {
                             <p><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></p>
                         </td>
                         <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
-    <?= ucfirst(htmlspecialchars($product['status'])) ?>
-</td>
-
-
-
+                            <?= ucfirst(htmlspecialchars($product['status'])) ?>
+                        </td>
                         <td>
                             <div class="dropdown">
                                 <button class="dropbtn btn btn-sm" onclick="toggleDropdown(this)">
@@ -141,10 +121,33 @@ if (!isset($_SESSION['user_id'])) {
 
             <div class="row">
                 <div class="col-4">
-                    <div class="card" id="date">
-                        <p>Last Day Update</p>
-                        <h3>1/28/2025, 6:50PM</h3>
-                    </div>
+                <a href="javascript:void(0);" class="text-decoration-none" onclick="showModal()">
+    <div class="card" id="add-product">
+        <div class="icon add">➕</div>
+        <p>Add New Categories</p>
+    </div>
+</a>
+
+<!-- Modal for adding a category -->
+<div id="category-modal" class="category-modal" style="display:none;">
+    <div class="modal-content">
+        <h3>Create New Category</h3>
+        <form action="create_category.php" method="POST">
+            <label for="category-name" id="cate-name">Category Name:</label>
+            <input type="text" id="category-name" name="category_name" required>
+
+            <label for="category-description" id="cate-desc">Category Description:</label>
+            <textarea id="category-description" name="category_description" required></textarea>
+
+            <div class="modal-buttons">
+                <button type="submit" class="btn-primary" style="text-align: center;">Create Category</button>
+                <button type="button" onclick="hideModal()" class="btn-secondary">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
                 </div>
                 <div class="col-4">
                     <div class="card" id="waste">
@@ -225,6 +228,18 @@ if (!isset($_SESSION['user_id'])) {
         });
     });
 
+// Show the modal
+function showModal() {
+    document.getElementById('category-modal').style.display = 'block';
+}
+
+// Hide the modal
+function hideModal() {
+    document.getElementById('category-modal').style.display = 'none';
+}
+
+
     
     
 </script>
+
