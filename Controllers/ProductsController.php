@@ -111,6 +111,7 @@ class ProductsController extends BaseController {
         header("Location: /inventory/products");
         exit;
     }
+    
 
     public function create() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -132,4 +133,3 @@ class ProductsController extends BaseController {
     }
 }
 ?>
-

@@ -39,8 +39,6 @@ $route->get("/inventory/create", [ProductsController::class, 'create']);
 
 
 
-
-
 //Promotion
 $route->get("/promotion", [PromotionController::class, 'index']);
 $route->get("/promotion/create", [PromotionController::class, 'create']);
