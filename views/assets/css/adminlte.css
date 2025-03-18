@@ -191,8 +191,34 @@
 
 .nav-item .nav-link {
   font-size: 18px;
-
+  margin-top: 11px;
 }
+
+.text {
+  font-family: 'Pacifico', cursive; /* Fun, bold script font */
+  font-weight: normal;
+  font-size: 18px; /* Larger size for a logo-like feel */
+  letter-spacing: 4px; /* Adds spacing between letters */
+  text-transform: uppercase; /* Uppercase for emphasis */
+  background-image: linear-gradient(45deg, #FF1493, #FF6347); /* Gradient for vibrant look */
+  -webkit-background-clip: text; /* Apply gradient to text in WebKit browsers */
+  background-clip: text; /* Standard property */
+  color: transparent; /* Make text color transparent to show gradient */
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3); /* Strong shadow for depth */
+  display: inline-block; /* Allows background-clip to work */
+  border: 3px solid transparent; /* Transparent border */
+  border-radius: 8px; /* Slightly rounded corners */
+  padding: 20px 30px; /* Adds padding around text */
+  transition: transform 0.3s ease, text-shadow 0.3s ease, color 0.3s ease;
+}
+
+.text:hover {
+  transform: scale(1.1); /* Enlarges the text on hover */
+  text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5); /* Stronger shadow on hover */
+  color: #FF6347; /* Coral color on hover */
+}
+
+
 
 
 
@@ -13045,26 +13071,20 @@ textarea.form-control-lg {
 .sidebar-brand .brand-link .brand-image-xl.single {
   margin-top: -0.3rem;
 }
-.sidebar-brand .brand-text {
-  margin-left: 0.5rem;
-  color: rgba(var(--bs-emphasis-color-rgb), 0.8);
-  transition: flex 0.3s ease-in-out, width 0.3s ease-in-out;
-}
+
 @media (prefers-reduced-motion: reduce) {
   .sidebar-brand .brand-text {
     transition: none;
   }
 }
-.sidebar-brand .brand-text:hover {
-  color: var(--bs-emphasis-color);
-}
+
 
 .sidebar-wrapper {
   padding-top: 0.5rem;
   padding-right: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 0.5rem;
-  scrollbar-color: var(--bs-secondary-bg) transparent;
+  /* scrollbar-color: var(--bs-secondary-bg) transparent; */
   scrollbar-width: thin;
 }
 .sidebar-wrapper::-webkit-scrollbar-thumb {

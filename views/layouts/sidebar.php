@@ -1,9 +1,12 @@
+
+
 <aside class="app-sidebar bg-body-secondary shadow">
     <!--begin::Sidebar Brand-->
     <div class="sidebar-brand">
         <a href="/dashboard/sell" class="brand-link">
-            <img src="/views/assets/img/lo.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" />
-            <span class="brand-text fw-light">Beauty Store</span>
+            <!-- <img src="/views/assets/img/lo.png" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" /> -->
+            <span class="text">Beauty Store</span>
+
         </a>
     </div>
     <div class="sidebar-wrapper bg-white">
@@ -40,7 +43,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item d-flex"><a href="/users/signUp" class="nav-link"><i class="nav-icon bi bi-box-arrow-in-right"></i>
-                                <p>SignOut</p>
+                                <p style="font-size: 18px;">SignOut</p>
                             </a></li>
                     </ul>
                 </li>

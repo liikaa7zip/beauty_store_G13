@@ -119,3 +119,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+function handleCategoryChange() {
+    var categorySelect = document.getElementById("categorySelect");
+    var selectedValue = categorySelect.value;
+
+    if (selectedValue === "") {
+        // Redirect to the other page when "Select a category" is clicked
+        window.location.href = "other_page.php";  // Change "other_page.php" to your desired URL
+    }
+}

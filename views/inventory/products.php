@@ -31,8 +31,8 @@ if (!isset($_SESSION['user_id'])) {
             <div class="table-header">
                 <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
 
-                <!-- Category Filter Dropdown -->
-                <div id="categoryWrapper">
+<!-- Category Filter Dropdown -->
+<div id="categoryWrapper">
     <select id="categorySelect" name="category">
         <option value="">Select a category</option>
         <?php foreach ($categories as $category): ?>
@@ -42,6 +42,7 @@ if (!isset($_SESSION['user_id'])) {
         <?php endforeach; ?>
     </select>
 </div>
+
 
 
 
