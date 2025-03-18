@@ -11,17 +11,56 @@ class ProductsController extends BaseController {
         $this->categoryModel = new CategoryModel();
     }
 
+    // Method to display all products, initially without filtering
     public function index() {
+        // Get all categories to show in the select dropdown
+        $categories = $this->categoryModel->getAllCategories();
+
+        // Fetch all products initially
         $products = $this->productModel->getAllProducts();
+
+        // Process products to add category names and format prices
         foreach ($products as &$product) {
             $product['category_name'] = $this->categoryModel->getCategoryNameById($product['category_id']);
             $product['image'] = $this->getImageUrl($product['image']);
-            // Format price with the dollar sign
-            $product['formatted_price'] = '$' . number_format($product['price'], 2);  // Format as $12.00
-            error_log("Product Image Path: " . $product['image']); // Debugging step
+            $product['formatted_price'] = '$' . number_format($product['price'], 2);
         }
-        $this->view("inventory/products", ['products' => $products]);
+
+        // Pass categories and products to the view
+        $this->view("inventory/products", ['products' => $products, 'categories' => $categories]);
     }
+
+    // Method to handle AJAX filtering of products by category
+    public function filter() {
+        $category_id = $_GET['category'] ?? null; // Get the category ID from the AJAX request
+
+        // Log the received category ID
+        error_log("Received category ID: " . $category_id);
+
+        // If a category is selected, filter products by that category
+        if ($category_id) {
+            $products = $this->productModel->getProductsByCategory($category_id);
+        } else {
+            // If no category is selected, return all products
+            $products = $this->productModel->getAllProducts();
+        }
+
+        // Process the filtered products
+        foreach ($products as &$product) {
+            $product['category_name'] = $this->categoryModel->getCategoryNameById($product['category_id']);
+            $product['image'] = $this->getImageUrl($product['image']);
+            $product['formatted_price'] = '$' . number_format($product['price'], 2);
+        }
+
+        // Log the response
+        error_log("Filtered products: " . json_encode($products));
+
+        // Return the JSON response for the filtered products
+        header('Content-Type: application/json');
+        echo json_encode($products);
+        exit;
+    }
+    
     
 
     public function edit($id) {
@@ -195,7 +234,7 @@ class ProductsController extends BaseController {
         if (!empty($imagePath) && file_exists($imagePath)) {
             return '/' . $imagePath;
         }
-        return '/path/to/default/image.png'; // Default image path
+        return '/uploads/default-image.jpg'; // Ensure this default image exists
     }
 }
 ?>

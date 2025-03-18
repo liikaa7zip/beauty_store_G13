@@ -28,6 +28,7 @@ class UserModel {
         $result = $this->db->query("SELECT * FROM users WHERE username = :username", [':username' => $username]);
         return $result->fetch(PDO::FETCH_ASSOC);
     }
-
+    
+    
 }
 ?>
