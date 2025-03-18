@@ -6,7 +6,7 @@ class Database
     {
         $servername = "localhost";
         $username = "root";
-        $password = "rath";
+        $password = "";
         $dbname= "beauty_store_data";
 
         try {
