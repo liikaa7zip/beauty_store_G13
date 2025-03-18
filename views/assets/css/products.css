@@ -75,6 +75,6 @@
   padding: 16px 10px; /* Increased height, but kept width small */
   text-align: center;
   font-weight: bold;
-  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  background: rgb(189, 189, 189);
   color: white;
 }
