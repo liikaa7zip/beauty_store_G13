@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="/views/assets/css/promotion.css" />
     <link rel="stylesheet" href="/views/assets/css/user.css" />
     <link rel="stylesheet" href="/views/assets/css/add.css">
+    <link rel="stylesheet" href="/views/assets/css/sales.css">
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
