@@ -1,1 +1,4 @@
-<?php require("Router/route.php") ?>
+
+<?php
+session_start();
+require("Router/route.php") ?>

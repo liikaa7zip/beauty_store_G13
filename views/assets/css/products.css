@@ -1,785 +1,215 @@
-
-#h1-products {
-    margin-left: 10px;
-    margin-top: 80%;
-}
-
-/* Dropdown container */
 .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  /* Button for the three-dot menu */
-  .dropbtn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    font-size: 20px;
-    color: #545a55;
-  }
-  
-  /* Dropdown content (hidden by default) */
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    top: 50%;
-    right: 100%; /* Moves the dropdown to the left */
-    transform: translateY(-50%);
-    background-color: rgb(144, 144, 144);
-    min-width: 120px; 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    z-index: 1;
-  }
-  
-  /* Links inside dropdown */
-  .dropdown-content a {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    text-decoration: none;
-    color: black;
-    white-space: nowrap; /* Prevents text from wrapping */
-  }
-  
-  /* Show icons beside text */
-  .dropdown-content a span {
-    margin-right: 8px;
-  }
-  
-  /* Hover effect */
-  .dropdown-content a:hover {
-    background-color: #f1f1f1;
-  }
-  
-  #edit {
-    color: green;
-  }
-  
-  #delete {
-    color: red;
-  }
-  
-  /* Table cell styling */
-  td {
-    text-align: center;
-    vertical-align: middle; /* Ensures vertical centering */
-  }
-
-  .status-low-stock {
-    /* background: linear-gradient(45deg, #ff6b6b, #f56565);
-    animation: pulseWarning 2s infinite; */
-    /* box-shadow: 0 2px 2 px rgba(245, 101, 101, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2); */
-  
-    color: rgb(249, 45, 45);
-  
-  }
-
-  .status-instock {
-    color: rgb(1, 235, 1);
-    }
-
-
-  /* #productTable {
-    max-height: 450px;
-  }
-
-
-#productTable tr td p {
-  border: 2px solid #4CAF50; 
-  background-color: #f9f9f9; 
-  padding: 6px; 
-  margin: auto; 
-  border-radius: 18px; 
-  font-size: 16px; 
-  color: #333; 
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease; 
-  width: 100px;
+  position: relative;
+  display: inline-block;
 }
 
-#productTable tr td p:hover {
-  background-color: #e1f7e1;
-  border-color: #388E3C;
-  transform: scale(1.05); 
-} */
-
-
-/* Table container */
-
-
-
-
-/* Container for search bar and table */
-.table-container {
-  width: 100%;
-  margin: auto;
-  padding: 10px;
-  height: 60%;
-}
-
-/* Search bar */
-.table-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-#searchInput {
-  flex: 1;
-  padding: 14px 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-#searchBtn {
-  background: linear-gradient(135deg, #ff69b4, #ff1493);
-  color: white;
+/* Button for the three-dot menu */
+.dropbtn {
+  background: none;
   border: none;
-  padding: 6px 14px;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-right: 60%;
+  padding: 10px;
+  font-size: 20px;
+  color: #545a55;
 }
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  background: #f1f1f1 !important;
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 100%; /* Moves the dropdown to the left */
+  transform: translateY(-50%);
+  background-color: rgb(144, 144, 144);
+  min-width: 120px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  z-index: 1;
+}
+
+/* Links inside dropdown */
+.dropdown-content a {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: black;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+/* Show icons beside text */
+.dropdown-content a span {
+  margin-right: 8px;
+}
+
+/* Hover effect */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+#searchInput {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ff69b4; /* Pink border */
+  border-radius: 25px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+#searchInput:focus {
+  border-color: #ff1493; /* Darker pink when focused */
+  box-shadow: 0 0 8px rgba(255, 20, 147, 0.5);
+}
+
+#searchInput::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
 
 #searchBtn:hover {
   background: linear-gradient(135deg, #ff1493, #ff69b4);
   transform: scale(1.05);
 }
 
-/* Table */
-
-#productTable {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: Arial, sans-serif;
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 2%;
-}
-
-/* Optional: For making hidden rows completely transparent */
-#productTable tbody tr {
-  transition: opacity 0.3s ease; /* Smooth transition for visibility */
-}
-
-
-/* Table header */
 #productTable thead th {
-  padding: 16px 10px; /* Increased height, but kept width small */
+  padding: 16px 8px; /* Increased height, but kept width small */
   text-align: center;
   font-weight: bold;
-  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  background: linear-gradient(135deg, #ff7eb9, #ff61a6); /* Gradient from light to dark pink */
   color: white;
 }
 
-/* Table rows */
-#productTable tbody tr {
-  border-bottom: 1px solid #eee;
-  transition: background 0.3s ease;
-}
 
-#productTable tbody tr:hover {
-  background: rgba(255, 20, 147, 0.1);
-}
-
-/* Table cells - reduced padding */
-#productTable tbody td {
-  padding: 8px;
-  text-align: center;
-  font-size: 14px;
-}
-
-/* Hide DataTables default search bar */
-.dataTables_filter {
-  display: none;
-}
-
-
-/* Style for low stock (red) */
-.status-low-stock {
-  color: white;
-  background-color: red;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-/* Style for in stock (green) */
-.status-instock {
-  color: white;
-  background-color: rgb(0, 211, 0);
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-/* Style for low stock (red) */
-.status-low-stock {
-  color: rgb(255, 41, 41) !important;
-  padding: 5px 10px !important;
-  border-radius: 5px !important;
-}
-
-/* Style for in stock (green) */
-.status-instock {
-  color: rgb(0, 220, 0) !important;
-  padding: 5px 10px !important;
-  border-radius: 5px !important;
-}
-
-
-
-/* Dropdown menu */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropbtn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  color: #333;
-}
-
-.dropbtn:hover {
-  transform: scale(1.2);
-}
-
-/* Dropdown content */
-/* Style for the dropdown button */
-.dropbtn {
-  background-color: #4CAF50;
-  color: white;
+#productsTableBody td{
   padding: 10px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-/* Dropdown Content (hidden by default) */
-.dropdown-content {
-  display: none; /* Hidden initially */
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Hover effect for links */
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-/* Show the dropdown when the button is clicked */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-
-
-
-
-/* Dropdown menu */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropbtn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-  color: #333;
-  transition: transform 0.2s ease;
-}
-
-.dropbtn:hover {
-  transform: scale(1.2);
-}
-
-/* Dropdown content */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background: white;
-  min-width: 120px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  z-index: 10;
-}
-
-.dropdown-content a {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  text-decoration: none;
-  color: #333;
-  font-size: 14px;
-  transition: background 0.3s ease;
-}
-
-.dropdown-content a:hover {
-  background: rgba(255, 20, 147, 0.1);
-}
-
-.dropdown-content span {
-  margin-right: 8px;
-  font-size: 18px;
-  color: #ff1493;
-}
-
-/* Show dropdown on click */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-
-/* General Styles */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f8f9fa;
-}
-
-.stocks-container {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-h3 {
-  color: #333;
-  margin-bottom: 10px;
-}
-
-/* Stock Summary */
-/* General Styles */
-body {
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f9;
-}
-
-.stocks-container {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 30px;
-  background: linear-gradient(135deg, #ffffff, #f0f0f5);
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-h3 {
-  color: #333;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-/* Stock Summary */
-/* General Styles */
-body {
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f9;
-}
-
-.stocks-container {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 30px;
-  background: linear-gradient(135deg, #ffffff, #f0f0f5);
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-h3 {
-  color: #333;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-/* Stock Summary */
-.stock-summary {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  margin-top: 25px;
-}
-
-#add-products {
-  text-decoration: none;
-}
-
-@media (max-width: 768px) {
-  .stock-summary {
-      grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .stock-summary {
-      grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-.card {
-  background: white;
-  padding: 25px;
   text-align: center;
-  border-radius: 12px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  padding: 5px;
+}
+
+#pro-name {
+  margin-right: 40px;
+}
+
+#categoryWrapper {
   position: relative;
-  overflow: hidden;
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.icon {
-  font-size: 28px;
-  margin-bottom: 12px;
   display: inline-block;
+  width: 100%;
+  max-width: 180px;
 }
 
-.low-stock {
-  color: #ff6464;
-}
-
-.in-stock {
-  color: #40ff6d;
-}
-
-.waste {
-  color: #777;
-}
-
-.add {
-  color: #007bff;
-  font-size: 30px;
-}
-
-.card p {
-  font-size: 16px;
-  color: #666;
-}
-
-.card h3 {
-  font-size: 22px;
-  font-weight: 700;
-  color: #222;
-}
-
-/* Pagination */
-.pagination {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-}
-
-.pagination button {
-  background: #007bff;
-  color: white;
-  border: none;
+#categorySelect {
+  width: 100%;
   padding: 10px 15px;
-  margin: 0 6px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
-  font-weight: 500;
-}
-
-.pagination button:hover {
-  background: #0056b3;
-  transform: scale(1.1);
-}
-
-
-
-/* General styles for the body and container */
-body, html {
-  height: 100%;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
-}
-
-.container-fluid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  padding: 20px;
-}
-
-/* Card styling */
-.card {
-  width: 100%;
-  max-width: 800px; /* Max width of the card */
-  padding: 25px;
-  border-radius: 8px;
-  background-color: #fff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Title Styling */
-.card p.display-5 {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 16px;
+  background-color: white;
   color: #333;
-  margin-bottom: 10px;
-}
-
-.card p {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 20px;
-}
-
-/* Form groups and fields */
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  font-size: 1.1rem;
-  color: #333;
-  font-weight: 500;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 12px 15px;
-  font-size: 1rem;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  background-color: #f8f9fa;
-  color: #495057;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: #007bff;
+  border: 2px solid #69e6ff; /* Pink border */
+  border-radius: 25px;
   outline: none;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
-}
-
-.form-group textarea {
-  resize: vertical;
-}
-
-/* Button styling */
-button,
-a.btn {
-  padding: 12px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  appearance: none; /* Removes default dropdown styling */
+  transition: all 0.3s ease-in-out;
 }
 
-button[type="submit"] {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
+/* Add a custom dropdown arrow */
+#categoryWrapper::after {
+  content: "\25BC"; /* Unicode for down arrow */
+  font-size: 14px;
+  color: #ff69b4; /* Pink arrow */
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
-button[type="submit"]:hover {
-  background-color: #0056b3;
+#categorySelect:focus {
+  border-color: #ff1493; /* Darker pink when focused */
+  box-shadow: 0 0 8px rgba(255, 20, 147, 0.5);
 }
 
-a.btn.btn-outline-secondary {
-  background-color: transparent;
-  color: #333;
-  border: 1px solid #ced4da;
+.stocks-container {
+  margin-top: 50px;
 }
 
-a.btn.btn-outline-secondary:hover {
-  background-color: #f1f1f1;
+#add-product {
+  height: 135px;
 }
 
-/* Flex container for buttons */
-.d-flex {
-  display: flex;
-  gap: 1rem;
+#waste {
+  height: 135px;
 }
 
-.d-flex a,
-.d-flex button {
-  flex: 1;
+#date {
+  height: 135px;
 }
 
-/* Responsiveness */
-@media (max-width: 768px) {
-  .container-fluid {
-      padding: 10px;
-  }
-
-  .card {
-      padding: 20px;
-  }
-
-  .card p.display-5 {
-      font-size: 1.8rem;
-  }
-
-  .form-group {
-      margin-bottom: 15px;
-  }
-
-  .form-group input,
-  .form-group textarea {
-      font-size: 0.95rem;
-  }
-
-  .d-flex {
-      flex-direction: column;
-  }
-
-  .d-flex a,
-  .d-flex button {
-      flex: unset;
-      margin-bottom: 10px;
-  }
-}
-
-.container-fluid {
-  margin-top: 20%;
-
-}
-/* .display-5 {
-  margin-top: 20%;
-} */
-
-/* General container styling */
-.create_product_container {
-  width: 90%;
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-/* Form container with two columns */
-.edit-form,
-.create-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-}
-
-/* Left and Right Columns */
-.left-column, .right-column {
-  width: 48%;
-}
-
-/* Form input fields */
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 1.1rem;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
+/* Style for low-stock status */
+.status-low-stock {
+  color: #ff4d4d !important; /* White text */
+  padding: 5px 10px;
   border-radius: 5px;
-  background: #f9f9f9;
-  color: #333;
 }
 
-/* Button styles */
-.d-flex {
-  display: flex;
-  gap: 10px;
-}
-
-.btn {
-  padding: 12px;
-  font-size: 1rem;
+/* Style for instock status */
+.status-instock {
+  color: #0ee415!important; /* White text */
+  padding: 5px 10px;
   border-radius: 5px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s;
 }
 
-.btn-primary {
-  background-color: #007bff;
-  color: white;
-  border: none;
+#productTable th,
+#productTable td {
+    text-align: center; /* Center text */
+    vertical-align: middle; /* Center vertically */
 }
 
-.btn-primary:hover {
-  background-color: #0056b3;
+/* Total Products - Teal Border */
+#total-products {
+  border: 1px solid #12e0e0; /* Teal */
+
 }
 
-.btn-outline-secondary {
-  background-color: transparent;
-  color: #333;
-  border: 1px solid #ccc;
+/* Low Stock - Red Border */
+#low-stocks {
+  border: 1px solid #ff4848; /* Deep Red */
+
 }
 
-.btn-outline-secondary:hover {
-  background-color: #f1f1f1;
+/* In Stock - Green Border */
+#in-stocks {
+  border: 1px solid #21fb2c; /* Deep Green */
+
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .edit-form,
-  .create-form {
-      flex-direction: column;
-  }
+/* Waste - Orange Border */
+#waste {
+  border: 1px solid #f42020; /* Deep Orange */
 
-  .left-column, .right-column {
-      width: 100%;
-  }
+}
 
-  .d-flex {
-      flex-direction: column;
-  }
+/* Add Product - Purple Border */
+#add-product {
+  border: 1px solid #a028eb; /* Dark Purple */
+
+}
+
+/* Date Card - Blue Border */
+#date {
+  border: 1px solid #2b8eff; /* Deep Blue */
+
+}
+
+/* Icon Styling */
+.card .icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+/* Hover Effect */
+.card:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
