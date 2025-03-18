@@ -188,6 +188,14 @@
   box-sizing: border-box;
 }
 
+
+.nav-item .nav-link {
+  font-size: 18px;
+
+}
+
+
+
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;

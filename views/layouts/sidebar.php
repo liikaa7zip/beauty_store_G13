@@ -16,18 +16,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/inventory/products" class="nav-link">
                         <i class="nav-icon bi bi-box-seam-fill"></i>
-                        <p>Inventory<i class="nav-arrow bi bi-chevron-right"></i></p>
+                        <p>Inventory</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item"><a href="/inventory/products" class="nav-link"><i class="nav-icon bi bi-circle"></i>
-                                <p>Products</p>
-                            </a></li>
-                        <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-circle"></i>
-                                <p>Categories</p>
-                            </a></li>
-                    </ul>
                 </li>
                 <li class="nav-item"><a href="/promotion" class="nav-link"><i class="nav-icon bi bi-table"></i>
                         <p>Promotions</p>

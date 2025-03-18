@@ -1,3 +1,19 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Initialize $product to avoid undefined variable warnings
+$product = $product ?? [
+    'name' => '',
+    'price' => '',
+    'stock' => '',
+    'category_id' => '',
+    'status' => '',
+    'image' => ''
+];
+?>
+
 <div class="container mt-5">
     <h1 class="text-center mb-5">Create Product</h1>
 
@@ -11,7 +27,7 @@
             <div class="col-md-6">
                 <div class="mb-4">
                     <label for="name" class="form-label">Product Name</label>
-                    <input type="text" id="create-name" name="name" class="form-control form-control-lg" required>
+                    <input type="text" id="create-name" name="name" class="form-control form-control-lg" value="<?= htmlspecialchars($product['name']) ?>" required>
                 </div>
                 <div class="mb-4">
                     <label for="stocks" class="form-label">Stocks</label>
@@ -28,7 +44,9 @@
                     <label for="category_id" class="form-label">Category</label>
                     <select id="category_id" name="category_id" class="form-select form-select-lg" required>
                         <?php foreach ($categories as $category): ?>
-                            <option value="<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></option>
+                            <option value="<?= $category['id'] ?>" <?= $category['id'] == $product['category_id'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($category['name']) ?>
+                            </option>
                         <?php endforeach; ?>
                     </select>
                 </div>

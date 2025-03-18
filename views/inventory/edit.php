@@ -10,66 +10,69 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 
-<div class="create_product_container">
-    <h1 id="h1edit">Edit Product</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Edit Product</h1>
 
     <?php if (isset($_SESSION['error'])): ?>
         <div class="alert alert-danger"><?= $_SESSION['error'] ?></div>
         <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
-    <form method="POST" action="/inventory/products/update/<?php echo $product['id']; ?>" class="edit-form" enctype="multipart/form-data">
+    <form action="/inventory/products/update/<?= $product['id'] ?>" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= htmlspecialchars($product['id']) ?>">
 
-        <!-- Left Column -->
-        <div class="left-column">
-            <div class="form-group">
-                <label for="name">Product Name</label>
-                <input type="text" id="craete-name" name="name" class="form-control" value="<?php echo htmlspecialchars($product['name']); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="stocks">Stocks</label>
-                <input type="number" id="stocks" name="stocks" class="form-control" value="<?php echo htmlspecialchars($product['stocks']); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="price">Price</label>
-                <input type="text" id="price" name="price" class="form-control" value="<?php echo htmlspecialchars($product['price']); ?>" step="0.01" required>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="mb-4">
+                    <label for="edit-name" class="form-label">Product Name</label>
+                    <input type="text" id="edit-name" name="name" class="form-control form-control-lg" value="<?= htmlspecialchars($product['name']) ?>" required>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-stocks" class="form-label">Stocks</label>
+                    <input type="number" id="edit-stocks" name="stocks" class="form-control form-control-lg" value="<?= htmlspecialchars($product['stocks']) ?>" required>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-price" class="form-label">Price</label>
+                    <input type="text" id="edit-price" name="price" class="form-control form-control-lg" value="<?= htmlspecialchars($product['price']) ?>" required>
+                </div>
             </div>
 
-            <div class="d-flex gap-3 mt-3" id="btn-edit">
-            <a href="/inventory/products" class="btn btn-primary" id="backedit">Back</a>
-            <button type="submit" class="btn btn-primary" id="save-change">Save Changes</button>
-        </div>
+            <div class="col-md-6">
+                <div class="mb-4">
+                    <label for="edit-category_id" class="form-label">Category</label>
+                    <select id="edit-category_id" name="category_id" class="form-select form-select-lg" required>
+                        <?php foreach ($categories as $category): ?>
+                            <option value="<?= $category['id'] ?>" <?= $product['category_id'] == $category['id'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($category['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-description" class="form-label">Description</label>
+                    <textarea id="edit-description" name="description" class="form-control form-control-lg" rows="4"><?= htmlspecialchars($product['description']) ?></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="edit-productImage" class="form-label">Product Image</label>
+                    <input type="file" id="edit-productImage" name="productImage" class="form-control form-control-lg" accept="image/*">
+                    <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
+                        <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image mt-2">
+                    <?php else: ?>
+                        <img src="/path/to/default-image.jpg" alt="Default Image" class="product-image mt-2">
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
 
-        <!-- Right Column -->
-        <div class="right-column">
-            <div class="form-group">
-                <label for="category_id">Category</label>
-                <select id="category_id" name="category_id" class="form-control" required>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= $category['id'] ?>" <?= ($product['category_id'] == $category['id']) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($category['name']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" class="form-control"><?php echo htmlspecialchars($product['description']); ?></textarea>
-            </div>
-            <div class="form-group">
-                <label for="productImage">Product Image</label>
-                <input type="file" id="productImage" name="productImage" class="form-control" accept="image/*">
-                <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
-                    <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
-                <?php else: ?>
-                    <img src="/path/to/default-image.jpg" alt="Default Image" class="product-image">
-                <?php endif; ?>
-            </div>
+        <!-- Centering the buttons with matching padding -->
+        <div class="text-center mt-5">
+            <a href="/inventory/products" class="btn btn-secondary btn-lg px-5">Back</a>
+            <button type="submit" class="btn btn-primary btn-lg px-5" style="background-color: #FF1493; border: none;">SAVE CHANGES</button>
         </div>
     </form>
 </div>
+
+
 
 
 

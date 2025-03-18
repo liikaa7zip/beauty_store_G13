@@ -48,33 +48,168 @@
   background-color: #f1f1f1;
 }
 #searchInput {
-  flex: 1;
-  border: 1px solid #ddd;
-  padding: 2px;
-  border-radius: 6px;
-  font-size: 14px;
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ff69b4; /* Pink border */
+  border-radius: 25px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
 }
 
-#searchBtn {
-  background: linear-gradient(135deg, #ff69b4, #ff1493);
-  color: white;
-  border: none;
-  font-size: 14px;
-  padding: 2px;
-  font-weight: bold;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+#searchInput:focus {
+  border-color: #ff1493; /* Darker pink when focused */
+  box-shadow: 0 0 8px rgba(255, 20, 147, 0.5);
 }
+
+#searchInput::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
 
 #searchBtn:hover {
   background: linear-gradient(135deg, #ff1493, #ff69b4);
   transform: scale(1.05);
 }
+
 #productTable thead th {
-  padding: 16px 10px; /* Increased height, but kept width small */
+  padding: 16px 8px; /* Increased height, but kept width small */
   text-align: center;
   font-weight: bold;
-  background: rgb(189, 189, 189);
+  background: linear-gradient(135deg, #ff7eb9, #ff61a6); /* Gradient from light to dark pink */
   color: white;
+}
+
+
+#productsTableBody td{
+  padding: 10px;
+  text-align: center;
+  padding: 5px;
+}
+
+#pro-name {
+  margin-right: 40px;
+}
+
+#categoryWrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 180px;
+}
+
+#categorySelect {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: white;
+  color: #333;
+  border: 2px solid #69e6ff; /* Pink border */
+  border-radius: 25px;
+  outline: none;
+  cursor: pointer;
+  appearance: none; /* Removes default dropdown styling */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Add a custom dropdown arrow */
+#categoryWrapper::after {
+  content: "\25BC"; /* Unicode for down arrow */
+  font-size: 14px;
+  color: #ff69b4; /* Pink arrow */
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+#categorySelect:focus {
+  border-color: #ff1493; /* Darker pink when focused */
+  box-shadow: 0 0 8px rgba(255, 20, 147, 0.5);
+}
+
+.stocks-container {
+  margin-top: 50px;
+}
+
+#add-product {
+  height: 135px;
+}
+
+#waste {
+  height: 135px;
+}
+
+#date {
+  height: 135px;
+}
+
+/* Style for low-stock status */
+.status-low-stock {
+  color: #ff4d4d !important; /* White text */
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* Style for instock status */
+.status-instock {
+  color: #0ee415!important; /* White text */
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+#productTable th,
+#productTable td {
+    text-align: center; /* Center text */
+    vertical-align: middle; /* Center vertically */
+}
+
+/* Total Products - Teal Border */
+#total-products {
+  border: 1px solid #12e0e0; /* Teal */
+
+}
+
+/* Low Stock - Red Border */
+#low-stocks {
+  border: 1px solid #ff4848; /* Deep Red */
+
+}
+
+/* In Stock - Green Border */
+#in-stocks {
+  border: 1px solid #21fb2c; /* Deep Green */
+
+}
+
+/* Waste - Orange Border */
+#waste {
+  border: 1px solid #f42020; /* Deep Orange */
+
+}
+
+/* Add Product - Purple Border */
+#add-product {
+  border: 1px solid #a028eb; /* Dark Purple */
+
+}
+
+/* Date Card - Blue Border */
+#date {
+  border: 1px solid #2b8eff; /* Deep Blue */
+
+}
+
+/* Icon Styling */
+.card .icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+/* Hover Effect */
+.card:hover {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
