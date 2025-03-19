@@ -12,18 +12,14 @@ class UserController extends BaseController {
 
     // Login page view
     public function login() {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        session_start(); // This can be moved to a centralized location like BaseController
         session_destroy();
         $this->view('users/signUp');
     }
 
     // Store new user (SignUp)
     public function store() {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        session_start();
         if (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password'])) {
             $_SESSION['error'] = "All fields are required.";
             $this->redirect("/users/signUp");
@@ -56,9 +52,7 @@ class UserController extends BaseController {
 
     // Authenticate user (SignIn)
     public function authenticate() {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        session_start();
         if (empty($_POST['email']) || empty($_POST['password'])) {
             $_SESSION['error'] = "Email and password are required.";
             $this->redirect("/users/signIn");

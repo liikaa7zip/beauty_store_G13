@@ -16,6 +16,15 @@ class CategoryModel {
         $stmt = $this->db->query("SELECT * FROM categories");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function createCategories($category_name, $category_description) {
+        $sql = "INSERT INTO categories (name, description) VALUES (:name, :description)";
+        $stmt = $this->db->prepare($sql); // Use prepared statements
+        $stmt->bindParam(':name', $category_name, PDO::PARAM_STR);
+        $stmt->bindParam(':description', $category_description, PDO::PARAM_STR);
+        
+        return $stmt->execute(); // Returns true if successful
+    }
 }
 
 ?>

@@ -119,31 +119,33 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
 
-            <div class="row">
-                <div class="col-4">
-                <a href="javascript:void(0);" class="text-decoration-none" onclick="showModal()">
-    <div class="card" id="add-product">
-        <div class="icon add">➕</div>
-        <p>Add New Categories</p>
-    </div>
-</a>
+    <div class="row">
+        <div class="col-4">
+            <a href="javascript:void(0);" class="text-decoration-none" onclick="showModal()"><div class="card" id="add-product">
+            <div class="icon add">➕</div>
+            <p>Add New Categories</p>
+        </div>
+    </a>
 
 <!-- Modal for adding a category -->
 <div id="category-modal" class="category-modal" style="display:none;">
     <div class="modal-content">
         <h3>Create New Category</h3>
-        <form action="create_category.php" method="POST">
-            <label for="category-name" id="cate-name">Category Name:</label>
-            <input type="text" id="category-name" name="category_name" required>
+        <form action="/inventory/store" method="POST">
+    <label for="category-name">Category Name:</label>
+    <input type="text" id="category-name" name="category_name" required autocomplete="off">
 
-            <label for="category-description" id="cate-desc">Category Description:</label>
-            <textarea id="category-description" name="category_description" required></textarea>
+    <label for="category-description">Category Description:</label>
+    <textarea id="category-description" name="category_description" required></textarea>
 
-            <div class="modal-buttons">
-                <button type="submit" class="btn-primary" style="text-align: center;">Create Category</button>
-                <button type="button" onclick="hideModal()" class="btn-secondary">Cancel</button>
-            </div>
-        </form>
+    <input type="hidden" name="csrf_token" value="">
+
+    <div class="modal-buttons">
+        <button type="submit" class="btn-primary">Create Category</button>
+        <button type="button" onclick="hideModal()" class="btn-secondary">Cancel</button>
+    </div>
+</form>
+
     </div>
 </div>
 

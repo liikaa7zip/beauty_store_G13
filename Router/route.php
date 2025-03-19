@@ -6,6 +6,7 @@ require_once "Controllers/WelcomeController.php";
 require_once "Controllers/PromotionController.php";
 require_once "Controllers/ProductsController.php";
 require_once "Controllers/SalesController.php";
+require_once "Controllers/CategoryController.php";
 
 
 
@@ -40,7 +41,8 @@ $route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
 $route->get("/inventory/create", [ProductsController::class, 'create']);
 
 
-
+//Categories
+$route->post("/inventory/store", [CategoryController::class,'store']);
 
 //Promotion
 $route->get("/promotion", [PromotionController::class, 'index']);

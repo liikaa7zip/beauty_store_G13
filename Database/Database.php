@@ -17,11 +17,17 @@ class Database
             echo "Connection failed: " . $e->getMessage();
         }
     }
+
     function query($sql, $params = [])
     {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
         return $stmt;
+    }
+
+    function prepare($sql)
+    {
+        return $this->pdo->prepare($sql);
     }
 }
 ?>

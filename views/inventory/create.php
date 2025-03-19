@@ -3,13 +3,20 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+// Redirect if not logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /users/signIn");
+    exit();
+}
+
 // Initialize $product to avoid undefined variable warnings
 $product = $product ?? [
     'name' => '',
     'price' => '',
-    'stock' => '',
+    'stocks' => '',
     'category_id' => '',
     'status' => '',
+    'description' => '',
     'image' => ''
 ];
 ?>
@@ -31,7 +38,7 @@ $product = $product ?? [
                 </div>
                 <div class="mb-4">
                     <label for="stocks" class="form-label">Stocks</label>
-                    <input type="number" id="stocks" name="stocks" class="form-control form-control-lg" required>
+                    <input type="number" id="stocks" name="stocks" class="form-control form-control-lg" value="<?= htmlspecialchars($product['stocks']) ?>" required>
                 </div>
                 <div class="mb-4">
                     <label for="price" class="form-label">Price</label>
@@ -52,11 +59,14 @@ $product = $product ?? [
                 </div>
                 <div class="mb-4">
                     <label for="description" class="form-label">Description</label>
-                    <textarea id="description" name="description" class="form-control form-control-lg" rows="4"></textarea>
+                    <textarea id="description" name="description" class="form-control form-control-lg" rows="4" required><?= htmlspecialchars($product['description']) ?></textarea>
                 </div>
                 <div class="mb-4">
                     <label for="productImage" class="form-label">Product Image</label>
                     <input type="file" id="productImage" name="productImage" class="form-control form-control-lg" accept="image/*">
+                    <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
+                        <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image-preview">
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
