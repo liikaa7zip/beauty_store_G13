@@ -35,6 +35,8 @@
 
 
 
+
+
 /* Floating Animation */
 @keyframes float {
   0% {
@@ -367,7 +369,12 @@
   margin-left: 40%;
 }
 
-
+#addNewButton {
+  margin-left: 90%;
+  margin-top: -56px;
+  width: 130px;
+  padding: 12px;
+}
 
 
 

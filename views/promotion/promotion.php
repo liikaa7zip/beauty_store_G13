@@ -12,16 +12,10 @@ if (!isset($_SESSION['user_id'])) {
 <div class="header">
     <h1>Promotions</h1>
     <div class="search-container">
-        <div class="search-bar">
-            <div class="search-input">
-                <input type="text" id="searchInput" placeholder="Search promotions...">
-                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8" />
-                    <path d="m21 21-4.3-4.3" />
-                </svg>
-            </div>
+    <div class="search-bar">
+        <div class="search-input">
+            <input type="text" id="searchInput" placeholder="Search promotions...">
         </div>
-
         <a href="/promotion/create" class="btn btn-primary" id="addNewButton">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 12h14" />
@@ -30,6 +24,8 @@ if (!isset($_SESSION['user_id'])) {
             Add New
         </a>
     </div>
+</div>
+
 
     <?php if (empty($promotions)): ?>
         <div class="alert alert-info mt-5" role="alert">
