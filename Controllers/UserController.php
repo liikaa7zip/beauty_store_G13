@@ -19,7 +19,7 @@ class UserController extends BaseController {
         if (session_status() == PHP_SESSION_ACTIVE) {
             session_destroy();
         }
-        $this->view('users/signUp');
+        $this->view('/users/signUp');
     }
 
     // Store new user (SignUp)
