@@ -5,7 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Redirect if not logged in
 if (!isset($_SESSION['user_id']) && $_SERVER['REQUEST_URI'] !== '/users/signIn' && $_SERVER['REQUEST_URI'] !== '/users/signUp') {
-    header("Location: /users/signIn");
+    header("Location: /users/signUp");
     exit();
 }
 

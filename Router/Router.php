@@ -99,7 +99,11 @@ class Router
         }
 
         // Default route to sign-up page if no match found
-        header('Location: /users/signUp');
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /users/signUp');
+        } else {
+            header('Location: /dashboard/sell');
+        }
         exit();
     }
 }
