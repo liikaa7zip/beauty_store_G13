@@ -1,0 +1,221 @@
+/* Main Content Container */
+.main-content1 {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+/* Sales Section */
+.main-content1 .sales-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.main-content1 .sales-section h2 {
+    margin: 0 0 10px;
+    font-family: Arial, sans-serif;
+}
+
+.main-content1 .sales-section p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff4d94;
+    font-family: Arial, sans-serif;
+}
+
+.main-content1 .sales-section select {
+    margin-bottom: 10px;
+    padding: 5px;
+    font-family: Arial, sans-serif;
+}
+
+.main-content1 .sales-section .sales-chart {
+    display: flex;
+    gap: 10px;
+}
+
+.main-content1 .sales-section .sales-chart .bar {
+    width: 20px;
+    background-color: #ff4d94;
+    border-radius: 5px;
+}
+
+/* Stock Levels Section */
+.main-content1 .stock-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.main-content1 .stock-section h2 {
+    margin: 0 0 10px;
+    font-family: Arial, sans-serif;
+}
+
+.main-content1 .stock-section canvas#stockChart {
+    max-height: 200px;
+}
+
+/* Popular Products Section */
+.main-content1 .popular-products1 {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.main-content1 .popular-products1 h2 {
+    margin: 0 0 10px;
+    font-family: Arial, sans-serif;
+}
+
+/* Improved Add New Button (full-width, inline with table) */
+.main-content1 .popular-products1 .add-new-btn1 {
+    background-color: #ff4d94;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Remove position: absolute to make it inline */
+}
+
+/* Icon styling (for Bootstrap Icons) */
+.main-content1 .popular-products1 .add-new-btn1 .bi {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect */
+.main-content1 .popular-products1 .add-new-btn1:hover {
+    background-color: #e04385;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.main-content1 .popular-products1 .add-new-btn1:hover .bi {
+    transform: scale(1.2);
+}
+
+/* Active/Focus states */
+.main-content1 .popular-products1 .add-new-btn1:active {
+    transform: translateY(0);
+    background-color: #cc3d7b;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.main-content1 .popular-products1 .add-new-btn1:focus {
+    outline: 2px solid #ff80b3;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(255, 77, 148, 0.3);
+}
+
+/* Table Styles */
+.main-content1 .popular-products1 table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.main-content1 .popular-products1 table th,
+.main-content1 .popular-products1 table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+}
+
+.main-content1 .popular-products1 table th {
+    background-color: #f9f9f9; /* Light background for headers */
+}
+
+.main-content1 .popular-products1 table .status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: #fff;
+}
+
+.main-content1 .popular-products1 table .in-stock {
+    background-color: #28a745;
+}
+
+.main-content1 .popular-products1 table .low-stock {
+    background-color: #f1c40f;
+}
+
+.main-content1 .popular-products1 table .action-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 5px;
+    transition: color 0.3s ease;
+}
+
+/* Styles for new row inputs and buttons (from JS form) */
+.main-content1 .popular-products1 table input,
+.main-content1 .popular-products1 table select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.main-content1 .popular-products1 table input:focus,
+.main-content1 .popular-products1 table select:focus {
+    border-color: #ff4d94;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 77, 148, 0.3);
+}
+
+.main-content1 .popular-products1 table .save-btn,
+.main-content1 .popular-products1 table .cancel-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 5px;
+    transition: color 0.3s ease;
+}
+
+.main-content1 .popular-products1 table .save-btn {
+    color: #28a745;
+}
+
+.main-content1 .popular-products1 table .cancel-btn {
+    color: #dc3545;
+}
+
+.main-content1 .popular-products1 table .save-btn:hover {
+    color: #218838;
+}
+
+.main-content1 .popular-products1 table .cancel-btn:hover {
+    color: #c82333;
+}
+
+/* Pagination (commented out in HTML, included for completeness) */
+.main-content1 .popular-products1 .pagination1 {
+    text-align: right;
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+}

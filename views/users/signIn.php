@@ -11,6 +11,7 @@ if (isset($_SESSION['user_id'])) {
 }
 ?>
 
+
 <div class="user-container">
     <div class="form-container">
         <form id="signInForm" action="/users/authenticate" method="post">
@@ -35,14 +36,11 @@ if (isset($_SESSION['user_id'])) {
 
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            
+
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Enter your password" required>
-
-            <a class="signUp" href="/users/signUp">Register</a>
-            
             <button type="submit" id="submit">Login</button>
+            <p>Don't have an account?<a class="signUp" href="/users/signUp">Register</a></p>
         </form>
     </div>
 </div>
-

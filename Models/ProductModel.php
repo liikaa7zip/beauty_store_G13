@@ -6,6 +6,27 @@ class ProductModel {
         $this->db = new Database();
     }
 
+    public function getProductsByCategoryName($category_name = null) {
+        if ($category_name) {
+            $stmt = $this->db->prepare("SELECT * FROM products 
+                WHERE category_id = (SELECT id FROM categories WHERE name = ? LIMIT 1)");
+            $stmt->execute([$category_name]);
+        } else {
+            $stmt = $this->db->prepare("SELECT * FROM products");
+            $stmt->execute();
+        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Method to get products by category
+    public function getProductsByCategory($category_id) {
+        $sql = "SELECT products.*, categories.name AS category_name 
+                FROM products 
+                LEFT JOIN categories ON products.category_id = categories.id 
+                WHERE products.category_id = ?";
+        return $this->db->query($sql, [$category_id])->fetchAll();
+    }
+
     public function getAllProducts() {
         $stmt = $this->db->query("SELECT * FROM products");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -17,22 +38,24 @@ class ProductModel {
     }
 
     public function storeProduct($data) {
+        // Remove the dollar sign if it exists
+        $price = str_replace('$', '', $data['price']);
+        
         $sql = "INSERT INTO products (name, description, price, category_id, stocks, status, image) 
                 VALUES (:name, :description, :price, :category_id, :stocks, :status, :image)";
-    
+        
         $params = [
             ':name' => $data['name'],
             ':description' => $data['description'],
-            ':price' => $data['price'],
+            ':price' => (float)$price,  // Store as decimal without $
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
             ':status' => $data['status'],
-            ':image' => $data['image']  // Ensure the image path is saved in the database
+            ':image' => isset($data['image']) ? $data['image'] : ''
         ];
-    
+        
         return $this->db->query($sql, $params);
     }
-    
 
     public function updateProduct($id, $data) {
         $sql = "UPDATE products 
@@ -65,13 +88,16 @@ class ProductModel {
     }
 
     public function createProduct($data) {
-        $sql = "INSERT INTO products (name, stocks, category_id, status, image) VALUES (:name, :stocks, :category_id, :status, :image)";
+        $sql = "INSERT INTO products (name, description, price, category_id, stocks, status, image) 
+                VALUES (:name, :description, :price, :category_id, :stocks, :status, :image)";
         $params = [
             ':name' => $data['name'],
-            ':stocks' => $data['stocks'],
+            ':description' => isset($data['description']) ? $data['description'] : null,  // Optional, can be NULL
+            ':price' => $data['price'],
             ':category_id' => $data['category_id'],
+            ':stocks' => $data['stocks'],
             ':status' => $data['status'],
-            ':image' => $data['image']
+            ':image' => isset($data['image']) ? $data['image'] : null // Optional, can be NULL
         ];
         return $this->db->query($sql, $params);
     }

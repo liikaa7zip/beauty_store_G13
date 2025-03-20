@@ -76,6 +76,9 @@ class Router
      */
     public function route()
     {
+        // Assuming $db is created somewhere before this method is called
+        global $db; // Add this line to ensure $db is available
+
         foreach ($this->routes as $uri => $route) {
             // Convert route pattern to a regex that matches numbers (for IDs)
             $pattern = preg_replace('/\{[a-zA-Z0-9_]+\}/', '([0-9]+)', trim($uri, '/'));
@@ -85,7 +88,11 @@ class Router
                 $controllerClass = $route['action'][0];
                 $function = $route['action'][1];
 
-                $controller = new $controllerClass();
+                if ($controllerClass === 'CategoryController') {
+                    $controller = new $controllerClass($db);
+                } else {
+                    $controller = new $controllerClass();
+                }
                 $controller->$function(...$matches); // Pass extracted parameters
                 exit;
             }
@@ -95,3 +102,7 @@ class Router
         require_once 'views/errors/404.php';
     }
 }
+
+// Define the route for the products page
+$router = new Router();
+$router->get('/inventory/products', ['ProductController', 'index']);

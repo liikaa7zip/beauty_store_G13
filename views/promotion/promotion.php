@@ -38,7 +38,7 @@ if (!isset($_SESSION['user_id'])) {
     <?php else: ?>
     <?php endif; ?>
 </div>
-<div class="promotion-container">
+<div class="promotion-container grid">
     <?php foreach ($promotions as $promotion): ?>
         <div class="promotion-card">
             <div class="promotion-header"><?= htmlspecialchars($promotion['promotion_name']) ?></div>

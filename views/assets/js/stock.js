@@ -90,3 +90,42 @@ document.getElementById("searchBtn").addEventListener("click", function() {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const categorySelect = document.getElementById('categorySelect');
+    if (categorySelect) {
+        categorySelect.addEventListener('change', function() {
+            const categoryId = this.value;
+
+            fetch(`/path/to/filter?category=${categoryId}`)
+                .then(response => response.json())
+                .then(products => {
+                    const productsTableBody = document.getElementById('productsTableBody');
+                    if (productsTableBody) {
+                        productsTableBody.innerHTML = '';
+
+                        products.forEach(product => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${product.name}</td>
+                                <td>${product.category_name}</td>
+                                <td>${product.formatted_price}</td>
+                                <td><img src="${product.image}" alt="Product Image" width="50"></td>
+                            `;
+                            productsTableBody.appendChild(row);
+                        });
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    }
+});
+
+function handleCategoryChange() {
+    var categorySelect = document.getElementById("categorySelect");
+    var selectedValue = categorySelect.value;
+
+    if (selectedValue === "") {
+        // Redirect to the other page when "Select a category" is clicked
+        window.location.href = "other_page.php";  // Change "other_page.php" to your desired URL
+    }
+}
