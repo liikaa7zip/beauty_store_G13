@@ -38,7 +38,7 @@ if (!isset($_SESSION['user_id'])) {
     <?php else: ?>
     <?php endif; ?>
 </div>
-<div class="promotion-container grid">
+<div class="promotion-container m-0">
     <?php foreach ($promotions as $promotion): ?>
         <div class="promotion-card">
             <div class="promotion-header"><?= htmlspecialchars($promotion['promotion_name']) ?></div>
@@ -95,7 +95,7 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </div>
-        <?php require_once 'views/promotion/delete.php'; ?>
+        <?php require 'delete.php'; ?>
     <?php endforeach; ?>
 </div>
 

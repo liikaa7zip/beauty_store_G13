@@ -1,6 +1,6 @@
 <div class="modal fade" id="promotion<?= $promotion['id'] ?>" tabindex="-1" aria-labelledby="deletePromotionModalLabel<?= $promotion['id'] ?>" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg ">
+        <div class="modal-content ">
             <!-- Modal Header -->
             <div class="modal-header bg-light">
                 <h5 class="modal-title fw-bold d-flex align-items-center g-2" id="deletePromotionModalLabel<?= $promotion['id'] ?>">

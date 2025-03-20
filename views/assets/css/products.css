@@ -250,7 +250,7 @@
   animation: fadeIn 0.3s ease-out;
   position: relative;
   margin: auto;
-  margin-left: 35%;
+  /* margin-left: 35%; */
 }
 
 .modal-content h3 {

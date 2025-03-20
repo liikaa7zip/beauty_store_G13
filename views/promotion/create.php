@@ -37,7 +37,7 @@ if (session_status() == PHP_SESSION_NONE) {
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="promotion">
             <label for="validationCustom04" class="form-label">Promotion Status</label>
             <select class="form-select-promotion p-lg-18" id="validationCustom04" name="status" required>
                 <option selected disabled value="">Select the promotion status...</option>
@@ -47,7 +47,7 @@ if (session_status() == PHP_SESSION_NONE) {
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary" id="addpromotions">Create Promotion</button>
+        <button type="submit" class="btn btn-primary">Create Promotion</button>
     </form>
 </div>
 
