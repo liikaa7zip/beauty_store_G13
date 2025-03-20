@@ -156,7 +156,7 @@
           <!--begin::User Image-->
           <li class="user-header text-bg-primary">
             <img
-              src="../../dist/assets/img/user2-160x160.jpg"
+              src="views/assets/img/profile.jpg"
               class="rounded-circle shadow"
               alt="User Image" />
             <p>
@@ -179,7 +179,7 @@
           <!--begin::Menu Footer-->
           <li class="user-footer">
             <a href="#" class="btn btn-default btn-flat">Profile</a>
-            <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+            <a href="/users/signUp" class="btn btn-default btn-flat float-end">Sign out</a>
           </li>
           <!--end::Menu Footer-->
         </ul>

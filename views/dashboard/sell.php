@@ -21,27 +21,27 @@ if (!isset($_SESSION['user_id'])) {
 
 
     <section class="store-overview d-flex justify-content-evenly">
-        <div class="overview-card card p-3">
+        <div class="overview-card card p-3" id="total-card">
             <i class="fas fa-box-open overview-icon" id="total"></i>
             <h3 class="overview-title">Total Products</h3>
             <p class="overview-number">150</p>
         </div>
-        <div class="overview-card card p-3">
+        <div class="overview-card card p-3" id="employee-card">
             <i class="fas fa-users overview-icon" id="employee"></i>
             <h3 class="overview-title">Total Employees</h3>
             <p class="overview-number">25</p>
         </div>
-        <div class="overview-card card p-3">
+        <div class="overview-card card p-3" id="sale-card">
             <i class="fas fa-dollar-sign overview-icon" id="sale"></i>
             <h3 class="overview-title">Total Sales</h3>
             <p class="overview-number">$12,000</p>
         </div>
-        <div class="overview-card card p-3">
+        <div class="overview-card card p-3" id="orders-card">
             <i class="fas fa-shopping-cart overview-icon" id="orders"></i>
             <h3 class="overview-title">Total Orders</h3>
             <p class="overview-number">450</p>
         </div>
-        <div class="overview-card card p-3">
+        <div class="overview-card card p-3" id="users-card">
             <i class="fas fa-user-check overview-icon" id="users"></i>
             <h3 class="overview-title">Active Users</h3>
             <p class="overview-number">98</p>
@@ -57,16 +57,55 @@ if (!isset($_SESSION['user_id'])) {
     </section>
 
     <!-- Activity Feed Section -->
-    <section class="activity-feed card p-4">
-        <h3>Recent Activity</h3>
-        <ul>
-            <li>User "Jane" added a new product</li>
-            <li>Order #1254 completed successfully</li>
-            <li>User "Tom" updated profile information</li>
-            <li>New stock of product "Laptop XYZ" received</li>
-            <li>Order #1200 shipped to customer</li>
-        </ul>
+    <div class="dashboard-container">
+    <!-- Activity Feed Section -->
+    <section class="activity-feed">
+    <h3>Recent Activity</h3>
+    <ul class="activity-list">
+        <li class="activity-item">
+            <div class="activity-icon icon-product">🛒</div>
+            <div class="activity-details">
+                <strong>User "Jane"</strong> added a new product  
+                <div class="activity-time">10 mins ago</div>
+            </div>
+        </li>
+        <li class="activity-item">
+            <div class="activity-icon icon-order">✅</div>
+            <div class="activity-details">
+                <strong>Order #1254</strong> completed successfully  
+                <div class="activity-time">30 mins ago</div>
+            </div>
+        </li>
+        <li class="activity-item">
+            <div class="activity-icon icon-user">👤</div>
+            <div class="activity-details">
+                <strong>User "Tom"</strong> updated profile information  
+                <div class="activity-time">1 hour ago</div>
+            </div>
+        </li>
+        <li class="activity-item">
+            <div class="activity-icon icon-stock">📦</div>
+            <div class="activity-details">
+                <strong>New stock</strong> of product "Laptop XYZ" received  
+                <div class="activity-time">3 hours ago</div>
+            </div>
+        </li>
+        <li class="activity-item">
+            <div class="activity-icon icon-order">🚚</div>
+            <div class="activity-details">
+                <strong>Order #1200</strong> shipped to customer  
+                <div class="activity-time">5 hours ago</div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+    <!-- Bar Chart Section -->
+    <section class="chart-container">
+        <h3>Product Sales</h3>
+        <canvas id="productChart"></canvas>
     </section>
+</div>
 
     <!-- Motivational Section -->
     <section class="motivational p-4">
@@ -118,4 +157,27 @@ if (!isset($_SESSION['user_id'])) {
             }
         });
     };
+
+    document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById('productChart').getContext('2d');
+            var productChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Product A', 'Product B', 'Product C', 'Product D'],
+                    datasets: [{
+                        label: 'Sales',
+                        data: [150, 200, 180, 120],
+                        backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
 </script>

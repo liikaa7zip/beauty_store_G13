@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_id'])) {
         <div class="table-container">
             <!-- Custom Search Bar -->
             <div class="table-header">
-                <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
+                <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()" >
 
             <!-- Category Filter Dropdown -->
                 <div id="categoryWrapper">
@@ -132,16 +132,16 @@ if (!isset($_SESSION['user_id'])) {
     <div class="modal-content">
         <h3>Create New Category</h3>
         <form action="/inventory/store" method="POST">
-    <label for="category-name">Category Name:</label>
+    <label for="category-name" id="cat-name">Category Name:</label>
     <input type="text" id="category-name" name="category_name" required autocomplete="off">
 
-    <label for="category-description">Category Description:</label>
+    <label for="category-description" id="cat-desc">Category Description:</label>
     <textarea id="category-description" name="category_description" required></textarea>
 
     <input type="hidden" name="csrf_token" value="">
 
     <div class="modal-buttons">
-        <button type="submit" class="btn-primary">Create Category</button>
+        <button type="submit" class="cat-btn">Create Category</button>
         <button type="button" onclick="hideModal()" class="btn-secondary">Cancel</button>
     </div>
 </form>

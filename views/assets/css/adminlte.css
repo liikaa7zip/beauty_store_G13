@@ -188,6 +188,183 @@
   box-sizing: border-box;
 }
 
+.store-overview {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 20px;
+  padding: 20px;
+}
+
+.overview-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 20px;
+  width: 220px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.overview-card:hover {
+  transform: translateY(-5px);
+}
+
+#total {
+  color: #ff4500;
+}
+
+#employee {
+  color: #1e90ff;
+}
+
+#sale {
+  color: #32cd32;
+}
+
+#orders {
+  color: #ff8c00;
+}
+
+#users {
+  color: #8a2be2;
+}
+
+.overview-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.overview-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.overview-number {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+#total-card {
+  background-color: #ffebcd;
+}
+
+#employee-card {
+  background-color: #e6f7ff;
+}
+
+#sale-card {
+  background-color: #e6ffe6;
+}
+
+#orders-card {
+  background-color: #fff5e6;
+}
+
+#users-card {
+  background-color: #f3e6ff;
+}
+
+@media (max-width: 768px) {
+  .store-overview {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .overview-card {
+      width: 90%;
+  }
+}
+
+.activity-feed {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+}
+.activity-feed h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+.activity-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.activity-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+.activity-icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.icon-product { background: #ff6384; color: white; }
+.icon-order { background: #36a2eb; color: white; }
+.icon-user { background: #ffce56; color: white; }
+.icon-stock { background: #4bc0c0; color: white; }
+.activity-details {
+  flex-grow: 1;
+}
+.activity-time {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+
+.dashboard-container {
+  display: flex;
+  gap: 20px;
+}
+.activity-feed {
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.chart-container {
+  flex: 2;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+canvas {
+  width: 100%;
+  height: 400px;
+}
+
+.motivational {
+  background: linear-gradient(135deg, #60b0ad, #fad0c4);
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.motivational h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.motivational p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
 
 .nav-item .nav-link {
   font-size: 18px;

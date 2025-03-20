@@ -39,17 +39,7 @@
                 <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>
                         <p>Histories</p>
                     </a></li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-box-arrow-in-right"></i>
-                        <p>Auth &nbsp;<i class="nav-arrow bi bi-chevron-right"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item d-flex"><a href="/users/signUp" class="nav-link"><i class="nav-icon bi bi-box-arrow-in-right"></i>
-                                <p style="font-size: 18px;">SignOut</p>
-                            </a></li>
-                    </ul>
-                </li>
+
             </ul>
         </nav>
     </div>
