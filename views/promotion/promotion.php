@@ -83,10 +83,10 @@ if (!isset($_SESSION['user_id'])) {
                 <button class="more-button" onclick="toggleDropdown(this)">&#x22EE;</button>
                 <div class="dropdown-menu">
                     <a href="/promotion/edit/<?= $promotion['id'] ?>" class="edit-button d-flex flex-row align-items-center gap-2 fw-bold">
-                        <span class="material-symbols-outlined" id="edit">edit</span> Edit
+                        <span class="material-symbols-outlined" id="edit" style="color:pink;">edit</span> Edit
                     </a>
                     <a href="/promotion/delete/<?= $promotion['id'] ?>" class="delete-button d-flex flex-row align-items-center gap-2 fw-bold" data-bs-toggle="modal" data-bs-target="#promotion<?= $promotion['id'] ?>">
-                        <span class="material-symbols-outlined" id="delete">delete</span> Delete
+                        <span class="material-symbols-outlined" id="delete" style="color:red;">delete</span> Delete
                     </a>
                 </div>
             </div>
