@@ -98,8 +98,9 @@ class Router
             }
         }
 
-        http_response_code(404);
-        require_once 'views/errors/404.php';
+        // Default route to sign-up page if no match found
+        header('Location: /users/signUp');
+        exit();
     }
 }
 
