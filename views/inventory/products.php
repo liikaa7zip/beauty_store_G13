@@ -17,7 +17,7 @@ if (!isset($_SESSION['user_id'])) {
             <!-- Custom Search Bar -->
             <div class="table-header">
                 <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()" >
-
+                
             <!-- Category Filter Dropdown -->
                 <div id="categoryWrapper">
                      <select id="categorySelect" name="category">
@@ -30,6 +30,14 @@ if (!isset($_SESSION['user_id'])) {
                     </select>
                 </div>
             </div>
+
+            <a href="/inventory/create" class="btn btn-primary" id="addNewButton">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+            </svg>
+            Add New
+        </a>
         </div>
 
         <!-- Table -->

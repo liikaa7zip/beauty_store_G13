@@ -13,48 +13,27 @@ class UserController extends BaseController {
         $this->users = new UserModel();
     }
 
-    // Login page view
-    public function login() {
-        // Destroy any existing session
-        if (session_status() == PHP_SESSION_ACTIVE) {
-            session_destroy();
+    public function login()
+    {
+        // Implement the login logic here
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate and authenticate user
+            // For example:
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            // Check credentials and set session
+            $_SESSION['user_id'] = 1; // Example user ID
+            $this->redirect('/dashboard/sell');
+        } else {
+            $this->view('users/signIn');
         }
-        $this->view('/users/signUp');
     }
 
-    // Store new user (SignUp)
-    public function store() {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        if (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password'])) {
-            $_SESSION['error'] = "All fields are required.";
-            $this->redirect("/users/signUp");
-            return;
-        }
-
-        $username = htmlentities($_POST['username']);
-        $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
-        $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
-        $role = 'user';
-        
-        if ($this->users->getUserByUsername($username)) {
-            $_SESSION['error'] = "Username already exists.";
-            $this->redirect("/users/signUp");
-            return;
-        }
-
-        if ($this->users->getUserByEmail($email)) {
-            $_SESSION['error'] = "Email already exists.";
-            $this->redirect("/users/signUp");
-            return;
-        }
-        
-        // Create the user and redirect
-        $this->users->createUser($username, $email, $encrypted_password, $role);
-        $_SESSION['success'] = "Account created successfully!";
-        $this->redirect("/users/signIn");
+    public function logout()
+    {
+        // Implement the logout logic here
+        session_destroy();
+        $this->redirect('/users/signIn');
     }
 
     // Authenticate user (SignIn)
@@ -99,18 +78,5 @@ class UserController extends BaseController {
         }
     }
 
-    // SignUp page view
-    public function signUp() {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        if (isset($_SESSION['user_id'])) {
-            $this->redirect("/dashboard/sell");
-        } else {
-            // Check for any errors in session
-            $error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
-            $this->view('users/signUp', ['error' => $error]);
-        }
-    }
 }
 ?>

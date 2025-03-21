@@ -4,8 +4,8 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Redirect if not logged in
-if (!isset($_SESSION['user_id']) && $_SERVER['REQUEST_URI'] !== '/users/signIn' && $_SERVER['REQUEST_URI'] !== '/users/signUp') {
-    header("Location: /users/signUp");
+if (!isset($_SESSION['user_id']) && $_SERVER['REQUEST_URI'] !== '/users/signIn') {
+    header("Location: /users/signIn");
     exit();
 }
 
@@ -19,3 +19,19 @@ if (isset($_SESSION['user_id'])) {
 <?= $content; ?>
 
 <?php require_once('layouts/footer.php'); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ...existing code... -->
+</head>
+<body>
+    <!-- ...existing code... -->
+    <nav>
+        <!-- ...existing code... -->
+        <!-- Remove the sign-up link -->
+        <!-- <a href="/signUp">Sign Up</a> -->
+        <!-- ...existing code... -->
+    </nav>
+    <!-- ...existing code... -->
+</body>
+</html>

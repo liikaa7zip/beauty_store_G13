@@ -381,3 +381,50 @@
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
+#create-name {
+  width: 50%;
+  margin-left: 45%;
+}
+
+#category_id {
+  width: 50%;
+  margin-left: 20px;
+}
+
+#stocks {
+  width: 50%;
+  margin-left: 45%;
+}
+
+#price {
+  width: 50%;
+  margin-left: 20px;
+}
+
+#description {
+  width: 55%;
+  margin-left: 22%;
+}
+
+#productImage {
+  width: 55%;
+  margin-left: 22%;
+}
+
+#pro-create {
+  width: 55%;
+  margin-top: -30px;
+}
+
+#name-create {
+  margin-left: 45%;
+}
+
+#name-created {
+  margin-left: 22%;
+}
+
+#cat-create {
+  margin-left: 20px;
+}

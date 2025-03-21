@@ -98,9 +98,9 @@ class Router
             }
         }
 
-        // Default route to sign-up page if no match found
+        // Default route to login page if no match found
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /users/signUp');
+            header('Location: /users/signIn');
         } else {
             header('Location: /dashboard/sell');
         }
@@ -111,3 +111,4 @@ class Router
 // Define the route for the products page
 $router = new Router();
 $router->get('/inventory/products', ['ProductController', 'index']);
+$router->post('/users/login', ['UserController', 'login']);
