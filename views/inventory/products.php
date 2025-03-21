@@ -14,12 +14,41 @@ if (!isset($_SESSION['user_id'])) {
     <h1 id="h1-products">Products Page</h1>
 
     <div class="container mt-4">
+        <div class="table-container">
+    <!-- Table Header with Search Bar and Action Buttons -->
+            <div class="table-header">
+              <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
+                <button id="searchBtn">Search</button>
+              </div>
+              <div class="action-buttons">
+              <button class="import-btn" onclick="triggerImport(); console.log('Import button clicked');">
+                    <i class="fa fa-upload"></i> Import
+              </button>
+              <!-- Export button using JavaScript -->
+              <button class="export-btn" onclick="exportToExcel(); console.log('Export button clicked');">
+                    <i class="fa fa-download"></i> Export
+              </button>
+              </div>
+            </div>
+    <!-- <h1 id="h1-products">Products Page</h1>
+
+    <div class="container mt-4">
     <div class="table-container">
-  <!-- Custom Search Bar -->
+  Custom Search Bar
   <div class="table-header">
     <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
     <button id="searchBtn">Search</button>
-</div>
+  </div>
+
+  <div class="action-buttons">
+    <button id="importBtn" class="import-btn">
+        <i class="fa fa-upload"></i> Import
+    </button>
+    <button id="exportBtn" class="export-btn">
+        <i class="fa fa-download"></i> Export
+    </button>
+  </div> -->
 
 
   <!-- Table -->
@@ -104,9 +133,16 @@ if (!isset($_SESSION['user_id'])) {
 </div>
 </div>
 
-
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<div id="notification" class="toast position-fixed top-0 end-0 m-3" role="alert" aria-live="assertive" aria-atomic="true" style="min-width: 300px;">
+    <div class="toast-header">
+      <strong class="me-auto">Import Status</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body">
+      <span id="fileName"></span> (<span id="fileSize"></span>) - <span id="status"></span>
+    </div>
+  </div>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -146,7 +182,6 @@ $(document).ready(function() {
 });
 });
 </script>
-
 
 
 <!-- <script>

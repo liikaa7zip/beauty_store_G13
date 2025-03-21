@@ -5,6 +5,9 @@ require_once "Database/Database.php";
 require_once "Controllers/WelcomeController.php";
 require_once "Controllers/PromotionController.php";
 require_once "Controllers/ProductsController.php";
+require_once "Controllers/ExportController.php";
+require_once "Controllers/ImportController.php";
+
 
 
 
@@ -12,6 +15,8 @@ require_once "Controllers/ProductsController.php";
 require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
+require_once "Models/ExportModel.php";
+require_once "Models/ImportModel.php";
 
 $route = new Router();
 $route->get("/", [UserController::class, 'login']);

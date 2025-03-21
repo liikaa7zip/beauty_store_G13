@@ -2,7 +2,6 @@
 //     var dropdown = button.nextElementSibling; // Get the dropdown content
 //     dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
 
-<<<<<<< HEAD
 //     // Close dropdown if clicking outside
 //     document.addEventListener("click", function (event) {
 //         if (!button.contains(event.target) && !dropdown.contains(event.target)) {
@@ -10,14 +9,13 @@
 //         }
 //     }, { once: true }); // Ensures only one event listener runs at a time
 // }
-=======
     // Close the dropdown when clicking outside
     document.addEventListener("click", function(event) {
         if (!button.contains(event.target) && !dropdown.contains(event.target)) {
             dropdown.style.display = "none"; // Close the dropdown if the click is outside the button or dropdown
         }
     }, { once: true }); // Ensure this event listener runs only once
-}
+
 
 // Confirmation for Delete action
 function confirmDelete(event) {
@@ -93,4 +91,3 @@ document.getElementById("searchBtn").addEventListener("click", function() {
     });
 });
 
->>>>>>> 977ffc5171039955e3f06c849cf82adcef7b70de
