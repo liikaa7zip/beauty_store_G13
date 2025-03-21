@@ -16,7 +16,7 @@ require_once "Controllers/EmployeeController.php";
 require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
-require_once "Models/SalesModel.php";
+
 
 $route = new Router();
 $route->get("/", [UserController::class, 'login']);
@@ -55,8 +55,11 @@ $route->delete("/promotion/delete/{id}", [PromotionController::class, 'delete'])
 
 //Employees
 $route->get("/employees", [EmployeeController::class, 'index']);
+
+
 //Sales
 $route->get("/sales", [SalesController::class, 'index']);
+
 
 
 // Dashboard
