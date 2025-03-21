@@ -31,6 +31,7 @@
     <script src="../views/assets/js/user.js"></script>
     <script src="../views/assets/js/stock.js"></script>
     <script src="../views/assets/js/add.js"></script>
+    <script src="/views/assets/js/products.js"></script>
 
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script src="../assets/js/promotion.js"></script>

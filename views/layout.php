@@ -28,10 +28,9 @@ if (isset($_SESSION['user_id'])) {
     <!-- ...existing code... -->
     <nav>
         <!-- ...existing code... -->
-        <!-- Remove the sign-up link -->
-        <!-- <a href="/signUp">Sign Up</a> -->
-        <!-- ...existing code... -->
     </nav>
     <!-- ...existing code... -->
+    <!-- Include the XLSX library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 </body>
 </html>

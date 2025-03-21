@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 <div class="products_container">
     <h1 id="h1-products">Products List</h1>
     <div class="container mt-4">
-    <div class="table-container">
+        <div class="table-container">
     <div class="table-header">
         <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
         
@@ -82,19 +82,19 @@ if (!isset($_SESSION['user_id'])) {
                             <?= ucfirst(htmlspecialchars($product['status'])) ?>
                         </td>
                         <td>
-                            <div class="dropdown">
-                                <button class="dropbtn btn btn-sm" onclick="toggleDropdown(this)">
-                                    <span class="material-symbols-outlined">more_horiz</span>
-                                </button>
-                                <div class="dropdown-content" style="display: none;">
-                                    <a href="/inventory/edit/<?= $product['id'] ?>">
-                                        <span class="material-symbols-outlined">border_color</span> Edit
-                                    </a>
-                                    <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
-                                        <span class="material-symbols-outlined">delete</span> Delete
-                                    </a>
-                                </div>
+                        <div class="dropdown">
+                            <button class="dropbtn btn btn-sm" onclick="toggleDropdown(this)">
+                                 <span class="material-symbols-outlined">more_horiz</span>
+                            </button>
+                            <div class="dropdown-content" style="display: none;">
+                                <a href="/inventory/edit/<?= $product['id'] ?>">
+                                    <span class="material-symbols-outlined">border_color</span> Edit
+                                </a>
+                                <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
+                                    <span class="material-symbols-outlined">delete</span> Delete
+                                </a>
                             </div>
+                        </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>
