@@ -7,6 +7,7 @@ require_once "Controllers/PromotionController.php";
 require_once "Controllers/ProductsController.php";
 require_once "Controllers/SalesController.php";
 require_once "Controllers/CategoryController.php";
+require_once "Controllers/EmployeeController.php";
 
 
 
@@ -52,6 +53,8 @@ $route->post("/promotion/store", [PromotionController::class, 'store']);
 $route->put("/promotion/update/{id}", [PromotionController::class, 'update']);
 $route->delete("/promotion/delete/{id}", [PromotionController::class, 'delete']);
 
+//Employees
+$route->get("/employees", [EmployeeController::class, 'index']);
 //Sales
 $route->get("/sales", [SalesController::class, 'index']);
 
