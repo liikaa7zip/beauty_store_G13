@@ -13,32 +13,33 @@ if (!isset($_SESSION['user_id'])) {
 <div class="products_container">
     <h1 id="h1-products">Products List</h1>
     <div class="container mt-4">
-        <div class="table-container">
-            <!-- Custom Search Bar -->
-            <div class="table-header">
-                <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()" >
-                
-            <!-- Category Filter Dropdown -->
-                <div id="categoryWrapper">
-                     <select id="categorySelect" name="category">
-                        <option value="">Select a category</option>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= $category['id'] ?>">
+    <div class="table-container">
+    <div class="table-header">
+        <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
+        
+        <div id="categoryWrapper">
+            <select id="categorySelect" name="category">
+                <option value="">Select a category</option>
+                <?php foreach ($categories as $category): ?>
+                    <option value="<?= $category['id'] ?>">
                         <?= htmlspecialchars($category['name']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-
-            <a href="/inventory/create" class="btn btn-primary" id="addNewButton">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14" />
-                <path d="M12 5v14" />
-            </svg>
-            Add New
-        </a>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
+
+        <div class="spacer"></div>
+
+        <div class="action-buttons">
+            <button class="import-btn" onclick="triggerImport(); console.log('Import button clicked');">
+                <i class="fa fa-upload"></i> Import
+            </button>
+            <button class="export-btn" onclick="exportToExcel(); console.log('Export button clicked');">
+                <i class="fa fa-download"></i> Export
+            </button>
+        </div>
+    </div>
+</div>
 
         <!-- Table -->
         <table id="productTable" class="table table-striped table-bordered display">
