@@ -5,6 +5,10 @@ require_once "Database/Database.php";
 require_once "Controllers/WelcomeController.php";
 require_once "Controllers/PromotionController.php";
 require_once "Controllers/ProductsController.php";
+require_once "Controllers/SalesController.php";
+require_once "Controllers/CategoryController.php";
+require_once "Controllers/EmployeeController.php";
+
 
 
 
@@ -12,6 +16,7 @@ require_once "Controllers/ProductsController.php";
 require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
+require_once "Models/SalesModel.php";
 
 $route = new Router();
 $route->get("/", [UserController::class, 'login']);
@@ -37,9 +42,8 @@ $route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
 $route->get("/inventory/create", [ProductsController::class, 'create']);
 
 
-
-
-
+//Categories
+$route->post("/inventory/store", [CategoryController::class,'store']);
 
 //Promotion
 $route->get("/promotion", [PromotionController::class, 'index']);
@@ -48,6 +52,12 @@ $route->get("/promotion/edit/{id}", [PromotionController::class, 'edit']);
 $route->post("/promotion/store", [PromotionController::class, 'store']);
 $route->put("/promotion/update/{id}", [PromotionController::class, 'update']);
 $route->delete("/promotion/delete/{id}", [PromotionController::class, 'delete']);
+
+//Employees
+$route->get("/employees", [EmployeeController::class, 'index']);
+//Sales
+$route->get("/sales", [SalesController::class, 'index']);
+
 
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);

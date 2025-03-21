@@ -7,19 +7,26 @@ class UserController extends BaseController {
     private $users;
 
     public function __construct() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $this->users = new UserModel();
     }
 
     // Login page view
     public function login() {
-        session_start(); // This can be moved to a centralized location like BaseController
-        session_destroy();
-        $this->view('users/signUp');
+        // Destroy any existing session
+        if (session_status() == PHP_SESSION_ACTIVE) {
+            session_destroy();
+        }
+        $this->view('/users/signUp');
     }
 
     // Store new user (SignUp)
     public function store() {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if (empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password'])) {
             $_SESSION['error'] = "All fields are required.";
             $this->redirect("/users/signUp");
@@ -52,7 +59,9 @@ class UserController extends BaseController {
 
     // Authenticate user (SignIn)
     public function authenticate() {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if (empty($_POST['email']) || empty($_POST['password'])) {
             $_SESSION['error'] = "Email and password are required.";
             $this->redirect("/users/signIn");
@@ -78,6 +87,9 @@ class UserController extends BaseController {
 
     // SignIn page view
     public function signIn() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if (isset($_SESSION['user_id'])) {
             $this->redirect("/dashboard/sell");
         } else {
@@ -86,6 +98,19 @@ class UserController extends BaseController {
             $this->view('users/signIn', ['error' => $error]);
         }
     }
-}
 
+    // SignUp page view
+    public function signUp() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (isset($_SESSION['user_id'])) {
+            $this->redirect("/dashboard/sell");
+        } else {
+            // Check for any errors in session
+            $error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
+            $this->view('users/signUp', ['error' => $error]);
+        }
+    }
+}
 ?>

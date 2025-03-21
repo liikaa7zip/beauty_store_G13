@@ -5,7 +5,7 @@
 
 .header h1 {
   font-size: 1.75rem;
-  margin-bottom: 1rem;
+  margin-top: 40px;
 }
 
 /* Container for search bar and Add New button */
@@ -13,6 +13,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  
 }
 
 .search-input input {
@@ -35,6 +36,9 @@
 
 
 
+
+
+
 /* Floating Animation */
 @keyframes float {
   0% {
@@ -48,22 +52,37 @@
 
 
 .promotion-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 15px;
-  padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    padding: 20px;
+    margin: 20px;
 }
 
 .promotion-card {
-  position: relative; /* Ensure dropdown is inside the card */
-  background: #fff;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-  border-left: 5px solid #ff69b4; /* Pink Theme */
-  transition: transform 0.2s;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    border-left: 5px solid #ff69b4;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    position: relative;
+    transition: transform 0.2s ease;
 }
 
+/* Responsive grid adjustments */
+@media (max-width: 1200px) {
+    .promotion-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .promotion-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}
 .promotion-card:hover {
   transform: scale(1.02);
 }
@@ -153,6 +172,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   padding: 16px;
+  text-align: center;
 }
 
 .card-header1 {
@@ -256,7 +276,7 @@
 
 .promotion input:focus,
 .promotion textarea:focus,
-.promotion select:focus {
+.col-md-12 select:focus {
   border-color: #ff69b4;
   outline: none;
 }
@@ -273,7 +293,7 @@
 }
 
 .promotion select {
-  padding: 12px;
+    padding: 18px;
 }
 
 #statuss {
@@ -351,7 +371,12 @@
   margin-left: 40%;
 }
 
-
+#addNewButton {
+  margin-left: 90%;
+  margin-top: -75px;
+  width: 130px;
+  padding: 12px;
+}
 
 
 
@@ -363,4 +388,104 @@
   }
 }
 
+.datepicker {
+  background-color: #fff;
+  cursor: pointer;
+  border: 1px solid #ced4da; /* Add a border for better visibility */
+  border-radius: 4px; /* Rounded corners */
+  padding: 8px 12px; /* Padding for better spacing */
+  font-size: 14px; /* Consistent font size */
+  color: #495057; /* Text color */
+}
 
+.datepicker:focus {
+  border-color: #80bdff; /* Highlight border on focus */
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Bootstrap-like focus shadow */
+}
+
+/* Datepicker dropdown styling */
+.datepicker-dropdown {
+  border-radius: 8px; /* Slightly larger radius for a modern look */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Softer shadow for depth */
+  padding: 12px;
+  position: absolute;
+  z-index: 1000;
+  top: 100%;
+  left: 0;
+  max-width: 250px; /* Maximum width for dropdown */
+  overflow-y: auto; /* Enable scrolling if needed */
+  max-height: 200px; /* Maximum height for dropdown */
+  margin-top: 8px;
+  width: fit-content;
+  background-color: #fff; /* Ensure background is white */
+  border: 1px solid #e9ecef; /* Light border for definition */
+}
+
+/* Datepicker table styling */
+.datepicker-dropdown table {
+  width: 100%;
+  margin: 0;
+}
+
+.datepicker-dropdown table th,
+.datepicker-dropdown table td {
+  text-align: center;
+  padding: 8px; /* Better spacing */
+  font-size: 14px; /* Consistent font size */
+}
+
+.datepicker-dropdown table th {
+  font-weight: 600; /* Bold headers */
+  color: #495057; /* Darker text for headers */
+}
+
+.datepicker-dropdown table td {
+  color: #495057; /* Default text color */
+  border-radius: 4px; /* Rounded corners for cells */
+}
+
+.datepicker-dropdown table td.day:hover {
+  background-color: #f8f9fa; /* Light hover effect */
+  cursor: pointer;
+}
+
+.datepicker-dropdown table td.old,
+.datepicker-dropdown table td.new {
+  color: #adb5bd; /* Faded color for non-current month days */
+}
+
+.datepicker-dropdown table td.active,
+.datepicker-dropdown table td.active:hover {
+  background-color: #007bff; /* Primary color for selected date */
+  color: #fff; /* White text for contrast */
+  border-radius: 4px; /* Rounded corners for active date */
+}
+
+.datepicker-dropdown table td.today {
+  background-color: #e9ecef; /* Light background for today's date */
+  color: #495057; /* Dark text for visibility */
+  font-weight: 600; /* Bold text for today's date */
+}
+
+.datepicker-dropdown table td.today.active {
+  background-color: #007bff; /* Override for today's date if active */
+  color: #fff; /* White text for contrast */
+}
+
+/* Datepicker footer styling (if applicable) */
+.datepicker-dropdown .datepicker-footer {
+  padding: 8px;
+  text-align: center;
+  border-top: 1px solid #e9ecef; /* Separator line */
+}
+
+.datepicker-dropdown .datepicker-footer .today-btn {
+  color: #007bff; /* Primary color for "Today" button */
+  cursor: pointer;
+  font-weight: 600; /* Bold text */
+}
+
+.datepicker-dropdown .datepicker-footer .today-btn:hover {
+  text-decoration: underline; /* Underline on hover */
+}

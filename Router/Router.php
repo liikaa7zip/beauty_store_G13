@@ -76,6 +76,9 @@ class Router
      */
     public function route()
     {
+        // Assuming $db is created somewhere before this method is called
+        global $db; // Add this line to ensure $db is available
+
         foreach ($this->routes as $uri => $route) {
             // Convert route pattern to a regex that matches numbers (for IDs)
             $pattern = preg_replace('/\{[a-zA-Z0-9_]+\}/', '([0-9]+)', trim($uri, '/'));
@@ -85,13 +88,26 @@ class Router
                 $controllerClass = $route['action'][0];
                 $function = $route['action'][1];
 
-                $controller = new $controllerClass();
+                if ($controllerClass === 'CategoryController') {
+                    $controller = new $controllerClass($db);
+                } else {
+                    $controller = new $controllerClass();
+                }
                 $controller->$function(...$matches); // Pass extracted parameters
                 exit;
             }
         }
 
-        http_response_code(404);
-        require_once 'views/errors/404.php';
+        // Default route to sign-up page if no match found
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /users/signUp');
+        } else {
+            header('Location: /dashboard/sell');
+        }
+        exit();
     }
 }
+
+// Define the route for the products page
+$router = new Router();
+$router->get('/inventory/products', ['ProductController', 'index']);

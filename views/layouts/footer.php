@@ -16,6 +16,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
 
 
     <!-- Bootstrap CSS -->
@@ -284,6 +286,17 @@
     <script src="../views/assets/js/add.js"></script>
     <script src="../views/assets/js/countOfProduct.js"></script>
     <script src="../views/assets/js/delete-restore-pd.js"></script>
+    <script src="../views/assets/js/sales.js"></script>
   </body>
   <!--end::Body-->
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!--end::Script-->
+    <script src="../views/assets/js/research.js"></script>
+    <script src="../views/assets/js/add.js"></script>
+    <script src="../views/assets/js/countOfProduct.js"></script>
+    <script src="../views/assets/js/delete-restore-pd.js"></script>
+    <script src="../views/assets/js/sales.js"></script>
+  </body>
 </html>

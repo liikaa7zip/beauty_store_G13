@@ -1,6 +1,6 @@
 <div class="modal fade" id="promotion<?= $promotion['id'] ?>" tabindex="-1" aria-labelledby="deletePromotionModalLabel<?= $promotion['id'] ?>" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg ">
+        <div class="modal-content ">
             <!-- Modal Header -->
             <div class="modal-header bg-light">
                 <h5 class="modal-title fw-bold d-flex align-items-center g-2" id="deletePromotionModalLabel<?= $promotion['id'] ?>">
@@ -26,12 +26,10 @@
                 <form action="/promotion/delete/<?= $promotion['id'] ?>" method="POST" class="w-100">
                     <div class="d-flex gap-2">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <form action="/promotion/delete/<?= $promotion['id']; ?>" method="post">
-                            <button type="submit" class="btn btn-danger d-flex align-items-center gap-2 justify-content-center">
-                                <span class="material-symbols-outlined">delete</span>
-                                Delete
-                            </button>
-                        </form>
+                        <button type="submit" class="btn btn-danger d-flex align-items-center gap-2 justify-content-center">
+                            <span class="material-symbols-outlined">delete</span>
+                            Delete
+                        </button>
                     </div>
                 </form>
             </div>

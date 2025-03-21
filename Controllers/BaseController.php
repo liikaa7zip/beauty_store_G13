@@ -10,6 +10,11 @@ class BaseController
      */
     protected function view($viewPath, $data = [])
     {
+        // Ensure $employees is defined
+        if (!isset($data['employees'])) {
+            $data['employees'] = [];
+        }
+
         extract($data);
         ob_start(); // Start output buffering
         require_once __DIR__ . '/../views/' . $viewPath . '.php';

@@ -22,6 +22,7 @@
 // });  
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
     var modal = document.getElementById("addProductModal");
     var openModalBtn = document.querySelector(".icon.add"); // Use the '➕' icon to open modal
