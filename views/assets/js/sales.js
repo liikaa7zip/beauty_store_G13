@@ -62,14 +62,14 @@ document.addEventListener('DOMContentLoaded', function () {
             datasets: [{
                 label: 'Stock Levels',
                 data: [120, 30, 150, 40],
-                backgroundColor: '#ff4d94',
-                borderColor: '#ff4d94',
+                backgroundColor: 'pink',
+                borderColor: '#1E88E5',
                 borderWidth: 1
             }]
         };
 
         new Chart(stockChartCanvas, {
-            type: 'bar',
+            type: 'line',
             data: stockData,
             options: {
                 scales: {

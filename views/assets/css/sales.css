@@ -39,8 +39,9 @@
 
 .main-content1 .sales-section .sales-chart .bar {
     width: 20px;
-    background-color: #ff4d94;
+    background-color: #c7bdc1;
     border-radius: 5px;
+    
 }
 
 /* Stock Levels Section */
@@ -50,6 +51,7 @@
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    height: 100%;
 }
 
 .main-content1 .stock-section h2 {
