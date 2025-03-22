@@ -45,6 +45,12 @@
   font-size: 18px;
 }
 
+#h1-products {
+  text-align: center;
+    color: #565656;
+    margin-bottom: 20px;
+}
+
 
 #productTable thead th {
   padding: 16px 8px; /* Increased height, but kept width small */
@@ -412,6 +418,7 @@
   border-radius: 25px;
   outline: none;
   transition: all 0.3s ease-in-out;
+  
 }
 
 #searchInput:focus {
@@ -516,4 +523,106 @@
 .import-btn i,
 .export-btn i {
   font-size: 16px;
+}
+
+
+/* Category Form Container */
+.category-container {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  width: 55%;
+  margin: auto;
+  margin-top: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Title */
+.category-title {
+  font-size: 26px;
+  margin-top: 10px;
+  color: #565656;
+}
+
+/* Labels */
+.category-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+  display: block;
+  text-align: left;
+  margin: 10px 0 5px;
+}
+
+/* Input & Textarea */
+.category-input,
+.category-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd; 
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;    
+  outline: none;
+  transition: 0.3s;
+}
+
+.category-textarea {
+  padding: 20px;
+}
+
+.category-input:focus,
+.category-textarea:focus {
+  background: white;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+/* Cancel Button */
+.category-cancel {
+  width: 48%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #bbb;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.category-cancel:hover {
+  background: #999;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(100, 100, 100, 0.5);
+}
+
+/* Submit Button */
+.category-submit {
+  width: 48%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #ff3399, #ff66b2);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.category-submit:hover {
+  background: linear-gradient(135deg, #ff0066, #ff3385);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 0, 102, 0.5);
 }

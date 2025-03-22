@@ -8,15 +8,9 @@ require_once "Controllers/ProductsController.php";
 require_once "Controllers/SalesController.php";
 require_once "Controllers/CategoryController.php";
 require_once "Controllers/EmployeeController.php";
-
-
-
-
-
 require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
-
 
 $route = new Router();
 $route->get("/", [UserController::class, 'login']);
@@ -29,11 +23,6 @@ $route->get("/users/signIn", [UserController::class, 'signIn']);
 $route->post("/users/authenticate", [UserController::class, 'authenticate']);
 
 // Inventory
-
-
-
-//Inventory
-
 $route->get("/inventory/products", [ProductsController::class, 'index']);
 $route->get("/inventory/edit/{id}", [ProductsController::class, 'edit']);
 $route->put("/inventory/products/update/{id}", [ProductsController::class, 'update']);
@@ -41,11 +30,11 @@ $route->post("/inventory/products/store", [ProductsController::class, 'store']);
 $route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
 $route->get("/inventory/create", [ProductsController::class, 'create']);
 
+// Categories
+$route->post("/categories/create", [CategoryController::class,'create']);
+$route->post("/categories/store", [CategoryController::class,'store']);
 
-//Categories
-$route->post("/inventory/store", [CategoryController::class,'store']);
-
-//Promotion
+// Promotion
 $route->get("/promotion", [PromotionController::class, 'index']);
 $route->get("/promotion/create", [PromotionController::class, 'create']);
 $route->get("/promotion/edit/{id}", [PromotionController::class, 'edit']);
@@ -53,17 +42,13 @@ $route->post("/promotion/store", [PromotionController::class, 'store']);
 $route->put("/promotion/update/{id}", [PromotionController::class, 'update']);
 $route->delete("/promotion/delete/{id}", [PromotionController::class, 'delete']);
 
-//Employees
+// Employees
 $route->get("/employees", [EmployeeController::class, 'index']);
 
-
-//Sales
+// Sales
 $route->get("/sales", [SalesController::class, 'index']);
-
-
 
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);
-
 
 $route->route();

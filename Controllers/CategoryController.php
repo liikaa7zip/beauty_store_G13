@@ -19,6 +19,11 @@ class CategoryController extends BaseController{
         require_once 'views/category_view.php';
     }
 
+    public function create() {
+        // Implement the create method
+        $this->view('categories/create');
+    }
+
     public function store() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Ensure data is received

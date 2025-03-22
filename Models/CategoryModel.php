@@ -18,12 +18,20 @@ class CategoryModel {
     }
 
     public function createCategories($category_name, $category_description) {
-        $sql = "INSERT INTO categories (name, description) VALUES (:name, :description)";
-        $stmt = $this->db->prepare($sql); // Use prepared statements
-        $stmt->bindParam(':name', $category_name, PDO::PARAM_STR);
-        $stmt->bindParam(':description', $category_description, PDO::PARAM_STR);
-        
-        return $stmt->execute(); // Returns true if successful
+        try {
+            $stmt = $this->db->prepare("INSERT INTO categories (name, description) VALUES (:name, :description)");
+            $stmt->bindParam(':name', $category_name, PDO::PARAM_STR);
+            $stmt->bindParam(':description', $category_description, PDO::PARAM_STR);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            if ($e->getCode() == 23000) { // Integrity constraint violation
+                echo "Error: Duplicate entry for category name.";
+            } else {
+                echo "Error: " . $e->getMessage();
+            }
+            return false;
+        }
     }
 }
 
