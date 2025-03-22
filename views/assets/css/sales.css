@@ -15,6 +15,15 @@
     margin: auto;
 }
 
+#sales {
+   margin-left: 5px;
+   
+}
+
+#sale-nav{
+    margin-left: 3px;
+}
+
 /* Input fields styling */
 .input-group {
     display: flex;

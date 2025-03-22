@@ -88,10 +88,10 @@ if (!isset($_SESSION['user_id'])) {
                             </button>
                             <div class="dropdown-content" style="display: none;">
                                 <a href="/inventory/edit/<?= $product['id'] ?>">
-                                    <span class="material-symbols-outlined">border_color</span> Edit
+                                    <span class="material-symbols-outlined" id="edit-pro">border_color</span> Edit
                                 </a>
                                 <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
-                                    <span class="material-symbols-outlined">delete</span> Delete
+                                    <span class="material-symbols-outlined" id="delete-pro">delete</span> Delete
                                 </a>
                             </div>
                         </div>

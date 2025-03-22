@@ -260,9 +260,11 @@
 
 .cat-btn,
 .btn-secondary {
-  padding: 12px 30px;
+  padding: 12px;
+  margin-top: 20px;
+  margin-left: 20px;
+  height: 50px;
   font-size: 16px;
-  font-weight: 600;
   border-radius: 50px; /* Circular button edges */
   cursor: pointer;
   border: none;
@@ -319,50 +321,62 @@
 }
 
 #create-name {
-  width: 50%;
-  margin-left: 45%;
+  width: 60%;
+  margin-left: 40%;
 }
 
 #category_id {
-  width: 50%;
+  width: 60%;
   margin-left: 20px;
 }
 
 #stocks {
-  width: 50%;
-  margin-left: 45%;
+  width: 60%;
+  margin-left: 40%;
 }
 
 #price {
-  width: 50%;
+  width: 60%;
   margin-left: 20px;
 }
 
 #description {
-  width: 55%;
-  margin-left: 22%;
+  width: 63%;
+  margin-left: 19%;
 }
 
 #productImage {
-  width: 55%;
-  margin-left: 22%;
+  width: 63%;
+  margin-left: 19%;
 }
 
 #pro-create {
-  width: 55%;
+  width: 63%;
   margin-top: -30px;
 }
 
 #name-create {
-  margin-left: 45%;
+  margin-left: 40%;
 }
 
 #name-created {
-  margin-left: 22%;
+  margin-left: 20%;
 }
 
 #cat-create {
   margin-left: 20px;
+}
+
+#pro-edit {
+  width: 49%;
+}
+
+#edit-pro{
+  color: rgb(52, 255, 113);
+}
+
+#delete-pro {
+  color: red;
 }
 
 
