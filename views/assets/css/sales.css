@@ -1,183 +1,205 @@
-
-.sales-header {
-    text-align: center;
-    color: #565656;
+/* Modified CSS */
+.sales-wrapper {
+    display: flex;
+    align-items: flex-start; /* Align items at the top */
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;/* Optional: set a max-width for the entire layout */
+    margin: auto;
 }
 
-/* Container for the sales form and table */
+.sales-form {
+    flex: 2;
+    max-width: 65%; /* Limit the form to half the width */
+}
+
 .sales-container {
-    margin-top: 30px !important;
+    margin-top: 20px !important;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    margin: auto;
 }
 
-#sales {
-   margin-left: 5px;
-   
+.sales-image {
+    flex: 1;
+    text-align: center;
+    width: 50%; /* Limit the image container to half the width */
 }
 
-#sale-nav{
-    margin-left: 3px;
+.sales-image img {
+    max-width: 350px; /* Ensure image scales within its container */
+    height: auto;
+    border-radius: 10px;
+    margin-right: -5%;
 }
 
-/* Input fields styling */
+.sales-header {
+    text-align: center;
+    color: #565656;
+    margin-bottom: 20px; /* Adjusted margin for better spacing */
+}
+
 .input-group {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    width: 100%;
 }
 
+
+/* Input fields with a sleek, modern look */
 .input-field {
     width: 48%;
-    padding: 12px;
+    padding: 14px;
     font-size: 14px;
-    border: 1px solid #ccc;
+    border: none; /* Remove default border */
     border-radius: 10px;
     box-sizing: border-box;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05); /* Inner and outer shadow */
+    transition: all 0.3s ease; /* Smooth transitions */
 }
 
-#sale-product {
-    border-radius: 10px;
-}
-
-#sale-quantity {
-    border-radius: 10px;
-}
-/* Button container styling */
-.button-container {
-    text-align: center;
+.input-field:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(242, 52, 115, 0.6), inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Glowing effect on focus */
+    background: #ffffff;
 }
 
 .ok-button {
-    background-color: #f23473;
-    color: white;
-    padding: 12px 20px;
-    font-size: 16px;
-    border: none;
+    background-color: #fd75a2; /* Pink background color */
+    color: white; /* White text */
+    padding: 12px 20px; /* Vertical and horizontal padding */
+    font-size: 16px; /* Font size */
+    border: none; /* No border */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* Smooth transitions */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Light shadow for depth */
+    font-weight: bold; /* Bold text */
+    text-transform: uppercase; /* Uppercase text */
+    width: 120px; /* Fixed width */
+    text-align: center; /* Center the text */
+    align-items: end;
+    margin-left: 84%;
+}
+
+/* Hover effect */
+.ok-button:hover {
+    background-color: #f50c4a; /* Slightly darker pink on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+}
+
+/* Active effect */
+.ok-button:active {
+    transform: scale(0.98); /* Slightly shrink the button when clicked */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Lighter shadow when clicked */
+}
+
+
+/* Table with a vibrant, engaging design */
+.sales-table {
+    width: 100%; /* Match the width of the input group */
+    margin-top: 30px; /* Space between input and table */
+    border-collapse: separate; /* Allows for rounded corners */
+    border-spacing: 0; /* Keeps it neat */
+    display: none;
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Softer, larger shadow */
+    border-radius: 12px; /* Rounded corners */
+    overflow: hidden; /* Ensures content stays within rounded edges */
+}
+
+.sales-table th, .sales-table td {
+    padding: 14px; /* Slightly more padding for comfort */
+    text-align: left;
+    border-bottom: 1px solid rgba(221, 221, 221, 0.5); /* Softer border */
+    transition: background 0.3s ease; /* Smooth hover effect */
+}
+
+.sales-table th {
+    background:  #fff3f9; /* Gradient header */
+    color: #d32f2f;
+    font-weight: 600; /* Bolder text */
+    text-transform: uppercase; /* Adds a touch of sophistication */
+    letter-spacing: 0.5px; /* Slight spacing for readability */
+}
+
+.sales-table td {
+    background: #ffffff;
+}
+
+.sales-table tr:hover td {
+    background: linear-gradient(90deg, #f9f9f9, #f1f1f1); /* Subtle hover gradient */
+    cursor: pointer; /* Indicates interactivity */
+}
+
+/* Quantity column with a unique twist */
+#quantity {
+    width: 50%; /* Adjusted for better proportion */
+    position: relative;
+}
+
+#quantity::after {
+    content: "Qty"; /* Adds a label effect */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: #d32f2f;
+    background: rgba(248, 187, 208, 0.3);
+    padding: 2px 6px;
+    border-radius: 8px;
+}
+
+/* Table button container with a modern flair */
+/* Previous styles remain unchanged, only modifying relevant parts */
+
+/* Sales container */
+.sales-container {
+    margin-top: 20px !important;
+    background-color: #fff;
+    padding: 20px;
     border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-weight: bold;
-    text-transform: uppercase;
-    width: 16%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+
+
+/* Button styles */
+
+#table-buttons {
+    text-align: end;
+    margin-top: 15px;
+}
+
+.cancel-button {
+    background: linear-gradient(45deg, #ff4444, #ff6666);
+    color: white;
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.cancel-button:hover {
+    background: linear-gradient(45deg, #ff6666, #ff8888);
+    transform: translateY(-2px);
+
+}
+
+.submit-button {
+    background: #fd75a2;
+    color: white;
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .submit-button:hover {
-    background-color: #f50c4a;
-    transform: scale(1.05);  /* Slightly enlarge the button */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);  /* Make shadow more prominent */
-}
-
-.submit-button:active {
-    transform: scale(0.98);  /* Slightly shrink the button when clicked */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);  /* Reduce shadow when clicked */
-}
-
-
-/* Sales table styling */
-.sales-table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    display: none;
-}
-
-.sales-table th, .sales-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.sales-table th {
-    background-color: #f8bbd0;
-    color: #d32f2f;
-}
-
-.sales-table tr:nth-child(even) {
-    background-color: #f5f5f5;
-}
-
-.sales-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-.table-button-container {
-    margin-top: 10px;
-    text-align: right;
-}
-
-.cancel-button {
-    background-color: #ff4444;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.submit-button {
-    background-color: #f23473;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-
-
-.button-container {
-    text-align: right;
-    margin-bottom: 10px;
-}
-.temp-button-container {
-    display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
-    gap: 10px; /* Space between buttons */
-    margin-bottom: 10px;
-}
-.submit-button {
-    background-color: #34c6f2; /* Green color matching the image */
-    color: white;
-    padding: 10px 0; /* Vertical padding for height */
-    width: 100px; /* Fixed width to match the image */
-    border: none;
-    border-radius: 8px; /* Rounded corners */
-    cursor: pointer;
-    font-size: 14px;
-    text-align: center;
-}
-.cancel-button {
-    background-color: #dc3545; /* Red color matching the image */
-    color: white;
-    padding: 10px 0; /* Vertical padding for height */
-    width: 100px; /* Fixed width to match the image */
-    border: none;
-    border-radius: 8px; /* Rounded corners */
-    cursor: pointer;
-    font-size: 14px;
-    text-align: center;
-}
-.sales-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-.sales-table th, .sales-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-.sales-table th {
-    background-color: #f2f2f2;
-}
-
-#quantity {
-    width: 60%;
+    background: linear-gradient(45deg, #f75c92, #fb80a8);
+    transform: translateY(-2px);
+   
 }
