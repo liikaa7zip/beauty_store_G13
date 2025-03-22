@@ -99,65 +99,135 @@ function triggerImport() {
 
 
 /*export*/
+// function exportToExcel() {
+//     try {
+//         console.log('Export button clicked');
+
+//         // Try to get the table element by its ID
+//         const table = document.getElementById("productTable");
+
+//         let wb;
+
+//         if (table) {
+//             // If the table exists, convert table to worksheet and exclude Actions column
+//             const rows = table.getElementsByTagName('tr');
+//             const data = [];
+
+//             // Process header row, excluding Actions
+//             const headerRow = Array.from(rows[0].getElementsByTagName('th'))
+//                 .map(th => th.textContent)
+//                 .filter((header, index) => index < 4); // Exclude the last column (Actions)
+//             data.push(headerRow);
+
+//             // Process data rows, excluding Actions
+//             for (let i = 1; i < rows.length; i++) {
+//                 const cells = Array.from(rows[i].getElementsByTagName('td'))
+//                     .map(td => td.textContent)
+//                     .filter((cell, index) => index < 4); // Exclude the last column (Actions)
+//                 data.push(cells);
+//             }
+
+//             // Create worksheet from processed data
+//             const ws = XLSX.utils.aoa_to_sheet(data);
+//             wb = XLSX.utils.book_new();
+//             XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+//             // Check if the table has data beyond the header
+//             if (rows.length <= 1) {
+//                 alert('No data in the table! Exporting empty template.');
+//                 const minimalData = [["Name", "Stock", "Category", "Status"]];
+//                 const minimalWs = XLSX.utils.aoa_to_sheet(minimalData);
+//                 wb = XLSX.utils.book_new();
+//                 XLSX.utils.book_append_sheet(wb, minimalWs, "Sheet1");
+//             }
+//             console.log('Table data exported to Excel (Actions excluded)');
+//         } else {
+//             // If the table doesn't exist, export a minimal template without Actions
+//             const minimalData = [["Name", "Stock", "Category", "Status"]];
+//             const ws = XLSX.utils.aoa_to_sheet(minimalData);
+//             wb = XLSX.utils.book_new();
+//             XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+//             console.warn('No table found. Exported empty template.');
+//         }
+
+//         // Generate Excel file and trigger download
+//         XLSX.writeFile(wb, "products_export.xlsx");
+//         console.log('Export to Excel completed');
+//     } catch (e) {
+//         console.error("Export failed:", e);
+//         alert("Error exporting to Excel. Check console for details.");
+//     }
+// }
+
+
+
 function exportToExcel() {
     try {
         console.log('Export button clicked');
 
-        // Try to get the table element by its ID
         const table = document.getElementById("productTable");
-
         let wb;
 
         if (table) {
-            // If the table exists, convert table to worksheet and exclude Actions column
             const rows = table.getElementsByTagName('tr');
             const data = [];
 
-            // Process header row, excluding Actions
-            const headerRow = Array.from(rows[0].getElementsByTagName('th'))
-                .map(th => th.textContent)
-                .filter((header, index) => index < 4); // Exclude the last column (Actions)
-            data.push(headerRow);
-
-            // Process data rows, excluding Actions
-            for (let i = 1; i < rows.length; i++) {
-                const cells = Array.from(rows[i].getElementsByTagName('td'))
-                    .map(td => td.textContent)
-                    .filter((cell, index) => index < 4); // Exclude the last column (Actions)
-                data.push(cells);
+            if (rows.length === 0) {
+                throw new Error("Table has no data!");
             }
 
-            // Create worksheet from processed data
+            // Extract headers dynamically & clean up text
+            const headerCells = Array.from(rows[0].getElementsByTagName('th'));
+            const headers = headerCells.map(th => th.textContent.trim().toLowerCase());
+
+            console.log('Extracted Headers:', headers);
+
+            // Expected headers: Ensure we are extracting correct columns
+            const expectedHeaders = ['name', 'price', 'stock', 'category']; 
+            const indices = expectedHeaders.map(h => headers.indexOf(h));
+
+            if (indices.includes(-1)) {
+                throw new Error("One or more expected headers are missing!");
+            }
+
+            // Push header row (case-corrected)
+            data.push(expectedHeaders.map(h => h.charAt(0).toUpperCase() + h.slice(1)));
+
+            // Process table rows
+            for (let i = 1; i < rows.length; i++) {
+                const cells = Array.from(rows[i].getElementsByTagName('td'));
+                const rowData = indices.map(index => index !== -1 ? cells[index].textContent.trim() : "");
+                
+                if (rowData[0]) {  // Ensure "Name" is not empty
+                    data.push(rowData);
+                }
+            }
+
+            // If no valid rows, export only the headers
+            if (data.length <= 1) {
+                alert('No valid product data. Exporting empty template.');
+                data.push(["", "", "", ""]); 
+            }
+
             const ws = XLSX.utils.aoa_to_sheet(data);
             wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
 
-            // Check if the table has data beyond the header
-            if (rows.length <= 1) {
-                alert('No data in the table! Exporting empty template.');
-                const minimalData = [["Name", "Stock", "Category", "Status"]];
-                const minimalWs = XLSX.utils.aoa_to_sheet(minimalData);
-                wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, minimalWs, "Sheet1");
-            }
-            console.log('Table data exported to Excel (Actions excluded)');
         } else {
-            // If the table doesn't exist, export a minimal template without Actions
-            const minimalData = [["Name", "Stock", "Category", "Status"]];
-            const ws = XLSX.utils.aoa_to_sheet(minimalData);
-            wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-            console.warn('No table found. Exported empty template.');
+            throw new Error("Table element not found!");
         }
 
-        // Generate Excel file and trigger download
+        // Generate Excel file
         XLSX.writeFile(wb, "products_export.xlsx");
         console.log('Export to Excel completed');
+
     } catch (e) {
         console.error("Export failed:", e);
         alert("Error exporting to Excel. Check console for details.");
     }
 }
+
+
 
 // Toggle dropdown visibility when the button is clicked
 function toggleDropdown(button) {
