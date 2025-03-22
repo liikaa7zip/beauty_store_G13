@@ -1,4 +1,7 @@
 <?php
+
+use Dom\Notation;
+
 require_once "Router.php";
 require_once "Controllers/BaseController.php";
 require_once "Database/Database.php";
@@ -40,6 +43,8 @@ $route->put("/inventory/products/update/{id}", [ProductsController::class, 'upda
 $route->post("/inventory/products/store", [ProductsController::class, 'store']);
 $route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
 $route->get("/inventory/create", [ProductsController::class, 'create']);
+
+
 
 
 //Categories

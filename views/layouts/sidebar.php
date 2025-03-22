@@ -36,7 +36,7 @@
                 <li class="nav-item"><a href="/employees" class="nav-link"><i class="nav-icon bi bi-person-badge-fill"></i>
                         <p>Employees</p>
                     </a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-tree-fill"></i>
+                <li class="nav-item"><a href="" class="nav-link"><i class="nav-icon bi bi-tree-fill"></i>
                         <p>Notification</p>
                     </a></li>
                 <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>
