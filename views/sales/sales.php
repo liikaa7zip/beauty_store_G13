@@ -7,7 +7,10 @@
             <input type="text" list="magicHouses" id="sale-product" class="input-field" placeholder="Product Name" data-product-id="">
             <datalist id="magicHouses">
                 <?php foreach($products as $prod):?>
-                    <option value="<?= htmlspecialchars($prod['name']) ?>" data-id="<?= $prod['id'] ?>" data-price="<?= $prod['price'] ?>">
+                  <option value="<?= htmlspecialchars($prod['name']) ?>" 
+                    data-id="<?= $prod['id'] ?>" 
+                    data-price="<?= $prod['price'] ?>"
+                    data-stock="<?= $prod['stocks'] ?>">  <!-- Add stock here -->
                 <?php endforeach;?>
             </datalist>
             <input type="number" id="sale-quantity" class="input-field" placeholder="Quantity">
@@ -95,3 +98,12 @@
         <img src="/views/assets/img/qr.jpg" alt="Sales Image">
     </div>
 </div>
+
+<div id="stockModal" class="custom-modal">
+    <div id="modalContent" class="modal-content">
+        <h2 id="modalMessage" class="modal-message"></h2>
+        <button id="closeModalBtn" class="modal-close-btn">Close</button>
+    </div>
+</div>
+
+
