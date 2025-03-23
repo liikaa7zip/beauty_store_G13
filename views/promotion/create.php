@@ -19,6 +19,12 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
 
         <div class="promotion">
+            <label for="promotionDescription" class="form-label">Discount Percentage</label>
+            <input type="number" class="form-control" id="discountPercentage" name="discount_percentage" placeholder="Enter the discount percentage" required>
+            <div class="invalid-feedback">Please provide the discount percentage.</div>
+        </div>
+
+        <div class="promotion">
             <label for="promotionCode" class="form-label">Discount Code</label>
             <input type="text" class="form-control" id="promotionCode" name="promotion_code" placeholder="Enter a unique discount code" required>
             <div class="invalid-feedback">Discount code is required.</div>
