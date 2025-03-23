@@ -12,19 +12,19 @@ if (!isset($_SESSION['user_id'])) {
 <div class="header">
     <h1>Promotions</h1>
     <div class="search-container">
-    <div class="search-bar">
-        <div class="search-input">
-            <input type="text" id="searchInput" placeholder="Search promotions...">
+        <div class="search-bar">
+            <div class="search-input">
+                <input type="text" id="searchInput" placeholder="Search promotions...">
+            </div>
+            <a href="/promotion/create" class="btn btn-primary" id="addNewButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="M12 5v14" />
+                </svg>
+                Add New
+            </a>
         </div>
-        <a href="/promotion/create" class="btn btn-primary" id="addNewButton">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14" />
-                <path d="M12 5v14" />
-            </svg>
-            Add New
-        </a>
     </div>
-</div>
 
 
     <?php if (empty($promotions)): ?>
@@ -47,15 +47,16 @@ if (!isset($_SESSION['user_id'])) {
                         <line x1="3" x2="21" y1="10" y2="10" />
                     </svg>
                     <strong>Date:</strong>
-                    <?php
-                    $startDate = new DateTime($promotion['start_date']);
-                    $endDate = new DateTime($promotion['end_date']);
+                    <span style="color: #ff69b4; font-weight: bold;"><?php
+                                                                        $startDate = new DateTime($promotion['start_date']);
+                                                                        $endDate = new DateTime($promotion['end_date']);
 
-                    $formattedStartDate = $startDate->format('d-F');
-                    $formattedEndDate = $endDate->format('d-F-Y');
+                                                                        $formattedStartDate = $startDate->format('d-F');
+                                                                        $formattedEndDate = $endDate->format('d-F-Y');
 
-                    echo htmlspecialchars($formattedStartDate) . ' to ' . htmlspecialchars($formattedEndDate);
-                    ?>
+                                                                        echo htmlspecialchars($formattedStartDate) . ' to ' . htmlspecialchars($formattedEndDate);
+                                                                        ?></span>
+
                 </p>
                 <p class="promotion-description d-flex flex-row align-items-center gap-2 mb-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -63,16 +64,23 @@ if (!isset($_SESSION['user_id'])) {
                         <polyline points="14 2 14 8 20 8" />
                     </svg>
                     <strong>Description:</strong>
-                    <?= htmlspecialchars($promotion['promotion_description']) ?>
+                    <span style="color: #ff69b4; font-weight: bold;"><?= htmlspecialchars($promotion['promotion_description']) ?></span>
                 </p>
-                <p class="promotion-code d-flex flex-row align-items-center gap-2 mb-1">
+                <p class="promotion-discount d-flex flex-row align-items-center gap-2 mb-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
                         <line x1="7" y1="7" x2="7.01" y2="7" />
                     </svg>
-                    <strong>Code:</strong>
-                    <span style="color: #ff69b4; font-weight: bold;"><?= htmlspecialchars($promotion['promotion_code']) ?></span>
+                    <strong>Discount:</strong>
+                    <span style="color: #ff69b4; font-weight: bold;"><?= htmlspecialchars($promotion['discount_percentage']) . '%' ?></span>
                 </p>
+                <p class="promotion-code d-flex flex-row align-items-center gap-2 mb-1">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 12V21H4V12M22 12H2M12 2V12M12 2L9 5M12 2L15 5M2 12V3H22V12" />
+    </svg>
+    <strong>Code:</strong>
+    <span style="color: #ff69b4; font-weight: bold;"><?= htmlspecialchars($promotion['promotion_code']) ?></span>
+</p>
                 <span class="promotion-status fw-bold text-white
                     <?= $promotion['status'] === 'completed' ? 'bg-warning' : ($promotion['status'] === 'active' ? 'bg-info' : 'bg-danger') ?>">
                     <?= htmlspecialchars($promotion['status']) ?>
