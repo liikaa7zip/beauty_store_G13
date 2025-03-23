@@ -75,12 +75,12 @@ if (!isset($_SESSION['user_id'])) {
                     <span style="color: #ff69b4; font-weight: bold;"><?= htmlspecialchars($promotion['discount_percentage']) . '%' ?></span>
                 </p>
                 <p class="promotion-code d-flex flex-row align-items-center gap-2 mb-1">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 12V21H4V12M22 12H2M12 2V12M12 2L9 5M12 2L15 5M2 12V3H22V12" />
-    </svg>
-    <strong>Code:</strong>
-    <span style="color: #ff69b4; font-weight: bold;"><?= htmlspecialchars($promotion['promotion_code']) ?></span>
-</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 12V21H4V12M22 12H2M12 2V12M12 2L9 5M12 2L15 5M2 12V3H22V12" />
+                    </svg>
+                    <strong>Code:</strong>
+                    <span style="color: #ff69b4; font-weight: bold;"><?= htmlspecialchars($promotion['promotion_code']) ?></span>
+                </p>
                 <span class="promotion-status fw-bold text-white
                     <?= $promotion['status'] === 'completed' ? 'bg-warning' : ($promotion['status'] === 'active' ? 'bg-info' : 'bg-danger') ?>">
                     <?= htmlspecialchars($promotion['status']) ?>
