@@ -266,5 +266,29 @@
   }
 
 
+  .invoice-details {
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
 
+.invoice-details p {
+    text-align: start;
+    font-size: 0.9em;
+    color: #333;
+}
   
+#recipe {
+    font-family: Arial, sans-serif;
+    font-size: 0.85em; /* Slightly smaller font size to match the image */
+    color: #333; /* Dark gray color for text */
+    margin: 5px 0; /* Small margin for spacing */
+    line-height: 1.4; /* Adjust line height for readability */
+    text-align: center;
+}
+
+#h2-recipe {
+    text-align: center;
+    font-size: 1.5em;
+    margin: 20px 0;
+    color: #333;
+}

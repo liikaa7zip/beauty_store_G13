@@ -47,6 +47,8 @@ $route->get("/employees", [EmployeeController::class, 'index']);
 
 // Sales
 $route->get("/sales", [SalesController::class, 'index']);
+$route->post("/sales/create", [SalesController::class, 'store']);
+
 
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);
