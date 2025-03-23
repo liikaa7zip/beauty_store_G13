@@ -1,4 +1,5 @@
 let salesData = [];
+
 document.getElementById('sale-product').addEventListener('input', function(e) {
     const input = e.target;
     const list = document.getElementById('magicHouses');
@@ -7,7 +8,7 @@ document.getElementById('sale-product').addEventListener('input', function(e) {
         if (option.value === input.value) {
             input.setAttribute('data-product-id', option.getAttribute('data-id'));
             input.setAttribute('data-productPrice', option.getAttribute('data-price'));
-            input.setAttribute('data-stock', option.getAttribute('data-stock')); // Get stock
+            input.setAttribute('data-stock', option.getAttribute('data-stock')); // Get stock value
             break;
         }
     }
@@ -31,26 +32,27 @@ function addSaleToTable() {
         return;
     }
 
-   // Check if entered quantity is greater than stock
-if (quantityNum > stock) {
-    var modal = document.getElementById('stockModal');
-    var modalMessage = document.getElementById('modalMessage');
-    var closeModalBtn = document.getElementById('closeModalBtn');
+    // Check if entered quantity is greater than stock
+    if (quantityNum > stock) {
+        var modal = document.getElementById('stockModal');
+        var modalMessage = document.getElementById('modalMessage');
+        var closeModalBtn = document.getElementById('closeModalBtn');
 
-    modalMessage.textContent = "Stock not enough! Available stock: " + stock;
+        modalMessage.textContent = "Stock not enough! Available stock: " + stock;
 
-    // Show the modal with smooth animation
-    modal.style.display = 'flex';
+        // Show the modal with smooth animation
+        modal.style.display = 'flex';
 
-    // Close the modal when the close button is clicked
-    closeModalBtn.onclick = function() {
-        modal.style.display = 'none';
-    };
+        // Close the modal when the close button is clicked
+        closeModalBtn.onclick = function() {
+            modal.style.display = 'none';
+        };
 
-    return; // Stop execution
-}
+        return; // Stop execution
+    }
 
-
+    // Update stock in the product's data attribute
+    productInput.setAttribute('data-stock', stock - quantityNum); // Subtract quantity from stock
 
     let table = document.getElementById("sales-record-table");
     let tbody = table.querySelector("tbody");
@@ -102,6 +104,7 @@ if (quantityNum > stock) {
 }
 
 
+
     function renderTable(){
         const tbody=document.getElementById("order-list")
         const totalP=document.getElementById("total-price")
@@ -135,22 +138,22 @@ if (quantityNum > stock) {
     }
 
     function prepareHiddenInputs() {
-        const container = document.getElementById('sales-form');
-        container.innerHTML = ""; // Clear old inputs
-    
-        salesData.forEach((item, index) => {
-            let input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = `sales[${index}]`; // Name must match PHP expected structure
-            input.value = JSON.stringify({
-                product_id: item.id,
-                quantity: item.quantity,
-                price: item.price,
-                total_price: item.totalPrice
-            });
-            container.appendChild(input);
-        });
-    }
+         const container = document.getElementById('sales-form');
+         container.innerHTML = ""; // Clear old inputs
+     
+         salesData.forEach((item, index) => {
+             let input = document.createElement('input');
+             input.type = 'hidden';
+             input.name = `sales[${index}]`; // Name must match PHP expected structure
+             input.value = JSON.stringify({
+                 product_id: item.id,
+                 quantity: item.quantity,
+                 price: item.price,
+                 total_price: item.totalPrice
+             });
+             container.appendChild(input);
+         });
+     }
     
 
     function submitSale() {
