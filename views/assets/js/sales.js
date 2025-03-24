@@ -102,6 +102,9 @@ if (quantityNum > stock) {
 }
 
 
+
+
+
     function renderTable(){
         const tbody=document.getElementById("order-list")
         const totalP=document.getElementById("total-price")

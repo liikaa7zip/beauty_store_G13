@@ -39,7 +39,7 @@
 
                 <!-- Modal Structure -->
                 <div id="recipeModal" class="modal">
-                  <div class="modal-content">
+                  <div id="modal-content">
                     <span class="close-btn" onclick="closeModal()">&times;</span>
                     <header>
                       <h1>Beauty Store</h1>
