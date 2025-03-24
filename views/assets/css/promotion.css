@@ -4,8 +4,9 @@
 }
 
 .header h1 {
-  font-size: 1.75rem;
-  margin-top: 40px;
+  text-align: center;
+    color: #565656;
+    margin-bottom: 20px;
 }
 
 /* Container for search bar and Add New button */

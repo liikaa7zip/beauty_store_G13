@@ -1,183 +1,399 @@
-
-.sales-header {
-    text-align: center;
-    color: #565656;
+/* Modified CSS */
+.sales-wrapper {
+    display: flex;
+    align-items: flex-start; /* Align items at the top */
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;/* Optional: set a max-width for the entire layout */
+    margin: auto;
 }
 
-/* Container for the sales form and table */
+.sales-form {
+    flex: 2;
+    max-width: 65%; /* Limit the form to half the width */
+}
+
 .sales-container {
-    margin-top: 30px !important;
+    margin-top: 20px !important;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    margin: auto;
 }
 
-#sales {
-   margin-left: 5px;
-   
+.sales-image {
+    flex: 1;
+    text-align: center;
+    width: 50%; /* Limit the image container to half the width */
 }
 
-#sale-nav{
-    margin-left: 3px;
+.sales-image img {
+    max-width: 350px; /* Ensure image scales within its container */
+    height: auto;
+    border-radius: 10px;
+    margin-right: -5%;
 }
 
-/* Input fields styling */
+.sales-header {
+    text-align: center;
+    color: #565656;
+    margin-bottom: 20px; /* Adjusted margin for better spacing */
+}
+
 .input-group {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    width: 100%;
 }
 
+
+/* Input fields with a sleek, modern look */
 .input-field {
     width: 48%;
-    padding: 12px;
+    padding: 14px;
     font-size: 14px;
-    border: 1px solid #ccc;
+    border: none; /* Remove default border */
     border-radius: 10px;
     box-sizing: border-box;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05); /* Inner and outer shadow */
+    transition: all 0.3s ease; /* Smooth transitions */
 }
 
-#sale-product {
-    border-radius: 10px;
-}
-
-#sale-quantity {
-    border-radius: 10px;
-}
-/* Button container styling */
-.button-container {
-    text-align: center;
+.input-field:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(242, 52, 115, 0.6), inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Glowing effect on focus */
+    background: #ffffff;
 }
 
 .ok-button {
-    background-color: #f23473;
-    color: white;
-    padding: 12px 20px;
-    font-size: 16px;
-    border: none;
+    background-color: #fd75a2; /* Pink background color */
+    color: white; /* White text */
+    padding: 12px 20px; /* Vertical and horizontal padding */
+    font-size: 16px; /* Font size */
+    border: none; /* No border */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* Smooth transitions */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Light shadow for depth */
+    font-weight: bold; /* Bold text */
+    text-transform: uppercase; /* Uppercase text */
+    width: 120px; /* Fixed width */
+    text-align: center; /* Center the text */
+    align-items: end;
+    margin-left: 84%;
+}
+
+/* Hover effect */
+.ok-button:hover {
+    background-color: #f50c4a; /* Slightly darker pink on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+}
+
+/* Active effect */
+.ok-button:active {
+    transform: scale(0.98); /* Slightly shrink the button when clicked */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Lighter shadow when clicked */
+}
+
+
+/* Table with a vibrant, engaging design */
+.sales-table {
+    width: 100%; /* Match the width of the input group */
+    margin-top: 30px; /* Space between input and table */
+    border-collapse: separate; /* Allows for rounded corners */
+    border-spacing: 0; /* Keeps it neat */
+    display: none;
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Softer, larger shadow */
+    border-radius: 12px; /* Rounded corners */
+    overflow: hidden; /* Ensures content stays within rounded edges */
+}
+
+.sales-table th, .sales-table td {
+    padding: 14px; /* Slightly more padding for comfort */
+    text-align: left;
+    border-bottom: 1px solid rgba(221, 221, 221, 0.5); /* Softer border */
+    transition: background 0.3s ease; /* Smooth hover effect */
+}
+
+.sales-table th {
+    background:  #fff3f9; /* Gradient header */
+    color: #d32f2f;
+    font-weight: 600; /* Bolder text */
+    text-transform: uppercase; /* Adds a touch of sophistication */
+    letter-spacing: 0.5px; /* Slight spacing for readability */
+}
+
+.sales-table td {
+    background: #ffffff;
+}
+
+.sales-table tr:hover td {
+    background: linear-gradient(90deg, #f9f9f9, #f1f1f1); /* Subtle hover gradient */
+    cursor: pointer; /* Indicates interactivity */
+}
+
+/* Quantity column with a unique twist */
+#quantity {
+    width: 50%; /* Adjusted for better proportion */
+    position: relative;
+}
+
+#quantity::after {
+    content: "Qty"; /* Adds a label effect */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: #d32f2f;
+    background: rgba(248, 187, 208, 0.3);
+    padding: 2px 6px;
+    border-radius: 8px;
+}
+
+/* Table button container with a modern flair */
+/* Previous styles remain unchanged, only modifying relevant parts */
+
+/* Sales container */
+.sales-container {
+    margin-top: 20px !important;
+    background-color: #fff;
+    padding: 20px;
     border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-weight: bold;
-    text-transform: uppercase;
-    width: 16%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+
+
+/* Button styles */
+
+#table-buttons {
+    text-align: end;
+    margin-top: 15px;
+}
+
+.cancel-button {
+    background: linear-gradient(45deg, #ff4444, #ff6666);
+    color: white;
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.cancel-button:hover {
+    background: linear-gradient(45deg, #ff6666, #ff8888);
+    transform: translateY(-2px);
+
+}
+
+.submit-button {
+    background: #fd75a2;
+    color: white;
+    width: 100px;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .submit-button:hover {
-    background-color: #f50c4a;
-    transform: scale(1.05);  /* Slightly enlarge the button */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);  /* Make shadow more prominent */
-}
-
-.submit-button:active {
-    transform: scale(0.98);  /* Slightly shrink the button when clicked */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);  /* Reduce shadow when clicked */
+    background: linear-gradient(45deg, #f75c92, #fb80a8);
+    transform: translateY(-2px);
+   
 }
 
 
-/* Sales table styling */
-.sales-table {
+   /* Modal Styles */
+   .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
     width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    display: none;
-}
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+  }
 
-.sales-table th, .sales-table td {
-    padding: 12px;
-    text-align: left;
+  #modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 10px;
+
     border-bottom: 1px solid #ddd;
-}
+  }
 
-.sales-table th {
-    background-color: #f8bbd0;
-    color: #d32f2f;
-}
+  th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+  }
 
-.sales-table tr:nth-child(even) {
-    background-color: #f5f5f5;
-}
-
-.sales-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-.table-button-container {
-    margin-top: 10px;
-    text-align: right;
-}
-
-.cancel-button {
-    background-color: #ff4444;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.submit-button {
-    background-color: #f23473;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+  .total {
+    font-weight: bold;
+    background-color: #f9f9f9;
+  }
 
 
+  .invoice-details {
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
 
-.button-container {
-    text-align: right;
-    margin-bottom: 10px;
+.invoice-details p {
+    text-align: start;
+    font-size: 0.9em;
+    color: #333;
 }
-.temp-button-container {
-    display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
-    gap: 10px; /* Space between buttons */
-    margin-bottom: 10px;
-}
-.submit-button {
-    background-color: #34c6f2; /* Green color matching the image */
-    color: white;
-    padding: 10px 0; /* Vertical padding for height */
-    width: 100px; /* Fixed width to match the image */
-    border: none;
-    border-radius: 8px; /* Rounded corners */
-    cursor: pointer;
-    font-size: 14px;
+  
+#recipe {
+    font-family: Arial, sans-serif;
+    font-size: 0.85em; /* Slightly smaller font size to match the image */
+    color: #333; /* Dark gray color for text */
+    margin: 5px 0; /* Small margin for spacing */
+    line-height: 1.4; /* Adjust line height for readability */
     text-align: center;
 }
-.cancel-button {
-    background-color: #dc3545; /* Red color matching the image */
-    color: white;
-    padding: 10px 0; /* Vertical padding for height */
-    width: 100px; /* Fixed width to match the image */
-    border: none;
-    border-radius: 8px; /* Rounded corners */
-    cursor: pointer;
-    font-size: 14px;
+
+#h2-recipe {
     text-align: center;
+    font-size: 1.5em;
+    margin: 20px 0;
+    color: #333;
 }
-.sales-table {
+
+/* Custom Modal Background */
+.custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-.sales-table th, .sales-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-.sales-table th {
-    background-color: #f2f2f2;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-out;
 }
 
-#quantity {
-    width: 60%;
+/* Modal Content */
+.modal-content {
+    background: linear-gradient(135deg, #fbf9f9, #fbf9f9); /* Vibrant gradient background */
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: scaleUp 0.3s ease-out;
 }
+
+.modal-message {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* Close Button */
+.modal-close-btn {
+    background-color: #fff;
+    color: #ff1493;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-close-btn:hover {
+    background-color: #ff1493;
+    color: white;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+/* For img Qr */
+
+.sales-image {
+    display: block; /* Ensures the button is under the image */
+    text-align: center; /* Center the image and button */
+}
+
+.sales-image img {
+    display: block; /* Ensures the image behaves as a block element */
+    margin: 0 auto; /* Centers the image horizontally */
+}
+
+#toggle-btn {
+  width: 40%;
+    margin-top: 15px; /* Adds space between the image and button */
+    padding: 10px 20px; /* Adds padding inside the button */
+    background-color: #FF4081; /* Pink background color */
+    color: white; /* White text */
+    border: none; /* Removes the border */
+    border-radius: 25px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Cursor changes to pointer on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+#toggle-btn:hover {
+    background-color: #E040FB; /* Lighter purple/pink on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+#toggle-btn:focus {
+    outline: none; /* Removes the focus outline */
+}
+
+
