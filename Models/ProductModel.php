@@ -57,6 +57,25 @@ class ProductModel {
         return $this->db->query($sql, $params);
     }
 
+    
+
+
+private function createLowStockNotification($productName, $stocks) {
+    $sql = "INSERT INTO store_notifications (notification_title, notification_message, notification_type, start_date, end_date, status) 
+            VALUES (:title, :message, :type, :start_date, :end_date, :status)";
+    
+    $params = [
+        ':title' => "Low Stock Alert: $productName",
+        ':message' => "The product '$productName' has only $stocks left in stock.",
+        ':type' => 'low_stock',
+        ':start_date' => date('Y-m-d H:i:s'),
+        ':end_date' => date('Y-m-d H:i:s', strtotime('+7 days')),
+        ':status' => 'scheduled'
+    ];
+
+    $this->db->query($sql, $params);
+}
+
     public function updateProduct($id, $data) {
         $sql = "UPDATE products 
                 SET name = :name, description = :description, price = :price, category_id = :category_id, 
