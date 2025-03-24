@@ -1,15 +1,16 @@
+
+
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-color: #e0e0e0;
     margin: 0;
     padding: 0;
 }
 
-h2 {
-    
-    color: #333;
-}
 
+
+/* Centering the Form */
 .form-wrapper {
     display: flex;
     justify-content: center;
@@ -17,15 +18,23 @@ h2 {
     height: 100vh;
 }
 
+/* Form Container */
 .form-container {
-    background-color: #fff;
+    background-color: #d6d6d6;
     padding: 30px;
     border-radius: 10px;
-    width: 1000px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 600px;
     text-align: center;
 }
 
+/* Title Styling */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Profile Image Section */
 .image-section {
     display: flex;
     justify-content: center;
@@ -41,7 +50,7 @@ h2 {
     border-radius: 50%;
     overflow: hidden;
     border: 2px solid #333;
-    cursor: pointer; /* Makes it clear it's clickable */
+    cursor: pointer;
 }
 
 .image-preview {
@@ -64,21 +73,10 @@ h2 {
 }
 
 .image-preview-wrapper:hover .image-overlay {
-    opacity: 1; /* Show overlay on hover */
+    opacity: 1;
 }
 
-
-/* .image-overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    text-align: center;
-    font-size: 12px;
-    padding: 2px;
-} */
-
+/* Form Fields */
 .form-row {
     display: flex;
     justify-content: center;
@@ -92,30 +90,28 @@ h2 {
     text-align: left;
 }
 
-.form-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
 .form-group input,
 .form-group select {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 200px;
+    width: 250px;
 }
 
+/* Buttons */
 .form-buttons {
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .btn-cancel, .btn-primary {
-    padding: 8px 20px;
+    padding: 10px 25px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
-    margin: 5px;
+    font-size: 16px;
 }
 
 .btn-cancel {
@@ -123,16 +119,22 @@ h2 {
 }
 
 .btn-primary {
-    
     background-color: #28a745;
     color: white;
 }
 
+.btn-cancel:hover {
+    background-color: #b3b3b3;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+}
+
+/* Success Message */
 .confirmation-message {
     margin-top: 15px;
     color: #2e7d32;
     font-weight: bold;
     display: none;
-}
-
-
+} 
