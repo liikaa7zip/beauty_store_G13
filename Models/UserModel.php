@@ -8,16 +8,6 @@ class UserModel {
         $this->db = new Database('localhost', 'beauty_store_data', 'root', '');
     }
 
-    public function createUser($username, $email, $password, $role) {
-        $sql = "INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, :role)";
-        $params = [
-            ':username' => $username,
-            ':email' => $email,
-            ':password' => $password,
-            ':role' => $role
-        ];
-        $this->db->query($sql, $params);
-    }
 
     public function getUserByEmail($email) {
         $result = $this->db->query("SELECT * FROM users WHERE email = :email", [':email' => $email]);

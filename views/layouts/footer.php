@@ -17,7 +17,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
 
     <!-- Bootstrap CSS -->
@@ -31,6 +31,7 @@
     <script src="../views/assets/js/user.js"></script>
     <script src="../views/assets/js/stock.js"></script>
     <script src="../views/assets/js/add.js"></script>
+    <script src="/views/assets/js/products.js"></script>
 
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script src="../assets/js/promotion.js"></script>
@@ -298,5 +299,6 @@
     <script src="../views/assets/js/countOfProduct.js"></script>
     <script src="../views/assets/js/delete-restore-pd.js"></script>
     <script src="../views/assets/js/sales.js"></script>
+    <script src="../views/assets/js/notification.js"></script>
   </body>
 </html>

@@ -27,16 +27,16 @@
                 <li class="nav-item"><a href="/promotion" class="nav-link"><i class="nav-icon bi bi-table"></i>
                         <p>Promotions</p>
                     </a></li>
-                <li class="nav-item"><a href="/sales" class="nav-link"><i class="bi bi-cash"></i></i></i>
-                        <p>Sales</p>
+                <li class="nav-item"><a href="/sales" class="nav-link"><i id="sales" class="bi bi-cash"></i></i></i>
+                        <p id="sale-nav">Sales</p>
                     </a></li>
                 <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>
                         <p>Expiration</p>
                     </a></li>
                 <li class="nav-item"><a href="/employees" class="nav-link"><i class="nav-icon bi bi-person-badge-fill"></i>
-                        <p>Employees</p>
+                        <p>Users Management</p>
                     </a></li>
-                <li class="nav-item"><a href="" class="nav-link"><i class="nav-icon bi bi-tree-fill"></i>
+                <li class="nav-item"><a href="/notification" class="nav-link"><i class="nav-icon bi bi-tree-fill"></i>
                         <p>Notification</p>
                     </a></li>
                 <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>

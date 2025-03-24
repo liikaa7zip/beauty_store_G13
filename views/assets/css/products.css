@@ -3,76 +3,54 @@
   display: inline-block;
 }
 
-/* Button for the three-dot menu */
 .dropbtn {
-  background: none;
+  background-color: #f1f1f1;
   border: none;
+  padding: 5px 10px;
   cursor: pointer;
-  padding: 10px;
-  font-size: 20px;
-  color: #545a55;
+  border-radius: 4px;
 }
 
-/* Dropdown content (hidden by default) */
 .dropdown-content {
-  background: #f1f1f1 !important;
-  display: none;
   position: absolute;
-  top: 50%;
-  right: 100%; /* Moves the dropdown to the left */
-  transform: translateY(-50%);
-  background-color: rgb(144, 144, 144);
+  top: 100%;
+  left: 0; /* Aligns dropdown to the left of the button */
+  background-color: white;
   min-width: 120px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
   z-index: 1;
+  display: none; /* Hidden by default */
 }
 
-/* Links inside dropdown */
 .dropdown-content a {
   display: flex;
   align-items: center;
-  padding: 8px 12px;
+  gap: 8px;
+  padding: 10px 15px;
   text-decoration: none;
-  color: black;
-  white-space: nowrap; /* Prevents text from wrapping */
+  color: #333;
+  font-size: 14px;
 }
 
-/* Show icons beside text */
-.dropdown-content a span {
-  margin-right: 8px;
-}
-
-/* Hover effect */
 .dropdown-content a:hover {
   background-color: #f1f1f1;
 }
-#searchInput {
-  width: 100%;
-  max-width: 400px;
-  padding: 10px 15px;
-  font-size: 16px;
-  border: 2px solid #ff69b4; /* Pink border */
-  border-radius: 25px;
-  outline: none;
-  transition: all 0.3s ease-in-out;
+
+.material-symbols-outlined {
+  font-size: 18px;
 }
 
-#searchInput:focus {
-  border-color: #ff1493; /* Darker pink when focused */
-  box-shadow: 0 0 8px rgba(255, 20, 147, 0.5);
+.material-symbols-outlined {
+  font-size: 18px;
 }
 
-#searchInput::placeholder {
-  color: #888;
-  font-style: italic;
+#h1-products {
+  text-align: center;
+    color: #565656;
+    margin-bottom: 20px;
 }
 
-
-#searchBtn:hover {
-  background: linear-gradient(135deg, #ff1493, #ff69b4);
-  transform: scale(1.05);
-}
 
 #productTable thead th {
   padding: 16px 8px; /* Increased height, but kept width small */
@@ -93,43 +71,7 @@
   margin-right: 40px;
 }
 
-#categoryWrapper {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  max-width: 180px;
-}
 
-#categorySelect {
-  width: 100%;
-  padding: 10px 15px;
-  font-size: 16px;
-  background-color: white;
-  color: #333;
-  border: 2px solid #69e6ff; /* Pink border */
-  border-radius: 25px;
-  outline: none;
-  cursor: pointer;
-  appearance: none; /* Removes default dropdown styling */
-  transition: all 0.3s ease-in-out;
-}
-
-/* Add a custom dropdown arrow */
-#categoryWrapper::after {
-  content: "\25BC"; /* Unicode for down arrow */
-  font-size: 14px;
-  color: #ff69b4; /* Pink arrow */
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-#categorySelect:focus {
-  border-color: #ff1493; /* Darker pink when focused */
-  box-shadow: 0 0 8px rgba(255, 20, 147, 0.5);
-}
 
 .stocks-container {
   margin-top: 50px;
@@ -324,9 +266,11 @@
 
 .cat-btn,
 .btn-secondary {
-  padding: 12px 30px;
+  padding: 12px;
+  margin-top: 20px;
+  margin-left: 20px;
+  height: 50px;
   font-size: 16px;
-  font-weight: 600;
   border-radius: 50px; /* Circular button edges */
   cursor: pointer;
   border: none;
@@ -380,4 +324,305 @@
   color: white;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+#create-name {
+  width: 60%;
+  margin-left: 40%;
+}
+
+#category_id {
+  width: 60%;
+  margin-left: 20px;
+}
+
+#stocks {
+  width: 60%;
+  margin-left: 40%;
+}
+
+#price {
+  width: 60%;
+  margin-left: 20px;
+}
+
+#description {
+  width: 63%;
+  margin-left: 19%;
+}
+
+#productImage {
+  width: 63%;
+  margin-left: 19%;
+}
+
+#pro-create {
+  width: 63%;
+  margin-top: -30px;
+}
+
+#name-create {
+  margin-left: 40%;
+}
+
+#name-created {
+  margin-left: 20%;
+}
+
+#cat-create {
+  margin-left: 20px;
+}
+
+#pro-edit {
+  width: 49%;
+}
+
+#edit-pro{
+  color: rgb(52, 255, 113);
+}
+
+#delete-pro {
+  color: red;
+}
+
+
+/* Table Container (basic styling, adjust as needed) */
+.table-container {
+  width: 100%;
+  padding: 20px;
+}
+
+/* Table Header */
+.table-header {
+  display: flex;
+  flex-wrap: nowrap; /* Keeps everything on one line */
+  align-items: center; /* Vertically centers items */
+  gap: 15px; /* Space between elements */
+  width: 100%;
+  overflow-x: auto; /* Scroll if overflow */
+}
+
+/* Spacer to push action buttons to the right */
+.spacer {
+  flex-grow: 1; /* Takes all available space */
+  min-width: 0;
+}
+
+/* Search Input (your existing styles) */
+#searchInput {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ff69b4; /* Pink border */
+  border-radius: 25px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  
+}
+
+#searchInput:focus {
+  border-color: #ff1493; /* Darker pink when focused */
+  box-shadow: 0 0 8px rgba(255, 20, 147, 0.5);
+}
+
+#searchInput::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+/* Category Wrapper and Select (your existing styles) */
+#categoryWrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 180px;
+}
+
+#categorySelect {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: white;
+  color: #333;
+  border: 2px solid #69e6ff; /* Cyan border (noted your comment says pink, adjust if needed) */
+  border-radius: 25px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  transition: all 0.3s ease-in-out;
+}
+
+#categoryWrapper::after {
+  content: "\25BC"; /* Down arrow */
+  font-size: 14px;
+  color: #ff69b4; /* Pink arrow */
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+#categorySelect:focus {
+  border-color: #ff1493; /* Darker pink when focused */
+  box-shadow: 0 0 8px rgba(255, 20, 147, 0.5);
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0; /* Prevents shrinking */
+}
+
+/* Import and Export Buttons (basic styling to match your theme) */
+.import-btn,
+.export-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px; /* Matches your rounded style */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.import-btn {
+  background-color: #f1ced5; /* Light blue background */
+  color: #d4467f; /* Blue text */
+}
+
+.import-btn:hover {
+  background-color: #d1e3f6; /* Slightly darker light blue */
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+.import-btn i {
+  color: #d4467f; /* Blue icon to match text */
+  font-size: 14px;
+}
+
+.export-btn {
+  background-color: #e8f5e9; /* Light green background */
+  color: #4a90e2; /* Green text */
+}
+
+.export-btn:hover {
+  background-color: #d1e3f6; /* Slightly darker light green */
+  box-shadow: 0 0 5px rgba(46, 125, 50, 0.3);
+}
+
+.export-btn i {
+  color: #4a90e2; /* Green icon to match text */
+  font-size: 14px;
+}
+
+.import-btn i,
+.export-btn i {
+  font-size: 16px;
+}
+
+
+/* Category Form Container */
+.category-container {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  width: 55%;
+  margin: auto;
+  margin-top: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* Title */
+.category-title {
+  font-size: 26px;
+  margin-top: 10px;
+  color: #565656;
+}
+
+/* Labels */
+.category-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+  display: block;
+  text-align: left;
+  margin: 10px 0 5px;
+}
+
+/* Input & Textarea */
+.category-input,
+.category-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd; 
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;    
+  outline: none;
+  transition: 0.3s;
+}
+
+.category-textarea {
+  padding: 20px;
+}
+
+.category-input:focus,
+.category-textarea:focus {
+  background: white;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+/* Cancel Button */
+.category-cancel {
+  width: 48%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #bbb;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.category-cancel:hover {
+  background: #999;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(100, 100, 100, 0.5);
+}
+
+/* Submit Button */
+.category-submit {
+  width: 48%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #ff3399, #ff66b2);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.category-submit:hover {
+  background: linear-gradient(135deg, #ff0066, #ff3385);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 0, 102, 0.5);
 }

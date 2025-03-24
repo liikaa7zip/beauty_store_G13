@@ -1,49 +1,68 @@
 <?php
-require_once 'Models/SalesModel.php';
 
-class SalesController extends BaseController{
+require_once "Models/SalesModel.php";
+require_once "Models/ProductModel.php";
+
+class SalesController extends BaseController
+{
+    private $productModel;
+    private $salesModel;
+
+    public function __construct()
+    {
+        $this->salesModel = new SalesModel();
+        $this->productModel = new ProductModel();
+    }
 
     public function index()
     {
-        $this->view("/sales/sales");
+        // Fetch sales data from the database
+        $sales = $this->salesModel->getAllSales();
+        $products = $this->productModel->getAllProducts();
+
+
+        // Pass sales data to the view
+        return $this->view('/sales/sales', ['sales' => $sales, 'products' => $products]);
     }
 
-// require_once "views/layouts/navbar.php";
-// require_once "views/layouts/header.php";
-// require_once "views/layouts/sidebar.php";
-// class SalesController {
-    private $model;
 
-    public function __construct() {
-        $this->model = new SalesModel();
-    }
+    public function store()
+{
+   if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $data = $_POST['sales'];
+        if (is_array($data)) {
+            foreach ($data as $prod) {
+                $decodedProduct = json_decode($prod, true);
+                $productId = $decodedProduct['product_id'];
+                $quantity = $decodedProduct['quantity'];
+                $product = $this->productModel->getProductById($productId);
 
-    // public function index() {
-    //     $popularProducts = $this->getPopularProducts();
-    //     $salesData = $this->getSalesData();
-    //     $stockData = $this->getStockData();
+                if (!$product) {
+                    throw new Exception("Product not found.");
+                }
 
-    //     echo "<h1>Sales Dashboard</h1>";
-    //     echo "<h2>Popular Products:</h2><pre>" . print_r($popularProducts, true) . "</pre>";
-    //     echo "<h2>Sales Data:</h2><pre>" . print_r($salesData, true) . "</pre>";
-    //     echo "<h2>Stock Data:</h2><pre>" . print_r($stockData, true) . "</pre>";
-    // }
+                if ($product['stocks'] < $quantity) {
+                    throw new Exception("Not enough stock for product ID: " . $productId);
+                }
 
-    public function getPopularProducts() {
-        return $this->model->getProducts();
-    }
+                $saleItemData = [
+                    'sale_id' => 1, // Replace with actual sale ID
+                    'product_id' => $productId,
+                    'quantity' => $quantity,
+                    'price' => $product['price'] * $quantity
+                ];
 
-    public function getSalesData() {
-        $sales = $this->model->getSales();
-        return [
-            'total' => array_sum($sales),
-            'monthly' => $sales,
-            'period' => 'Jan-June 2023'
-        ];
-    }
-
-    public function getStockData() {
-        return $this->model->getStockLevels();
+                if ($this->salesModel->create($saleItemData)) {
+                    // Update stock only if sale is successful
+                    $newQuantity = $product['stocks'] - $quantity;
+                    $this->productModel->updateProduct($productId, ['stocks' => $newQuantity]);
+                } else {
+                    throw new Exception("Failed to create sale record");
+                }
+            }
+        }
+        $this->redirect('/sales'); // Move this outside the loop
     }
 }
-// require_once "views/layouts/footer.php";
+
+}

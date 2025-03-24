@@ -14,23 +14,32 @@ if (!isset($_SESSION['user_id'])) {
     <h1 id="h1-products">Products List</h1>
     <div class="container mt-4">
         <div class="table-container">
-            <!-- Custom Search Bar -->
-            <div class="table-header">
-                <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()" >
-
-            <!-- Category Filter Dropdown -->
-                <div id="categoryWrapper">
-                     <select id="categorySelect" name="category">
-                        <option value="">Select a category</option>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= $category['id'] ?>">
+    <div class="table-header">
+        <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
+        
+        <div id="categoryWrapper">
+            <select id="categorySelect" name="category">
+                <option value="">Select a category</option>
+                <?php foreach ($categories as $category): ?>
+                    <option value="<?= $category['id'] ?>">
                         <?= htmlspecialchars($category['name']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
+
+        <div class="spacer"></div>
+
+        <div class="action-buttons">
+            <button class="import-btn" onclick="triggerImport(); console.log('Import button clicked');">
+                <i class="fa fa-upload"></i> Import
+            </button>
+            <button class="export-btn" onclick="exportToExcel(); console.log('Export button clicked');">
+                <i class="fa fa-download"></i> Export
+            </button>
+        </div>
+    </div>
+</div>
 
         <!-- Table -->
         <table id="productTable" class="table table-striped table-bordered display">
@@ -73,19 +82,19 @@ if (!isset($_SESSION['user_id'])) {
                             <?= ucfirst(htmlspecialchars($product['status'])) ?>
                         </td>
                         <td>
-                            <div class="dropdown">
-                                <button class="dropbtn btn btn-sm" onclick="toggleDropdown(this)">
-                                    <span class="material-symbols-outlined">more_horiz</span>
-                                </button>
-                                <div class="dropdown-content" style="display: none;">
-                                    <a href="/inventory/edit/<?= $product['id'] ?>">
-                                        <span class="material-symbols-outlined">border_color</span> Edit
-                                    </a>
-                                    <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
-                                        <span class="material-symbols-outlined">delete</span> Delete
-                                    </a>
-                                </div>
+                        <div class="dropdown">
+                            <button class="dropbtn btn btn-sm" onclick="toggleDropdown(this)">
+                                 <span class="material-symbols-outlined">more_horiz</span>
+                            </button>
+                            <div class="dropdown-content" style="display: none;">
+                                <a href="/inventory/edit/<?= $product['id'] ?>">
+                                    <span class="material-symbols-outlined" id="edit-pro">border_color</span> Edit
+                                </a>
+                                <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
+                                    <span class="material-symbols-outlined" id="delete-pro">delete</span> Delete
+                                </a>
                             </div>
+                        </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -121,36 +130,13 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="row">
         <div class="col-4">
-            <a href="javascript:void(0);" class="text-decoration-none" onclick="showModal()"><div class="card" id="add-product">
+            <a href="/categories/create" style="text-decoration: none;"><div class="card" id="add-product">
             <div class="icon add">➕</div>
             <p>Add New Categories</p>
         </div>
-    </a>
+            </a>
 
-<!-- Modal for adding a category -->
-<div id="category-modal" class="category-modal" style="display:none;">
-    <div class="modal-content">
-        <h3>Create New Category</h3>
-        <form action="/inventory/store" method="POST">
-    <label for="category-name" id="cat-name">Category Name:</label>
-    <input type="text" id="category-name" name="category_name" required autocomplete="off">
-
-    <label for="category-description" id="cat-desc">Category Description:</label>
-    <textarea id="category-description" name="category_description" required></textarea>
-
-    <input type="hidden" name="csrf_token" value="">
-
-    <div class="modal-buttons">
-        <button type="submit" class="cat-btn">Create Category</button>
-        <button type="button" onclick="hideModal()" class="btn-secondary">Cancel</button>
-    </div>
-</form>
-
-    </div>
-</div>
-
-
-                </div>
+              </div>
                 <div class="col-4">
                     <div class="card" id="waste">
                         <div class="icon waste">🗑️</div>

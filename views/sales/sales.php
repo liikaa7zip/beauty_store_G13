@@ -1,96 +1,109 @@
-<?php
-// Start session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+<div class="sales-wrapper">
+    <!-- Left: Sales Form -->
+    <div class="sales-form">
+        <h1 class="sales-header">Sales Management</h1>
+        <div class="sales-container">
+          <div class="input-group">
+            <input type="text" list="magicHouses" id="sale-product" class="input-field" placeholder="Product Name" data-product-id="">
+            <datalist id="magicHouses">
+                <?php foreach($products as $prod):?>
+                  <option value="<?= htmlspecialchars($prod['name']) ?>" 
+                    data-id="<?= $prod['id'] ?>" 
+                    data-price="<?= $prod['price'] ?>"
+                    data-stock="<?= $prod['stocks'] ?>">  <!-- Add stock here -->
+                <?php endforeach;?>
+            </datalist>
+            <input type="number" id="sale-quantity" class="input-field" placeholder="Quantity">
+          </div>
+            <div class="button-container">
+                <button onclick="addSaleToTable()" class="ok-button">OK</button>
+            </div>
+            <!-- Table under inputs -->
+            <table id="sales-record-table" class="sales-table" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th id="quantity">Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div id="table-buttons" class="table-button-container" style="display: none;">
+                <form id="sales-form" method="post" action="/sales/create">
+                  <input type="hidden" name="sales[]">
+                  <button type="submit" id="hidden-submit" style="display:none">Submit</button>
+                </form>
+                <button onclick="cancelSales()" class="cancel-button" style="border:none">Cancel</button>
+                <button onclick="submitSales()" class="submit-button" style="border:none">Submit</button>
 
-// Redirect to login if user is not authenticated
-if (!isset($_SESSION['user_id'])) {
-    header("Location: /users/signIn");
-    exit(); // Ensure script stops after redirect
-} else {
-    // Optional: Log the successful session start for debugging
-    // error_log("User authenticated with ID: " . $_SESSION['user_id']);
-}
-?>
-
-<!-- Main Content -->
-<div class="main-content1">
-    <!-- Sales Section -->
-    <div class="sales-section">
-        <h2>Sales</h2>
-        <p>$700,215</p>
-        <select>
-            <option>January 2023</option>
-            <option>February 2023</option>
-            <!-- Add more months as needed -->
-        </select>
-        <div class="sales-chart">
-            <!-- Placeholder for a bar chart -->
-            <div class="bar" style="height: 80%;"></div>
-            <div class="bar" style="height: 60%;"></div>
-            <div class="bar" style="height: 40%;"></div>
-            <div class="bar" style="height: 20%;"></div>
+                <!-- Modal Structure -->
+                <div id="recipeModal" class="modal">
+                  <div class="modal-content">
+                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                    <header>
+                      <h1>Beauty Store</h1>
+                      <p id="recipe">Address: BP 511 St. 371 Phum Tropeang Chhuk (Borey Sorla) Sangkat, Tek Thla Khan Sen Sok, Phnom Penh, CAMBODIA</p>
+                    </header>
+                    <h2 id="h2-recipe">Invoice</h2>
+                    <div class="invoice-details">
+                      <p><strong>Date:</strong> 11/4/25</p>
+                      <p><strong>Time:</strong> 8:10 AM</p>
+                    </div>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Product Name</th>
+                          <th>Quantity</th>
+                          <th>Price per Unit</th>
+                          <th>Total Price</th>
+                        </tr>
+                      </thead>
+                      <tbody id="order-list">
+                        <!-- <tr>
+                          <td>Sugar</td>
+                          <td>2 kg</td>
+                          <td>$3</td>
+                          <td>$6</td>
+                        </tr>
+                        <tr>
+                          <td>Flour</td>
+                          <td>1 kg</td>
+                          <td>$1.5</td>
+                          <td>$1.5</td>
+                        </tr>
+                        <tr>
+                          <td>Butter</td>
+                          <td>500 g</td>
+                          <td>$4</td>
+                          <td>$2</td>
+                        </tr> -->
+                        <tr class="total">
+                          <td colspan="3">Total Price</td>
+                          <td id="total-price">$9.5</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="total">
+            <p><strong>TOTAL:</strong> $________</p>
+        </div>
+                  </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Stock Levels Section -->
-    <div class="stock-section">
-        <h2>Stock levels</h2>
-        <canvas id="stockChart"></canvas>
-    </div>
-
-    <!-- Popular Products Table -->
-    <div class="popular-products1">
-        <h2>Popular</h2>
-        <button class="add-new-btn1" aria-label="Add a new product" title="Click to add a new product">
-            <i class="bi bi-plus-lg"></i> Add New Product
-        </button>
-        <table>
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Category</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // Sample product data (to be replaced with database query in production)
-                $products = [
-                    ["name" => "Sukibushu", "category" => "Toner", "status" => "In stock"],
-                    ["name" => "Pone", "category" => "Sunscreen", "status" => "Low stock"],
-                    ["name" => "Clivina", "category" => "Lipstick", "status" => "In stock"],
-                    ["name" => "Nivea", "category" => "Lotion", "status" => "Low stock"],
-                ];
-
-                // Check if products exist
-                if (empty($products)) {
-                    echo '<tr><td colspan="4">No products available.</td></tr>';
-                } else {
-                    foreach ($products as $product) {
-                        // Sanitize all output to prevent XSS
-                        $name = htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8');
-                        $category = htmlspecialchars($product['category'], ENT_QUOTES, 'UTF-8');
-                        $status = htmlspecialchars($product['status'], ENT_QUOTES, 'UTF-8');
-                        $statusClass = strtolower($product['status']) === "in stock" ? "in-stock" : "low-stock";
-
-                        // Generate table row
-                        echo "<tr>";
-                        echo "<td>{$name}</td>";
-                        echo "<td>{$category}</td>";
-                        echo "<td><span class='status {$statusClass}'>{$status}</span></td>";
-                        echo "<td>
-                            <button class='action-btn edit-btn' title='Edit'>✏️</button>
-                            <button class='action-btn delete-btn' title='Delete'>🗑️</button>
-                        </td>";
-                        echo "</tr>";
-                    }
-                }
-                ?>
-            </tbody>
-        </table>
-        <!-- <p class="pagination1">123 🡓</p> --> <!-- Uncomment if pagination is implemented -->
+    <!-- Right: Image -->
+    <div class="sales-image">
+        <img src="/views/assets/img/qr.jpg" alt="Sales Image">
     </div>
 </div>
+
+<div id="stockModal" class="custom-modal">
+    <div id="modalContent" class="modal-content">
+        <h2 id="modalMessage" class="modal-message"></h2>
+        <button id="closeModalBtn" class="modal-close-btn">Close</button>
+    </div>
+</div>
+
+

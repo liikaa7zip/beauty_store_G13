@@ -40,7 +40,6 @@ if (isset($_SESSION['user_id'])) {
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Enter your password" required>
             <button type="submit" id="submit">Login</button>
-            <p>Don't have an account?<a class="signUp" href="/users/signUp">Register</a></p>
         </form>
     </div>
 </div>
