@@ -50,5 +50,22 @@ class CategoryController extends BaseController{
             exit();
         }
     }
+
+    public function delete() {
+        // Get the category ID from the request (assuming it's a JSON request)
+        $data = json_decode(file_get_contents('php://input'), true);
+        $categoryId = $data['categoryId'];
+
+        // Call the model to delete the category
+        $categoryModel = new CategoryModel();
+        $result = $categoryModel->deleteCategoryById($categoryId);
+
+        // Respond based on the result of deletion
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error']);
+        }
+    }
 }
 ?>

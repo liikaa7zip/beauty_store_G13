@@ -14,6 +14,18 @@
     </div>
 </form>
 
+<div id="uniqueSuccessModal" class="unique-modal">
+    <div class="unique-modal-content">
+        <p>Category created successfully!</p>
+        <button id="uniqueCloseModal">OK</button>
+    </div>
+</div>
+
+
+
+
+
+
 
 
 

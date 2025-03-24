@@ -47,6 +47,7 @@ $route->get("/inventory/create", [ProductsController::class, 'create']);
 // Categories
 $route->post("/categories/create", [CategoryController::class,'create']);
 $route->post("/categories/store", [CategoryController::class,'store']);
+$route->delete("/categories/delete/{id}", [CategoryController::class,'delete']);
 
 // Promotion
 
