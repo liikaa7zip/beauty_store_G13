@@ -299,10 +299,7 @@
     <script src="../views/assets/js/countOfProduct.js"></script>
     <script src="../views/assets/js/delete-restore-pd.js"></script>
     <script src="../views/assets/js/sales.js"></script>
-<<<<<<< HEAD
     <script src="../views/assets/js/notification.js"></script>
-=======
     <script src="../views/assets/js/employees.js"></script>
->>>>>>> feature/create_users
   </body>
 </html>
