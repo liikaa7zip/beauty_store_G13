@@ -77,7 +77,7 @@ $notifications = $notificationModel->getNotifications();
             position: absolute;
             top: 0.5px;
             
-            left: 510px;
+            left: 460px;
         }
         .delete-btn:hover {
                 color: red;
