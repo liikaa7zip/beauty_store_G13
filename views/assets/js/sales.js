@@ -160,3 +160,17 @@ function closeModal() {
         document.getElementById('sales-form').submit(); // Trigger the form submission
     }
 }
+
+// Show img QR
+function toggleQRCode() {
+    var qrImage = document.getElementById('qr-code');
+    var toggleButton = document.getElementById('toggle-btn');
+    
+    if (qrImage.src.includes('qr-dollar.jpg')) {
+        qrImage.src = '/views/assets/img/qr-khmer.jpg';
+        toggleButton.innerText = 'Show Dollar QR'; // Change button text to show dollar QR
+    } else {
+        qrImage.src = '/views/assets/img/qr-dollar.jpg';
+        toggleButton.innerText = 'Show Khmer QR'; // Change button text to show Khmer QR
+    }
+}

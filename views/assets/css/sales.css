@@ -362,3 +362,38 @@
     }
 }
 
+/* For img Qr */
+
+.sales-image {
+    display: block; /* Ensures the button is under the image */
+    text-align: center; /* Center the image and button */
+}
+
+.sales-image img {
+    display: block; /* Ensures the image behaves as a block element */
+    margin: 0 auto; /* Centers the image horizontally */
+}
+
+#toggle-btn {
+  width: 40%;
+    margin-top: 15px; /* Adds space between the image and button */
+    padding: 10px 20px; /* Adds padding inside the button */
+    background-color: #FF4081; /* Pink background color */
+    color: white; /* White text */
+    border: none; /* Removes the border */
+    border-radius: 25px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Cursor changes to pointer on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+#toggle-btn:hover {
+    background-color: #E040FB; /* Lighter purple/pink on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+#toggle-btn:focus {
+    outline: none; /* Removes the focus outline */
+}
+
+

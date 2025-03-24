@@ -80,11 +80,12 @@
         </div>
     </div>
 
-    <!-- Right: Image -->
-    <div class="sales-image">
-        <img src="/views/assets/img/qr.jpg" alt="Sales Image">
-    </div>
+    <div class="sales-image" style="text-align: center;">
+    <img id="qr-code" src="/views/assets/img/qr-dollar.jpg" alt="Sales QR Code">
+    <!-- Button placed under the image -->
+    <button id="toggle-btn" onclick="toggleQRCode()">Show Khmer QR</button>
 </div>
+
 
 <div id="stockModal" class="custom-modal">
     <div id="modalContent" class="modal-content">
