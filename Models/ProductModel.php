@@ -33,7 +33,8 @@ class ProductModel {
     }
 
     public function getProductByID($id) {
-        $stmt = $this->db->query("SELECT * FROM products WHERE id = :id", [':id' => $id]);
+        $stmt = $this->db->query("SELECT id, name, description, price, expire_date, category_id, stocks, start_date, status, image 
+                                  FROM products WHERE id = :id", [':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -80,8 +81,8 @@ private function createLowStockNotification($productName, $stocks) {
 
     public function updateProduct($id, $data) {
         $sql = "UPDATE products 
-                SET name = :name, description = :description, price = :price, category_id = :category_id, 
-                    stocks = :stocks, status = :status 
+                SET name = :name, description = :description, price = :price, expire_date = :expire_date, category_id = :category_id, 
+                    stocks = :stocks, start_date = :start_date,  status = :status 
                 WHERE id = :id";
 
         $params = [
