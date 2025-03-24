@@ -1,4 +1,7 @@
 <?php
+
+use Dom\Notation;
+
 require_once "Router.php";
 require_once "Controllers/BaseController.php";
 require_once "Database/Database.php";
@@ -50,6 +53,8 @@ $route->post("/categories/store", [CategoryController::class,'store']);
 
 //Notification
 $route->get("/notification", [NotificationController::class, 'index']);
+
+
 
 //Categories
 $route->post("/inventory/store", [CategoryController::class,'store']);
