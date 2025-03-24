@@ -33,6 +33,15 @@ class CategoryModel {
             return false;
         }
     }
+
+    public function deleteCategoryById($categoryId) {
+        // Prepare the SQL query to delete the category
+        $stmt = $this->db->prepare("DELETE FROM categories WHERE id = :id");
+        $stmt->bindParam(':id', $categoryId, PDO::PARAM_INT);
+
+        // Execute the query and return success or failure
+        return $stmt->execute();
+    }
 }
 
 ?>

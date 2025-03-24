@@ -33,7 +33,8 @@ class ProductModel {
     }
 
     public function getProductByID($id) {
-        $stmt = $this->db->query("SELECT * FROM products WHERE id = :id", [':id' => $id]);
+        $stmt = $this->db->query("SELECT id, name, description, price, expire_date, category_id, stocks, start_date, status, image 
+                                  FROM products WHERE id = :id", [':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -41,15 +42,17 @@ class ProductModel {
         // Remove the dollar sign if it exists
         $price = str_replace('$', '', $data['price']);
         
-        $sql = "INSERT INTO products (name, description, price, category_id, stocks, status, image) 
-                VALUES (:name, :description, :price, :category_id, :stocks, :status, :image)";
+        $sql = "INSERT INTO products (name, description, price, expire_date, category_id, stocks, start_date, status, image) 
+                VALUES (:name, :description, :price, :expire_date, :category_id, :stocks, :start_date, :status, :image)";
         
         $params = [
             ':name' => $data['name'],
             ':description' => $data['description'],
-            ':price' => (float)$price,  // Store as decimal without $
+            ':price' => (float)$price,  
+            ':expire_date' => $data['expire_date'],  // Corrected variable name
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
+            ':start_date' => $data['start_date'],
             ':status' => $data['status'],
             ':image' => isset($data['image']) ? $data['image'] : ''
         ];
@@ -57,18 +60,39 @@ class ProductModel {
         return $this->db->query($sql, $params);
     }
 
+    
+
+
+private function createLowStockNotification($productName, $stocks) {
+    $sql = "INSERT INTO store_notifications (notification_title, notification_message, notification_type, start_date, end_date, status) 
+            VALUES (:title, :message, :type, :start_date, :end_date, :status)";
+    
+    $params = [
+        ':title' => "Low Stock Alert: $productName",
+        ':message' => "The product '$productName' has only $stocks left in stock.",
+        ':type' => 'low_stock',
+        ':start_date' => date('Y-m-d H:i:s'),
+        ':end_date' => date('Y-m-d H:i:s', strtotime('+7 days')),
+        ':status' => 'scheduled'
+    ];
+
+    $this->db->query($sql, $params);
+}
+
     public function updateProduct($id, $data) {
         $sql = "UPDATE products 
-                SET name = :name, description = :description, price = :price, category_id = :category_id, 
-                    stocks = :stocks, status = :status 
+                SET name = :name, description = :description, price = :price, expire_date = :expire_date, category_id = :category_id, 
+                    stocks = :stocks, start_date = :start_date,  status = :status 
                 WHERE id = :id";
 
         $params = [
             ':name' => $data['name'],
             ':description' => $data['description'],
             ':price' => $data['price'],
+            ':expire_date' => $data['expire_date'],
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
+            ':start_date' => $data['start_date'],
             ':status' => $data['status'],
             ':id' => $id
         ];
@@ -88,14 +112,16 @@ class ProductModel {
     }
 
     public function createProduct($data) {
-        $sql = "INSERT INTO products (name, description, price, category_id, stocks, status, image) 
-                VALUES (:name, :description, :price, :category_id, :stocks, :status, :image)";
+        $sql = "INSERT INTO products (name, description, price, expire_date, category_id, stocks, start_date, status, image) 
+                VALUES (:name, :description, :price, :expire_date, :category_id, :stocks, :start_date, :status, :image)";
         $params = [
             ':name' => $data['name'],
             ':description' => isset($data['description']) ? $data['description'] : null,  // Optional, can be NULL
             ':price' => $data['price'],
+            ':expire_date' => $data['expire_date'],
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
+            ':start_date' => $data['start_date'],
             ':status' => $data['status'],
             ':image' => isset($data['image']) ? $data['image'] : null // Optional, can be NULL
         ];

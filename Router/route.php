@@ -1,4 +1,7 @@
 <?php
+
+use Dom\Notation;
+
 require_once "Router.php";
 require_once "Controllers/BaseController.php";
 require_once "Database/Database.php";
@@ -11,6 +14,17 @@ require_once "Controllers/EmployeeController.php";
 require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
+require_once "Controllers/NotificationController.php"; 
+
+
+
+
+
+require_once "Controllers/SellController.php";
+require_once "Controllers/UserController.php";
+require_once "Models/UserModel.php";
+require_once "Models/SalesModel.php";
+require_once "Models/NotificationModel.php";
 
 
 $route = new Router();
@@ -34,8 +48,20 @@ $route->get("/inventory/create", [ProductsController::class, 'create']);
 // Categories
 $route->post("/categories/create", [CategoryController::class,'create']);
 $route->post("/categories/store", [CategoryController::class,'store']);
+$route->delete("/categories/delete/{id}", [CategoryController::class,'delete']);
 
 // Promotion
+
+
+//Notification
+$route->get("/notification", [NotificationController::class, 'index']);
+
+
+
+//Categories
+$route->post("/inventory/store", [CategoryController::class,'store']);
+
+//Promotion
 $route->get("/promotion", [PromotionController::class, 'index']);
 $route->get("/promotion/create", [PromotionController::class, 'create']);
 $route->get("/promotion/edit/{id}", [PromotionController::class, 'edit']);
@@ -49,9 +75,14 @@ $route->post("/promotion/send/{id}", [PromotionController::class, 'sendPromotion
 
 // Employees
 $route->get("/employees", [EmployeeController::class, 'index']);
+// $route->get('/employees/index', [EmployeeController::class, 'index']);  
+$route->get('/employees/create', [EmployeeController::class, 'create']);      // Maps to EmployeeController::add
+$route->post('/employees/store', [EmployeeController::class, 'store']);
 
 // Sales
 $route->get("/sales", [SalesController::class, 'index']);
+$route->post("/sales/create", [SalesController::class, 'store']);
+
 
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);
