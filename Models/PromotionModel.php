@@ -69,4 +69,5 @@ class PromotionModel
     {
         $this->pdo->query("DELETE FROM promotions WHERE id = :id", [':id' => $id]);
     }
+    
 }
