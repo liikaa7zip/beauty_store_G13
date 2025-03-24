@@ -159,8 +159,8 @@
               src="/views/assets/img/profile.jpg"
               class="rounded-circle shadow"
               alt="User Image" />
-            <p>
-              Alexander Pierce - Web Developer
+            <p style="font-size: 22px;">
+            <?= $_SESSION['user_name'] ? $_SESSION['user_name'] : 'Unknown' ?>
               <small>Member since Nov. 2023</small>
             </p>
           </li>
@@ -179,7 +179,7 @@
           <!--begin::Menu Footer-->
           <li class="user-footer">
             <a href="#" class="btn btn-default btn-flat">Profile</a>
-            <a href="/users/signUp" class="btn btn-default btn-flat float-end">Sign out</a>
+            <a style="border: 1px solid #ff69b4; margin-top: 10px;" href="/users/signIn" class="btn btn-default btn-flat float-end">Sign out</a>
           </li>
           <!--end::Menu Footer-->
         </ul>
@@ -190,3 +190,72 @@
   </div>
   <!--end::Container-->
 </nav>
+
+<style>
+  /* User Menu Dropdown Styles */
+.user-menu .dropdown-menu {
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  border: none;
+  overflow: hidden;
+}
+
+.user-header {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg,rgb(189, 189, 189),rgb(148, 185, 194));
+  color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.user-header img {
+  width: 80px;
+  height: 80px;
+  border: 3px solid white;
+}
+
+.user-header p {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.user-body .row {
+  padding: 10px 0;
+}
+
+.user-body a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.user-body a:hover {
+  color: #ff69b4;
+}
+
+.user-footer {
+  padding: 10px;
+  background: #f8f9fa;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.user-footer a {
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.user-footer .btn {
+  color: #fff;
+  border: none;
+}
+
+.user-footer .btn:hover {
+  background: #ff85a2;
+}
+</style>
