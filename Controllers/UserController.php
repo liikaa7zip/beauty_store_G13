@@ -25,7 +25,7 @@ class UserController extends BaseController {
             $_SESSION['user_id'] = 1; // Example user ID
             $this->redirect('/dashboard/sell');
         } else {
-            $this->view('users/signIn');
+            $this->view('/users/signIn');
         }
     }
 
@@ -74,7 +74,7 @@ class UserController extends BaseController {
         } else {
             // Check for any errors in session
             $error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
-            $this->view('users/signIn', ['error' => $error]);
+            $this->view('/users/signIn', ['error' => $error]);
         }
     }
 

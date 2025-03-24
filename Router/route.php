@@ -37,6 +37,10 @@ $route->post("/users/store", [UserController::class, 'store']);
 $route->get("/users/signIn", [UserController::class, 'signIn']);
 $route->post("/users/authenticate", [UserController::class, 'authenticate']);
 
+// Sign In
+$route->get('/signin', 'AuthController@showSignInForm');
+$route->post('/signin', 'AuthController@signIn');
+
 // Inventory
 $route->get("/inventory/products", [ProductsController::class, 'index']);
 $route->get("/inventory/edit/{id}", [ProductsController::class, 'edit']);
