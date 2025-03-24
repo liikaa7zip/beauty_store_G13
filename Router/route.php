@@ -69,6 +69,9 @@ $route->delete("/promotion/delete/{id}", [PromotionController::class, 'delete'])
 
 // Employees
 $route->get("/employees", [EmployeeController::class, 'index']);
+// $route->get('/employees/index', [EmployeeController::class, 'index']);  
+$route->get('/employees/create', [EmployeeController::class, 'create']);      // Maps to EmployeeController::add
+$route->post('/employees/store', [EmployeeController::class, 'store']);
 
 // Sales
 $route->get("/sales", [SalesController::class, 'index']);
