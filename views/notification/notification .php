@@ -72,12 +72,16 @@ $notifications = $notificationModel->getNotifications();
         .notification .delete-btn {
             background: none;
             border: none;
-            font-size: 2em;
+            font-size: 2.5em;
             cursor: pointer;
             position: absolute;
-            top: 8px;
-            left: 440px;
+            top: 0.5px;
+            
+            left: 510px;
         }
+        .delete-btn:hover {
+                color: red;
+            }
         .form-container {
             margin-bottom: 20px;
         }
