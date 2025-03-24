@@ -12,6 +12,7 @@ require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
 
+
 $route = new Router();
 $route->get("/", [UserController::class, 'login']);
 
@@ -41,6 +42,10 @@ $route->get("/promotion/edit/{id}", [PromotionController::class, 'edit']);
 $route->post("/promotion/store", [PromotionController::class, 'store']);
 $route->put("/promotion/update/{id}", [PromotionController::class, 'update']);
 $route->delete("/promotion/delete/{id}", [PromotionController::class, 'delete']);
+
+$route->post("/promotion/send/{id}", [PromotionController::class, 'sendPromotion']);
+
+
 
 // Employees
 $route->get("/employees", [EmployeeController::class, 'index']);
