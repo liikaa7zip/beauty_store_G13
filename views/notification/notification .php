@@ -77,7 +77,6 @@ $notifications = $notificationModel->getNotifications();
             font-size: 2.5em;
             cursor: pointer;
             position: absolute;
-            background-color: pink;
             top: 0.5px;
             
             left: 460px;
