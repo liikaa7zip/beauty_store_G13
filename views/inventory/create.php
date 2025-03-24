@@ -14,8 +14,10 @@ $product = $product ?? [
     'name' => '',
     'price' => '',
     'stocks' => '',
+    'start_date' => '',
     'category_id' => '',
     'status' => '',
+    'expire_date' => '',
     'description' => '',
     'image' => ''
 ];
@@ -40,6 +42,10 @@ $product = $product ?? [
                     <label for="stocks" class="form-label" id="name-create">Stocks</label>
                     <input type="number" id="stocks" name="stocks" class="form-control form-control-lg" value="<?= htmlspecialchars($product['stocks']) ?>" required>
                 </div>
+                <div class="mb-4">
+                    <label for="start-date" class="form-label" id="start-date-label">Start-date</label>
+                    <input type="date" id="start-date" name="start_date" class="form-control form-control-lg" value="<?= htmlspecialchars($product['start_date']) ?>" required>
+                </div>
             </div>
 
             <div class="col-md-6">
@@ -56,7 +62,11 @@ $product = $product ?? [
 
                 <div class="mb-4">
                     <label for="price" class="form-label" id="cat-create">Price</label>
-                    <input type="text" id="price" name="price" class="form-control form-control-lg" value="<?= htmlspecialchars($product['price']) ?>" required>
+                    <input type="number" id="price" name="price" class="form-control form-control-lg" value="<?= htmlspecialchars($product['price']) ?>" required>
+                </div>
+                <div class="mb-4">
+                    <label for="expire-date" class="form-label" id="expire-date-label">Expire-date</label>
+                    <input type="date" id="expire-date" name="expire_date" class="form-control form-control-lg" value="<?= htmlspecialchars($product['expire_date']) ?>" required>
                 </div>
             </div>
             <div class="mb-4">

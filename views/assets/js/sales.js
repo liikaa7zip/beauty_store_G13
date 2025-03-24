@@ -1,317 +1,223 @@
-// Wait for the DOM to fully load before running the script
-document.addEventListener('DOMContentLoaded', function () {
-    // Cache DOM elements to improve performance
-    const salesSelect = document.querySelector('.main-content1 .sales-section select');
-    const salesAmount = document.querySelector('.main-content1 .sales-section p');
-    const salesBars = document.querySelectorAll('.main-content1 .sales-section .sales-chart .bar');
-    const stockChartCanvas = document.getElementById('stockChart');
-    const addNewBtn = document.querySelector('.main-content1 .popular-products1 .add-new-btn1');
-    const productTableBody = document.querySelector('.main-content1 .popular-products1 table tbody');
-
-    // Initialize Charts and Event Listeners
-    initializeSalesSection();
-    initializeStockChart();
-    initializeProductManagement();
-
-    /**
-     * Initializes the Sales Section functionality
-     */
-    function initializeSalesSection() {
-        if (!salesSelect || !salesAmount || !salesBars.length) {
-            console.warn('Sales section elements not found.');
-            return;
-        }
-
-        // Sample sales data for each month (replace with backend data if needed)
-        const salesData = {
-            'January 2023': { amount: 700215, barHeights: [80, 60, 40, 20] },
-            'February 2023': { amount: 550000, barHeights: [70, 50, 30, 10] },
-        };
-
-        // Update sales amount and bar chart on selection
-        salesSelect.addEventListener('change', function () {
-            const selectedMonth = this.value;
-            const data = salesData[selectedMonth];
-
-            if (data) {
-                salesAmount.textContent = `$${data.amount.toLocaleString()}`;
-                salesBars.forEach((bar, index) => {
-                    bar.style.height = `${data.barHeights[index] || 0}%`;
-                });
-            } else {
-                salesAmount.textContent = '$0';
-                salesBars.forEach(bar => bar.style.height = '0%');
-            }
-        });
-
-        // Trigger change event on page load to set initial values
-        salesSelect.dispatchEvent(new Event('change'));
-    }
-
-    /**
-     * Initializes the Stock Levels Chart using Chart.js
-     */
-    function initializeStockChart() {
-        if (!stockChartCanvas) {
-            console.warn('Stock chart canvas not found.');
-            return;
-        }
-
-        const stockData = {
-            labels: ['Sukibushu', 'Pone', 'Clivina', 'Nivea'],
-            datasets: [{
-                label: 'Stock Levels',
-                data: [120, 30, 150, 40],
-                backgroundColor: 'pink',
-                borderColor: '#1E88E5',
-                borderWidth: 1
-            }]
-        };
-
-        new Chart(stockChartCanvas, {
-            type: 'line',
-            data: stockData,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Stock Quantity'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Products'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
-    }
-
-    /**
-     * Initializes the Popular Products section functionality
-     */
-    function initializeProductManagement() {
-        if (!addNewBtn || !productTableBody) {
-            console.warn('Product management elements not found.');
-            return;
-        }
-
-        // Add New Product Functionality
-        addNewBtn.addEventListener('click', handleAddNewProduct);
-
-        // Attach Edit and Delete listeners to existing rows
-        document.querySelectorAll('.main-content1 .popular-products1 table tbody tr').forEach(row => {
-            attachEditDeleteListeners(row);
-        });
-    }
-
-    /**
-     * Handles the Add New Product action
-     */
-    function handleAddNewProduct() {
-        this.disabled = true;
-        this.style.opacity = '0.6';
-        const loadingIndicator = createLoadingIndicator(); // Add a loading spinner
-        this.appendChild(loadingIndicator);
-
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <td><input type="text" class="new-product-name" placeholder="Product Name" required></td>
-            <td><input type="text" class="new-product-category" placeholder="Category" required></td>
-            <td>
-                <select class="new-product-status">
-                    <option value="In stock">In stock</option>
-                    <option value="Low stock">Low stock</option>
-                </select>
-            </td>
-            <td>
-                <button class="action-btn save-btn" title="Save product">💾</button>
-                <button class="action-btn cancel-btn" title="Cancel">❌</button>
-            </td>
-        `;
-        productTableBody.prepend(newRow);
-
-        const saveBtn = newRow.querySelector('.save-btn');
-        const cancelBtn = newRow.querySelector('.cancel-btn');
-
-        saveBtn.addEventListener('click', () => handleSaveNewProduct(newRow));
-        cancelBtn.addEventListener('click', () => handleCancelNewProduct(newRow, loadingIndicator));
-
-        newRow.querySelector('.new-product-name').focus();
-    }
-
-    /**
-     * Handles saving a new product
-     * @param {HTMLTableRowElement} row - The table row containing the form
-     */
-    function handleSaveNewProduct(row) {
-        const name = row.querySelector('.new-product-name').value.trim();
-        const category = row.querySelector('.new-product-category').value.trim();
-        const status = row.querySelector('.new-product-status').value;
-        const statusClass = status.toLowerCase() === 'in stock' ? 'in-stock' : 'low-stock';
-
-        if (name && category) {
-            row.innerHTML = `
-                <td>${name}</td>
-                <td>${category}</td>
-                <td><span class="status ${statusClass}">${status}</span></td>
-                <td>
-                    <button class="action-btn edit-btn" title="Edit">✏️</button>
-                    <button class="action-btn delete-btn" title="Delete">🗑️</button>
-                </td>
-            `;
-            resetAddButton();
-            attachEditDeleteListeners(row);
-        } else {
-            alert('Please fill in all required fields.');
-            resetAddButton();
+let salesData = [];
+document.getElementById('sale-product').addEventListener('input', function(e) {
+    const input = e.target;
+    const list = document.getElementById('magicHouses');
+    const options = list.getElementsByTagName('option');
+    for (let option of options) {
+        if (option.value === input.value) {
+            input.setAttribute('data-product-id', option.getAttribute('data-id'));
+            input.setAttribute('data-productPrice', option.getAttribute('data-price'));
+            input.setAttribute('data-stock', option.getAttribute('data-stock')); // Get stock
+            break;
         }
     }
-
-    /**
-     * Handles canceling a new product addition
-     * @param {HTMLTableRowElement} row - The table row to remove
-     * @param {HTMLElement} loadingIndicator - The loading indicator to remove
-     */
-    function handleCancelNewProduct(row, loadingIndicator) {
-        row.remove();
-        resetAddButton(loadingIndicator);
-    }
-
-    /**
-     * Resets the Add New Button state
-     * @param {HTMLElement} [loadingIndicator] - Optional loading indicator to remove
-     */
-    function resetAddButton(loadingIndicator) {
-        const addNewBtn = document.querySelector('.main-content1 .popular-products1 .add-new-btn1');
-        addNewBtn.disabled = false;
-        addNewBtn.style.opacity = '1';
-        if (loadingIndicator) {
-            loadingIndicator.remove();
-        }
-    }
-
-    /**
-     * Creates a loading indicator (spinner)
-     * @returns {HTMLElement} - The loading spinner element
-     */
-    function createLoadingIndicator() {
-        const spinner = document.createElement('span');
-        spinner.style.cssText = 'margin-left: 10px; border: 2px solid #fff; border-top: 2px solid #000; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite;';
-        return spinner;
-    }
-
-    /**
-     * Attaches Edit and Delete listeners to a row
-     * @param {HTMLTableRowElement} row - The table row to attach listeners to
-     */
-    function attachEditDeleteListeners(row) {
-        const editBtn = row.querySelector('.edit-btn');
-        const deleteBtn = row.querySelector('.delete-btn');
-
-        editBtn.addEventListener('click', () => handleEditProduct(row));
-        deleteBtn.addEventListener('click', () => handleDeleteProduct(row));
-    }
-
-    /**
-     * Handles editing a product
-     * @param {HTMLTableRowElement} row - The table row to edit
-     */
-    function handleEditProduct(row) {
-        const name = row.children[0].textContent;
-        const category = row.children[1].textContent;
-        const status = row.children[2].textContent;
-
-        row.innerHTML = `
-            <td><input type="text" class="edit-product-name" value="${name}" required></td>
-            <td><input type="text" class="edit-product-category" value="${category}" required></td>
-            <td>
-                <select class="edit-product-status">
-                    <option value="In stock" ${status === 'In stock' ? 'selected' : ''}>In stock</option>
-                    <option value="Low stock" ${status === 'Low stock' ? 'selected' : ''}>Low stock</option>
-                </select>
-            </td>
-            <td>
-                <button class="action-btn save-btn" title="Save changes">💾</button>
-                <button class="action-btn cancel-btn" title="Cancel changes">❌</button>
-            </td>
-        `;
-
-        const saveBtn = row.querySelector('.save-btn');
-        const cancelBtn = row.querySelector('.cancel-btn');
-
-        saveBtn.addEventListener('click', () => handleSaveEditedProduct(row));
-        cancelBtn.addEventListener('click', () => handleCancelEdit(row, name, category, status));
-    }
-
-    /**
-     * Handles saving an edited product
-     * @param {HTMLTableRowElement} row - The table row being edited
-     */
-    function handleSaveEditedProduct(row) {
-        const newName = row.querySelector('.edit-product-name').value.trim();
-        const newCategory = row.querySelector('.edit-product-category').value.trim();
-        const newStatus = row.querySelector('.edit-product-status').value;
-        const newStatusClass = newStatus.toLowerCase() === 'in stock' ? 'in-stock' : 'low-stock';
-
-        if (newName && newCategory) {
-            row.innerHTML = `
-                <td>${newName}</td>
-                <td>${newCategory}</td>
-                <td><span class="status ${newStatusClass}">${newStatus}</span></td>
-                <td>
-                    <button class="action-btn edit-btn" title="Edit">✏️</button>
-                    <button class="action-btn delete-btn" title="Delete">🗑️</button>
-                </td>
-            `;
-            attachEditDeleteListeners(row);
-        } else {
-            alert('Please fill in all required fields.');
-        }
-    }
-
-    /**
-     * Handles canceling an edit
-     * @param {HTMLTableRowElement} row - The table row to revert
-     * @param {string} name - Original product name
-     * @param {string} category - Original product category
-     * @param {string} status - Original product status
-     */
-    function handleCancelEdit(row, name, category, status) {
-        const statusClass = status.toLowerCase() === 'in stock' ? 'in-stock' : 'low-stock';
-        row.innerHTML = `
-            <td>${name}</td>
-            <td>${category}</td>
-            <td><span class="status ${statusClass}">${status}</span></td>
-            <td>
-                <button class="action-btn edit-btn" title="Edit">✏️</button>
-                <button class="action-btn delete-btn" title="Delete">🗑️</button>
-            </td>
-        `;
-        attachEditDeleteListeners(row);
-    }
-
-    /**
-     * Handles deleting a product
-     * @param {HTMLTableRowElement} row - The table row to delete
-     */
-    function handleDeleteProduct(row) {
-        if (confirm('Are you sure you want to delete this product?')) {
-            row.remove();
-        }
-    }
-
-    // Add CSS animation for spinner
-    const styleSheet = document.createElement('style');
-    styleSheet.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
-    document.head.appendChild(styleSheet);
 });
+
+    // Function to update the total price in the form and table
+function updateTotalPrice() {
+    let total = 0;
+
+    // Calculate the total price by summing up the totalPrice for each sale item
+    salesData.forEach(item => {
+        total += item.totalPrice;
+    });
+
+    // Format the total price to 2 decimal places and update the DOM
+    const totalElement = document.querySelector(".total p");
+    totalElement.innerHTML = `<strong>TOTAL:</strong> $${total.toFixed(2)}`;
+
+    // Also update the total price in the table's total row
+    const totalPriceInTable = document.getElementById("total-price");
+    totalPriceInTable.textContent = `$${total.toFixed(2)}`;
+}
+
+
+function addSaleToTable() {
+    let productInput = document.getElementById("sale-product");
+    let product = productInput.value.trim();
+    let productId = productInput.getAttribute('data-product-id');
+    let productPrice = productInput.getAttribute('data-productPrice');
+    let productStock = productInput.getAttribute('data-stock'); // Get stock value
+    let quantity = document.getElementById("sale-quantity").value.trim();
+
+    // Convert stock and quantity to numbers
+    let stock = parseInt(productStock, 10);
+    let quantityNum = parseInt(quantity, 10);
+
+    // Check if product name and quantity are not empty
+    if (product === "" || quantity === "") {
+        alert("Please enter both product name and quantity.");
+        return;
+    }
+
+   // Check if entered quantity is greater than stock
+if (quantityNum > stock) {
+    var modal = document.getElementById('stockModal');
+    var modalMessage = document.getElementById('modalMessage');
+    var closeModalBtn = document.getElementById('closeModalBtn');
+
+    modalMessage.textContent = "Stock not enough! Available stock: " + stock;
+
+    // Show the modal with smooth animation
+    modal.style.display = 'flex';
+
+    // Close the modal when the close button is clicked
+    closeModalBtn.onclick = function() {
+        modal.style.display = 'none';
+    };
+
+    return; // Stop execution
+}
+
+
+
+    let table = document.getElementById("sales-record-table");
+    let tbody = table.querySelector("tbody");
+
+    // Display table and buttons if hidden
+    table.style.display = "table"; // Show the table
+    document.getElementById("table-buttons").style.display = "block"; // Show buttons
+
+    // Create new row and append to tbody
+    let newRow = document.createElement("tr");
+    let productCell = document.createElement("td");
+    let quantityCell = document.createElement("td");
+
+    productCell.textContent = product;
+    quantityCell.textContent = quantity;
+
+    newRow.appendChild(productCell);
+    newRow.appendChild(quantityCell);
+    tbody.appendChild(newRow);
+
+    const newData = {
+        id: productId,
+        name: product,
+        quantity: quantityNum,
+        price: productPrice,
+        totalPrice: productPrice * quantityNum
+    };
+    salesData.push(newData);
+
+    // Create hidden inputs for each sale item
+    const container = document.getElementById('sales-form');
+    salesData.forEach((item, index) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = `sales[${index}]`;
+        input.value = JSON.stringify({
+            product_id: item.id,
+            quantity: item.quantity,
+            price: item.price,
+            total_price: item.totalPrice
+        });
+        container.appendChild(input);
+    });
+
+    // Clear the input fields
+    document.getElementById("sale-product").value = "";
+    document.getElementById("sale-quantity").value = "";
+    console.log(salesData);
+}
+
+
+    function renderTable(){
+        const tbody=document.getElementById("order-list")
+        const totalP=document.getElementById("total-price")
+        let text = ''
+        let total = 0
+        if(salesData.length>0){
+            salesData.forEach((item)=>{
+              total+=item.totalPrice
+              text+=`<tr class="text-center">
+                    <td>${item.name}</td>
+                    <td>${item.quantity}</td>
+                
+                    <td>$${item.totalPrice}</td>
+                    <td>$${item.totalPrice.toFixed(2)}</td>
+                    </tr>`
+            })
+            tbody.innerHTML=text;
+            totalP.textContent = `$${total.toFixed(2)}`;
+
+        }       
+    }
+
+    function cancelSales() {
+        // Clear the table and hide it
+        let table = document.getElementById("sales-record-table");
+        let tbody = table.querySelector("tbody");
+        tbody.innerHTML = "";
+        table.style.display = "none";  // Hide the buttons
+        document.getElementById("table-buttons").style.display = "none";
+        salesData.length=0
+        console.log(salesData);
+        
+    }
+
+    // function prepareHiddenInputs() {
+    //     const container = document.getElementById('sales-form');
+    //     container.innerHTML = ""; 
+    
+    //     salesData.forEach((item, index) => {
+    //         let input = document.createElement('input');
+    //         input.type = 'hidden';
+    //         input.name = sales[${index}]; 
+    //         input.value = JSON.stringify({
+    //             product_id: item.id,
+    //             quantity: item.quantity,
+    //             price: item.price,
+    //             total_price: item.totalPrice
+    //         });
+    //         container.appendChild(input);
+    //     });
+    // }
+    
+
+    function submitSale() {
+        // Implement the logic to submit the sales data
+        alert("Sales submitted successfully!");
+        cancelSales();
+    }
+
+  // Show the modal with the sales data and initiate form submission
+function submitSales() {
+    // Check if there are items in the cart
+    if (salesData.length === 0) {
+        return; // Simply return without doing anything if no items
+    }
+
+    renderTable(); // Update modal with sales data
+    document.getElementById('recipeModal').style.display = 'flex'; // Show modal
+
+    // Delay form submission until modal is closed
+    const submitBtn = document.getElementById("hidden-submit");
+    submitBtn.dataset.pending = "true"; // Mark as pending submission
+}
+
+// Close the modal and submit the form after modal is closed
+function closeModal() {
+    document.getElementById('recipeModal').style.display = 'none'; // Hide modal
+
+    // Now submit the form since the modal is closed
+    const submitBtn = document.getElementById("hidden-submit");
+    if (submitBtn.dataset.pending === "true") {
+        submitBtn.dataset.pending = "false"; // Reset flag
+        document.getElementById('sales-form').submit(); // Trigger the form submission
+    }
+}
+    
+
+    // Show img QR
+function toggleQRCode() {
+    var qrImage = document.getElementById('qr-code');
+    var toggleButton = document.getElementById('toggle-btn');
+    
+    if (qrImage.src.includes('qr-dollar.jpg')) {
+        qrImage.src = '/views/assets/img/qr-khmer.jpg';
+        toggleButton.innerText = 'Show Dollar QR'; // Change button text to show dollar QR
+    } else {
+        qrImage.src = '/views/assets/img/qr-dollar.jpg';
+        toggleButton.innerText = 'Show Khmer QR'; // Change button text to show Khmer QR
+    }
+}

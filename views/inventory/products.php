@@ -130,36 +130,13 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="row">
         <div class="col-4">
-            <a href="javascript:void(0);" class="text-decoration-none" onclick="showModal()"><div class="card" id="add-product">
+            <a href="/categories/create" style="text-decoration: none;"><div class="card" id="add-product">
             <div class="icon add">➕</div>
             <p>Add New Categories</p>
         </div>
-    </a>
+            </a>
 
-<!-- Modal for adding a category -->
-<div id="category-modal" class="category-modal" style="display:none;">
-    <div class="modal-content">
-        <h3>Create New Category</h3>
-        <form action="/inventory/store" method="POST">
-    <label for="category-name" id="cat-name">Category Name:</label>
-    <input type="text" id="category-name" name="category_name" required autocomplete="off">
-
-    <label for="category-description" id="cat-desc">Category Description:</label>
-    <textarea id="category-description" name="category_description" required></textarea>
-
-    <input type="hidden" name="csrf_token" value="">
-
-    <div class="modal-buttons">
-        <button type="submit" class="cat-btn">Create Category</button>
-        <button type="button" onclick="hideModal()" class="btn-secondary">Cancel</button>
-    </div>
-</form>
-
-    </div>
-</div>
-
-
-                </div>
+              </div>
                 <div class="col-4">
                     <div class="card" id="waste">
                         <div class="icon waste">🗑️</div>
