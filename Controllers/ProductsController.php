@@ -79,8 +79,10 @@ class ProductsController extends BaseController {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? '';
+            $expire_date = $_POST['expire_date'] ?? '';
             $category_id = $_POST['category_id'] ?? '';
             $stocks = $_POST['stocks'] ?? '';
+            $start_date = $_POST['start_date'] ?? '';
             $status = $_POST['status'] ?? 'instock';
 
             // Handle image upload
@@ -98,9 +100,11 @@ class ProductsController extends BaseController {
                 'name' => $name,
                 'description' => $description,
                 'price' => $price,
+                'expire_date' => $expire_date,
                 'category_id' => $category_id,
                 'stocks' => $stocks,
                 'status' => $status,
+                'start_date' => $start_date,
                 'image' => isset($imagePath) ? $imagePath : ''
             ];
 
@@ -113,14 +117,17 @@ class ProductsController extends BaseController {
             }
         }
     }
+   
 
     public function update($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? '';
+            $expire_date = $_POST['expire_date'] ?? '';
             $category_id = $_POST['category_id'] ?? '';
             $stocks = $_POST['stocks'] ?? '';
+            $start_date = $_POST['start_date'] ?? '';
             $status = $_POST['status'] ?? 'instock';
 
             // Handle image upload
@@ -145,9 +152,11 @@ class ProductsController extends BaseController {
                 'name' => $name,
                 'description' => $description,
                 'price' => $price,
+                'expire_date' => $expire_date,
                 'category_id' => $category_id,
                 'stocks' => $stocks,
                 'status' => $status,
+                'start_date' => $start_date,
                 'image' => $imagePath
             ];
 
@@ -176,7 +185,9 @@ class ProductsController extends BaseController {
             $name = $_POST['name'];
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? ''; 
+            $expire_date = $_POST['expire_date'] ?? '';
             $stocks = $_POST['stocks'];
+            $start_date = $_POST['start_date'] ?? '';
             $category_id = $_POST['category_id'];
             $status = $_POST['status'] ?? 'in-stock';
 
@@ -189,9 +200,11 @@ class ProductsController extends BaseController {
                 'name' => $name,
                 'description' => $description,
                 'price' => $price,
+                'expire_date' => $expire_date,
                 'stocks' => $stocks,
                 'category_id' => $category_id,
                 'status' => $status,
+                'start_date' => $start_date,
                 'image' => isset($imagePath) ? $imagePath : ''
             ];
 
