@@ -115,7 +115,7 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="modal-footer">
                         <div class="button d-flex flex-row align-items-center justify-content-between gap-2">
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn" style="background: #ff4081; " data-promotion-id="<?= $promotion['id'] ?>" onclick="sendPromotion(this, event)">Send</button>
+                            <button type="button" class="btn" style="background: #ff4081; color: white;" data-promotion-id="<?= $promotion['id'] ?>" onclick="sendPromotion(this, event)">Send</button>
                         </div>
                     </div>
                 </div>
