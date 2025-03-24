@@ -341,6 +341,16 @@
   margin-left: 40%;
 }
 
+#start-date{
+  width: 60%;
+  margin-left: 40%;
+}
+
+#expire-date{
+  width: 60%;
+  margin-left: 20px;
+}
+
 #price {
   width: 60%;
   margin-left: 20px;
@@ -371,6 +381,14 @@
 
 #cat-create {
   margin-left: 20px;
+}
+
+#expire-date-label{
+  margin-left: 20px;
+}
+
+#start-date-label{
+  margin-left: 40%;
 }
 
 #pro-edit {

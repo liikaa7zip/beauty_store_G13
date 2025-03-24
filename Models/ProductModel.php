@@ -41,15 +41,17 @@ class ProductModel {
         // Remove the dollar sign if it exists
         $price = str_replace('$', '', $data['price']);
         
-        $sql = "INSERT INTO products (name, description, price, category_id, stocks, status, image) 
-                VALUES (:name, :description, :price, :category_id, :stocks, :status, :image)";
+        $sql = "INSERT INTO products (name, description, price, expire_date, category_id, stocks, start_date, status, image) 
+                VALUES (:name, :description, :price, :expire_date, :category_id, :stocks, :start_date, :status, :image)";
         
         $params = [
             ':name' => $data['name'],
             ':description' => $data['description'],
-            ':price' => (float)$price,  // Store as decimal without $
+            ':price' => (float)$price,  
+            ':expire_date' => $data['expire_date'],  // Corrected variable name
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
+            ':start_date' => $data['start_date'],
             ':status' => $data['status'],
             ':image' => isset($data['image']) ? $data['image'] : ''
         ];
@@ -86,8 +88,10 @@ private function createLowStockNotification($productName, $stocks) {
             ':name' => $data['name'],
             ':description' => $data['description'],
             ':price' => $data['price'],
+            ':expire_date' => $data['expire_date'],
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
+            ':start_date' => $data['start_date'],
             ':status' => $data['status'],
             ':id' => $id
         ];
@@ -107,14 +111,16 @@ private function createLowStockNotification($productName, $stocks) {
     }
 
     public function createProduct($data) {
-        $sql = "INSERT INTO products (name, description, price, category_id, stocks, status, image) 
-                VALUES (:name, :description, :price, :category_id, :stocks, :status, :image)";
+        $sql = "INSERT INTO products (name, description, price, expire_date, category_id, stocks, start_date, status, image) 
+                VALUES (:name, :description, :price, :expire_date, :category_id, :stocks, :start_date, :status, :image)";
         $params = [
             ':name' => $data['name'],
             ':description' => isset($data['description']) ? $data['description'] : null,  // Optional, can be NULL
             ':price' => $data['price'],
+            ':expire_date' => $data['expire_date'],
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
+            ':start_date' => $data['start_date'],
             ':status' => $data['status'],
             ':image' => isset($data['image']) ? $data['image'] : null // Optional, can be NULL
         ];
