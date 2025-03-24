@@ -7,10 +7,24 @@ require_once "Controllers/PromotionController.php";
 require_once "Controllers/ProductsController.php";
 require_once "Controllers/SalesController.php";
 require_once "Controllers/CategoryController.php";
+<<<<<<< HEAD
 require_once "Controllers/EmployeeController.php";
 require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
+=======
+require_once "Controllers/NotificationController.php"; 
+
+
+
+
+
+require_once "Controllers/SellController.php";
+require_once "Controllers/UserController.php";
+require_once "Models/UserModel.php";
+require_once "Models/SalesModel.php";
+require_once "Models/NotificationModel.php";
+>>>>>>> research
 
 $route = new Router();
 $route->get("/", [UserController::class, 'login']);
@@ -34,7 +48,19 @@ $route->get("/inventory/create", [ProductsController::class, 'create']);
 $route->post("/categories/create", [CategoryController::class,'create']);
 $route->post("/categories/store", [CategoryController::class,'store']);
 
+<<<<<<< HEAD
 // Promotion
+=======
+
+
+//Notification
+$route->get("/notification", [NotificationController::class, 'index']);
+
+//Categories
+$route->post("/inventory/store", [CategoryController::class,'store']);
+
+//Promotion
+>>>>>>> research
 $route->get("/promotion", [PromotionController::class, 'index']);
 $route->get("/promotion/create", [PromotionController::class, 'create']);
 $route->get("/promotion/edit/{id}", [PromotionController::class, 'edit']);
