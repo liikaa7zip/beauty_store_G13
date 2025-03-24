@@ -70,6 +70,8 @@ $notifications = $notificationModel->getNotifications();
             flex-grow: 1;
         }
         .notification .delete-btn {
+            width: 40px;
+            margin-left: 500px;
             background: none;
             border: none;
             font-size: 2.5em;
