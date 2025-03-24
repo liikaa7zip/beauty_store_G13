@@ -19,11 +19,16 @@ class Database
     }
 
     function query($sql, $params = [])
-    {
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
-        return $stmt;
+{
+    $stmt = $this->pdo->prepare($sql);
+    if (!$stmt->execute($params)) {
+        // If the execution fails, throw an exception with the error information
+        $errorInfo = $stmt->errorInfo();
+        throw new Exception("Database query failed: " . $errorInfo[2]);
     }
+    return $stmt;
+}
+
 
     function prepare($sql)
     {
