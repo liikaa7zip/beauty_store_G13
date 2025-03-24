@@ -7,6 +7,7 @@ require_once "Controllers/PromotionController.php";
 require_once "Controllers/ProductsController.php";
 require_once "Controllers/SalesController.php";
 require_once "Controllers/CategoryController.php";
+require_once "Controllers/NotificationController.php"; 
 
 
 
@@ -16,6 +17,7 @@ require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
 require_once "Models/SalesModel.php";
+require_once "Models/NotificationModel.php";
 
 $route = new Router();
 $route->get("/", [UserController::class, 'login']);
@@ -40,6 +42,11 @@ $route->post("/inventory/products/store", [ProductsController::class, 'store']);
 $route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
 $route->get("/inventory/create", [ProductsController::class, 'create']);
 
+
+
+
+//Notification
+$route->get("/notification", [NotificationController::class, 'index']);
 
 //Categories
 $route->post("/inventory/store", [CategoryController::class,'store']);
