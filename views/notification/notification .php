@@ -42,52 +42,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Fetch notifications from the database
 $notifications = $notificationModel->getNotifications();
 ?>
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            overflow: hidden; /* Prevent scrolling */
-        }
-        .app-main {
-            position: fixed;
-            left: 274px;
-            width: 78%;
-            height: 100%;
-            overflow: auto; /* Allow scrolling within the fixed element */
-        }
-        .container {
-            padding: 20px;
-        }
-        .notification {
-            background-color: #d4edda;
-            border: 1px solid #c3e6cb;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
-            position: relative;
-        }
-        .notification .content {
-            flex-grow: 1;
-        }
-        .notification .delete-btn {
-            width: 40px;
-            margin-left: 500px;
-            background: none;
-            border: none;
-            font-size: 2.5em;
-            cursor: pointer;
-            position: absolute;
-            top: 0.5px;
-            
-            left: 460px;
-        }
-        .delete-btn:hover {
-                color: red;
-            }
-        .form-container {
-            margin-bottom: 20px;
-        }
-    </style>
+
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    let notificationId = this.getAttribute("data-id");
+                    console.log("Attempting to delete ID:", notificationId); // Log ID
+
+                    if (confirm("Are you sure you want to delete this notification?")) {
+                        fetch(window.location.href, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                            },
+                            body: "delete_id=" + encodeURIComponent(notificationId)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Server response:", data); // Log response
+
+                            if (data.status === "success") {
+                                this.parentElement.remove(); // Remove from UI
+                            } else {
+                                alert("Failed to delete notification: " + data.message);
+                            }
+                        })
+                        .catch(error => console.error("Fetch error:", error));
+                    }
+                });
+            });
+        });
+</script>
 
 
 </head>
