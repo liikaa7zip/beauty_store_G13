@@ -70,8 +70,6 @@ if (!isset($role)) $role = '';
                 <button type="button" class="new-btn-cancel" onclick="window.location.href='/employees'">Cancel</button>
                 <button type="submit" class="new-btn-primary ">Submit</button>
             </div>
-        </form>
-
-        
+        </form>       
     </div>
 </div>
