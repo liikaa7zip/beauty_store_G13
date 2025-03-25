@@ -92,3 +92,4 @@ $route->post("/sales/create", [SalesController::class, 'store']);
 $route->get("/dashboard/sell", [SellController::class, 'index']);
 
 $route->route();
+?>

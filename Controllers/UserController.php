@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once "Models/UserModel.php";
 
@@ -13,8 +13,7 @@ class UserController extends BaseController {
         $this->users = new UserModel();
     }
 
-    public function login()
-    {
+    public function login() {
         // Implement the login logic here
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate and authenticate user
@@ -29,8 +28,7 @@ class UserController extends BaseController {
         }
     }
 
-    public function logout()
-    {
+    public function logout() {
         // Implement the logout logic here
         session_destroy();
         $this->redirect('/users/signIn');
@@ -77,6 +75,5 @@ class UserController extends BaseController {
             $this->view('/users/signIn', ['error' => $error]);
         }
     }
-
 }
 ?>

@@ -124,3 +124,147 @@ h2 {
 .btn-primary:hover {
     background-color: #e91e63;
 }
+
+
+/* Create employees */
+
+/* Modern and Engaging Styles for Employee Form */
+
+.new-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.new-form-container {
+    width: 100%;
+    
+    padding: 25px;
+    border-radius: 10px;
+    
+}
+
+.new-image-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.new-image-preview-wrapper {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #4caf50;
+    transition: transform 0.3s ease-in-out;
+}
+
+.new-image-preview-wrapper:hover {
+    transform: scale(1.05);
+}
+
+.new-image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.new-image-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    text-align: center;
+    padding: 6px 0;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 0 0 50% 50%;
+    transition: background 0.3s;
+}
+
+.new-image-overlay:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.new-form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 15px;
+}
+
+.new-form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.new-form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.new-form-group input, .new-form-group select {
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border 0.3s ease-in-out;
+}
+
+.new-form-group input:focus, .new-form-group select:focus {
+    border-color: #d25da4;
+    outline: none;
+    box-shadow: 0 0 5px rgba(243, 89, 153, 0.5);
+}
+
+.new-form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.new-btn-cancel {
+    background: #d32f2f;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.new-btn-cancel:hover {
+    background: #b71c1c;
+}
+
+.new-btn-primary {
+    background: #4caf50;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.new-btn-primary:hover {
+    background: #388e3c;
+}
+
+.new-confirmation-message {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #2e7d32;
+}
