@@ -18,18 +18,24 @@ if (!isset($role)) $role = '';
 
 
 ?>
-<h2>Add New Employees</h2>
+<h2 id="h2-create-employ">Add New Employees</h2>
 <div class="new-form-wrapper">
     <div class="new-form-container">
-        <div class="new-image-section">
-            <div class="new-image-preview-wrapper" id="newImageOverlay">
-                
-                <div class="new-image-overlay">
-                    
-                </div>
+    <div class="new-image-section">
+    <div class="new-image-preview-wrapper" id="newImageOverlay">
+        <div class="new-image-overlay">
+            <div class="new-image-placeholder">
+                <svg class="new-upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <p>Click to upload an image</p>
             </div>
-            <input type="file" id="newImageUpload" name="image" accept="image/*" style="display: none;">
         </div>
+    </div>
+    <input type="file" id="newImageUpload" name="image" accept="image/*" style="display: none;">
+</div>
 
         <?php if ($error): ?>
             <p class="new-error-message"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
@@ -62,7 +68,7 @@ if (!isset($role)) $role = '';
             </div>
             <div class="new-form-buttons">
                 <button type="button" class="new-btn-cancel" onclick="window.location.href='/employees'">Cancel</button>
-                <button type="submit" class="new-btn-primary">Submit</button>
+                <button type="submit" class="new-btn-primary ">Submit</button>
             </div>
         </form>
 

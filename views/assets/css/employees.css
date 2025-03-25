@@ -8,11 +8,14 @@
     margin: 20px;
 }
 
-h2 {
+#user-management {
     color: #333;
+    text-align: center;
+    font-size: 38px;
 }
 
 .emp-employee-section {
+    margin-top: 30px;
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
@@ -26,20 +29,41 @@ h2 {
     margin-bottom: 20px;
 }
 
-.emp-search-employee {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 200px;
+.emp-header-left {
+    display: flex;
+    align-items: center;
+    padding: 10px;
 }
+
+.emp-search-employee {
+    width: 300px;
+    padding: 10px;
+    border: 2px solid #ff69b4; /* Pink border to match your POS theme */
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.emp-search-employee:focus {
+    border-color: #ff4bab; /* Darker pink on focus */
+    box-shadow: 0 0 8px rgba(240, 56, 154, 0.5);
+}
+
+.emp-search-employee::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
 
 .emp-add-employee-btn {
     background-color: #ff4081;
     color: white;
-    padding: 10px 20px;
+    padding: 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: -5px;
 }
 
 .emp-add-employee-btn:hover {
@@ -128,143 +152,189 @@ h2 {
 
 /* Create employees */
 
-/* Modern and Engaging Styles for Employee Form */
-
+#h2-create-employ{
+    text-align: center;
+    margin-top: 25px;
+    color: #333;
+}
 .new-form-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     width: 100%;
-    max-width: 700px;
-    margin: auto;
-    padding: 30px;
-    border-radius: 12px;
+    max-width: 1100px; /* Slightly wider for a modern feel */
+    margin: 40px auto; /* More breathing room */
 }
 
 .new-form-container {
-    width: 100%;
-    
-    padding: 25px;
-    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    background: linear-gradient(135deg, #f7f9fc, #ffffff); /* Subtle gradient */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     
 }
 
+
+
 .new-image-section {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    flex: 1;
+    max-width: 350px; /* Slightly wider image section */
 }
 
 .new-image-preview-wrapper {
+    width: 100%;
+    height: 320px; /* Taller for better presence */
+    background: #eef2f7; /* Softer background */
+    border: 3px dashed #7f9cf5; /* More vibrant dashed border */
+    border-radius: 10px;
     position: relative;
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
     overflow: hidden;
-    border: 3px solid #4caf50;
-    transition: transform 0.3s ease-in-out;
+    transition: border-color 0.3s ease;
 }
 
 .new-image-preview-wrapper:hover {
-    transform: scale(1.05);
-}
-
-.new-image-preview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    border-color: #5a67d8; /* Darker on hover */
 }
 
 .new-image-overlay {
-    position: absolute;
-    bottom: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    text-align: center;
-    padding: 6px 0;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 0 0 50% 50%;
-    transition: background 0.3s;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.1); /* Subtle overlay */
+    transition: background 0.3s ease;
 }
 
-.new-image-overlay:hover {
-    background: rgba(0, 0, 0, 0.8);
+.new-image-preview-wrapper:hover .new-image-overlay {
+    background: rgba(0, 0, 0, 0.2); /* Darken on hover */
+}
+
+#newImageUpload {
+    display: none;
+}
+
+.new-image-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #7f9cf5; /* Match the border color */
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.new-image-placeholder p {
+    margin: 10px 0 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.new-upload-icon {
+    width: 40px;
+    height: 40px;
+    stroke: #7f9cf5;
+}
+
+.new-image-preview-wrapper:hover .new-image-placeholder {
+    opacity: 1; /* Brighten on hover */
+}
+
+/* Hide placeholder when an image is loaded */
+.new-image-preview-wrapper.has-image .new-image-placeholder {
+    display: none;
+}
+
+form#newAddEmployeeForm {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 .new-form-row {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     gap: 25px;
-    margin-bottom: 15px;
 }
 
 .new-form-group {
     flex: 1;
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .new-form-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2d3748; /* Darker, modern gray */
+    letter-spacing: 0.5px;
 }
 
-.new-form-group input, .new-form-group select {
-    padding: 10px;
-    border: 1px solid #bbb;
+.new-form-group input,
+.new-form-group select {
+    padding: 12px;
+    border: 2px solid #e2e8f0; /* Thicker, softer border */
     border-radius: 6px;
-    font-size: 14px;
-    transition: border 0.3s ease-in-out;
+    font-size: 15px;
+    background: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.new-form-group input:focus, .new-form-group select:focus {
-    border-color: #d25da4;
+.new-form-group input:focus,
+.new-form-group select:focus {
+    border-color: #f888c9; /* Vibrant focus color */
+    box-shadow: 0 0 8px rgba(90, 103, 216, 0.3); /* Glow effect */
     outline: none;
-    box-shadow: 0 0 5px rgba(243, 89, 153, 0.5);
+}
+
+.new-error-message {
+    color: #e53e3e; /* Softer red */
+    margin: 12px 0;
+    font-size: 14px;
+    font-style: italic;
 }
 
 .new-form-buttons {
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.new-btn-cancel,
+.new-btn-primary {
+    padding: 12px 25px;
+    border: none;
+    width: 100px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 .new-btn-cancel {
-    background: #d32f2f;
-    color: #fff;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s ease-in-out;
+    background: #edf2f7; /* Light gray */
+    color: #4a5568; /* Darker text */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .new-btn-cancel:hover {
-    background: #b71c1c;
+    background: #e2e8f0;
+    transform: translateY(-2px); /* Slight lift */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .new-btn-primary {
-    background: #4caf50;
-    color: #fff;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s ease-in-out;
+    background: linear-gradient(90deg, #ff3db5, #f57fba); /* Gradient button */
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .new-btn-primary:hover {
-    background: #388e3c;
-}
-
-.new-confirmation-message {
-    text-align: center;
-    margin-top: 20px;
-    font-weight: bold;
-    color: #2e7d32;
+    background: linear-gradient(90deg, #fd1fb3, #f12db0);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(90, 103, 216, 0.3);
 }

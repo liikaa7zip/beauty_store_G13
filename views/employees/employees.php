@@ -1,4 +1,4 @@
-<h2>Users Management</h2>
+<h2 id="user-management">Users Management</h2>
     <div class="emp-employee-section" id="emp-employee-section">
         <header class="emp-employee-header" id="emp-employee-header">
             <div class="emp-header-left">
