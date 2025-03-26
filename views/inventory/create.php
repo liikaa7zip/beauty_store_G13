@@ -70,18 +70,23 @@ $product = $product ?? [
                 </div>
             </div>
             <div class="mb-4">
-                    <label for="description" class="form-label" id="name-created">Description</label>
-                    <textarea id="description" name="description" class="form-control form-control-lg" rows="4" required><?= htmlspecialchars($product['description']) ?></textarea>
+                <label for="description" class="form-label" id="name-created">Description</label>
+                <textarea id="description" name="description" class="form-control form-control-lg" rows="4" required><?= htmlspecialchars($product['description']) ?></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="productImage" class="form-label" id="name-created">Product Image</label>
+                <input type="file" id="productImage" name="productImage" class="form-control form-control-lg" accept="image/*">
+                <div class="mt-3">
+                    <img src="<?= !empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])
+                                    ? htmlspecialchars($product['image'])
+                                    : 'https://i.pinimg.com/1200x/69/96/2f/69962f39b03a5ba0e49f4668523b5d61.jpg' ?>"
+                        alt="Product Image"
+                        class="product-image-preview"
+                        style="max-width: 200px; max-height: 200px; object-fit: cover; border: 1px solid #ddd; border-radius: 8px;">
                 </div>
-                <div class="mb-4">
-                    <label for="productImage" class="form-label" id="name-created">Product Image</label>
-                    <input type="file" id="productImage" name="productImage" class="form-control form-control-lg" accept="image/*">
-                    <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
-                        <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image-preview">
-                    <?php endif; ?>
-                </div>
+            </div>
         </div>
-        
+
         <div class="text-center mt-5">
             <button id="pro-create" type="submit" class="btn btn-primary btn-lg px-5" style="background-color: #FF1493; border: none;">CREATE PRODUCT</button>
         </div>
@@ -89,27 +94,28 @@ $product = $product ?? [
 </div>
 
 <style>
-.form-label {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    color: #444;
-}
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: #444;
+    }
 
-.form-control, .form-select {
-    border: 1px solid #ddd;
-    padding: 0.75rem;
-    border-radius: 8px;
-    background-color: #fff;
-}
+    .form-control,
+    .form-select {
+        border: 1px solid #ddd;
+        padding: 0.75rem;
+        border-radius: 8px;
+        background-color: #fff;
+    }
 
-.form-control:focus, .form-select:focus {
-    border-color: #FF1493;
-    box-shadow: 0 0 0 0.2rem rgba(255, 20, 147, 0.25);
-}
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #FF1493;
+        box-shadow: 0 0 0 0.2rem rgba(255, 20, 147, 0.25);
+    }
 
-.btn-primary:hover {
-    background-color: #FF1493 !important;
-    opacity: 0.9;
-}
+    .btn-primary:hover {
+        background-color: #FF1493 !important;
+        opacity: 0.9;
+    }
 </style>
-

@@ -14,32 +14,32 @@ if (!isset($_SESSION['user_id'])) {
     <h1 id="h1-products">Products List</h1>
     <div class="container mt-4">
         <div class="table-container">
-    <div class="table-header">
-        <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
-        
-        <div id="categoryWrapper">
-            <select id="categorySelect" name="category">
-                <option value="">Select a category</option>
-                <?php foreach ($categories as $category): ?>
-                    <option value="<?= $category['id'] ?>">
-                        <?= htmlspecialchars($category['name']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+            <div class="table-header">
+                <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
 
-        <div class="spacer"></div>
+                <div id="categoryWrapper">
+                    <select id="categorySelect" name="category">
+                        <option value="">Select a category</option>
+                        <?php foreach ($categories as $category): ?>
+                            <option value="<?= $category['id'] ?>">
+                                <?= htmlspecialchars($category['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-        <div class="action-buttons">
-            <button class="import-btn" onclick="triggerImport(); console.log('Import button clicked');">
-                <i class="fa fa-upload"></i> Import
-            </button>
-            <button class="export-btn" onclick="exportToExcel(); console.log('Export button clicked');">
-                <i class="fa fa-download"></i> Export
-            </button>
+                <div class="spacer"></div>
+
+                <div class="action-buttons">
+                    <button class="import-btn" onclick="triggerImport(); console.log('Import button clicked');">
+                        <i class="fa fa-upload"></i> Import
+                    </button>
+                    <button class="export-btn" onclick="exportToExcel(); console.log('Export button clicked');">
+                        <i class="fa fa-download"></i> Export
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
         <!-- Table -->
         <table id="productTable" class="table table-striped table-bordered display">
@@ -56,23 +56,23 @@ if (!isset($_SESSION['user_id'])) {
             <tbody id="productsTableBody">
                 <?php foreach ($products as $product): ?>
                     <tr data-category-id="<?= htmlspecialchars($product['category_id']) ?>"> <!-- Corrected data attribute for category ID -->
-                    <td>
-                    <div style="display: flex; align-items: center; width: 100%;">
-                        <!-- Align the image to the left -->
-                        <div style="display: flex; align-items: center;">
-                            <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
-                                <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
-                            <?php else: ?>
-                                <img src="/path/to/default-image.jpg" alt="Default Image" class="product-image">
-                            <?php endif; ?>
-                        </div>
-                        <!-- Center the product name within the available space -->
-                        <div style="flex-grow: 1; text-align: center;">
-                            <span id="pro-name"><?= htmlspecialchars($product['name']) ?></span>
-                        </div>
-                    </div>
-                </td>
-                        <td><?= htmlspecialchars($product['formatted_price']) ?></td>
+                        <td>
+                            <div style="display: flex; align-items: center; width: 100%;">
+                                <!-- Align the image to the left -->
+                                <div style="display: flex; align-items: center;">
+                                    <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
+                                        <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
+                                    <?php else: ?>
+                                        <img src="/path/to/default-image.jpg" alt="Default Image" class="product-image">
+                                    <?php endif; ?>
+                                </div>
+                                <!-- Center the product name within the available space -->
+                                <div style="flex-grow: 1; text-align: center;">
+                                    <span id="pro-name"><?= htmlspecialchars($product['name']) ?></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td><?= htmlspecialchars($product["price"]) ?></td>
 
                         <td><?= htmlspecialchars($product['stocks']) ?></td>
                         <td>
@@ -82,19 +82,19 @@ if (!isset($_SESSION['user_id'])) {
                             <?= ucfirst(htmlspecialchars($product['status'])) ?>
                         </td>
                         <td>
-                        <div class="dropdown">
-                            <button class="dropbtn btn btn-sm" onclick="toggleDropdown(this)">
-                                 <span class="material-symbols-outlined">more_horiz</span>
-                            </button>
-                            <div class="dropdown-content" style="display: none;">
-                                <a href="/inventory/edit/<?= $product['id'] ?>">
-                                    <span class="material-symbols-outlined" id="edit-pro">border_color</span> Edit
-                                </a>
-                                <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
-                                    <span class="material-symbols-outlined" id="delete-pro">delete</span> Delete
-                                </a>
+                            <div class="dropdown">
+                                <button class="dropbtn btn btn-sm" onclick="toggleDropdown(this)">
+                                    <span class="material-symbols-outlined">more_horiz</span>
+                                </button>
+                                <div class="dropdown-content" style="display: none;">
+                                    <a href="/inventory/edit/<?= $product['id'] ?>">
+                                        <span class="material-symbols-outlined" id="edit-pro">border_color</span> Edit
+                                    </a>
+                                    <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
+                                        <span class="material-symbols-outlined" id="delete-pro">delete</span> Delete
+                                    </a>
+                                </div>
                             </div>
-                        </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -102,62 +102,68 @@ if (!isset($_SESSION['user_id'])) {
         </table>
         <div class="pagination" id="pagination"></div>
     </div>
-        <div class="stocks-container card grid gap-2 p-4">
-            <h3>Stock summary:</h3>
-            <div class="row mb-3">
-        <div class="col-4">
-            <div class="stock-summary card" id="total-products">
-                <div class="icon">📦</div>
-                <p>Total Products</p>
-                <h3>0.00</h3> <!-- This will be updated -->
+    <div class="stocks-container card grid gap-2 p-4">
+        <h3>Stock summary:</h3>
+        <div class="row mb-3">
+            <div class="col-4">
+                <div class="stock-summary card" id="total-products">
+                    <div class="icon">📦</div>
+                    <p>Total Products</p>
+                    <h3>0.00</h3> <!-- This will be updated -->
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card" id="low-stocks">
+                    <div class="icon low-stock">🔻</div>
+                    <p>Low-stocks</p>
+                    <h3>0.00</h3> <!-- This will be updated -->
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card" id="in-stocks">
+                    <div class="icon in-stock">📈</div>
+                    <p>In-stocks</p>
+                    <h3>0.00</h3> <!-- This will be updated -->
+                </div>
             </div>
         </div>
-        <div class="col-4">
-            <div class="card" id="low-stocks">
-                <div class="icon low-stock">🔻</div>
-                <p>Low-stocks</p>
-                <h3>0.00</h3> <!-- This will be updated -->
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="card" id="in-stocks">
-                <div class="icon in-stock">📈</div>
-                <p>In-stocks</p>
-                <h3>0.00</h3> <!-- This will be updated -->
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-4">
-            <a href="/categories/create" style="text-decoration: none;"><div class="card" id="add-product">
-            <div class="icon add">➕</div>
-            <p>Add New Categories</p>
-        </div>
-            </a>
-
-              </div>
-                <div class="col-4">
-                    <div class="card" id="waste">
-                        <div class="icon waste">🗑️</div>
-                        <p>Waste</p>
+        <div class="row">
+            <div class="col-4">
+                <a href="/categories/create" style="text-decoration: none;">
+                    <div class="card" id="add-product">
+                        <div class="icon add">➕</div>
+                        <p>Add New Categories</p>
                     </div>
+                </a>
+
+            </div>
+            <div class="col-4">
+                <div class="card" id="waste">
+                    <div class="icon waste">🗑️</div>
+                    <p>Waste</p>
                 </div>
-                <div class="col-4">
-                    <a href="/inventory/create" class="text-decoration-none">
-                        <div class="card" id="add-product">
-                            <div class="icon add">➕</div>
-                            <p>Add products</p>
-                        </div>
-                    </a>
-                </div>
+            </div>
+            <div class="col-4">
+                <a href="/inventory/create" class="text-decoration-none">
+                    <div class="card" id="add-product">
+                        <div class="icon add">➕</div>
+                        <p>Add products</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-4">
+                <a href="/categories" class="text-decoration-none">
+                    <div class="card" id="add-product">
+                        <div class="icon add">📂</div>
+                        <p>View Categories</p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
-    </div>
+</div>
 
-</div>
-</div>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -216,18 +222,13 @@ if (!isset($_SESSION['user_id'])) {
         });
     });
 
-// Show the modal
-function showModal() {
-    document.getElementById('category-modal').style.display = 'block';
-}
+    // Show the modal
+    function showModal() {
+        document.getElementById('category-modal').style.display = 'block';
+    }
 
-// Hide the modal
-function hideModal() {
-    document.getElementById('category-modal').style.display = 'none';
-}
-
-
-    
-    
+    // Hide the modal
+    function hideModal() {
+        document.getElementById('category-modal').style.display = 'none';
+    }
 </script>
-

@@ -25,6 +25,8 @@ require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
 require_once "Models/SalesModel.php";
 require_once "Models/NotificationModel.php";
+require_once "Models/CategoryModel.php";
+require_once "Models/PromotionModel.php";
 
 
 $route = new Router();
@@ -44,15 +46,21 @@ $route->post('/signin', 'AuthController@signIn');
 // Inventory
 $route->get("/inventory/products", [ProductsController::class, 'index']);
 $route->get("/inventory/edit/{id}", [ProductsController::class, 'edit']);
-$route->put("/inventory/products/update/{id}", [ProductsController::class, 'update']);
+$route->put("/inventory/update/{id}", [ProductsController::class, 'update']);
 $route->post("/inventory/products/store", [ProductsController::class, 'store']);
 $route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
 $route->get("/inventory/create", [ProductsController::class, 'create']);
 
+$route->get("/inventory/product/category/{id}", [ProductsController::class, 'getProductsByCategory']);
+
 // Categories
-$route->post("/categories/create", [CategoryController::class,'create']);
-$route->post("/categories/store", [CategoryController::class,'store']);
-$route->delete("/categories/delete/{id}", [CategoryController::class,'delete']);
+
+$route->get("/categories", [CategoryController::class, 'index']);
+$route->get("/categories/create", [CategoryController::class, 'create']);
+$route->post("/categories/store", [CategoryController::class, 'store']);
+$route->get("/categories/edit/{id}", [CategoryController::class, 'edit']);
+$route->post("/categories/update/{id}", [CategoryController::class, 'update']);
+$route->delete("/categories/delete/{id}", [CategoryController::class, 'delete']);
 
 // Promotion
 
