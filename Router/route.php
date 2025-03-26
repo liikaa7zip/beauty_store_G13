@@ -26,6 +26,7 @@ require_once "Models/UserModel.php";
 require_once "Models/SalesModel.php";
 require_once "Models/NotificationModel.php";
 
+
 $route = new Router();
 $route->get("/", [UserController::class, 'login']);
 
@@ -35,6 +36,10 @@ $route->post("/users/create", [UserController::class, 'create']);
 $route->post("/users/store", [UserController::class, 'store']);
 $route->get("/users/signIn", [UserController::class, 'signIn']);
 $route->post("/users/authenticate", [UserController::class, 'authenticate']);
+
+// Sign In
+$route->get('/signin', 'AuthController@showSignInForm');
+$route->post('/signin', 'AuthController@signIn');
 
 // Inventory
 $route->get("/inventory/products", [ProductsController::class, 'index']);
@@ -68,8 +73,15 @@ $route->post("/promotion/store", [PromotionController::class, 'store']);
 $route->put("/promotion/update/{id}", [PromotionController::class, 'update']);
 $route->delete("/promotion/delete/{id}", [PromotionController::class, 'delete']);
 
+$route->post("/promotion/send/{id}", [PromotionController::class, 'sendPromotion']);
+
+
+
 // Employees
 $route->get("/employees", [EmployeeController::class, 'index']);
+// $route->get('/employees/index', [EmployeeController::class, 'index']);  
+$route->get('/employees/create', [EmployeeController::class, 'create']);      // Maps to EmployeeController::add
+$route->post('/employees/store', [EmployeeController::class, 'store']);
 
 // Sales
 $route->get("/sales", [SalesController::class, 'index']);
@@ -80,3 +92,4 @@ $route->post("/sales/create", [SalesController::class, 'store']);
 $route->get("/dashboard/sell", [SellController::class, 'index']);
 
 $route->route();
+?>

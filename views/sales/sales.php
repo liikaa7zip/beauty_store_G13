@@ -64,7 +64,7 @@
     <!-- Dynamic rows will be added here -->
     <tr class="total">
       <td colspan="3">Total Price</td>
-      <td id="total-price">$0.00</td> <!-- Total Price will be updated here -->
+      
     </tr>
   </tbody>
 </table>

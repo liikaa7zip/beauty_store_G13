@@ -9,14 +9,12 @@ class PromotionModel
         $this->pdo = new Database();
     }
 
-    // Get all promotions from the database
     public function getAllPromotions()
     {
         $stmt = $this->pdo->query("SELECT * FROM promotions ORDER BY id DESC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Create a new promotion in the database
     public function createPromotion($data)
     {
         try {
@@ -34,7 +32,7 @@ class PromotionModel
                 ]
             );
         } catch (PDOException $e) {
-            if ($e->getCode() == '23000') { // Integrity constraint violation
+            if ($e->getCode() == '23000') {
                 throw new Exception("Duplicate entry detected for promotion code.");
             } else {
                 throw $e;
@@ -42,14 +40,12 @@ class PromotionModel
         }
     }
 
-    // Get a single promotion by its ID
     public function getPromotionById($id)
     {
         $stmt = $this->pdo->query("SELECT * FROM promotions WHERE id = :id", [':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Update an existing promotion by its ID
     public function updatePromotion($id, $data)
     {
         $stmt = $this->pdo->query(
@@ -69,9 +65,9 @@ class PromotionModel
         );
     }
 
-    // Delete a promotion from the database
     public function deletePromotion($id)
     {
         $this->pdo->query("DELETE FROM promotions WHERE id = :id", [':id' => $id]);
     }
+    
 }
