@@ -31,11 +31,24 @@ class NotificationModel {
         }
         return $notifications;
     }
-
+     //delete notification missages
     public function deleteNotification($id) {
-        $query = "DELETE FROM store_notifications WHERE id = ?";
-        $stmt = $this->db->query($query, [$id]);
-        return $stmt->rowCount();
+        try {
+            $query = "DELETE FROM store_notifications WHERE id = ?";
+            $stmt = $this->db->prepare($query); // Prepare query
+            $stmt->execute([$id]); // Execute with parameter
+    
+            if ($stmt->rowCount() > 0) {
+                error_log("Database delete success for ID: " . $id);
+                return true;
+            } else {
+                error_log("Database delete failed for ID: " . $id);
+                return false;
+            }
+        } catch (PDOException $e) {
+            error_log("PDO Error deleting notification: " . $e->getMessage());
+            return false;
+        }
     }
 }
 ?>

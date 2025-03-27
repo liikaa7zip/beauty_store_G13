@@ -125,3 +125,30 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn('Form with ID "addEmployeeForm" not found');
     }
 });
+
+
+// Employees img
+    document.getElementById('newImageOverlay').addEventListener('click', function() {
+        document.getElementById('newImageUpload').click();
+    });
+
+    document.getElementById('newImageUpload').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewWrapper = document.getElementById('newImageOverlay');
+                previewWrapper.style.backgroundImage = `url(${e.target.result})`;
+                previewWrapper.style.backgroundSize = 'cover';
+                previewWrapper.style.backgroundPosition = 'center';
+                previewWrapper.classList.add('has-image'); /* Add class to hide placeholder */
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+
+    // Droupdown Action
+
+    
+
