@@ -13,6 +13,26 @@ document.getElementById('sale-product').addEventListener('input', function(e) {
     }
 });
 
+    // Function to update the total price in the form and table
+    function updateTotalPrice() {
+        let total = 0;
+    
+        // Calculate the total price
+        salesData.forEach(item => {
+            total += Number(item.totalPrice);
+        });
+    
+        // Update only the total amount in the div
+        const totalAmountSpan = document.getElementById("total-amount");
+        if (totalAmountSpan) {
+            totalAmountSpan.textContent = total.toFixed(2);
+        } else {
+            console.error("Element with id 'total-amount' not found!");
+        }
+    }
+    
+
+
 function addSaleToTable() {
     let productInput = document.getElementById("sale-product");
     let product = productInput.value.trim();
@@ -102,25 +122,31 @@ if (quantityNum > stock) {
 }
 
 
-    function renderTable(){
-        const tbody=document.getElementById("order-list")
-        const totalP=document.getElementById("total-price")
-        let text = ''
-        let total = 0
-        if(salesData.length>0){
-            salesData.forEach((item)=>{
-              total+=item.totalPrice
-              text+=`<tr class="text-center">
+function renderTable() {
+    const tbody = document.getElementById("order-list"); // Table body
+    const totalAmount = document.getElementById("total-amount"); // Total in div
+    let text = "";
+    let total = 0;
+
+    // Loop through salesData to generate table rows
+    salesData.forEach((item) => {
+        total += item.totalPrice;
+        text += `<tr class="text-center">
                     <td>${item.name}</td>
                     <td>${item.quantity}</td>
                     <td>$${item.price}</td>
-                    <td>$${item.totalPrice}</td>
-                    </tr>`
-            })
-            tbody.innerHTML=text;
-            totalP.textContent=total
-        }       
+                    <td>$${item.totalPrice.toFixed(2)}</td>
+                 </tr>`;
+    });
+
+    tbody.innerHTML = text; // Fill the table with product rows
+
+    // Update the total in the <div> (not in the table)
+    if (totalAmount) {
+        totalAmount.textContent = total.toFixed(2);
     }
+}
+
 
     function cancelSales() {
         // Clear the table and hide it
@@ -134,23 +160,23 @@ if (quantityNum > stock) {
         
     }
 
-    function prepareHiddenInputs() {
-        const container = document.getElementById('sales-form');
-        container.innerHTML = ""; // Clear old inputs
+    // function prepareHiddenInputs() {
+    //     const container = document.getElementById('sales-form');
+    //     container.innerHTML = ""; 
     
-        salesData.forEach((item, index) => {
-            let input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = `sales[${index}]`; // Name must match PHP expected structure
-            input.value = JSON.stringify({
-                product_id: item.id,
-                quantity: item.quantity,
-                price: item.price,
-                total_price: item.totalPrice
-            });
-            container.appendChild(input);
-        });
-    }
+    //     salesData.forEach((item, index) => {
+    //         let input = document.createElement('input');
+    //         input.type = 'hidden';
+    //         input.name = sales[${index}]; 
+    //         input.value = JSON.stringify({
+    //             product_id: item.id,
+    //             quantity: item.quantity,
+    //             price: item.price,
+    //             total_price: item.totalPrice
+    //         });
+    //         container.appendChild(input);
+    //     });
+    // }
     
 
     function submitSale() {
@@ -159,26 +185,44 @@ if (quantityNum > stock) {
         cancelSales();
     }
 
-    function submitSales() {
-        if (salesData.length === 0) {
-            alert("Please add items to cart first");
-            return;
-        }
-    
-        prepareHiddenInputs(); // Call this to add hidden inputs
-        renderTable();
-        document.getElementById('recipeModal').style.display = 'flex';
+  // Show the modal with the sales data and initiate form submission
+function submitSales() {
+    // Check if there are items in the cart
+    if (salesData.length === 0) {
+        return; // Simply return without doing anything if no items
     }
-    
-    
-    function closeModal() {
-        document.getElementById('recipeModal').style.display = 'none'; // Hide modal
-    
-        // Now submit the form since the modal is closed
-        const submitBtn = document.getElementById("hidden-submit");
-        if (submitBtn.dataset.pending === "true") {
-            submitBtn.dataset.pending = "false"; // Reset flag
-            submitBtn.click(); // Trigger actual form submission
-        }
+
+    renderTable(); // Update modal with sales data
+    document.getElementById('recipeModal').style.display = 'flex'; // Show modal
+
+    // Delay form submission until modal is closed
+    const submitBtn = document.getElementById("hidden-submit");
+    submitBtn.dataset.pending = "true"; // Mark as pending submission
+}
+
+// Close the modal and submit the form after modal is closed
+function closeModal() {
+    document.getElementById('recipeModal').style.display = 'none'; // Hide modal
+
+    // Now submit the form since the modal is closed
+    const submitBtn = document.getElementById("hidden-submit");
+    if (submitBtn.dataset.pending === "true") {
+        submitBtn.dataset.pending = "false"; // Reset flag
+        document.getElementById('sales-form').submit(); // Trigger the form submission
     }
+}
     
+
+    // Show img QR
+function toggleQRCode() {
+    var qrImage = document.getElementById('qr-code');
+    var toggleButton = document.getElementById('toggle-btn');
+    
+    if (qrImage.src.includes('qr-dollar.jpg')) {
+        qrImage.src = '/views/assets/img/qr-khmer.jpg';
+        toggleButton.innerText = 'Show Dollar QR'; // Change button text to show dollar QR
+    } else {
+        qrImage.src = '/views/assets/img/qr-dollar.jpg';
+        toggleButton.innerText = 'Show Khmer QR'; // Change button text to show Khmer QR
+    }
+}

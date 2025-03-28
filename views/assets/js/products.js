@@ -205,3 +205,14 @@ function confirmDelete(event) {
     }
     return false; // Prevent further action if not confirmed
 }
+
+// Show success modal when category is added
+document.querySelector(".category-container").addEventListener("submit", function(event) {
+    event.preventDefault(); // Stop form submission
+    document.getElementById("uniqueSuccessModal").style.display = "block"; // Show modal
+});
+
+document.getElementById("uniqueCloseModal").addEventListener("click", function() {
+    document.getElementById("uniqueSuccessModal").style.display = "none"; // Hide modal
+    document.querySelector(".category-container").submit(); // Now submit the form
+});

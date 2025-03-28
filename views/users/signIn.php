@@ -11,7 +11,6 @@ if (isset($_SESSION['user_id'])) {
 }
 ?>
 
-
 <div class="user-container">
     <div class="form-container">
         <form id="signInForm" action="/users/authenticate" method="post">

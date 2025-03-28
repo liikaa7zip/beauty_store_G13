@@ -32,6 +32,7 @@
     <script src="../views/assets/js/stock.js"></script>
     <script src="../views/assets/js/add.js"></script>
     <script src="/views/assets/js/products.js"></script>
+    <script src="/views/assets/js/employees.js"></script>
 
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script src="../assets/js/promotion.js"></script>
@@ -300,5 +301,6 @@
     <script src="../views/assets/js/delete-restore-pd.js"></script>
     <script src="../views/assets/js/sales.js"></script>
     <script src="../views/assets/js/notification.js"></script>
+    <script src="../views/assets/js/employees.js"></script>
   </body>
 </html>
