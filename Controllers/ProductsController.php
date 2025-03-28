@@ -113,7 +113,6 @@ class ProductsController extends BaseController {
             }
         }
     }
-   
 
     public function update($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

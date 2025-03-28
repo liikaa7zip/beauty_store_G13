@@ -138,3 +138,6 @@ if (file_exists($layoutPath)) {
 }
 ?>
 <?php include __DIR__ . '/../layouts/footer.php'; ?>
+
+
+
