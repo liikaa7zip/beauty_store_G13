@@ -2,20 +2,17 @@
 require_once "Models/ProductModel.php";
 require_once "Models/CategoryModel.php";
 
-class ProductsController extends BaseController
-{
+class ProductsController extends BaseController {
     private $productModel;
     private $categoryModel;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->productModel = new ProductModel();
         $this->categoryModel = new CategoryModel();
     }
 
     // Method to display all products, initially without filtering
-    public function index()
-    {
+    public function index() {
         // Get all categories to show in the select dropdown
         $categories = $this->categoryModel->getAllCategories();
 
@@ -27,6 +24,19 @@ class ProductsController extends BaseController
             $product['category_name'] = $this->categoryModel->getCategoryNameById($product['category_id']);
             $product['image'] = $this->getImageUrl($product['image']);
             $product['formatted_price'] = '$' . number_format($product['price'], 2);
+            
+            // Automatically set status based on stock level
+            if ($product['stocks'] <= 5 && $product['status'] !== 'low-stock') {
+                $product['status'] = 'low-stock';
+                $this->productModel->updateProduct($product['id'], [
+                    'name' => $product['name'],
+                    'description' => $product['description'],
+                    'price' => $product['price'],
+                    'category_id' => $product['category_id'],
+                    'stocks' => $product['stocks'],
+                    'status' => 'low-stock'
+                ]);
+            }
         }
 
         // Pass categories and products to the view
@@ -34,18 +44,13 @@ class ProductsController extends BaseController
     }
 
     // Method to handle AJAX filtering of products by category
-    public function filter()
-    {
-        $category_id = $_GET['category'] ?? null; // Get the category ID from the AJAX request
-
-        // Log the received category ID
-        error_log("Received category ID: " . $category_id);
+    public function filter() {
+        $category_id = $_GET['category'] ?? null;
 
         // If a category is selected, filter products by that category
         if ($category_id) {
             $products = $this->productModel->getProductsByCategory($category_id);
         } else {
-            // If no category is selected, return all products
             $products = $this->productModel->getAllProducts();
         }
 
@@ -56,52 +61,35 @@ class ProductsController extends BaseController
             $product['formatted_price'] = '$' . number_format($product['price'], 2);
         }
 
-        // Log the response
-        error_log("Filtered products: " . json_encode($products));
-
-        // Return the JSON response for the filtered products
         header('Content-Type: application/json');
         echo json_encode($products);
         exit;
     }
 
-
-
-    public function edit($id)
-    {
-        // Fetch the product by ID
+    public function edit($id) {
         $product = $this->productModel->getProductByID($id);
-
-        // Fetch all categories for the dropdown
         $categories = $this->categoryModel->getAllCategories();
-
-        // Check if the product exists
         if ($product) {
-            // Render the edit view with the product and categories data
             $this->view("inventory/edit", ['product' => $product, 'categories' => $categories]);
         } else {
-            // If the product is not found, set an error message and redirect
             $_SESSION['error'] = "Product not found!";
             $this->redirect("/inventory/products");
         }
     }
 
-    public function store()
-    {
+    public function store() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? '';
-            $expire_date = $_POST['expire_date'] ?? '';
             $category_id = $_POST['category_id'] ?? '';
             $stocks = $_POST['stocks'] ?? '';
-            $start_date = $_POST['start_date'] ?? '';
             $status = $_POST['status'] ?? 'instock';
 
-            // Handle image upload or set default image
-            $imagePath = isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0
-                ? $this->uploadImage($_FILES['productImage'])
-                : 'uploads/default-image.jpg'; // Default image path
+            // Handle image upload
+            if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0) {
+                $imagePath = $this->uploadImage($_FILES['productImage']);
+            }
 
             if (empty($name) || empty($price) || empty($category_id)) {
                 $_SESSION['error'] = "Please fill all required fields.";
@@ -113,12 +101,10 @@ class ProductsController extends BaseController
                 'name' => $name,
                 'description' => $description,
                 'price' => $price,
-                'expire_date' => $expire_date,
                 'category_id' => $category_id,
                 'stocks' => $stocks,
                 'status' => $status,
-                'start_date' => $start_date,
-                'image' => $imagePath
+                'image' => isset($imagePath) ? $imagePath : ''
             ];
 
             if ($this->productModel->storeProduct($data)) {
@@ -131,60 +117,43 @@ class ProductsController extends BaseController
         }
     }
 
-
-    public function update($id)
-    {
+    public function update($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? '';
-            $expire_date = $_POST['expire_date'] ?? '';
             $category_id = $_POST['category_id'] ?? '';
             $stocks = $_POST['stocks'] ?? '';
-            $start_date = $_POST['start_date'] ?? '';
             $status = $_POST['status'] ?? 'instock';
 
-            // Fetch the existing product to retain the current image if no new image is uploaded
-            $existingProduct = $this->productModel->getProductByID($id);
-            if (!$existingProduct) {
-                $_SESSION['error'] = "Product not found!";
-                $this->redirect("/inventory/products");
-                return;
-            }
-
-            $imagePath = $existingProduct['image']; // Default to existing image
-            if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] === UPLOAD_ERR_OK) {
-                $uploadedImage = $this->uploadImage($_FILES['productImage']);
-                if ($uploadedImage) {
-                    $imagePath = $uploadedImage;
-                } else {
-                    $_SESSION['error'] = "Failed to upload image.";
-                    $this->redirect("/inventory/edit/$id");
-                    return;
+            // Handle image upload
+            if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0) {
+                $imagePath = $this->uploadImage($_FILES['productImage']);
+                // Delete the old image if a new one is uploaded
+                $oldImage = $this->productModel->getProductByID($id)['image'];
+                if (!empty($oldImage) && file_exists($oldImage)) {
+                    unlink($oldImage);
                 }
+            } else {
+                $imagePath = $this->productModel->getProductByID($id)['image'];
             }
 
-            // Validate required fields
             if (empty($name) || empty($price) || empty($category_id)) {
                 $_SESSION['error'] = "Please fill all required fields.";
                 $this->redirect("/inventory/edit/$id");
                 return;
             }
 
-            // Prepare data for update
             $data = [
                 'name' => $name,
                 'description' => $description,
                 'price' => $price,
-                'expire_date' => $expire_date,
                 'category_id' => $category_id,
                 'stocks' => $stocks,
                 'status' => $status,
-                'start_date' => $start_date,
                 'image' => $imagePath
             ];
 
-            // Attempt to update the product
             if ($this->productModel->updateProduct($id, $data)) {
                 $_SESSION['success'] = "Product updated successfully!";
                 $this->redirect("/inventory/products");
@@ -195,8 +164,7 @@ class ProductsController extends BaseController
         }
     }
 
-    public function delete($id)
-    {
+    public function delete($id) {
         if ($this->productModel->deleteProduct($id)) {
             $_SESSION['success'] = "Product deleted successfully!";
         } else {
@@ -206,46 +174,28 @@ class ProductsController extends BaseController
         exit;
     }
 
-    public function create()
-    {
+    public function create() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'] ?? '';
+            $name = $_POST['name'];
             $description = $_POST['description'] ?? '';
-            $price = $_POST['price'] ?? '';
-            $expire_date = $_POST['expire_date'] ?? '';
-            $stocks = $_POST['stocks'] ?? '';
-            $start_date = $_POST['start_date'] ?? '';
-            $category_id = $_POST['category_id'] ?? '';
+            $price = $_POST['price'] ?? ''; 
+            $stocks = $_POST['stocks'];
+            $category_id = $_POST['category_id'];
             $status = $_POST['status'] ?? 'in-stock';
 
             // Handle image upload
-            $imagePath = isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0
-                ? $this->uploadImage($_FILES['productImage'])
-                : 'uploads/default-image.jpg';
-
-            // Log the data being passed to the model
-            error_log("Product Data: " . json_encode([
-                'name' => $name,
-                'description' => $description,
-                'price' => $price,
-                'expire_date' => $expire_date,
-                'stocks' => $stocks,
-                'category_id' => $category_id,
-                'status' => $status,
-                'start_date' => $start_date,
-                'image' => $imagePath
-            ]));
+            if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0) {
+                $imagePath = $this->uploadImage($_FILES['productImage']);
+            }
 
             $data = [
                 'name' => $name,
                 'description' => $description,
                 'price' => $price,
-                'expire_date' => $expire_date,
                 'stocks' => $stocks,
                 'category_id' => $category_id,
                 'status' => $status,
-                'start_date' => $start_date,
-                'image' => $imagePath
+                'image' => isset($imagePath) ? $imagePath : ''
             ];
 
             if ($this->productModel->createProduct($data)) {
@@ -256,45 +206,37 @@ class ProductsController extends BaseController
                 $_SESSION['error'] = "Failed to create product.";
             }
         }
-
         $categories = $this->categoryModel->getAllCategories();
         $this->view("inventory/create", ['categories' => $categories]);
     }
 
-
-    private function uploadImage($file)
-    {
+    private function uploadImage($file) {
         $uploadDir = 'uploads/';
         $uploadFile = $uploadDir . basename($file['name']);
     
-        // Ensure the directory exists
+        // Ensure the directory exists and is writable
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
     
-        // Validate the file is an image
-        if (isset($file['tmp_name']) && getimagesize($file['tmp_name'])) {
+        // Check for valid image and move the file
+        if (getimagesize($file['tmp_name'])) {
             if (move_uploaded_file($file['tmp_name'], $uploadFile)) {
-                return $uploadFile; // Return the image path
+                return $uploadFile;
+            } else {
+                $_SESSION['error'] = "File upload failed.";
             }
+        } else {
+            $_SESSION['error'] = "Uploaded file is not a valid image.";
         }
     
-        return false; // Return false if upload fails
+        return '';
     }
-
-    private function getImageUrl($imagePath)
-    {
-        $defaultImage = '/uploads/default-image.jpg'; // Ensure this file exists
+    
+    private function getImageUrl($imagePath) {
         if (!empty($imagePath) && file_exists($imagePath)) {
             return '/' . $imagePath;
         }
-        return $defaultImage;
-    }
-
-    public function getProductsByCategory($categoryId)
-    {
-        $products = $this->productModel->getProductsByCategoryId($categoryId);
-        $categories = $this->categoryModel->getAllCategories();
-        $this->view('inventory/product', ['products' => $products, 'categories' => $categories]);
+        return '/uploads/default-image.jpg';
     }
 }
