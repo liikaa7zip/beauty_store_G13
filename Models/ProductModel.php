@@ -85,33 +85,35 @@ class ProductModel
     public function updateProduct($id, $data)
     {
         $sql = "UPDATE products 
-                SET name = :name, 
-                    description = :description, 
-                    price = :price, 
-                    expire_date = :expire_date, 
-                    category_id = :category_id, 
+                SET name = COALESCE(:name, name), 
+                    description = COALESCE(:description, description), 
+                    price = COALESCE(:price, price), 
+                    expire_date = COALESCE(:expire_date, expire_date), 
+                    category_id = COALESCE(:category_id, category_id), 
                     stocks = :stocks, 
-                    status = :status, 
-                    start_date = :start_date, 
-                    image = :image 
+                    status = COALESCE(:status, status), 
+                    start_date = COALESCE(:start_date, start_date), 
+                    image = COALESCE(:image, image) 
                 WHERE id = :id";
 
         $params = [
             ':id' => $id,
-            ':name' => $data['name'],
-            ':description' => $data['description'],
-            ':price' => $data['price'],
-            ':expire_date' => $data['expire_date'],
-            ':category_id' => $data['category_id'],
-            ':stocks' => $data['stocks'],
-            ':status' => $data['status'],
-            ':start_date' => $data['start_date'],
-            ':image' => $data['image']
+            ':name' => $data['name'] ?? null,
+            ':description' => $data['description'] ?? null,
+            ':price' => $data['price'] ?? null,
+            ':expire_date' => $data['expire_date'] ?? null,
+            ':category_id' => $data['category_id'] ?? null,
+            ':stocks' => $data['stocks'], // Ensure stocks is updated
+            ':status' => $data['status'] ?? null,
+            ':start_date' => $data['start_date'] ?? null,
+            ':image' => $data['image'] ?? null
         ];
 
         try {
+            // Log the query and parameters for debugging
             error_log("Update Query: $sql");
             error_log("Update Params: " . json_encode($params));
+
             $this->db->query($sql, $params);
             return true;
         } catch (Exception $e) {
