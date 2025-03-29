@@ -67,7 +67,8 @@ $route->delete("/categories/delete/{id}", [CategoryController::class, 'delete'])
 
 //Notification
 $route->get("/notification", [NotificationController::class, 'index']);
-
+// $route->get("/notification/low-stock", [NotificationController::class, 'getLowStockNotifications']);
+// $route->get("/notification/low-stock-count", [NotificationController::class, 'getLowStockCount']);
 
 
 //Categories
