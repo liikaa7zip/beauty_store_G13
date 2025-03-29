@@ -104,9 +104,27 @@ $total = array_reduce($sells, function ($sum, $item) {
 
         <!-- Bar Chart Section -->
         <section class="chart-container">
-            <h3>Product Sales</h3>
-            <canvas id="productChart"></canvas>
-        </section>
+        <div class="product-store">
+    <h2>Product Store</h2>
+    <div class="product-table-container">
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Original Price</th>
+                    <th>Sales Price</th>
+                    <th>Profit Value</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="product-list">
+                <!-- Product rows will be dynamically added -->
+            </tbody>
+        </table>
+    </div>
+    <button class="add-product" onclick="addProduct()">Add Product</button>
+</div>
+
     </div>
 
     <!-- Motivational Section -->
@@ -126,7 +144,7 @@ $total = array_reduce($sells, function ($sum, $item) {
 
         // Create a new chart instance
         const salesChart = new Chart(ctx, {
-            type: 'bar', // Type of chart
+            type: 'line', // Type of chart
             data: {
                 labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
                 datasets: [{
@@ -183,3 +201,112 @@ $total = array_reduce($sells, function ($sum, $item) {
         });
     });
 </script>
+
+<style>
+    /* General Dashboard Styles */
+.product-store {
+    width: 100%;
+    margin: 20px auto;
+    padding: 30px;
+
+    border-radius: 10px;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+.product-store h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.product-table-container {
+    margin-bottom: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+}
+
+.product-table th, .product-table td {
+    padding: 12px 20px;
+    text-align: left;
+    font-size: 14px;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-table th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.product-table td input {
+    width: 100px;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #f1f1f1;
+    text-align: right;
+    transition: background-color 0.3s ease;
+}
+
+.product-table td input:focus {
+    background-color: #e9ecef;
+    outline: none;
+}
+
+.add-product {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin-left: auto;
+}
+
+.add-product:hover {
+    background-color: #218838;
+}
+
+/* Button Styles for Actions */
+.product-table td button {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product-table td button:hover {
+    background-color: #c82333;
+}
+
+.product-table td button:focus {
+    outline: none;
+}
+
+/* Smooth Scrolling for Product List */
+.product-table-container {
+    overflow-x: auto;
+}
+
+</style>

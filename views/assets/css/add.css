@@ -247,7 +247,7 @@ body {
 
 .sales-chart {
     margin-top: 60px;
-    width: 80%;
+    width: 60%;
     margin-left: 20px;
 }
 
@@ -256,10 +256,11 @@ body {
 }
 
 .sales-chart canvas {
-    width: 100%;
-    height: 400px;
+    width: 70%;
+    height: 150px;
     margin-top: 20px;
 }
+
 
 .store-overview {
     display: flex;
@@ -399,3 +400,5 @@ footer {
         margin-bottom: 20px;
     }
 }
+
+
