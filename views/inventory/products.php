@@ -145,10 +145,10 @@ if (!isset($_SESSION['user_id'])) {
 
         <div class="row">
             <div class="col-4">
-                <a href="/categories/create" style="text-decoration: none;">
+                <a href="/categories" class="text-decoration-none">
                     <div class="card" id="add-product">
-                        <div class="icon add">➕</div>
-                        <p>Add New Categories</p>
+                        <div class="icon add">📂</div>
+                        <p>View Categories</p>
                     </div>
                 </a>
             </div>
