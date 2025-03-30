@@ -11,7 +11,7 @@ class SalesModel
 
     public function getAllSales()
     {
-        $stmt = $this->db->query("SELECT * FROM sales");
+        $stmt = $this->db->query("SELECT id, sale_date, total_amount FROM sales");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getSallesLastWeeks()
