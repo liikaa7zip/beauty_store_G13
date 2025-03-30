@@ -11,28 +11,28 @@ if (!isset($_SESSION['user_id'])) {
 ?>
 
 <div class="products_container">
+    <div class="notification-container">
+        <button id="notificationBell" class="notification-bell">
+            <i class="fa fa-bell"></i>
+            <span id="notificationCount" class="notification-count">0</span>
+        </button>
+        <div id="notificationDropdown" class="notification-dropdown">
+            <div class="notification-header">
+                <h4>Notifications</h4>
+            </div>
+            <div id="notificationList" class="notification-list">
+                <!-- Notifications will be loaded here via AJAX -->
+            </div>
+        </div>
+    </div>
     <h1 id="h1-products">Products List</h1>
     <div class="container mt-4">
         <!-- Notification Bell -->
-        <div class="notification-container">
-            <button id="notificationBell" class="notification-bell">
-                <i class="fa fa-bell"></i>
-                <span id="notificationCount" class="notification-count">0</span>
-            </button>
-            <div id="notificationDropdown" class="notification-dropdown">
-                <div class="notification-header">
-                    <h4>Notifications</h4>
-                </div>
-                <div id="notificationList" class="notification-list">
-                    <!-- Notifications will be loaded here via AJAX -->
-                </div>
-            </div>
-        </div>
 
         <div class="table-container">
             <div class="table-header">
                 <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
-                
+
                 <div id="categoryWrapper">
                     <select id="categorySelect" name="category">
                         <option value="">Select a category</option>
@@ -71,24 +71,25 @@ if (!isset($_SESSION['user_id'])) {
             </thead>
             <tbody id="productsTableBody">
                 <?php foreach ($products as $product): ?>
-                    <tr data-category-id="<?= htmlspecialchars($product['category_id']) ?>">
-                    <td>
-                    <div style="display: flex; align-items: center; width: 100%;">
-                        <!-- Align the image to the left -->
-                        <div style="display: flex; align-items: center;">
-                            <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
-                                <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
-                            <?php else: ?>
-                                <img src="/path/to/default-image.jpg" alt="Default Image" class="product-image">
-                            <?php endif; ?>
-                        </div>
-                        <!-- Center the product name within the available space -->
-                        <div style="flex-grow: 1; text-align: center;">
-                            <span id="pro-name"><?= htmlspecialchars($product['name']) ?></span>
-                        </div>
-                    </div>
-                </td>
-                        <td><?= htmlspecialchars($product['formatted_price']) ?></td>
+                    <tr data-category-id="<?= htmlspecialchars($product['category_id']) ?>"> <!-- Corrected data attribute for category ID -->
+                        <td>
+                            <div style="display: flex; align-items: center; width: 100%;">
+                                <!-- Align the image to the left -->
+                                <div style="display: flex; align-items: center;">
+                                    <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
+                                        <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
+                                    <?php else: ?>
+                                        <img src="/path/to/default-image.jpg" alt="Default Image" class="product-image">
+                                    <?php endif; ?>
+                                </div>
+                                <!-- Center the product name within the available space -->
+                                <div style="flex-grow: 1; text-align: center;">
+                                    <span id="pro-name"><?= htmlspecialchars($product['name']) ?></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td><?= htmlspecialchars($product["price"]) ?></td>
+
                         <td><?= htmlspecialchars($product['stocks']) ?></td>
                         <td>
                             <p><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></p>
@@ -97,19 +98,19 @@ if (!isset($_SESSION['user_id'])) {
                             <?= ucfirst(htmlspecialchars($product['status'])) ?>
                         </td>
                         <td>
-                        <div class="dropdown">
-                            <button class="dropbtn btn btn-sm" onclick="toggleDropdown(this)">
-                                 <span class="material-symbols-outlined">more_horiz</span>
-                            </button>
-                            <div class="dropdown-content" style="display: none;">
-                                <a href="/inventory/edit/<?= $product['id'] ?>">
-                                    <span class="material-symbols-outlined" id="edit-pro">border_color</span> Edit
-                                </a>
-                                <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
-                                    <span class="material-symbols-outlined" id="delete-pro">delete</span> Delete
-                                </a>
+                            <div class="dropdown">
+                                <button class="dropbtn btn btn-sm" onclick="toggleDropdown(this)">
+                                    <span class="material-symbols-outlined">more_horiz</span>
+                                </button>
+                                <div class="dropdown-content" style="display: none;">
+                                    <a href="/inventory/edit/<?= $product['id'] ?>">
+                                        <span class="material-symbols-outlined" id="edit-pro">border_color</span> Edit
+                                    </a>
+                                    <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
+                                        <span class="material-symbols-outlined" id="delete-pro">delete</span> Delete
+                                    </a>
+                                </div>
                             </div>
-                        </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -170,6 +171,7 @@ if (!isset($_SESSION['user_id'])) {
     </div>
 </div>
 
+
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -183,6 +185,22 @@ if (!isset($_SESSION['user_id'])) {
 
 <!-- Custom JavaScript -->
 <script>
+    function searchProducts() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const rows = document.querySelectorAll('#productsTableBody tr');
+
+        rows.forEach(row => {
+            const name = row.cells[0].textContent.toLowerCase(); // Product name
+            const price = row.cells[1].textContent.toLowerCase(); // Product price
+            const category = row.cells[3].textContent.toLowerCase(); // Product category
+
+            if (name.includes(input) || price.includes(input) || category.includes(input)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
     $(document).ready(function() {
         var table = $('#productTable').DataTable({
             "pageLength": 10,
@@ -229,11 +247,11 @@ if (!isset($_SESSION['user_id'])) {
         // Notification system
         loadNotifications();
         setInterval(loadNotifications, 30000);
-        
+
         $('#notificationBell').click(function() {
             $('#notificationDropdown').toggle();
         });
-        
+
         $(document).click(function(e) {
             if (!$(e.target).closest('.notification-container').length) {
                 $('#notificationDropdown').hide();
@@ -258,15 +276,15 @@ if (!isset($_SESSION['user_id'])) {
     function updateNotificationUI(products) {
         const notificationList = $('#notificationList');
         const notificationCount = $('#notificationCount');
-        
+
         notificationList.empty();
-        
+
         if (products.length === 0) {
             notificationList.append('<div class="notification-item">No low-stock products</div>');
             notificationCount.text('0');
         } else {
             notificationCount.text(products.length);
-            
+
             products.forEach(product => {
                 const notificationItem = `
                     <div class="notification-item low-stock">
@@ -293,7 +311,7 @@ if (!isset($_SESSION['user_id'])) {
     /* Notification styles */
     .notification-container {
         position: relative;
-        display: inline-block;
+        /* display: inline-block; */
         margin-left: auto;
         margin-right: 20px;
         float: right;
@@ -332,7 +350,7 @@ if (!isset($_SESSION['user_id'])) {
         background: white;
         border: 1px solid #ddd;
         border-radius: 5px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         z-index: 1000;
     }
 
