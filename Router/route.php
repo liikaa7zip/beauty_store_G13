@@ -30,7 +30,7 @@ require_once "Models/PromotionModel.php";
 
 
 $route = new Router();
-$route->get("/", [UserController::class, 'login']);
+$route->get("/", [UserController::class, 'signIn']); // Redirect root to sign-in page
 
 // Users
 $route->get("/users/signUp", [UserController::class, 'login']);
