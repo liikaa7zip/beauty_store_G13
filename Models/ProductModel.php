@@ -56,32 +56,46 @@ class ProductModel {
         return $this->db->query($sql, $params);
     }
 
-    public function updateProduct($id, $data) {
-        // Get current product data before update
-        $currentProduct = $this->getProductByID($id);
-        
+    public function updateProduct($id, $data)
+    {
         $sql = "UPDATE products 
-                SET name = :name, description = :description, price = :price, category_id = :category_id, 
-                    stocks = :stocks, status = :status 
+                SET name = COALESCE(:name, name), 
+                    description = COALESCE(:description, description), 
+                    price = COALESCE(:price, price), 
+                    expire_date = COALESCE(:expire_date, expire_date), 
+                    category_id = COALESCE(:category_id, category_id), 
+                    stocks = :stocks, 
+                    status = COALESCE(:status, status), 
+                    start_date = COALESCE(:start_date, start_date), 
+                    image = COALESCE(:image, image) 
                 WHERE id = :id";
 
         $params = [
-            ':name' => $data['name'],
-            ':description' => $data['description'],
-            ':price' => $data['price'],
-            ':category_id' => $data['category_id'],
-            ':stocks' => $data['stocks'],
-            ':status' => $data['status'],
-            ':id' => $id
+            ':id' => $id,
+            ':name' => $data['name'] ?? null,
+            ':description' => $data['description'] ?? null,
+            ':price' => $data['price'] ?? null,
+            ':expire_date' => $data['expire_date'] ?? null,
+            ':category_id' => $data['category_id'] ?? null,
+            ':stocks' => $data['stocks'], // Ensure stocks is updated
+            ':status' => $data['status'] ?? null,
+            ':start_date' => $data['start_date'] ?? null,
+            ':image' => $data['image'] ?? null
         ];
 
-        // Check if stock is being reduced to low levels (threshold = 5)
-        if ($data['stocks'] <= 5 && $currentProduct['stocks'] > 5) {
-            $this->createLowStockNotification($data['name'], $data['stocks']);
-        }
+        try {
+            // Log the query and parameters for debugging
+            error_log("Update Query: $sql");
+            error_log("Update Params: " . json_encode($params));
 
-        return $this->db->query($sql, $params);
+            $this->db->query($sql, $params);
+            return true;
+        } catch (Exception $e) {
+            error_log("Database Update Error: " . $e->getMessage());
+            return false;
+        }
     }
+
 
     private function createLowStockNotification($productName, $stocks) {
         $message = "The product '$productName' is running low with only $stocks items left in stock.";
