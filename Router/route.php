@@ -14,7 +14,7 @@ require_once "Controllers/EmployeeController.php";
 require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
-require_once "Controllers/NotificationController.php"; 
+require_once "Controllers/NotificationsController.php"; 
 
 
 
@@ -24,7 +24,7 @@ require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
 require_once "Models/SalesModel.php";
-require_once "Models/NotificationModel.php";
+require_once "Models/NotificationsModel.php";
 
 $route = new Router();
 $route->get("/", [UserController::class, 'login']);

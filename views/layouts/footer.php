@@ -299,6 +299,6 @@
     <script src="../views/assets/js/countOfProduct.js"></script>
     <script src="../views/assets/js/delete-restore-pd.js"></script>
     <script src="../views/assets/js/sales.js"></script>
-    <script src="../views/assets/js/notification.js"></script>
+    <script src="../views/assets/js/notifications.js"></script>
   </body>
 </html>

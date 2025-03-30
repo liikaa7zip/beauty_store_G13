@@ -10,6 +10,7 @@ class NotificationController extends BaseController {
     public function index() {
         $notifications = $this->notificationModel->getAllNotifications();
         // include __DIR__ . 'notification/notification';
-        include __DIR__ . '/../views/notification/notification .php';
+        include __DIR__ . '/../views/notifications/notifications.php';
     }
+    
 }

@@ -2,7 +2,7 @@
 ob_start(); // Start output buffering
 
 // Require the NotificationModel class
-require_once __DIR__ . '/../Models/NotificationModel.php';
+require_once __DIR__ . '/../Models/NotificationsModel.php';
 
 // Create a new instance of the NotificationModel class
 $notificationModel = new NotificationModel();
