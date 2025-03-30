@@ -90,6 +90,9 @@ $route->get("/employees", [EmployeeController::class, 'index']);
 // $route->get('/employees/index', [EmployeeController::class, 'index']);  
 $route->get('/employees/create', [EmployeeController::class, 'create']);      // Maps to EmployeeController::add
 $route->post('/employees/store', [EmployeeController::class, 'store']);
+$route->get('/employees/edit/{id}', [EmployeeController::class, 'edit']);      // Maps to EmployeeController::add
+$route->post('/employees/update/{id}', [EmployeeController::class, 'update']);
+$route->get('/employees/delete/{id}', [EmployeeController::class, 'destroy']);      // Maps to EmployeeController::add
 
 // Sales
 $route->get("/sales", [SalesController::class, 'index']);
