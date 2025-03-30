@@ -45,73 +45,68 @@ class ProductModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function storeProduct($data)
-    {
-        $sql = "INSERT INTO products (name, description, price, expire_date, category_id, stocks, start_date, status, image) 
-                VALUES (:name, :description, :price, :expire_date, :category_id, :stocks, :start_date, :status, :image)";
-
+    public function storeProduct($data) {
+        // Remove the dollar sign if it exists
+        $price = str_replace('$', '', $data['price']);
+        
+        $sql = "INSERT INTO products (name, description, price, category_id, stocks, status, image) 
+                VALUES (:name, :description, :price, :category_id, :stocks, :status, :image)";
+        
         $params = [
             ':name' => $data['name'],
             ':description' => $data['description'],
-            ':price' => $data['price'],
-            ':expire_date' => $data['expire_date'],
+            ':price' => (float)$price,
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
-            ':start_date' => $data['start_date'],
             ':status' => $data['status'],
-            ':image' => $data['image']
+            ':image' => isset($data['image']) ? $data['image'] : ''
         ];
-
+        
         return $this->db->query($sql, $params);
     }
 
     public function updateProduct($id, $data)
     {
         $sql = "UPDATE products 
-        SET name = :name, 
-            description = :description, 
-            price = :price, 
-            expire_date = :expire_date, 
-            category_id = :category_id, 
-            stocks = :stocks, 
-            status = :status, 
-            start_date = :start_date, 
-            image = :image 
-        WHERE id = :id";
+                SET name = COALESCE(:name, name), 
+                    description = COALESCE(:description, description), 
+                    price = COALESCE(:price, price), 
+                    expire_date = COALESCE(:expire_date, expire_date), 
+                    category_id = COALESCE(:category_id, category_id), 
+                    stocks = :stocks, 
+                    status = COALESCE(:status, status), 
+                    start_date = COALESCE(:start_date, start_date), 
+                    image = COALESCE(:image, image) 
+                WHERE id = :id";
 
         $params = [
             ':id' => $id,
-            ':name' => $data['name'],
-            ':description' => $data['description'],
-            ':price' => $data['price'],
-            ':expire_date' => $data['expire_date'],
-            ':category_id' => $data['category_id'],
-            ':stocks' => $data['stocks'],
-            ':status' => $data['status'],
-            ':start_date' => $data['start_date'],
-            ':image' => $data['image']
+            ':name' => $data['name'] ?? null,
+            ':description' => $data['description'] ?? null,
+            ':price' => $data['price'] ?? null,
+            ':expire_date' => $data['expire_date'] ?? null,
+            ':category_id' => $data['category_id'] ?? null,
+            ':stocks' => $data['stocks'], // Ensure stocks is updated
+            ':status' => $data['status'] ?? null,
+            ':start_date' => $data['start_date'] ?? null,
+            ':image' => $data['image'] ?? null
         ];
 
         try {
+            // Log the query and parameters for debugging
             error_log("Update Query: $sql");
             error_log("Update Params: " . json_encode($params));
+
             $this->db->query($sql, $params);
             return true;
         } catch (Exception $e) {
             error_log("Database Update Error: " . $e->getMessage());
             return false;
         }
-
-        // Check if stock is being reduced to low levels (threshold = 5)
-        if ($data['stocks'] <= 5 && $currentProduct['stocks'] > 5) {
-            $this->createLowStockNotification($data['name'], $data['stocks']);
-        }
-
-        return $this->db->query($sql, $params);
     }
 
-    private function createLowStockNotification($productName, $stocks)
-    {
+
+    private function createLowStockNotification($productName, $stocks) {
         $message = "The product '$productName' is running low with only $stocks items left in stock.";
 
         $sql = "INSERT INTO store_notifications 
