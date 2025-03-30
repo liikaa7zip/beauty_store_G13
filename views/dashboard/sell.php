@@ -55,7 +55,7 @@ $total = array_reduce($sells, function ($sum, $item) {
     <!-- Sales Bar Chart -->
     <section class="sales-chart card p-4">
         <h3>Store Sales (Last 7 Days)</h3>
-        <canvas id="salesChart"></canvas>
+        <canvas id="salesChart" style="height: 450px; "></canvas>
     </section>
 
     <!-- Activity Feed Section -->
