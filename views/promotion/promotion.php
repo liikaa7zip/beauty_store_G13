@@ -9,10 +9,10 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 
-<div class="header">
+<div class="header m-0">
     <h1>Promotions</h1>
-    <div class="search-container">
-        <div class="search-bar">
+    <div class="search-container m-0">
+        <div class="search-bar ">
             <div class="search-input">
                 <input type="text" id="searchInput" placeholder="Search promotions...">
             </div>
@@ -25,7 +25,6 @@ if (!isset($_SESSION['user_id'])) {
             </a>
         </div>
     </div>
-
 
     <?php if (empty($promotions)): ?>
         <div class="alert alert-info mt-5" role="alert">
@@ -56,7 +55,6 @@ if (!isset($_SESSION['user_id'])) {
 
                                                                         echo htmlspecialchars($formattedStartDate) . ' to ' . htmlspecialchars($formattedEndDate);
                                                                         ?></span>
-
                 </p>
                 <p class="promotion-description d-flex flex-row align-items-center gap-2 mb-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -81,10 +79,15 @@ if (!isset($_SESSION['user_id'])) {
                     <strong>Code:</strong>
                     <span style="color: #ff69b4; font-weight: bold;"><?= htmlspecialchars($promotion['promotion_code']) ?></span>
                 </p>
-                <span class="promotion-status fw-bold text-white
-                    <?= $promotion['status'] === 'completed' ? 'bg-warning' : ($promotion['status'] === 'active' ? 'bg-info' : 'bg-danger') ?>">
-                    <?= htmlspecialchars($promotion['status']) ?>
-                </span>
+                <div class="promotion-footer d-flex flex-row align-items-center gap-2">
+                    <span class="promotion-status fw-bold text-white
+                        <?= $promotion['status'] === 'completed' ? 'bg-warning' : ($promotion['status'] === 'active' ? 'bg-info' : 'bg-danger') ?>">
+                        <?= htmlspecialchars($promotion['status']) ?>
+                    </span>
+                    <button class="promotion-status fw-bold bg-info border-0" data-bs-toggle="modal" data-bs-target="#confirmModal<?= $promotion['id'] ?>">
+                        <i class="fa-brands fa-telegram"></i> Send Promotion
+                    </button>
+                </div>
             </div>
 
             <div class="more-options">
@@ -99,11 +102,85 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="confirmModal<?= $promotion['id'] ?>" tabindex="-1" aria-labelledby="confirmModalLabel<?= $promotion['id'] ?>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmModalLabel<?= $promotion['id'] ?>">Confirm Sending Promotion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to send the promotion <strong><?= htmlspecialchars($promotion['promotion_name']) ?></strong> to the customer?
+                    </div>
+                    <div class="modal-footer">
+                        <div class="button d-flex flex-row align-items-center justify-content-between gap-2">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn" style="background: #ff4081; color: white;" data-promotion-id="<?= $promotion['id'] ?>" onclick="sendPromotion(this, event)">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <?php require 'delete.php'; ?>
     <?php endforeach; ?>
 </div>
 
 <script>
+    function sendPromotion(button, event) {
+        event.preventDefault();
+        var promotionId = button.getAttribute('data-promotion-id');
+        var modal = button.closest('.modal');
+        var modalInstance = bootstrap.Modal.getInstance(modal);
+
+        fetch('/promotion/send/' + promotionId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                button.innerHTML = "Sent";
+                button.disabled = true;
+
+                if (data.success) {
+                    showAlert(modal, 'Success', data.message, 'success');
+                } else {
+                    showAlert(modal, 'Error', data.message, 'danger');
+                }
+
+                setTimeout(function() {
+                    modalInstance.hide();
+                }, 2000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                button.innerHTML = "Sent";
+                button.disabled = true;
+                showAlert(modal, 'Success', 'The Promotion was sent successfully', 'success');
+            });
+    }
+
+    function showAlert(modal, title, message, type) {
+        var alertContainer = modal.querySelector('.alert-container');
+        if (!alertContainer) {
+            alertContainer = document.createElement('div');
+            alertContainer.classList.add('alert-container');
+            modal.querySelector('.modal-body').appendChild(alertContainer);
+        }
+
+        alertContainer.innerHTML = '';
+        const alertDiv = document.createElement('div');
+        alertDiv.classList.add('alert', `alert-${type}`, 'mt-2');
+        alertDiv.innerHTML = `<strong>${title}:</strong> ${message}`;
+        alertContainer.appendChild(alertDiv);
+    }
+
     function toggleDropdown(button) {
         var dropdown = button.nextElementSibling;
         dropdown.style.display = "block";

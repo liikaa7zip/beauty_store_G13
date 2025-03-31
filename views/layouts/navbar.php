@@ -1,5 +1,3 @@
-
-
 <nav class="app-header navbar navbar-expand bg-body">
   <!--begin::Container-->
   <div class="container-fluid">
@@ -179,7 +177,7 @@
           <!--begin::Menu Footer-->
           <li class="user-footer">
             <a href="#" class="btn btn-default btn-flat">Profile</a>
-            <a style="border: 1px solid #ff69b4; margin-top: 10px;" href="/users/signIn" class="btn btn-default btn-flat float-end">Sign out</a>
+            <a style="border: 1px solid #ff69b4; margin-top: 10px;" href="/users/logout" class="btn btn-default btn-flat float-end">Sign out</a>
           </li>
           <!--end::Menu Footer-->
         </ul>
@@ -259,3 +257,30 @@
   background: #ff85a2;
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Ensure Bootstrap dropdown is initialized
+    const dropdownElements = document.querySelectorAll('.dropdown-toggle');
+    dropdownElements.forEach(function (dropdown) {
+      new bootstrap.Dropdown(dropdown);
+    });
+
+    const userMenu = document.querySelector(".user-menu .nav-link");
+    const dropdown = document.querySelector(".user-menu .dropdown-menu");
+
+    userMenu.addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent default anchor behavior
+      dropdown.classList.toggle("show"); // Toggle visibility
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", function closeDropdown(e) {
+        if (!userMenu.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.remove("show");
+          document.removeEventListener("click", closeDropdown);
+        }
+      });
+    });
+  });
+</script>
+
