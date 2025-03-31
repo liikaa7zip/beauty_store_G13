@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2025 at 07:16 AM
+-- Generation Time: Mar 26, 2025 at 03:58 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,23 +40,13 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'Bags', 'Choose this bage', '2025-02-28 10:10:24', '2025-02-28 10:10:24');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `customers`
---
-
-CREATE TABLE `customers` (
-  `id` int(11) NOT NULL,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `phone_number` varchar(20) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(1, 'Bags', 'Choose this bage', '2025-02-28 10:10:24', '2025-02-28 10:10:24'),
+(2, 'shoes', 'asdf', '2025-03-17 13:17:30', '2025-03-17 13:17:30'),
+(10, 'shirt', 'dcv', '2025-03-20 11:21:08', '2025-03-20 11:21:08'),
+(12, 'lotions', 'sdxfcghb', '2025-03-20 12:48:00', '2025-03-20 12:48:00'),
+(13, 'lotion', 'efty', '2025-03-21 05:20:35', '2025-03-21 05:20:35'),
+(14, 'kk', 'regr', '2025-03-21 18:22:13', '2025-03-21 18:22:13'),
+(15, 'Maya Carey', 'Eum est sed tempora', '2025-03-25 09:19:08', '2025-03-25 09:19:08');
 
 -- --------------------------------------------------------
 
@@ -112,6 +102,33 @@ CREATE TABLE `deleted_products` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `employees`
+--
+
+CREATE TABLE `employees` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `action` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `contact` varchar(255) DEFAULT NULL,
+  `profile_image_url` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employees` (`id`, `username`, `email`, `password`, `role`, `created_at`, `updated_at`, `action`, `status`, `contact`, `profile_image_url`) VALUES
+(0, 'kak', 'kak@gmail.com', '333', 'Admin', '2025-03-21 02:03:15', '2025-03-21 02:03:15', NULL, 'Active', '903290', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `payments`
 --
 
@@ -154,22 +171,24 @@ CREATE TABLE `products` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `stocks` int(11) NOT NULL DEFAULT 0,
   `status` enum('instock','low-stock') NOT NULL DEFAULT 'instock',
-  `image` varchar(255) DEFAULT NULL
+  `image` varchar(255) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `expire_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `description`, `price`, `category_id`, `created_at`, `updated_at`, `stocks`, `status`, `image`) VALUES
-(30, 'ka', NULL, 0.00, 1, '2025-03-17 01:59:36', '2025-03-17 01:59:36', 3, 'low-stock', 'uploads/6104739435498291999_99.jpg'),
-(33, 'jaja', '', 0.00, 1, '2025-03-17 03:22:10', '2025-03-17 03:53:56', 80, 'instock', 'uploads/6152336696864262387_120.jpg'),
-(34, 'je ka', NULL, 0.00, 1, '2025-03-17 03:34:05', '2025-03-17 03:34:05', 3, 'low-stock', 'uploads/6057861190312377534_121.jpg'),
-(35, 'forme', NULL, 0.00, 1, '2025-03-17 04:55:10', '2025-03-17 04:55:10', 3, 'low-stock', 'uploads/51tbxsE1TEL.jpg'),
-(36, 'furm', NULL, 0.00, 1, '2025-03-17 04:55:56', '2025-03-17 04:55:56', 7, 'instock', 'uploads/96819a48159ec3b6d5de0e35f0279e02.jpg'),
-(37, 'sdfv', NULL, 0.00, 1, '2025-03-17 04:56:13', '2025-03-17 04:56:13', 6, 'instock', 'uploads/252928.webp'),
-(38, 'edf', NULL, 0.00, 1, '2025-03-17 04:56:35', '2025-03-17 04:56:35', 4, 'low-stock', 'uploads/images (1).jpg'),
-(39, 'wedfv', NULL, 0.00, 1, '2025-03-17 04:57:04', '2025-03-17 04:57:04', 4, 'low-stock', 'uploads/images (2).jpg');
+INSERT INTO `products` (`id`, `name`, `description`, `price`, `category_id`, `created_at`, `updated_at`, `stocks`, `status`, `image`, `start_date`, `expire_date`) VALUES
+(46, 'kouy', 'sdverbv', 30.00, 1, '2025-03-18 07:03:54', '2025-03-26 02:51:57', 20, 'instock', 'uploads/esf_20231201-types-of-computer-memory.webp', '2025-03-11', '2025-03-28'),
+(49, 'lipstick', ' ebg', 2.00, 1, '2025-03-20 06:00:03', '2025-03-26 02:58:06', 40, 'instock', 'uploads/celeb-or-rich-berry-red-runway-rogue-1_1200x1200.webp', '2025-03-27', '2025-03-28'),
+(50, 'skincare', 'vbte', 5.00, 1, '2025-03-20 06:00:34', '2025-03-20 06:00:34', 2, 'low-stock', 'uploads/252928.webp', NULL, NULL),
+(51, 'lotion', 'beth', 20.00, 1, '2025-03-20 06:01:00', '2025-03-20 06:01:00', 4, 'low-stock', 'uploads/51tbxsE1TEL.jpg', NULL, NULL),
+(53, 'night cream', ' bbn', 4.00, 1, '2025-03-20 06:02:09', '2025-03-20 06:02:09', 6, 'instock', 'uploads/images (2).jpg', NULL, NULL),
+(56, 'vvvv', 'fceswgt', 20.00, 10, '2025-03-20 11:21:32', '2025-03-20 11:21:32', 4, 'low-stock', 'uploads/products-9300602_1280.jpg', NULL, NULL),
+(57, 'qwaesrdt', 'wretryyk', 29.00, 1, '2025-03-20 12:48:38', '2025-03-20 12:48:38', 6, 'instock', 'uploads/51NuhqF2NGL._AC_UY900_ (1).jpg', NULL, NULL),
+(59, 'rg', 'fwvr', 3.00, 1, '2025-03-21 18:22:31', '2025-03-21 18:22:31', 5, 'instock', 'uploads/6057861190312377534_121.jpg', NULL, NULL);
 
 --
 -- Triggers `products`
@@ -221,8 +240,8 @@ CREATE TABLE `promotions` (
   `id` int(11) NOT NULL,
   `promotion_name` varchar(255) NOT NULL,
   `promotion_description` text DEFAULT NULL,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
   `discount_percentage` decimal(5,2) DEFAULT 0.00,
   `promotion_code` varchar(50) DEFAULT NULL,
   `status` enum('active','inactive','completed') DEFAULT 'active',
@@ -235,12 +254,12 @@ CREATE TABLE `promotions` (
 --
 
 INSERT INTO `promotions` (`id`, `promotion_name`, `promotion_description`, `start_date`, `end_date`, `discount_percentage`, `promotion_code`, `status`, `created_at`, `updated_at`) VALUES
-(9, 'cdsvss', 'swdsfb', '2025-03-13 00:00:00', '2025-03-13 00:00:00', NULL, '66', 'inactive', '2025-03-15 03:55:45', '2025-03-15 03:55:45'),
-(10, 'Khmer new years', 'qwertyuioasdfghjkzxcvbnm,wretfhgj4tgdfdv', '2025-03-01 00:00:00', '2025-03-05 00:00:00', NULL, '55', 'inactive', '2025-03-15 04:16:23', '2025-03-15 04:27:40'),
-(11, 'New promotions', 'I want to promotions on some products for Khmer new year', '2025-03-14 00:00:00', '2025-03-18 00:00:00', NULL, '14', 'completed', '2025-03-15 16:10:18', '2025-03-15 16:10:18'),
-(16, 'news', 'qwert', '2025-03-22 00:00:00', '2025-03-13 00:00:00', NULL, '44', 'inactive', '2025-03-16 09:30:11', '2025-03-16 09:30:27'),
-(17, 'nnnn', 'nnnnnnnnnnnnnnnnn', '2025-02-28 00:00:00', '2025-03-07 00:00:00', NULL, '90', 'active', '2025-03-16 17:40:06', '2025-03-16 17:40:06'),
-(18, 'jas', 'dfgh', '2025-03-21 00:00:00', '2025-03-21 00:00:00', NULL, '88', 'active', '2025-03-16 17:48:05', '2025-03-16 17:48:25');
+(35, 'New Year', 'New Year', '2025-03-25', '2025-03-31', 12.00, 'Mean', 'active', '2025-03-24 09:41:42', '2025-03-24 09:41:42'),
+(37, 'Addison Meadows', 'Omnis sit velit id m', '2025-03-25', '2025-03-26', 98.00, 'Unde non quis culpa', 'completed', '2025-03-24 09:47:40', '2025-03-24 09:47:40'),
+(38, 'Penelope Gonzalez', 'Sequi esse amet do', '2025-03-25', '2025-03-26', 4.00, 'Voluptate id volupta', 'completed', '2025-03-24 09:47:57', '2025-03-24 09:47:57'),
+(39, 'Brent Hurst', 'Asperiores cum enim ', '2025-03-25', '2025-03-26', 44.00, 'Consectetur sint vol', 'inactive', '2025-03-24 12:23:13', '2025-03-24 12:23:13'),
+(40, 'Reece Travis', 'Est molestiae quia ', '2025-03-25', '2025-03-27', 27.00, 'Magni dolores ea ess', 'active', '2025-03-24 12:23:24', '2025-03-24 12:23:24'),
+(41, 'Rhoda Bass', 'Placeat saepe occae', '2025-03-26', '2025-03-28', 84.00, 'Velit sint neque qu', 'inactive', '2025-03-24 12:23:41', '2025-03-24 12:23:41');
 
 -- --------------------------------------------------------
 
@@ -349,6 +368,30 @@ CREATE TABLE `system_history` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `telegram_promotions`
+--
+
+CREATE TABLE `telegram_promotions` (
+  `id` int(11) NOT NULL,
+  `name_telegram` varchar(255) NOT NULL,
+  `type` enum('user','group','channel') NOT NULL,
+  `phone_number` varchar(20) DEFAULT NULL,
+  `telegram_chat_id` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `telegram_promotions`
+--
+
+INSERT INTO `telegram_promotions` (`id`, `name_telegram`, `type`, `phone_number`, `telegram_chat_id`, `created_at`, `updated_at`) VALUES
+(1, 'un_mean', 'user', '+855 97 920 1500', '1126297297', '2025-03-24 01:56:33', '2025-03-24 07:12:09'),
+(2, 'promotion_group', 'group', NULL, '-4685114650', '2025-03-24 06:59:37', '2025-03-24 07:12:09');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -358,21 +401,19 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` varchar(50) NOT NULL,
-  `status` enum('active','inactive','suspended') DEFAULT 'active',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `action` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `status`, `created_at`, `updated_at`) VALUES
-(20, 'sreyka', 'honsreyka6@gmail.com', '$2y$10$5j6.ZrBUxbNR278RLGR6VebiUoK.ybLdUlPoRNoprtb5hTzIXKDd2', 'admin', 'active', '2025-03-07 13:32:06', '2025-03-07 13:32:06'),
-(39, 'kuy', 'kuy@gmail.com', '$2y$10$OQXD.5DsUVik1FhHYqYGVuYnPtSrs.XDXYDdeo4g4zSt5JBznLDLK', 'user', 'active', '2025-03-16 14:20:05', '2025-03-16 14:20:05'),
-(42, 'panha', 'panha@gmail.com', '$2y$10$pD/BTiibiqiFu7WTrz.tC.13SM6NYa2dPg6zNyuKNA.vc4D47RKpq', 'user', 'active', '2025-03-16 14:50:10', '2025-03-16 14:50:10'),
-(43, 'nhanh', 'nhanh@gmail.com', '$2y$10$PVW.81tayk4rQTvdKp6J1.KoZ8iiHeLiZwQlolIvsklb7MGugm/w6', 'user', 'active', '2025-03-16 16:28:36', '2025-03-16 16:28:36'),
-(44, 'jjj', 'j@gamil.com', '$2y$10$IqlAvIzZ4C7zotSa08TD4.2Z1dnjNAcqdbTF8OBzq5sO93N8ozOk2', 'user', 'active', '2025-03-16 17:50:10', '2025-03-16 17:50:10');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`, `created_at`, `updated_at`, `action`) VALUES
+(20, 'sreyka', 'honsreyka6@gmail.com', '$2y$10$5j6.ZrBUxbNR278RLGR6VebiUoK.ybLdUlPoRNoprtb5hTzIXKDd2', 'admin', '2025-03-07 13:32:06', '2025-03-07 13:32:06', NULL),
+(51, 'kaka', 'sreyka.hon@student.passerellesnumeriques.org', '$2y$10$06ib8EAJ7vEZsiaYCCkAZucmqPe5JAYBjRWtkOrV6PnS/d1ANAH9a', 'user', '2025-03-21 05:18:17', '2025-03-21 05:18:17', NULL),
+(52, 'Mean', 'mean.un.personal@gmail.com', '1', '', '2025-03-23 06:38:34', '2025-03-23 06:38:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -431,13 +472,6 @@ ALTER TABLE `categories`
   ADD UNIQUE KEY `name_2` (`name`);
 
 --
--- Indexes for table `customers`
---
-ALTER TABLE `customers`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
 -- Indexes for table `customer_address`
 --
 ALTER TABLE `customer_address`
@@ -460,6 +494,14 @@ ALTER TABLE `deleted_products`
   ADD KEY `deleted_by` (`deleted_by`);
 
 --
+-- Indexes for table `employees`
+--
+ALTER TABLE `employees`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username` (`username`),
+  ADD KEY `email` (`email`);
+
+--
 -- Indexes for table `payments`
 --
 ALTER TABLE `payments`
@@ -477,7 +519,8 @@ ALTER TABLE `payment_history`
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `products_ibfk_1` (`category_id`);
 
 --
 -- Indexes for table `product_expirations`
@@ -542,6 +585,12 @@ ALTER TABLE `system_history`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `telegram_promotions`
+--
+ALTER TABLE `telegram_promotions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -578,13 +627,7 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `customers`
---
-ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `customer_address`
@@ -620,7 +663,7 @@ ALTER TABLE `payment_history`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `product_expirations`
@@ -632,7 +675,7 @@ ALTER TABLE `product_expirations`
 -- AUTO_INCREMENT for table `promotions`
 --
 ALTER TABLE `promotions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `sales`
@@ -677,10 +720,16 @@ ALTER TABLE `system_history`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `telegram_promotions`
+--
+ALTER TABLE `telegram_promotions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `user_history`
@@ -708,13 +757,13 @@ ALTER TABLE `user_roles`
 -- Constraints for table `customer_address`
 --
 ALTER TABLE `customer_address`
-  ADD CONSTRAINT `customer_address_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `customer_address_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `telegram_promotions` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `customer_transactions`
 --
 ALTER TABLE `customer_transactions`
-  ADD CONSTRAINT `customer_transactions_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `customer_transactions_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `telegram_promotions` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `deleted_products`
@@ -751,7 +800,7 @@ ALTER TABLE `product_expirations`
 -- Constraints for table `sales`
 --
 ALTER TABLE `sales`
-  ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `telegram_promotions` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `sale_items`

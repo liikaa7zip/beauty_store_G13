@@ -1,12 +1,15 @@
 <?php
-class ProductModel {
+class ProductModel
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = new Database();
     }
 
-    public function getProductsByCategoryName($category_name = null) {
+    public function getProductsByCategoryName($category_name = null)
+    {
         if ($category_name) {
             $stmt = $this->db->prepare("SELECT * FROM products 
                 WHERE category_id = (SELECT id FROM categories WHERE name = ? LIMIT 1)");
@@ -19,7 +22,8 @@ class ProductModel {
     }
 
     // Method to get products by category
-    public function getProductsByCategory($category_id) {
+    public function getProductsByCategory($category_id)
+    {
         $sql = "SELECT products.*, categories.name AS category_name 
                 FROM products 
                 LEFT JOIN categories ON products.category_id = categories.id 
@@ -27,14 +31,17 @@ class ProductModel {
         return $this->db->query($sql, [$category_id])->fetchAll();
     }
 
-    public function getAllProducts() {
+    public function getAllProducts()
+    {
         $stmt = $this->db->query("SELECT * FROM products");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getProductByID($id) {
-        $stmt = $this->db->query("SELECT id, name, description, price, expire_date, category_id, stocks, start_date, status, image 
-                                  FROM products WHERE id = :id", [':id' => $id]);
+    public function getProductByID($id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM products WHERE id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -50,6 +57,7 @@ class ProductModel {
             ':description' => $data['description'],
             ':price' => (float)$price,  
             ':expire_date' => $data['expire_date'],  // Corrected variable name
+            ':price' => (float)$price,
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
             ':start_date' => $data['start_date'],
@@ -60,30 +68,90 @@ class ProductModel {
         return $this->db->query($sql, $params);
     }
 
-    
-
-
-private function createLowStockNotification($productName, $stocks) {
-    $sql = "INSERT INTO store_notifications (notification_title, notification_message, notification_type, start_date, end_date, status) 
-            VALUES (:title, :message, :type, :start_date, :end_date, :status)";
-    
-    $params = [
-        ':title' => "Low Stock Alert: $productName",
-        ':message' => "The product '$productName' has only $stocks left in stock.",
-        ':type' => 'low_stock',
-        ':start_date' => date('Y-m-d H:i:s'),
-        ':end_date' => date('Y-m-d H:i:s', strtotime('+7 days')),
-        ':status' => 'scheduled'
-    ];
-
-    $this->db->query($sql, $params);
-}
-
-    public function updateProduct($id, $data) {
+    public function updateProduct($id, $data)
+    {
         $sql = "UPDATE products 
-                SET name = :name, description = :description, price = :price, expire_date = :expire_date, category_id = :category_id, 
-                    stocks = :stocks, start_date = :start_date,  status = :status 
+                SET name = COALESCE(:name, name), 
+                    description = COALESCE(:description, description), 
+                    price = COALESCE(:price, price), 
+                    expire_date = COALESCE(:expire_date, expire_date), 
+                    category_id = COALESCE(:category_id, category_id), 
+                    stocks = :stocks, 
+                    status = COALESCE(:status, status), 
+                    start_date = COALESCE(:start_date, start_date), 
+                    image = COALESCE(:image, image) 
                 WHERE id = :id";
+
+        $params = [
+            ':id' => $id,
+            ':name' => $data['name'] ?? null,
+            ':description' => $data['description'] ?? null,
+            ':price' => $data['price'] ?? null,
+            ':expire_date' => $data['expire_date'] ?? null,
+            ':category_id' => $data['category_id'] ?? null,
+            ':stocks' => $data['stocks'], // Ensure stocks is updated
+            ':status' => $data['status'] ?? null,
+            ':start_date' => $data['start_date'] ?? null,
+            ':image' => $data['image'] ?? null
+        ];
+
+        try {
+            // Log the query and parameters for debugging
+            error_log("Update Query: $sql");
+            error_log("Update Params: " . json_encode($params));
+
+            $this->db->query($sql, $params);
+            return true;
+        } catch (Exception $e) {
+            error_log("Database Update Error: " . $e->getMessage());
+            return false;
+        }
+    }
+
+
+    private function createLowStockNotification($productName, $stocks) {
+        $message = "The product '$productName' is running low with only $stocks items left in stock.";
+
+        $sql = "INSERT INTO store_notifications 
+                (notification_title, notification_message, notification_type, start_date, end_date, status) 
+                VALUES (:title, :message, :type, :start_date, :end_date, :status)";
+
+        $params = [
+            ':title' => "Low Stock Alert: $productName",
+            ':message' => $message,
+            ':type' => 'low_stock',
+            ':start_date' => date('Y-m-d H:i:s'),
+            ':end_date' => date('Y-m-d H:i:s', strtotime('+7 days')),
+            ':status' => 'active'
+        ];
+
+        return $this->db->query($sql, $params);
+    }
+
+    public function getLowStockProducts($threshold = 5)
+    {
+        $sql = "SELECT * FROM products WHERE stocks <= ?";
+        return $this->db->query($sql, [$threshold])->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    
+    public function deleteProduct($id)
+    {
+        $stmt = $this->db->query("DELETE FROM products WHERE id = :id", [':id' => $id]);
+        return $stmt->rowCount() > 0;
+    }
+
+    public function deleteProducts($id)
+    {
+        $sql = "DELETE FROM products WHERE id = :id";
+        $params = [':id' => $id];
+        return $this->db->query($sql, $params);
+    }
+
+    public function createProduct($data)
+    {
+        $sql = "INSERT INTO products (name, description, price, expire_date, category_id, stocks, start_date, status, image) 
+                VALUES (:name, :description, :price, :expire_date, :category_id, :stocks, :start_date, :status, :image)";
 
         $params = [
             ':name' => $data['name'],
@@ -94,38 +162,23 @@ private function createLowStockNotification($productName, $stocks) {
             ':stocks' => $data['stocks'],
             ':start_date' => $data['start_date'],
             ':status' => $data['status'],
-            ':id' => $id
+            ':image' => $data['image']
         ];
 
-        return $this->db->query($sql, $params);
+        try {
+            $this->db->query($sql, $params);
+            return true;
+        } catch (Exception $e) {
+            error_log("Database Insert Error: " . $e->getMessage());
+            return false;
+        }
     }
-
-    public function deleteProduct($id) {
-        $stmt = $this->db->query("DELETE FROM products WHERE id = :id", [':id' => $id]);
-        return $stmt->rowCount() > 0;
-    }
-
-    public function deleteProducts($id) {
-        $sql = "DELETE FROM products WHERE id = :id";
-        $params = [':id' => $id];
-        return $this->db->query($sql, $params);
-    }
-
-    public function createProduct($data) {
-        $sql = "INSERT INTO products (name, description, price, expire_date, category_id, stocks, start_date, status, image) 
-                VALUES (:name, :description, :price, :expire_date, :category_id, :stocks, :start_date, :status, :image)";
-        $params = [
-            ':name' => $data['name'],
-            ':description' => isset($data['description']) ? $data['description'] : null,  // Optional, can be NULL
-            ':price' => $data['price'],
-            ':expire_date' => $data['expire_date'],
-            ':category_id' => $data['category_id'],
-            ':stocks' => $data['stocks'],
-            ':start_date' => $data['start_date'],
-            ':status' => $data['status'],
-            ':image' => isset($data['image']) ? $data['image'] : null // Optional, can be NULL
-        ];
-        return $this->db->query($sql, $params);
+    public function getProductsByCategoryId($categoryId)
+    {
+        $sql = "SELECT p.*, c.name AS category_name 
+                FROM products p 
+                LEFT JOIN categories c ON p.category_id = c.id 
+                WHERE p.category_id = ?";
+        return $this->db->query($sql, [$categoryId])->fetchAll();
     }
 }
-?>

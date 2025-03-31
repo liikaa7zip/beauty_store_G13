@@ -70,8 +70,11 @@ $notifications = $notificationModel->getNotifications();
             flex-grow: 1;
         }
         .notification .delete-btn {
+<<<<<<< HEAD
             width: 40px;
             margin-left: 500px;
+=======
+>>>>>>> 97dbc7fe736cffef6842a720aa7aba81748400c9
             background: none;
             border: none;
             font-size: 2.5em;
@@ -94,6 +97,7 @@ $notifications = $notificationModel->getNotifications();
 <body>
 <main class="app-main">
     <div class="container">
+<<<<<<< HEAD
         <!-- <section class="form-container">
             <h2>Add Notification</h2>
             <form id="notificationForm">
@@ -112,6 +116,8 @@ $notifications = $notificationModel->getNotifications();
                 <button type="submit">Add Notification</button>
             </form>
         </section> -->
+=======
+>>>>>>> 97dbc7fe736cffef6842a720aa7aba81748400c9
         <section class="notifications">
             <h2>Alert Notifications</h2>
             <div id="notificationsContainer">
@@ -139,4 +145,11 @@ if (file_exists($layoutPath)) {
     echo "Error: layout.php not found at $layoutPath";
 }
 ?>
+<<<<<<< HEAD
 <?php include __DIR__ . '/../layouts/footer.php'; ?>
+=======
+<?php include __DIR__ . '/../layouts/footer.php'; ?>
+
+
+
+>>>>>>> 97dbc7fe736cffef6842a720aa7aba81748400c9

@@ -14,22 +14,23 @@ document.getElementById('sale-product').addEventListener('input', function(e) {
 });
 
     // Function to update the total price in the form and table
-function updateTotalPrice() {
-    let total = 0;
-
-    // Calculate the total price by summing up the totalPrice for each sale item
-    salesData.forEach(item => {
-        total += item.totalPrice;
-    });
-
-    // Format the total price to 2 decimal places and update the DOM
-    const totalElement = document.querySelector(".total p");
-    totalElement.innerHTML = `<strong>TOTAL:</strong> $${total.toFixed(2)}`;
-
-    // Also update the total price in the table's total row
-    const totalPriceInTable = document.getElementById("total-price");
-    totalPriceInTable.textContent = `$${total.toFixed(2)}`;
-}
+    function updateTotalPrice() {
+        let total = 0;
+    
+        // Calculate the total price
+        salesData.forEach(item => {
+            total += Number(item.totalPrice);
+        });
+    
+        // Update only the total amount in the div
+        const totalAmountSpan = document.getElementById("total-amount");
+        if (totalAmountSpan) {
+            totalAmountSpan.textContent = total.toFixed(2);
+        } else {
+            console.error("Element with id 'total-amount' not found!");
+        }
+    }
+    
 
 
 function addSaleToTable() {
@@ -121,27 +122,31 @@ if (quantityNum > stock) {
 }
 
 
-    function renderTable(){
-        const tbody=document.getElementById("order-list")
-        const totalP=document.getElementById("total-price")
-        let text = ''
-        let total = 0
-        if(salesData.length>0){
-            salesData.forEach((item)=>{
-              total+=item.totalPrice
-              text+=`<tr class="text-center">
+function renderTable() {
+    const tbody = document.getElementById("order-list"); // Table body
+    const totalAmount = document.getElementById("total-amount"); // Total in div
+    let text = "";
+    let total = 0;
+
+    // Loop through salesData to generate table rows
+    salesData.forEach((item) => {
+        total += item.totalPrice;
+        text += `<tr class="text-center">
                     <td>${item.name}</td>
                     <td>${item.quantity}</td>
-                
-                    <td>$${item.totalPrice}</td>
+                    <td>$${item.price}</td>
                     <td>$${item.totalPrice.toFixed(2)}</td>
-                    </tr>`
-            })
-            tbody.innerHTML=text;
-            totalP.textContent = `$${total.toFixed(2)}`;
+                 </tr>`;
+    });
 
-        }       
+    tbody.innerHTML = text; // Fill the table with product rows
+
+    // Update the total in the <div> (not in the table)
+    if (totalAmount) {
+        totalAmount.textContent = total.toFixed(2);
     }
+}
+
 
     function cancelSales() {
         // Clear the table and hide it

@@ -1,42 +1,39 @@
-<?php 
+<?php
 
 require_once 'Models/CategoryModel.php';
-class CategoryController extends BaseController{
+class CategoryController extends BaseController
+{
     private $categoryModel;
     private $productModel;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->categoryModel = new CategoryModel($db);
         $this->productModel = new ProductModel($db);
     }
 
-    public function index() {
+    public function index()
+    {
         $categories = $this->categoryModel->getAllCategories();
-
-        $category_name = isset($_GET['category']) ? $_GET['category'] : null;
-        $products = $this->productModel->getProductsByCategoryName($category_name);
-
-        require_once 'views/category_view.php';
+        $this->view('categories/categories', ['categories' => $categories]);
     }
 
-    public function create() {
-        // Implement the create method
+    public function create()
+    {
         $this->view('categories/create');
     }
 
-    public function store() {
+    public function store()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Ensure data is received
             if (isset($_POST['category_name']) && isset($_POST['category_description'])) {
                 $category_name = trim($_POST['category_name']);
                 $category_description = trim($_POST['category_description']);
-    
+
                 if (!empty($category_name) && !empty($category_description)) {
                     $result = $this->categoryModel->createCategories($category_name, $category_description);
-                    
                     if ($result) {
-                        header('Location: /inventory/products'); // Ensure this URL is correct
-                        exit();
+                        $this->redirect('/categories');
                     } else {
                         echo "Error inserting data into the database.";
                     }
@@ -46,26 +43,50 @@ class CategoryController extends BaseController{
             } else {
                 echo "Invalid form submission.";
             }
-            print_r($_POST);
-            exit();
         }
     }
 
-    public function delete() {
-        // Get the category ID from the request (assuming it's a JSON request)
-        $data = json_decode(file_get_contents('php://input'), true);
-        $categoryId = $data['categoryId'];
-
-        // Call the model to delete the category
-        $categoryModel = new CategoryModel();
-        $result = $categoryModel->deleteCategoryById($categoryId);
-
-        // Respond based on the result of deletion
-        if ($result) {
-            echo json_encode(['status' => 'success']);
+    public function edit($id)
+    {
+        $category = $this->categoryModel->getCategoryById($id);
+        if ($category) {
+            $this->view('categories/edit', ['category' => $category]);
         } else {
-            echo json_encode(['status' => 'error']);
+            echo "Category not found.";
         }
+    }
+
+    public function update($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $category_name = trim($_POST['category_name']);
+            $category_description = trim($_POST['category_description']);
+
+            if (!empty($category_name) && !empty($category_description)) {
+                $result = $this->categoryModel->updateCategory($id, $category_name, $category_description);
+                if ($result) {
+                    $this->redirect('/categories');
+                } else {
+                    echo "Error updating category.";
+                }
+            } else {
+                echo "Both category name and description are required.";
+            }
+        }
+    }
+
+    public function delete($id)
+    {
+        $result = $this->categoryModel->deleteCategoryById($id);
+        if ($result) {
+            $this->redirect('/categories');
+        } else {
+            echo "Error deleting category.";
+        }
+    }
+
+    public function clearForm()
+    {
+        $_POST = [];
     }
 }
-?>
