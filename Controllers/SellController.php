@@ -1,10 +1,9 @@
 <?php 
+class SellController extends BaseController {
+    private $sellModel;
 
-    class SellController extends BaseController{
-
-        public function index()
-        {
-            $this->view("/dashboard/sell");
-        }
+    public function index() {
+        $this->view("/dashboard/sell");
     }
-?>
+}
+    

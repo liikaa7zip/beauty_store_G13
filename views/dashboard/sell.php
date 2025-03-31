@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_id'])) {
         <div class="overview-card card p-3" id="total-card">
             <i class="fas fa-box-open overview-icon" id="total"></i>
             <h3 class="overview-title">Total Products</h3>
-            <p class="overview-number">150</p>
+            <p class="overview-number">0.00</p>
         </div>
         <div class="overview-card card p-3" id="employee-card">
             <i class="fas fa-users overview-icon" id="employee"></i>
