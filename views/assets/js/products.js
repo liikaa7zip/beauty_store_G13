@@ -97,141 +97,6 @@
 
 
 
-async function triggerImport() {
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = '.csv';
-    fileInput.style.display = 'none';
-    document.body.appendChild(fileInput);
-    fileInput.click();
-
-    fileInput.onchange = async function(e) {
-        const file = e.target.files[0];
-        if (!file) {
-            document.body.removeChild(fileInput);
-            return;
-        }
-
-        // Show notification
-        const toast = new bootstrap.Toast(document.getElementById('notification'));
-        document.getElementById('fileName').textContent = file.name;
-        document.getElementById('fileSize').textContent = `${(file.size / 1024).toFixed(2)} KB`;
-        document.getElementById('status').textContent = 'Validating...';
-        toast.show();
-
-        try {
-            const text = await readFileAsText(file);
-            const jsonData = parseCSV(text);
-
-            if (!jsonData || jsonData.length === 0) {
-                throw new Error("No valid data found in CSV file");
-            }
-
-            document.getElementById('status').textContent = 'Processing...';
-            const response = await sendFileToAPI(file);
-
-            if (response.success) {
-                document.getElementById('status').textContent = 'Done';
-                updateTable(jsonData);
-            } else {
-                throw new Error(response.message || "Unknown API error");
-            }
-        } catch (error) {
-            document.getElementById('status').textContent = 'Error: ' + error.message;
-            console.error("Import error:", error);
-        } finally {
-            document.body.removeChild(fileInput);
-        }
-    };
-}
-
-// Read file as text
-function readFileAsText(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (event) => resolve(event.target.result);
-        reader.onerror = () => reject(new Error("Failed to read file"));
-        reader.readAsText(file);
-    });
-}
-
-// Parse CSV text into JSON
-function parseCSV(csvText) {
-    const rows = csvText.split(/\r?\n/).map(row => row.split(","));
-    if (rows.length < 2) return [];
-
-    let headers = rows[0].map(h => h.trim().toLowerCase());
-    headers[0] = headers[0].replace(/^\ufeff/, ''); // Remove BOM if present
-
-    const expectedHeaders = ['name', 'stock', 'category', 'status'];
-    const missingHeaders = expectedHeaders.filter(h => !headers.includes(h));
-
-    if (missingHeaders.length > 0) {
-        throw new Error("Missing headers: " + missingHeaders.join(", "));
-    }
-
-    return rows.slice(1).map(row => {
-        let obj = {};
-        headers.forEach((header, index) => {
-            obj[header] = row[index] ? row[index].trim() : "";
-        });
-        return obj;
-    }).filter(row => row.name); // Remove empty rows
-}
-
-// Send file to API
-async function sendFileToAPI(file) {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await fetch('/inventory/import/import', {
-        method: 'POST',
-        body: formData
-    });
-
-    return response.json();
-}
-
-// Update table with new data
-function updateTable(newData) {
-    const tableBody = document.querySelector("table tbody"); 
-    const existingNames = new Set([...tableBody.querySelectorAll("tr td:first-child")].map(td => td.textContent.trim().toLowerCase()));
-
-    newData.forEach(row => {
-        const cleanName = row.name ? row.name.trim().toLowerCase() : "";
-        if (!existingNames.has(cleanName) && cleanName !== "") {
-            const newRow = document.createElement("tr");
-            newRow.innerHTML = `
-                <td>${row.name}</td>
-                <td>${row.stock}</td>
-                <td>${row.category}</td>
-                <td class="${row.status.toLowerCase() === 'low-stock' ? 'text-danger' : 'text-success'}">
-                    ${row.status}
-                </td>
-                <td><button class="btn btn-light">...</button></td>
-            `;
-            tableBody.appendChild(newRow);
-        }
-    });
-}
-
-// Attach event listener to a button
-document.getElementById("importButton").addEventListener("click", triggerImport);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // EXPORT TO EXCEL
 function exportToExcel() {
@@ -287,69 +152,170 @@ function exportToExcel() {
 }
 
 // IMPORT EXCEL FILE
+// function triggerImport() {
+//     const fileInput = document.createElement('input');
+//     fileInput.type = 'file';
+//     fileInput.accept = '.xlsx, .csv';
+//     fileInput.style.display = 'none';
+//     document.body.appendChild(fileInput);
+//     fileInput.click();
+
+//     fileInput.onchange = function (e) {
+//         const file = e.target.files[0];
+//         if (!file) {
+//             document.body.removeChild(fileInput);
+//             return;
+//         }
+
+//         const toast = new bootstrap.Toast(document.getElementById('notification'));
+//         document.getElementById('fileName').textContent = file.name;
+//         document.getElementById('fileSize').textContent = `${(file.size / 1024).toFixed(2)} KB`;
+//         document.getElementById('status').textContent = 'Validating...';
+//         toast.show();
+
+//         const reader = new FileReader();
+//         reader.onload = function (event) {
+//             try {
+//                 const data = new Uint8Array(event.target.result);
+//                 const workbook = XLSX.read(data, { type: 'array' });
+
+//                 const firstSheetName = workbook.SheetNames[0];
+//                 const worksheet = workbook.Sheets[firstSheetName];
+
+//                 const expectedHeaders = ['Name', 'Price', 'Stock', 'Category', 'Status'];
+//                 const headers = XLSX.utils.sheet_to_json(worksheet, { header: 1 })[0] || [];
+
+//                 const missingHeaders = expectedHeaders.filter(header => !headers.includes(header));
+//                 if (missingHeaders.length > 0) {
+//                     document.getElementById('status').textContent = `Error: Missing headers: ${missingHeaders.join(', ')}`;
+//                     document.body.removeChild(fileInput);
+//                     return;
+//                 }
+
+//                 const jsonData = XLSX.utils.sheet_to_json(worksheet);
+//                 if (jsonData.length <= 0) {
+//                     document.getElementById('status').textContent = 'Error: No data rows found';
+//                     document.body.removeChild(fileInput);
+//                     return;
+//                 }
+
+//                 document.getElementById('status').textContent = 'Processing...';
+//                 updateTable(jsonData, expectedHeaders);
+//             } catch (error) {
+//                 document.getElementById('status').textContent = 'Error: Invalid file format';
+//                 console.error('File reading error:', error);
+//             }
+//             document.body.removeChild(fileInput);
+//         };
+
+//         reader.onerror = function () {
+//             document.getElementById('status').textContent = 'Error: Failed to read file';
+//             document.body.removeChild(fileInput);
+//         };
+
+//         reader.readAsArrayBuffer(file);
+//     };
+// }
+
+
 function triggerImport() {
+    console.log('Import button clicked'); // Confirms button click
+    
+    // Create file input element
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
-    fileInput.accept = '.xlsx, .csv';
+    fileInput.accept = '.xlsx, .xls, .csv';
     fileInput.style.display = 'none';
+    
+    // Add to DOM and trigger click
     document.body.appendChild(fileInput);
     fileInput.click();
-
-    fileInput.onchange = function (e) {
-        const file = e.target.files[0];
+    
+    // Handle file selection
+    fileInput.addEventListener('change', async (event) => {
+        const file = event.target.files[0];
         if (!file) {
             document.body.removeChild(fileInput);
             return;
         }
 
-        const toast = new bootstrap.Toast(document.getElementById('notification'));
-        document.getElementById('fileName').textContent = file.name;
-        document.getElementById('fileSize').textContent = `${(file.size / 1024).toFixed(2)} KB`;
-        document.getElementById('status').textContent = 'Validating...';
-        toast.show();
-
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            try {
-                const data = new Uint8Array(event.target.result);
-                const workbook = XLSX.read(data, { type: 'array' });
-
-                const firstSheetName = workbook.SheetNames[0];
-                const worksheet = workbook.Sheets[firstSheetName];
-
-                const expectedHeaders = ['Name', 'Price', 'Stock', 'Category', 'Status'];
-                const headers = XLSX.utils.sheet_to_json(worksheet, { header: 1 })[0] || [];
-
-                const missingHeaders = expectedHeaders.filter(header => !headers.includes(header));
-                if (missingHeaders.length > 0) {
-                    document.getElementById('status').textContent = `Error: Missing headers: ${missingHeaders.join(', ')}`;
-                    document.body.removeChild(fileInput);
-                    return;
-                }
-
-                const jsonData = XLSX.utils.sheet_to_json(worksheet);
-                if (jsonData.length <= 0) {
-                    document.getElementById('status').textContent = 'Error: No data rows found';
-                    document.body.removeChild(fileInput);
-                    return;
-                }
-
-                document.getElementById('status').textContent = 'Processing...';
-                updateTable(jsonData, expectedHeaders);
-            } catch (error) {
-                document.getElementById('status').textContent = 'Error: Invalid file format';
-                console.error('File reading error:', error);
-            }
+        console.log('Selected file:', file.name);
+        
+        try {
+            // Read Excel file
+            const rows = await readXlsxFile(file);
+            console.log('File contents:', rows);
+            
+            // Process and display data
+            displayExcelData(rows);
+            
+            // Show success message
+            showImportStatus('File imported successfully!', 'success');
+        } catch (error) {
+            console.error('Import failed:', error);
+            showImportStatus('Import failed: ' + error.message, 'error');
+        } finally {
             document.body.removeChild(fileInput);
-        };
+        }
+    });
+}
 
-        reader.onerror = function () {
-            document.getElementById('status').textContent = 'Error: Failed to read file';
-            document.body.removeChild(fileInput);
-        };
+function displayExcelData(rows) {
+    const table = document.getElementById('excel-table');
+    if (!table) {
+        document.body.insertAdjacentHTML(
+            'beforeend',
+            '<p style="color:red;">❌ Error: Table not found! Please add a table with ID "excel-table".</p>'
+        );
+        return;
+    }
+    
 
-        reader.readAsArrayBuffer(file);
-    };
+    // Clear existing data
+    table.innerHTML = '';
+    
+    // Create header row if data exists
+    if (rows.length > 0) {
+        const headerRow = document.createElement('tr');
+        rows[0].forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            headerRow.appendChild(th);
+        });
+        table.appendChild(headerRow);
+    }
+    
+    // Create data rows (skip header if exists)
+    const startRow = rows.length > 1 ? 1 : 0;
+    for (let i = startRow; i < rows.length; i++) {
+        const tr = document.createElement('tr');
+        rows[i].forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell !== null ? cell : '';
+            tr.appendChild(td);
+        });
+        table.appendChild(tr);
+    }
+}
+
+function showImportStatus(message, type) {
+    const statusElement = document.getElementById('import-status') || createStatusElement();
+    statusElement.textContent = message;
+    statusElement.className = `import-status ${type}`;
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        statusElement.textContent = '';
+        statusElement.className = 'import-status';
+    }, 5000);
+}
+
+function createStatusElement() {
+    const statusElement = document.createElement('div');
+    statusElement.id = 'import-status';
+    statusElement.className = 'import-status';
+    document.querySelector('.import-btn').insertAdjacentElement('afterend', statusElement);
+    return statusElement;
 }
 
 // UPDATE TABLE & ALERT MISSING IMAGES
@@ -391,6 +357,7 @@ function updateTable(dataRows, headers) {
 
     console.log('Table updated with new data');
 }
+
 
 // DELETE ROW FUNCTION
 function deleteRow(button) {
@@ -558,18 +525,58 @@ function closeAllDropdowns() {
 }
 
 // Close dropdown when clicking outside
-document.addEventListener("click", function(event) {
-    const dropdowns = document.querySelectorAll(".dropdown");
-    dropdowns.forEach(dropdown => {
-        const button = dropdown.querySelector(".dropbtn");
-        const content = dropdown.querySelector(".dropdown-content");
+// document.addEventListener("click", function(event) {
+//     const dropdowns = document.querySelectorAll(".dropdown");
+//     dropdowns.forEach(dropdown => {
+//         const button = dropdown.querySelector(".dropbtn");
+//         const content = dropdown.querySelector(".dropdown-content");
         
-        // If the click is outside the dropdown button and content, close the dropdown
-        if (!button.contains(event.target) && !content.contains(event.target)) {
-            content.style.display = "none";
-        }
-    });
-});
+//         // If the click is outside the dropdown button and content, close the dropdown
+//         if (!button.contains(event.target) && !content.contains(event.target)) {
+//             content.style.display = "none";
+//         }
+//     });
+// });
+
+function addRowToTable(product) {
+    const tableBody = document.querySelector("table tbody"); // Find table body
+    if (!tableBody) {
+        console.error("Table body not found");
+        return;
+    }
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+        <td><img src="${product.image}" alt="Product" style="width:50px; height:50px; border-radius:50%;"></td>
+        <td>${product.name}</td>
+        <td>${product.price}</td>
+        <td>${product.stock}</td>
+        <td>${product.category}</td>
+        <td style="color:${product.stock <= 5 ? 'red' : 'black'}">${product.stock <= 5 ? 'Low-stock' : 'In-stock'}</td>
+        <td>
+            <button class="action-btn">...</button>
+        </td>
+    `;
+
+    tableBody.appendChild(row);
+}
+
+// Example Usage
+// const newProduct = {
+//     image: "https://via.placeholder.com/50", // Replace with actual product image
+//     name: "New Product",
+//     price: "$15.00",
+//     stock: 3,
+//     category: "Shirts"
+// };
+
+// addRowToTable(newProduct);
+
+
+
+
+
 
 // Confirm deletion before proceeding
 function confirmDelete(event) {
