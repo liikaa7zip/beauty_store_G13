@@ -29,9 +29,15 @@ class UserController extends BaseController {
     }
 
     public function logout() {
-        // Implement the logout logic here
-        session_destroy();
-        $this->redirect('/users/signIn');
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        // Destroy the session
+        session_unset(); // Clear session variables
+        session_destroy(); // Destroy the session
+        // Redirect to the sign-in page
+        header("Location: /users/signIn");
+        exit;
     }
 
     // Authenticate user (SignIn)

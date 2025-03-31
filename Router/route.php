@@ -38,6 +38,7 @@ $route->post("/users/create", [UserController::class, 'create']);
 $route->post("/users/store", [UserController::class, 'store']);
 $route->get("/users/signIn", [UserController::class, 'signIn']);
 $route->post("/users/authenticate", [UserController::class, 'authenticate']);
+$route->get("/users/logout", [UserController::class, 'logout']); // Ensure logout route is defined
 
 // Sign In
 $route->get('/signin', 'AuthController@showSignInForm');
