@@ -1,591 +1,230 @@
-/*
- * Copyright (c) 2025 Your Name. All rights reserved.
- * This code is for personal use and may not be redistributed without permission.
- */
-
- body {
+body {
     font-family: Arial, sans-serif;
     margin: 20px;
 }
-
-/* Employees table */
-    /* Container for the search, button, and table */
-    .emp-table-container {
-        width: 100%;
-        max-width: 1200px; /* Match the table's max-width */
-        margin: 0 auto; /* Center the container */
-        padding: 20px;
-    }
-    
-    /* Search and Add button wrapper */
-    .emp-table-controls {
-        display: flex;
-        justify-content: space-between; /* Align search to left, button to right */
-        align-items: center;
-        margin-bottom: 20px;
-    }
-    
-    /* Search input */
-    .emp-table-controls input[type="text"] {
-        padding: 10px;
-        width: 200px; /* Fixed width for the search input */
-        border: 2px solid #e2e8f0;
-        border-radius: 5px;
-        font-size: 14px;
-        transition: border-color 0.3s ease;
-    }
-    
-    .emp-table-controls input[type="text"]:focus {
-        border-color: #5a67d8;
-        outline: none;
-    }
-    
-    /* Add button */
-    .emp-table-controls button {
-        padding: 10px 20px;
-        background: #e53e3e; /* Match the pinkish color in the image */
-        color: #ffffff;
-        border: none;
-        border-radius: 5px;
-        font-size: 14px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        transition: background 0.3s ease;
-    }
-    
-    .emp-table-controls button:hover {
-        background: #c53030; /* Darker shade on hover */
-    }
-    
-    /* Table styling */
-    .emp-employee-list-table {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto; /* Center the table */
-        border-collapse: collapse;
-        background: #ffffff;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    
-    /* Table header */
-    .emp-table-header {
-        background: linear-gradient(90deg, #4a5568, #2d3748);
-        color: #525050;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    /* Table heading (th) */
-    .emp-table-heading {
-        padding: 15px 20px;
-        font-size: 15px;
-        font-weight: 600;
-        text-align: center;
-        border-bottom: 2px solid #2d3748;
-    }
-    
-    /* Explicit column widths for alignment */
-    #emp-col-name {
-        width: 20%; /* Name column */
-    }
-    
-    #emp-col-department {
-        width: 20%; /* Role column */
-    }
-    
-    #emp-col-contact {
-        width: 20%; /* Password column */
-    }
-    
-    #emp-col-hire-date {
-        width: 20%; /* Status column */
-    }
-    
-    #emp-col-actions {
-        width: 20%; /* Actions column */
-    }
-    
-    /* Table row */
-    .emp-table-row {
-        transition: background 0.3s ease, transform 0.2s ease;
-    }
-    
-    .emp-table-row:nth-child(even) {
-        background: #f7fafc;
-    }
-    
-    .emp-table-row:hover {
-        background: #edf2f7;
-        transform: translateY(-2px);
-    }
-    
-    /* Table data (td) */
-    .emp-table-data {
-        padding: 15px 20px;
-        font-size: 14px;
-        color: #2d3748;
-        border-bottom: 1px solid #e2e8f0;
-        text-align: center; /* Ensure consistent text alignment */
-    }
-    
-    /* Specific styling for columns */
-    .emp-table-data[id*="emp-data-name"] {
-        font-weight: 500;
-    }
-    
-    .emp-table-data[id*="emp-data-status"] {
-        text-transform: capitalize;
-    }
-    
-    /* Status-specific styling */
-    .emp-table-data[id*="emp-data-status"] {
-        position: relative;
-        padding-left: 30px;
-    }
-    
-    .emp-table-data[id*="emp-data-status"]::before {
-        content: '';
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #ccc;
-    }
-    
-    .emp-table-data[id*="emp-data-status"][data-status="active"]::before {
-        background: #48bb78;
-        margin-left: 75px;
-        margin-top: 1px;
-    }
-    
-    .emp-table-data[id*="emp-data-status"][data-status="inactive"]::before {
-        background: #e53e3e;
-    }
-    /* Actions column */
-    .emp-table-data[id*="emp-data-actions"] {
-        position: relative;
-        text-align: center; /* Center the three-dot icon */
-    }
-    
-    /* Actions menu container */
-    .emp-actions-menu {
-        position: relative;
-        display: inline-block;
-    }
-    
-    /* Three-dot toggle button */
-    .emp-actions-toggle {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.3s ease;
-    }
-    
-    .emp-actions-toggle:hover {
-        background: #e2e8f0;
-        border-radius: 5px;
-    }
-    
-    .emp-actions-icon {
-        width: 20px;
-        height: 20px;
-        stroke: #4a5568;
-    }
-    
-    /* Dropdown menu */
-    .emp-actions-dropdown {
-        display: none; /* Hidden by default */
-        position: absolute;
-        top: 100%; /* Appears below the three-dot icon */
-        left: 0 !important; /* Force left alignment */
-        right: auto !important; /* Ensure right is not set */
-        background: #ffffff;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        border-radius: 5px;
-        min-width: 120px;
-        z-index: 10;
-        overflow: hidden;
-    }
-    
-    /* Show dropdown when active */
-    .emp-actions-menu.active .emp-actions-dropdown {
-        display: block;
-    }
-    
-    /* Dropdown buttons */
-    .emp-actions-dropdown button {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        padding: 10px 15px;
-        border: none;
-        background: none;
-        text-align: left;
-        font-size: 14px;
-        color: #2d3748;
-        cursor: pointer;
-        transition: background 0.3s ease, color 0.3s ease;
-    }
-    
-    /* Style for the icons in the dropdown */
-    .emp-action-icon {
-        width: 16px;
-        height: 16px;
-        stroke: #4a5568;
-        margin-right: 8px;
-        vertical-align: middle;
-    }
-    
-    /* Hover effects for dropdown buttons */
-    .emp-action-edit:hover {
-        background: #5a67d8;
-        color: #ffffff;
-    }
-    
-    .emp-action-edit:hover .emp-action-icon {
-        stroke: #ffffff;
-    }
-    
-    .emp-action-delete:hover {
-        background: #e53e3e;
-        color: #ffffff;
-    }
-    
-    .emp-action-delete:hover .emp-action-icon {
-        stroke: #ffffff;
-    }
-    
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .emp-employee-list-table {
-        display: block;
-        overflow-x: auto;
-    }
-
-    .emp-table-heading,
-    .emp-table-data {
-        font-size: 13px;
-        padding: 10px;
-    }
-
-    .emp-table-controls {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-
-    .emp-table-controls input[type="text"] {
-        width: 100%;
-    }
-
-    .emp-table-controls button {
-        width: 100%;
-        justify-content: center;
-    }
+:root {
+    --primary-color: #4361ee;
+    --primary-hover: #3a56d4;
+    --text-color: #333;
+    --light-gray: #f8f9fa;
+    --medium-gray: #e9ecef;
+    --dark-gray: #6c757d;
+    --border-radius: 6px;
+    --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
 }
 
-
-   /* Ensure table and rows are styled appropriately */
-   .emp-employee-list-table {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    border-collapse: collapse;
-    background: #ffffff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-/* Table header */
-.emp-table-header {
-    background: linear-gradient(90deg, #4a5568, #2d3748);
-    color:rgb(113, 113, 113);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* Table heading (th) */
-.emp-table-heading {
-    padding: 15px 20px;
-    font-size: 15px;
-    font-weight: 600;
-    text-align: center;
-    border-bottom: 2px solid #2d3748;
-}
-
-/* Explicit column widths for alignment */
-#emp-col-name { width: 20%; }
-#emp-col-department { width: 20%; }
-#emp-col-contact { width: 20%; }
-#emp-col-hire-date { width: 20%; }
-#emp-col-actions { width: 20%; }
-
-/* Table row */
-.emp-table-row {
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.emp-table-row:nth-child(even) {
-    background: #f7fafc;
-}
-
-.emp-table-row:hover {
-    background: #edf2f7;
-    transform: translateY(-2px);
-}
-
-/* Table data (td) */
-.emp-table-data {
-    padding: 15px 20px;
-    font-size: 14px;
-    color: #2d3748;
-    border-bottom: 1px solid #e2e8f0;
-    text-align: left;
-}
-
-/* Center the three-dot icon in the Actions column */
-.emp-table-data:last-child {
-    text-align: center;
-}
-
-/* Status-specific styling */
-.emp-table-data[id*="emp-data-status"] {
-    position: relative;
-    padding-left: 30px;
-}
-
-.emp-table-data[id*="emp-data-status"]::before {
-    content: '';
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #ccc;
-}
-
-.emp-table-data[id*="emp-data-status"][data-status="active"]::before {
-    background: #48bb78;
-}
-
-.emp-table-data[id*="emp-data-status"][data-status="inactive"]::before {
-    background: #e53e3e;
-}
-
-/* Ensure the button is large enough and visible */
-.emp-dropdown-toggle {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 24px; /* Ensure the icon is large enough */
-    color: #333; /* Ensure the icon is visible */
-    padding: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.material-symbols-outlined {
-    font-size: 24px; /* Ensure it's large enough */
-}
-
-/* Dropdown options style */
-/* Dropdown container */
-.emp-dropdown-options {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    padding: 5px 0;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-/* Style for all dropdown items */
-/* Dropdown container */
-.emp-dropdown-options {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    padding: 5px 0;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-/* Style for all dropdown items */
-.emp-dropdown-item {
-    padding: 10px 16px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333; /* Keep text color default */
-    transition: background 0.3s ease-in-out;
-}
-
-/* Edit icon - Pink */
-.emp-dropdown-item:first-child .material-symbols-outlined {
-    color: #e91e63; /* Pink */
-}
-
-/* Delete icon - Red */
-.emp-dropdown-item:last-child .material-symbols-outlined {
-    color: #d32f2f; /* Red */
-}
-
-/* Hover effect */
-.emp-dropdown-item:hover {
-    background-color: #f5f5f5; /* Light gray hover */
-}
-
-
-
-/* Styling for the 'No employees found' message */
-.emp-table-body td {
-    text-align: center;
-    padding: 20px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .emp-employee-list-table {
-        display: block;
-        overflow-x: auto;
-    }
-
-    .emp-table-heading,
-    .emp-table-data {
-        font-size: 13px;
-        padding: 10px;
-    }
-
-    .dropdown-options {
-        left: auto;
-        right: 0; /* On small screens, align to the right to avoid overflow */
-    }
-}
-
-
-#user-management {
-    color: #333;
-    text-align: center;
-    font-size: 38px;
-}
-
+/* Layout Structure */
 .emp-employee-section {
-    margin-top: 30px;
-    padding: 20px;
-    border-radius: 8px;
-    
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    margin-bottom: 2rem;
 }
 
 .emp-employee-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    padding: 1rem 1.5rem;
+    background-color: var(--light-gray);
+    border-bottom: 1px solid var(--medium-gray);
 }
 
+/* Header Elements */
 .emp-header-left {
-    display: flex;
-    align-items: center;
-    padding: 10px;
+    flex: 1;
+    margin-right: 1rem;
 }
 
 .emp-search-employee {
-    width: 300px;
-    padding: 10px;
-    border: 2px solid #ff69b4; /* Pink border to match your POS theme */
-    border-radius: 8px;
-    outline: none;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
+    width: 100%;
+    max-width: 400px;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--medium-gray);
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    transition: var(--transition);
 }
 
 .emp-search-employee:focus {
-    border-color: #ff4bab; /* Darker pink on focus */
-    box-shadow: 0 0 8px rgba(240, 56, 154, 0.5);
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
 }
 
-.emp-search-employee::placeholder {
-    color: #888;
-    font-style: italic;
-}
-
-
-.emp-add-employee-btn {
-    background-color: #ff4081;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
-    margin-top: -5px;
+    transition: var(--transition);
+    text-decoration: none;
 }
 
-.emp-add-employee-btn:hover {
-    background-color: #e91e63;
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
 }
 
-/* .emp-employee-list-table {
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+/* Table Styles */
+.emp-employee-list-table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 0.9rem;
 }
 
-.emp-table-header th {
-    background-color: #f1f1f1;
-    padding: 10px;
+.emp-table-header {
+    background-color: var(--light-gray);
+}
+
+.emp-table-heading {
+    padding: 1rem;
     text-align: left;
-    border-bottom: 2px solid #ddd;
+    font-weight: 600;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--medium-gray);
 }
 
-.emp-table-row td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-} */
+.emp-table-row {
+    border-bottom: 1px solid var(--medium-gray);
+    transition: var(--transition);
+}
 
-/* .modal {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
+.emp-table-row:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.emp-table-data {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+/* Profile Image */
+.emp-profile-image {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 400px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-} */
+.emp-profile-image img {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--medium-gray);
+}
+
+/* Dropdown Menu */
+.emp-dropdown-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.emp-dropdown-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.emp-dropdown-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.emp-dropdown-toggle:focus {
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.emp-dropdown-options {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid var(--medium-gray);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    z-index: 9999;
+
+    min-width: 180px;
+    overflow: hidden;
+}
+
+.emp-dropdown-options.show {
+    display: block;
+}
+
+.emp-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.emp-dropdown-item:hover {
+    background-color: var(--light-gray);
+    color: var(--primary-color);
+}
+
+.emp-dropdown-item .material-symbols-outlined {
+    font-size: 1.1rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .emp-employee-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .emp-header-left,
+    .emp-header-right {
+        width: 100%;
+    }
+
+    .emp-search-employee {
+        max-width: 100%;
+    }
+
+    .emp-table-heading,
+    .emp-table-data {
+        padding: 0.75rem 0.5rem;
+    }
+}
+
+/* Empty State */
+.emp-table-body tr td[colspan] {
+    text-align: center;
+    padding: 2rem;
+    color: var(--dark-gray);
+}
 
 .close {
     color: #aaa;
