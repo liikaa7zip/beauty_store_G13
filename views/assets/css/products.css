@@ -39,10 +39,7 @@
 
 .material-symbols-outlined {
   font-size: 18px;
-}
 
-.material-symbols-outlined {
-  font-size: 18px;
 }
 
 #h1-products {
@@ -393,6 +390,8 @@
 
 #pro-edit {
   width: 49%;
+  height: 51px;
+  margin-top: 18px;
 }
 
 #edit-pro{

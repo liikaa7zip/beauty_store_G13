@@ -1,87 +1,229 @@
-/*
- * Copyright (c) 2025 Your Name. All rights reserved.
- * This code is for personal use and may not be redistributed without permission.
- */
-
- body {
+body {
     font-family: Arial, sans-serif;
     margin: 20px;
 }
-
-h2 {
-    color: #333;
+:root {
+    --primary-color: #4361ee;
+    --primary-hover: #3a56d4;
+    --text-color: #333;
+    --light-gray: #f8f9fa;
+    --medium-gray: #e9ecef;
+    --dark-gray: #6c757d;
+    --border-radius: 6px;
+    --box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
 }
 
+/* Layout Structure */
 .emp-employee-section {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    margin-bottom: 2rem;
 }
 
 .emp-employee-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    padding: 1rem 1.5rem;
+    background-color: var(--light-gray);
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+/* Header Elements */
+.emp-header-left {
+    flex: 1;
+    margin-right: 1rem;
 }
 
 .emp-search-employee {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 200px;
+    width: 100%;
+    max-width: 400px;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--medium-gray);
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    transition: var(--transition);
 }
 
-.emp-add-employee-btn {
-    background-color: #ff4081;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
+.emp-search-employee:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
 }
 
-.emp-add-employee-btn:hover {
-    background-color: #e91e63;
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
 }
 
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+/* Table Styles */
 .emp-employee-list-table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 0.9rem;
 }
 
-.emp-table-header th {
-    background-color: #f1f1f1;
-    padding: 10px;
+.emp-table-header {
+    background-color: var(--light-gray);
+}
+
+.emp-table-heading {
+    padding: 1rem;
     text-align: left;
-    border-bottom: 2px solid #ddd;
+    font-weight: 600;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--medium-gray);
 }
 
-.emp-table-row td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+.emp-table-row {
+    border-bottom: 1px solid var(--medium-gray);
+    transition: var(--transition);
 }
 
-.modal {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.4);
+.emp-table-row:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.emp-table-data {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+/* Profile Image */
+.emp-profile-image {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 400px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+.emp-profile-image img {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--medium-gray);
+}
+
+/* Dropdown Menu */
+.emp-dropdown-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.emp-dropdown-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.emp-dropdown-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.emp-dropdown-toggle:focus {
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.emp-dropdown-options {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid var(--medium-gray);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    z-index: 9999;
+
+    min-width: 180px;
+    overflow: hidden;
+}
+
+.emp-dropdown-options.show {
+    display: block;
+}
+
+.emp-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.emp-dropdown-item:hover {
+    background-color: var(--light-gray);
+    color: var(--primary-color);
+}
+
+.emp-dropdown-item .material-symbols-outlined {
+    font-size: 1.1rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .emp-employee-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .emp-header-left,
+    .emp-header-right {
+        width: 100%;
+    }
+
+    .emp-search-employee {
+        max-width: 100%;
+    }
+
+    .emp-table-heading,
+    .emp-table-data {
+        padding: 0.75rem 0.5rem;
+    }
+}
+
+/* Empty State */
+.emp-table-body tr td[colspan] {
+    text-align: center;
+    padding: 2rem;
+    color: var(--dark-gray);
 }
 
 .close {
@@ -123,4 +265,194 @@ h2 {
 
 .btn-primary:hover {
     background-color: #e91e63;
+}
+
+
+/* Create employees */
+
+#h2-create-employ{
+    text-align: center;
+    margin-top: 25px;
+    color: #333;
+}
+.new-form-wrapper {
+    width: 100%;
+    max-width: 1100px; /* Slightly wider for a modern feel */
+    margin: 40px auto; /* More breathing room */
+}
+
+.new-form-container {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    background: linear-gradient(135deg, #f7f9fc, #ffffff); /* Subtle gradient */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    
+}
+
+
+
+.new-image-section {
+    flex: 1;
+    max-width: 350px; /* Slightly wider image section */
+}
+
+.new-image-preview-wrapper {
+    width: 100%;
+    height: 320px; /* Taller for better presence */
+    background: #eef2f7; /* Softer background */
+    border: 3px dashed #7f9cf5; /* More vibrant dashed border */
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.new-image-preview-wrapper:hover {
+    border-color: #5a67d8; /* Darker on hover */
+}
+
+.new-image-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.1); /* Subtle overlay */
+    transition: background 0.3s ease;
+}
+
+.new-image-preview-wrapper:hover .new-image-overlay {
+    background: rgba(0, 0, 0, 0.2); /* Darken on hover */
+}
+
+#newImageUpload {
+    display: none;
+}
+
+.new-image-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #7f9cf5; /* Match the border color */
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.new-image-placeholder p {
+    margin: 10px 0 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.new-upload-icon {
+    width: 40px;
+    height: 40px;
+    stroke: #7f9cf5;
+}
+
+.new-image-preview-wrapper:hover .new-image-placeholder {
+    opacity: 1; /* Brighten on hover */
+}
+
+/* Hide placeholder when an image is loaded */
+.new-image-preview-wrapper.has-image .new-image-placeholder {
+    display: none;
+}
+
+form#newAddEmployeeForm {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.new-form-row {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+.new-form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.new-form-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2d3748; /* Darker, modern gray */
+    letter-spacing: 0.5px;
+}
+
+.new-form-group input,
+.new-form-group select {
+    padding: 12px;
+    border: 2px solid #e2e8f0; /* Thicker, softer border */
+    border-radius: 6px;
+    font-size: 15px;
+    background: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.new-form-group input:focus,
+.new-form-group select:focus {
+    border-color: #f888c9; /* Vibrant focus color */
+    box-shadow: 0 0 8px rgba(90, 103, 216, 0.3); /* Glow effect */
+    outline: none;
+}
+
+.new-error-message {
+    color: #e53e3e; /* Softer red */
+    margin: 12px 0;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.new-form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.new-btn-cancel,
+.new-btn-primary {
+    padding: 12px 25px;
+    border: none;
+    width: 100px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.new-btn-cancel {
+    background: #edf2f7; /* Light gray */
+    color: #4a5568; /* Darker text */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.new-btn-cancel:hover {
+    background: #e2e8f0;
+    transform: translateY(-2px); /* Slight lift */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.new-btn-primary {
+    background: linear-gradient(90deg, #ff3db5, #f57fba); /* Gradient button */
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.new-btn-primary:hover {
+    background: linear-gradient(90deg, #fd1fb3, #f12db0);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(90, 103, 216, 0.3);
 }
