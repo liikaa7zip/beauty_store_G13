@@ -36,29 +36,20 @@ class UserController extends BaseController {
 
     // Authenticate user (SignIn)
     public function authenticate() {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        if (empty($_POST['email']) || empty($_POST['password'])) {
-            $_SESSION['error'] = "Email and password are required.";
-            $this->redirect("/users/signIn");
-            return;
-        }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
 
-        $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
-        $user = $this->users->getUserByEmail($email);
-        
-        if ($user && password_verify($password, $user['password'])) {
-            // Set session variables
-            $_SESSION['user_name'] = $user['username'];
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_role'] = $user['role'];
-            $_SESSION['success'] = "Welcome back, " . $user['username'];
-            $this->redirect("/dashboard/sell");
-        } else {
-            $_SESSION['error'] = "Invalid email or password.";
-            $this->redirect("/users/signIn");
+            // Validate credentials (example logic)
+            $user = $this->users->getUserByEmail($email);
+            if ($user && password_verify($password, $user['password'])) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['username'];
+                $this->redirect("/dashboard/sell");
+            } else {
+                $_SESSION['error'] = "Invalid email or password.";
+                $this->redirect("/users/signIn");
+            }
         }
     }
 
@@ -68,11 +59,11 @@ class UserController extends BaseController {
             session_start();
         }
         if (isset($_SESSION['user_id'])) {
+            // Redirect authenticated users to the dashboard
             $this->redirect("/dashboard/sell");
         } else {
-            // Check for any errors in session
-            $error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
-            $this->view('/users/signIn', ['error' => $error]);
+            // Render the sign-in view for unauthenticated users
+            $this->view('/users/signIn');
         }
     }
 }

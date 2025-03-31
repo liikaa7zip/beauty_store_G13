@@ -11,20 +11,15 @@ if (isset($_SESSION['user_id'])) {
 }
 ?>
 
-<div class="user-container">
-    <div class="form-container">
-        <form id="signInForm" action="/users/authenticate" method="post">
-            <h1>Login</h1>
 
-            <!-- Success Message -->
+    <div class="user-container">
+        <div class="form-container">
             <?php if (isset($_SESSION['success'])): ?>
                 <div id="successBox" class="success-box">
                     <?php echo $_SESSION['success']; ?>
                 </div>
                 <?php unset($_SESSION['success']); ?>
             <?php endif; ?>
-
-            <!-- Error Message -->
             <?php if (isset($_SESSION['error'])): ?>
                 <div id="alertBox" class="error-box">
                     <span id="closeAlert" class="close-btn">&times;</span>
@@ -32,13 +27,14 @@ if (isset($_SESSION['user_id'])) {
                 </div>
                 <?php unset($_SESSION['error']); ?>
             <?php endif; ?>
-
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            <button type="submit" id="submit">Login</button>
-        </form>
+            <form id="signInForm" action="/users/authenticate" method="post">
+                <h1>Sign In</h1>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit" id="submit">Sign In</button>
+            </form>
+        </div>
     </div>
-</div>
+
