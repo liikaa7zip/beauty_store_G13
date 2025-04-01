@@ -12,7 +12,7 @@
     padding: 0;
 }
 
-.form-container {
+.form-signIn{
     width: 400px;
     height: auto;
     min-height: 500px;
@@ -36,19 +36,10 @@
     text-align: center;
 }
 
-form h1 {
-    margin: 0 0 30px;
+#signInForm h1 {
+    margin-top: -20px;
     font-size: 36px;
     color: #333;
-}
-
-#signInForm h1 {
-    margin-bottom: 20px;
-    margin-top: -20px;
-    font-size: 40px;
-    color: #333;
-    font-family: "Poppins", sans-serif;
-    text-align: center;
 }
 
 #signInForm label {
@@ -59,12 +50,13 @@ form h1 {
     text-align: left;
     font-size: 14px;
     font-family: "Poppins", sans-serif;
+    margin-top: 20px;
 }
 
 #signInForm input {
     width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 20px;
+    padding: 14px 15px;
+    margin-bottom: 15px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     font-size: 14px;
@@ -103,6 +95,7 @@ form h1 {
     box-shadow: 0 4px 10px rgba(255, 20, 147, 0.4);
     position: relative;
     overflow: hidden;
+    margin-top: 20px;
 }
 
 /* Update link styles */
