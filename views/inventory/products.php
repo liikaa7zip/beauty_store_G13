@@ -11,20 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 ?>
 
 <div class="products_container">
-    <div class="notification-container">
-        <button id="notificationBell" class="notification-bell">
-            <i class="fa fa-bell"></i>
-            <span id="notificationCount" class="notification-count">0</span>
-        </button>
-        <div id="notificationDropdown" class="notification-dropdown">
-            <div class="notification-header">
-                <h4>Notifications</h4>
-            </div>
-            <div id="notificationList" class="notification-list">
-                <!-- Notifications will be loaded here via AJAX -->
-            </div>
-        </div>
-    </div>
+   
     
     <h1 id="h1-products">Products List</h1>
     
@@ -303,87 +290,3 @@ if (!isset($_SESSION['user_id'])) {
     }
 </script>
 
-<style>
-    /* Notification styles */
-    .notification-container {
-        position: relative;
-        /* display: inline-block; */
-        margin-left: auto;
-        margin-right: 20px;
-        float: right;
-    }
-
-    .notification-bell {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: #333;
-        cursor: pointer;
-        position: relative;
-    }
-
-    .notification-count {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background: #ff4757;
-        color: white;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.7rem;
-    }
-
-    .notification-dropdown {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: 100%;
-        width: 300px;
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-    }
-
-    .notification-header {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-        background: #f8f9fa;
-    }
-
-    .notification-list {
-        max-height: 400px;
-        overflow-y: auto;
-    }
-
-    .notification-item {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .notification-item.low-stock {
-        border-left: 3px solid #ff4757;
-    }
-
-    .notification-title {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .notification-message {
-        color: #666;
-        font-size: 0.9rem;
-    }
-
-    .notification-time {
-        color: #999;
-        font-size: 0.8rem;
-        display: block;
-        margin-top: 5px;
-    }
-</style>

@@ -41,9 +41,7 @@
   font-size: 18px;
 }
 
-.material-symbols-outlined {
-  font-size: 18px;
-}
+
 
 #h1-products {
   text-align: center;
@@ -232,8 +230,7 @@
   border-radius: 8px;
   border: 1px solid #ddd; /* Light border for inputs */
   width: 100%;
-  box-sizing: border-box;
-  font-size: 16px;
+  box-sizing: border-box;font-size: 16px;
   color: #333;
 }
 
@@ -706,4 +703,3 @@ button#uniqueCloseModal:hover {
       transform: translateY(0);
   }
 }
-
