@@ -112,7 +112,7 @@ $notifications = $notificationModel->getNotifications();
             position: absolute;
             top: 0.5px;
             
-            left: 460px;
+            left: 410px;
         }
         .delete-btn:hover {
                 color: red;
@@ -126,24 +126,6 @@ $notifications = $notificationModel->getNotifications();
 <body>
 <main class="app-main">
     <div class="container">
-        <!-- <section class="form-container">
-            <h2>Add Notification</h2>
-            <form id="notificationForm">
-                <label for="notification_title">Notification Title:</label>
-                <input type="text" id="notification_title" name="notification_title" required><br><br>
-                <label for="notification_message">Notification Message:</label>
-                <input type="text" id="notification_message" name="notification_message" required><br><br>
-                <label for="notification_type">Notification Type:</label>
-                <input type="text" id="notification_type" name="notification_type" required><br><br>
-                <label for="start_date">Start Date:</label>
-                <input type="datetime-local" id="start_date" name="start_date" required><br><br>
-                <label for="end_date">End Date:</label>
-                <input type="datetime-local" id="end_date" name="end_date" required><br><br>
-                <label for="status">Status:</label>
-                <input type="text" id="status" name="status" required><br><br>
-                <button type="submit">Add Notification</button>
-            </form>
-        </section> -->
         <section class="notifications">
             <h2>Alert Notifications</h2>
             <div id="notificationsContainer">
