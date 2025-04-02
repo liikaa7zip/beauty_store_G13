@@ -266,9 +266,35 @@
   }
 
 
+  .invoice-details {
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
 
-  /* Custom Modal Background */
- .custom-modal {
+.invoice-details p {
+    text-align: start;
+    font-size: 0.9em;
+    color: #333;
+}
+  
+#recipe {
+    font-family: Arial, sans-serif;
+    font-size: 0.85em; 
+    color: #333; 
+    margin: 5px 0; 
+    line-height: 1.4; 
+    text-align: center;
+}
+
+#h2-recipe {
+    text-align: center;
+    font-size: 1.5em;
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Custom Modal Background */
+.custom-modal {
     position: fixed;
     top: 0;
     left: 0;
