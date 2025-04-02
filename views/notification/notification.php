@@ -42,7 +42,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Fetch notifications from the database
 $notifications = $notificationModel->getNotifications();
 ?>
-    <style>
+
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    let notificationId = this.getAttribute("data-id");
+                    console.log("Attempting to delete ID:", notificationId); // Log ID
+
+                    if (confirm("Are you sure you want to delete this notification?")) {
+                        fetch(window.location.href, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                            },
+                            body: "delete_id=" + encodeURIComponent(notificationId)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Server response:", data); // Log response
+
+                            if (data.status === "success") {
+                                this.parentElement.remove(); // Remove from UI
+                            } else {
+                                alert("Failed to delete notification: " + data.message);
+                            }
+                        })
+                        .catch(error => console.error("Fetch error:", error));
+                    }
+                });
+            });
+        });
+</script>
+
+
+<style>
         body, html {
             height: 100%;
             margin: 0;
@@ -77,7 +112,7 @@ $notifications = $notificationModel->getNotifications();
             position: absolute;
             top: 0.5px;
             
-            left: 460px;
+            left: 410px;
         }
         .delete-btn:hover {
                 color: red;
@@ -86,7 +121,6 @@ $notifications = $notificationModel->getNotifications();
             margin-bottom: 20px;
         }
     </style>
-
 
 </head>
 <body>
@@ -120,6 +154,3 @@ if (file_exists($layoutPath)) {
 }
 ?>
 <?php include __DIR__ . '/../layouts/footer.php'; ?>
-
-
-
