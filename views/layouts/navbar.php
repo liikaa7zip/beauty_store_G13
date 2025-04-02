@@ -256,6 +256,16 @@
 .user-footer .btn:hover {
   background: #ff85a2;
 }
+
+.app-main {
+  width: 82%;
+  height: 100vh; /* Full height of the viewport */
+  overflow: auto; /* Allow scrolling if content overflows */
+  display: flex;
+  flex-direction: column;
+  margin: 0; /* Remove any default margins */
+  padding: 0; /* Remove any default padding */
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>

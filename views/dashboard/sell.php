@@ -44,11 +44,7 @@ $total = array_reduce($sells, function ($sum, $item) {
             <h3 class="overview-title">Total Orders</h3>
             <p class="overview-number">450</p>
         </div>
-        <div class="overview-card card p-3" id="users-card">
-            <i class="fas fa-user-check overview-icon" id="users"></i>
-            <h3 class="overview-title">Active Users</h3>
-            <p class="overview-number">98</p>
-        </div>
+        
     </section>
 
 
