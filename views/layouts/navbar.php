@@ -177,7 +177,7 @@
           <!--begin::Menu Footer-->
           <li class="user-footer">
             <a href="#" class="btn btn-default btn-flat">Profile</a>
-            <a style="border: 1px solid #ff69b4; margin-top: 10px;" href="/users/logout" class="btn btn-default btn-flat float-end">Sign out</a>
+            <a style="border: 1px solid #ff69b4; margin-top: 10px;" href="/users/signIn" class="btn btn-default btn-flat float-end" onclick="return confirm('Are you sure you want to sign out?');">Sign out</a>
           </li>
           <!--end::Menu Footer-->
         </ul>
@@ -283,4 +283,3 @@
     });
   });
 </script>
-

@@ -11,7 +11,6 @@ if (!isset($_SESSION['user_id'])) {
 ?>
 
 <div class="products_container">
-   
     
     <h1 id="h1-products">Products List</h1>
     
@@ -35,10 +34,11 @@ if (!isset($_SESSION['user_id'])) {
                 
                 <div class="action-buttons">
                     <button class="import-btn" onclick="triggerImport(); console.log('Import button clicked');">
-                        <i class="fa fa-upload"></i> Import
+                    <i class="fa fa-download"></i> Import
                     </button>
                     <button class="export-btn" onclick="exportToExcel(); console.log('Export button clicked');">
-                        <i class="fa fa-download"></i> Export
+                        
+                        <i class="fa fa-upload"></i> Export
                     </button>
                 </div>
             </div>

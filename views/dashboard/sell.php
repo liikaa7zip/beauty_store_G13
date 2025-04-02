@@ -105,7 +105,7 @@ $total = array_reduce($sells, function ($sum, $item) {
 
         <!-- Bar Chart Section -->
         <section class="chart-container">
-            <h3>Product Sales</h3>
+            <h3>Profit</h3>
             <canvas id="productChart"></canvas>
         </section>
     </div>
@@ -168,7 +168,7 @@ $total = array_reduce($sells, function ($sum, $item) {
             data: {
                 labels: <?php echo (json_encode($sellsProd['label'])) ?>,
                 datasets: [{
-                    label: 'Sales In $',
+                    label: 'profit $',
                     data: <?php echo (json_encode($sellsProd['data'])) ?>,
                     backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0']
                 }]
