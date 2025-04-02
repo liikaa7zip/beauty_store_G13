@@ -62,6 +62,4 @@ $userId = $_SESSION['user_id'] ?? null; // Retrieve user ID from session
 if ($userId) {
     $historyController = new HistoryController();
     $historyController->logLogin($userId, $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], 'success');
-} else {
-    echo "Error: User ID is not defined.";
 }

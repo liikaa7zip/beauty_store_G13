@@ -371,3 +371,19 @@ function formatDuration($diff) {
         updatePagination();
     }
 </script>
+<style>
+    .search-input {
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    height: 40px;
+    transition: all 0.2s;
+}
+.table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+</style>
