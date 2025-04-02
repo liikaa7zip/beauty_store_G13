@@ -13,6 +13,15 @@ class UserController extends BaseController
             session_start();
         }
         $this->users = new UserModel();
+
+        // Exclude certain methods from authentication check
+        $currentMethod = $_GET['action'] ?? 'index'; // Assuming 'action' is used to determine the method
+        $excludedMethods = ['signIn', 'authenticate'];
+
+        if (!in_array($currentMethod, $excludedMethods) && (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']))) {
+            header("Location: /users/signIn");
+            exit();
+        }
     }
 
     public function login()
@@ -54,7 +63,7 @@ class UserController extends BaseController
                 $this->redirect("/users/signIn");
             }
         } else {
-            $this->view('/users/signIn');
+            $this->signIn(); // Call the signIn method directly
         }
     }
 
@@ -88,12 +97,11 @@ class UserController extends BaseController
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (isset($_SESSION['user_id'])) {
-            // Redirect authenticated users to the dashboard
-            $this->redirect("/dashboard/sell");
+        // Ensure no redirection to dashboard if session is cleared
+        if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
+            $this->view('/users/signIn'); // Render the sign-in view
         } else {
-            // Render the sign-in view for unauthenticated users
-            $this->view('/users/signIn');
+            $this->redirect("/dashboard/sell"); // Redirect only if user is logged in
         }
     }
 }

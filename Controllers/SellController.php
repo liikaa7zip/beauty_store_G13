@@ -18,8 +18,9 @@ class SellController extends BaseController
     {
         $products = $this->productModel->getAllProducts();
         $sells = $this->salesModel->getAllSales();
+        $sellsProd = $this->salesModel->getTotalProductSell();
         $users = $this->userModel->getAllEmployees();
         $past7Day = $this->salesModel->getSallesLastWeeks();
-        $this->view("/dashboard/sell", ['products' => $products, 'sells' => $sells, 'users' => $users,'lastSales'=>$past7Day]);
+        $this->view("/dashboard/sell", ['products' => $products, 'sells' => $sells, 'users' => $users, 'lastSales' => $past7Day, 'sellsProd' => $sellsProd]);
     }
 }

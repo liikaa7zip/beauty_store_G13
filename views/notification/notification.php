@@ -77,28 +77,55 @@ $notifications = $notificationModel->getNotifications();
 </script>
 
 
+<style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .app-main {
+            position: fixed;
+            left: 274px;
+            /* width: 78%; */
+            height: 100%;
+            overflow: auto; /* Allow scrolling within the fixed element */
+        }
+        .container {
+            padding: 20px;
+        }
+        .notification {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .notification .content {
+            flex-grow: 1;
+        }
+        .notification .delete-btn {
+            background: none;
+            border: none;
+            font-size: 2.5em;
+            cursor: pointer;
+            position: absolute;
+            top: 0.5px;
+            
+            left: 410px;
+        }
+        .delete-btn:hover {
+                color: red;
+            }
+        .form-container {
+            margin-bottom: 20px;
+        }
+    </style>
+
 </head>
 <body>
 <main class="app-main">
     <div class="container">
-        <!-- <section class="form-container">
-            <h2>Add Notification</h2>
-            <form id="notificationForm">
-                <label for="notification_title">Notification Title:</label>
-                <input type="text" id="notification_title" name="notification_title" required><br><br>
-                <label for="notification_message">Notification Message:</label>
-                <input type="text" id="notification_message" name="notification_message" required><br><br>
-                <label for="notification_type">Notification Type:</label>
-                <input type="text" id="notification_type" name="notification_type" required><br><br>
-                <label for="start_date">Start Date:</label>
-                <input type="datetime-local" id="start_date" name="start_date" required><br><br>
-                <label for="end_date">End Date:</label>
-                <input type="datetime-local" id="end_date" name="end_date" required><br><br>
-                <label for="status">Status:</label>
-                <input type="text" id="status" name="status" required><br><br>
-                <button type="submit">Add Notification</button>
-            </form>
-        </section> -->
         <section class="notifications">
             <h2>Alert Notifications</h2>
             <div id="notificationsContainer">
@@ -127,85 +154,3 @@ if (file_exists($layoutPath)) {
 }
 ?>
 <?php include __DIR__ . '/../layouts/footer.php'; ?>
-
-
-
-<!-- views/////// -->
-
-
-
-<?php
-
-class NotificationModel {
-    private $db;
-
-    public function __construct() {
-        $this->db = new Database();
-    }
-
-    public function getAllNotifications() {
-        $query = "SELECT * FROM store_notifications";
-        return $this->db->query($query)->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function addNotification($notification_title, $notification_message, $notification_type, $start_date, $end_date, $status) {
-        $created_at = date('Y-m-d H:i:s');
-        $query = "INSERT INTO store_notifications (notification_title, notification_message, notification_type, start_date, end_date, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $this->db->query($query, [$notification_title, $notification_message, $notification_type, $start_date, $end_date, $status, $created_at]);
-        return $this->db->lastInsertId();
-    }
-
-    public function getNotifications() {
-        $query = "SELECT id, notification_title, notification_message, notification_type, start_date, end_date, status, created_at FROM store_notifications";
-        $result = $this->db->query($query);
-
-        $notifications = [];
-        if ($result->rowCount() > 0) {
-            while ($row = $result->fetch()) {
-                $notifications[] = $row;
-            }
-        }
-        return $notifications;
-    }
-     //delete notification missages
-    public function deleteNotification($id) {
-        try {
-            $query = "DELETE FROM store_notifications WHERE id = ?";
-            $stmt = $this->db->prepare($query); // Prepare query
-            $stmt->execute([$id]); // Execute with parameter
-    
-            if ($stmt->rowCount() > 0) {
-                error_log("Database delete success for ID: " . $id);
-                return true;
-            } else {
-                error_log("Database delete failed for ID: " . $id);
-                return false;
-            }
-        } catch (PDOException $e) {
-            error_log("PDO Error deleting notification: " . $e->getMessage());
-            return false;
-        }
-    }
-}
-?>
-
-<!-- Models/NotificationModel.php -->
-
-<?php
-
-class NotificationController extends BaseController {
-    private $notificationModel;
-
-    public function __construct() {
-        $this->notificationModel = new NotificationModel();
-    }
-
-    public function index() {
-        $notifications = $this->notificationModel->getAllNotifications();
-        // include __DIR__ . 'notification/notification';
-        include __DIR__ . '/../views/notification/notification .php';
-    }
-}
-
-// Controller/notification
-
