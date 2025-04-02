@@ -422,6 +422,7 @@
 /* Dropdown container */
 .emp-dropdown-options {
     display: none;
+    right: 5%; 
     position: absolute;
     background-color: #fff;
     min-width: 160px;
