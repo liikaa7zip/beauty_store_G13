@@ -15,9 +15,11 @@ require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
 require_once "Controllers/NotificationController.php"; 
+require_once "Controllers/HistoryController.php";
+require_once "Models/HistoryModel.php";
 
 
-
+// $route->get("/history", [HistoryController::class, 'logStartActivity']);
 
 
 require_once "Controllers/SellController.php";
