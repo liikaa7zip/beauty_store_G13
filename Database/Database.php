@@ -2,33 +2,32 @@
 class Database
 {
     private $pdo;
+
     function __construct()
     {
         $servername = "localhost";
         $username = "root";
         $password = "";
-        $dbname= "beauty_store_data";
+        $dbname = "beauty_store_data";
 
         try {
-           $this->pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $this->pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+            die("Connection failed: " . $e->getMessage());
         }
     }
 
     function query($sql, $params = [])
-{
-    $stmt = $this->pdo->prepare($sql);
-    if (!$stmt->execute($params)) {
-        // If the execution fails, throw an exception with the error information
-        $errorInfo = $stmt->errorInfo();
-        throw new Exception("Database query failed: " . $errorInfo[2]);
+    {
+        $stmt = $this->pdo->prepare($sql);
+        if (!$stmt->execute($params)) {
+            $errorInfo = $stmt->errorInfo();
+            throw new Exception("Database query failed: " . $errorInfo[2]);
+        }
+        return $stmt;
     }
-    return $stmt;
-}
-
 
     function prepare($sql)
     {
@@ -39,5 +38,9 @@ class Database
     {
         return $this->pdo->lastInsertId();
     }
+
+    public function getConnection()
+    {
+        return $this->pdo;
+    }
 }
-?>

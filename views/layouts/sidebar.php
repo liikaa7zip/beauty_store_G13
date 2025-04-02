@@ -39,7 +39,7 @@
                 <li class="nav-item"><a href="/notification" class="nav-link"><i class="nav-icon bi bi-tree-fill"></i>
                         <p>Notification</p>
                     </a></li>
-                <li class="nav-item"><a href="../../views//history/userHistory.php" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>
+                <li class="nav-item"><a href="/history" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>
                         <p>Histories</p>
                     </a></li>
 
