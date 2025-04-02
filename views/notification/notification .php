@@ -70,11 +70,6 @@ $notifications = $notificationModel->getNotifications();
             flex-grow: 1;
         }
         .notification .delete-btn {
-<<<<<<< HEAD
-            width: 40px;
-            margin-left: 500px;
-=======
->>>>>>> 97dbc7fe736cffef6842a720aa7aba81748400c9
             background: none;
             border: none;
             font-size: 2.5em;
@@ -97,27 +92,6 @@ $notifications = $notificationModel->getNotifications();
 <body>
 <main class="app-main">
     <div class="container">
-<<<<<<< HEAD
-        <!-- <section class="form-container">
-            <h2>Add Notification</h2>
-            <form id="notificationForm">
-                <label for="notification_title">Notification Title:</label>
-                <input type="text" id="notification_title" name="notification_title" required><br><br>
-                <label for="notification_message">Notification Message:</label>
-                <input type="text" id="notification_message" name="notification_message" required><br><br>
-                <label for="notification_type">Notification Type:</label>
-                <input type="text" id="notification_type" name="notification_type" required><br><br>
-                <label for="start_date">Start Date:</label>
-                <input type="datetime-local" id="start_date" name="start_date" required><br><br>
-                <label for="end_date">End Date:</label>
-                <input type="datetime-local" id="end_date" name="end_date" required><br><br>
-                <label for="status">Status:</label>
-                <input type="text" id="status" name="status" required><br><br>
-                <button type="submit">Add Notification</button>
-            </form>
-        </section> -->
-=======
->>>>>>> 97dbc7fe736cffef6842a720aa7aba81748400c9
         <section class="notifications">
             <h2>Alert Notifications</h2>
             <div id="notificationsContainer">
@@ -145,11 +119,7 @@ if (file_exists($layoutPath)) {
     echo "Error: layout.php not found at $layoutPath";
 }
 ?>
-<<<<<<< HEAD
-<?php include __DIR__ . '/../layouts/footer.php'; ?>
-=======
 <?php include __DIR__ . '/../layouts/footer.php'; ?>
 
 
 
->>>>>>> 97dbc7fe736cffef6842a720aa7aba81748400c9
