@@ -30,7 +30,7 @@ require_once "Models/PromotionModel.php";
 
 
 $route = new Router();
-$route->get("/", [UserController::class, 'login']);
+$route->get("/", [UserController::class, 'signIn']); // Redirect root to sign-in page
 
 // Users
 $route->get("/users/signUp", [UserController::class, 'login']);
@@ -38,6 +38,7 @@ $route->post("/users/create", [UserController::class, 'create']);
 $route->post("/users/store", [UserController::class, 'store']);
 $route->get("/users/signIn", [UserController::class, 'signIn']);
 $route->post("/users/authenticate", [UserController::class, 'authenticate']);
+$route->get("/users/logout", [UserController::class, 'logout']); // Ensure logout route is defined
 
 // Sign In
 $route->get('/signin', 'AuthController@showSignInForm');
@@ -67,7 +68,8 @@ $route->delete("/categories/delete/{id}", [CategoryController::class, 'delete'])
 
 //Notification
 $route->get("/notification", [NotificationController::class, 'index']);
-
+$route->get("/notification/low-stock", [NotificationController::class, 'getLowStockNotifications']);
+$route->get("/notification/low-stock-count", [NotificationController::class, 'getLowStockCount']);
 
 
 //Categories
@@ -90,6 +92,9 @@ $route->get("/employees", [EmployeeController::class, 'index']);
 // $route->get('/employees/index', [EmployeeController::class, 'index']);  
 $route->get('/employees/create', [EmployeeController::class, 'create']);      // Maps to EmployeeController::add
 $route->post('/employees/store', [EmployeeController::class, 'store']);
+$route->get('/employees/edit/{id}', [EmployeeController::class, 'edit']);      // Maps to EmployeeController::add
+$route->post('/employees/update/{id}', [EmployeeController::class, 'update']);
+$route->get('/employees/delete/{id}', [EmployeeController::class, 'destroy']);      // Maps to EmployeeController::add
 
 // Sales
 $route->get("/sales", [SalesController::class, 'index']);

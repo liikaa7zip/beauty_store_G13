@@ -1,64 +1,79 @@
-<?php 
-
-    // class EmployeesModel 
-    // {
-    //     private $db;
-
-    //     public function __construct() {
-    //         $this->db = new Database();
-    //     }
-
-    //     public function getAllEmployees() {
-    //         $stmt = $this->db->query("SELECT * FROM employees");
-    //         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //     }
-    // }
-
-
-
-/*
- * Copyright (c) 2025 Your Name. All rights reserved.
- * This code is for personal use and may not be redistributed without permission.
- */
-
- class EmployeesModel 
+<?php
+class EmployeesModel
 {
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = new Database();
     }
 
-    public function getAllEmployees() {
+    public function getAllEmployees()
+    {
         try {
-            $stmt = $this->db->query("SELECT * FROM employees");
+            $stmt = $this->db->query("SELECT * FROM users");
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            error_log("Error fetching employees: " . $e->getMessage());
+            error_log("Error fetching users: " . $e->getMessage());
             return [];
         }
     }
 
-    public function addEmployee($username, $role, $contact = "N/A", $status = "Active", $email = null, $password = null) {
+    public function createUser($data)
+    {
         try {
-            $sql = "INSERT INTO employees (username, email, password, role, created_at, updated_at, action, status, contact, profile_image_url) 
-                    VALUES (:username, :email, :password, :role, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), :action, :status, :contact, :profile_image_url)";
-            
-            $stmt = $this->db->query($sql, [
-                ':username' => $username,
-                ':email' => $email,
-                ':password' => $password,
-                ':role' => $role,
-                ':action' => NULL,
-                ':status' => $status,
-                ':contact' => $contact,
-                ':profile_image_url' => NULL
-            ]);
-            return true;
+            $this->db->query(
+                "INSERT INTO users (username, image, email, password, role) 
+                 VALUES (:username, :image, :email, :password, :role)",
+                [
+                    ':username' => $data['username'],
+                    ':image' => $data['image'],
+                    ':email' => $data['email'],
+                    ':password' => password_hash($data['password'], PASSWORD_DEFAULT),
+                    ':role' => $data['role']
+                ]
+            );
         } catch (PDOException $e) {
-            error_log("Error adding employee: " . $e->getMessage());
-            return false;
+            error_log("Error creating user: " . $e->getMessage());
         }
     }
+
+    public function getUserById($id)
+    {
+        $stmt = $this->db->query("SELECT * FROM users WHERE id = :id", [':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateUser($data)
+    {
+        $this->db->query(
+            "UPDATE users SET username = :username, image = :image, email = :email, password = :password, role = :role WHERE id = :id",
+            [
+                ':username' => $data['username'],
+                ':image' => $data['image'],
+                ':email' => $data['email'],
+                ':password' => password_hash($data['password'], PASSWORD_DEFAULT),
+                ':role' => $data['role'],
+                ':id' => $data['id']
+            ]
+        );
+    }
+
+    public function handleUpload()
+    {
+        if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
+            $targetDir = 'uploads/';
+            $fileName = basename($_FILES['image']['name']);
+            $targetFilePath = $targetDir . uniqid() . '_' . $fileName;
+            move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath);
+            return $targetFilePath;
+        }
+        return false;
+    }
+
+    
+
+    public function deleteUser($id){
+        $this->db->query("DELETE FROM users WHERE id = :id", [':id' => $id]);
+    }
 }
-?>
