@@ -25,14 +25,14 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
     </div>
+    
     <h1 id="h1-products">Products List</h1>
+    
     <div class="container mt-4">
-        <!-- Notification Bell -->
-
         <div class="table-container">
             <div class="table-header">
                 <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
-
+                
                 <div id="categoryWrapper">
                     <select id="categorySelect" name="category">
                         <option value="">Select a category</option>
@@ -43,9 +43,9 @@ if (!isset($_SESSION['user_id'])) {
                         <?php endforeach; ?>
                     </select>
                 </div>
-
+                
                 <div class="spacer"></div>
-
+                
                 <div class="action-buttons">
                     <button class="import-btn" onclick="triggerImport(); console.log('Import button clicked');">
                         <i class="fa fa-upload"></i> Import
@@ -57,11 +57,10 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
 
-        <!-- Table -->
         <table id="productTable" class="table table-striped table-bordered display">
             <thead>
                 <tr>
-                    <th id="name-pro">Name</th>
+                    <th>Name</th>
                     <th>Price</th>
                     <th>Stock</th>
                     <th>Category</th>
@@ -71,29 +70,24 @@ if (!isset($_SESSION['user_id'])) {
             </thead>
             <tbody id="productsTableBody">
                 <?php foreach ($products as $product): ?>
-                    <tr data-category-id="<?= htmlspecialchars($product['category_id']) ?>"> <!-- Corrected data attribute for category ID -->
+                    <tr data-category-id="<?= htmlspecialchars($product['category_id']) ?>">
                         <td>
-                            <div style="display: flex; align-items: center; width: 100%;">
-                                <!-- Align the image to the left -->
-                                <div style="display: flex; align-items: center;">
+                            <div style="display: flex; align-items: center;">
+                                <div>
                                     <?php if (!empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])): ?>
                                         <img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
                                     <?php else: ?>
                                         <img src="/path/to/default-image.jpg" alt="Default Image" class="product-image">
                                     <?php endif; ?>
                                 </div>
-                                <!-- Center the product name within the available space -->
                                 <div style="flex-grow: 1; text-align: center;">
-                                    <span id="pro-name"><?= htmlspecialchars($product['name']) ?></span>
+                                    <span><?= htmlspecialchars($product['name']) ?></span>
                                 </div>
                             </div>
                         </td>
                         <td><?= htmlspecialchars($product["price"]) ?></td>
-
                         <td><?= htmlspecialchars($product['stocks']) ?></td>
-                        <td>
-                            <p><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></p>
-                        </td>
+                        <td><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></td>
                         <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
                             <?= ucfirst(htmlspecialchars($product['status'])) ?>
                         </td>
@@ -104,10 +98,10 @@ if (!isset($_SESSION['user_id'])) {
                                 </button>
                                 <div class="dropdown-content" style="display: none;">
                                     <a href="/inventory/edit/<?= $product['id'] ?>">
-                                        <span class="material-symbols-outlined" id="edit-pro">border_color</span> Edit
+                                        <span class="material-symbols-outlined">border_color</span> Edit
                                     </a>
                                     <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
-                                        <span class="material-symbols-outlined" id="delete-pro">delete</span> Delete
+                                        <span class="material-symbols-outlined">delete</span> Delete
                                     </a>
                                 </div>
                             </div>
@@ -118,6 +112,7 @@ if (!isset($_SESSION['user_id'])) {
         </table>
         <div class="pagination" id="pagination"></div>
     </div>
+    
     <div class="stocks-container card grid gap-2 p-4">
         <h3>Stock summary:</h3>
         <div class="row mb-3">
@@ -125,31 +120,31 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="stock-summary card" id="total-products">
                     <div class="icon">📦</div>
                     <p>Total Products</p>
-                    <h3>0.00</h3> <!-- This will be updated -->
+                    <h3>0.00</h3>
                 </div>
             </div>
             <div class="col-4">
                 <div class="card" id="low-stocks">
                     <div class="icon low-stock">🔻</div>
                     <p>Low-stocks</p>
-                    <h3>0.00</h3> <!-- This will be updated -->
+                    <h3>0.00</h3>
                 </div>
             </div>
             <div class="col-4">
                 <div class="card" id="in-stocks">
                     <div class="icon in-stock">📈</div>
                     <p>In-stocks</p>
-                    <h3>0.00</h3> <!-- This will be updated -->
+                    <h3>0.00</h3>
                 </div>
             </div>
         </div>
-
+        
         <div class="row">
             <div class="col-4">
-                <a href="/categories" class="text-decoration-none">
-                    <div class="card" id="add-product">
-                        <div class="icon add">📂</div>
-                        <p>View Categories</p>
+                <a href="/categories/create" class="text-decoration-none">
+                    <div class="card" id="add-category">
+                        <div class="icon add">➕</div>
+                        <p>Add New Categories</p>
                     </div>
                 </a>
             </div>
@@ -163,13 +158,14 @@ if (!isset($_SESSION['user_id'])) {
                 <a href="/inventory/create" class="text-decoration-none">
                     <div class="card" id="add-product">
                         <div class="icon add">➕</div>
-                        <p>Add products</p>
+                        <p>Add Products</p>
                     </div>
                 </a>
             </div>
         </div>
     </div>
 </div>
+
 
 
 <!-- jQuery -->

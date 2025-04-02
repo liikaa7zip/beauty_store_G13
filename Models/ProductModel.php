@@ -49,15 +49,18 @@ class ProductModel
         // Remove the dollar sign if it exists
         $price = str_replace('$', '', $data['price']);
         
-        $sql = "INSERT INTO products (name, description, price, category_id, stocks, status, image) 
-                VALUES (:name, :description, :price, :category_id, :stocks, :status, :image)";
+        $sql = "INSERT INTO products (name, description, price, expire_date, category_id, stocks, start_date, status, image) 
+                VALUES (:name, :description, :price, :expire_date, :category_id, :stocks, :start_date, :status, :image)";
         
         $params = [
             ':name' => $data['name'],
             ':description' => $data['description'],
+            ':price' => (float)$price,  
+            ':expire_date' => $data['expire_date'],  // Corrected variable name
             ':price' => (float)$price,
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
+            ':start_date' => $data['start_date'],
             ':status' => $data['status'],
             ':image' => isset($data['image']) ? $data['image'] : ''
         ];

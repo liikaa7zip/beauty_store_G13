@@ -130,6 +130,7 @@ class ProductsController extends BaseController
             }
         }
     }
+   
 
 
     public function update($id)
@@ -211,6 +212,11 @@ class ProductsController extends BaseController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
+            $price = $_POST['price'] ?? ''; 
+            $expire_date = $_POST['expire_date'] ?? '';
+            $stocks = $_POST['stocks'];
+            $start_date = $_POST['start_date'] ?? '';
+            $category_id = $_POST['category_id'];
             $price = $_POST['price'] ?? '';
             $expire_date = $_POST['expire_date'] ?? '';
             $stocks = $_POST['stocks'] ?? '';

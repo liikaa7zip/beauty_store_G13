@@ -48,8 +48,8 @@
             </header>
             <h2 id="h2-recipe">Invoice</h2>
             <div class="invoice-details">
-                <p><strong>Date:</strong> 11/4/25</p>
-                <p><strong>Time:</strong> 8:10 AM</p>
+                <p><strong>Date:</strong> <?= date('Y-m-d') ?></p>
+                <p><strong>Time:</strong> <?= date('h:i A') ?></p>
             </div>
             <table id="invoice-table"> <!-- Unique ID for invoice table -->
                 <thead>
@@ -62,9 +62,6 @@
                 </thead>
                 <tbody id="order-list">
                     <!-- Dynamic rows will be added here -->
-                    <tr class="total">
-                        <td colspan="3">Total Price</td>
-                    </tr>
                 </tbody>
             </table>
             <div class="total">
@@ -93,7 +90,7 @@
      </div>
  </div>
  
- <scriptsrc="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
  <script>
        function exportToPDF() {
     const { jsPDF } = window.jspdf;

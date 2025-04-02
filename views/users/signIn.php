@@ -11,8 +11,11 @@ if (isset($_SESSION['user_id'])) {
 }
 ?>
 
-<div class="user-container">
-    <div class="form-container">
+
+
+
+    <div class="user-container">
+    <div class="form-signIn">
         <form id="signInForm" action="/users/authenticate" method="post">
             <h1>Login</h1>
 
