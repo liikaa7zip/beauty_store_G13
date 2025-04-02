@@ -11,7 +11,7 @@ class SalesModel
 
     public function getAllSales()
     {
-        $stmt = $this->db->query("SELECT * FROM sales");
+        $stmt = $this->db->query("SELECT id, sale_date, total_amount FROM sales");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getSallesLastWeeks()
@@ -37,6 +37,28 @@ class SalesModel
 
         // Return values as an indexed array (latest day first)
         return array_values($totalSales);
+    }
+
+    public function getTotalProductSell()
+    {
+        $query = "SELECT 
+                sale_items.id, 
+                products.name, 
+                sale_items.product_id AS prod_id, 
+                COUNT(sale_items.product_id) AS total_products, 
+                SUM(sale_items.price) - SUM(sale_items.quantity * products.original_price) AS total
+                FROM sale_items 
+                INNER JOIN products ON products.id = sale_items.product_id 
+                GROUP BY sale_items.product_id";
+        $stmt =  $this->db->query($query);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = [
+            'label' => [],
+            'data' => [],
+        ];
+        $result['label'] = array_map(fn($item) => $item['name'], $data);
+        $result['data'] = array_map(fn($item) => $item['total'], $data);
+        return $result;
     }
 
 
