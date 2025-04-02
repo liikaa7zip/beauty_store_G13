@@ -641,6 +641,35 @@
   transition: 0.3s ease;
 }
 
+.add-category-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 12px;
+  background: linear-gradient(135deg, #ff3399, #ff66b2);
+  color: white;
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.add-category-btn:hover {
+  background-color: #ff4d97; /* Darker pink on hover */
+  transform: scale(1.05); /* Slight scaling effect */
+}
+
+.add-category-btn i {
+  margin-right: 8px; /* Spacing between icon and text */
+}
+
+.add-category-btn:focus {
+  outline: none;
+  box-shadow: 0 0 5px 2px rgba(255, 105, 180, 0.6); /* Pink focus ring */
+}
+
+
 .category-submit:hover {
   background: linear-gradient(135deg, #ff0066, #ff3385);
   transform: translateY(-2px);
@@ -658,7 +687,7 @@
   width: 100%;
   height: 100%;
   backdrop-filter: blur(5px);
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(252, 250, 250, 0.4);
   transition: opacity 0.3s ease-in-out;
 }
 

@@ -11,10 +11,18 @@ class UserController extends BaseController {
             session_start();
         }
         $this->users = new UserModel();
+
+        // Exclude certain methods from authentication check
+        $currentMethod = $_GET['action'] ?? 'index'; // Assuming 'action' is used to determine the method
+        $excludedMethods = ['signIn', 'authenticate'];
+
+        if (!in_array($currentMethod, $excludedMethods) && (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']))) {
+            header("Location: /users/signIn");
+            exit();
+        }
     }
 
     public function login() {
-        // Implement the login logic here
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validate and authenticate user
             // For example:
@@ -24,15 +32,10 @@ class UserController extends BaseController {
             $_SESSION['user_id'] = 1; // Example user ID
             $this->redirect('/dashboard/sell');
         } else {
-            $this->view('/users/signIn');
+            $this->signIn(); // Call the signIn method directly
         }
     }
 
-    public function logout() {
-        // Implement the logout logic here
-        session_destroy();
-        $this->redirect('/users/signIn');
-    }
 
     // Authenticate user (SignIn)
     public function authenticate() {
@@ -58,12 +61,11 @@ class UserController extends BaseController {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        if (isset($_SESSION['user_id'])) {
-            // Redirect authenticated users to the dashboard
-            $this->redirect("/dashboard/sell");
+        // Ensure no redirection to dashboard if session is cleared
+        if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
+            $this->view('/users/signIn'); // Render the sign-in view
         } else {
-            // Render the sign-in view for unauthenticated users
-            $this->view('/users/signIn');
+            $this->redirect("/dashboard/sell"); // Redirect only if user is logged in
         }
     }
 }

@@ -11,20 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 ?>
 
 <div class="products_container">
-    <div class="notification-container">
-        <button id="notificationBell" class="notification-bell">
-            <i class="fa fa-bell"></i>
-            <span id="notificationCount" class="notification-count">0</span>
-        </button>
-        <div id="notificationDropdown" class="notification-dropdown">
-            <div class="notification-header">
-                <h4>Notifications</h4>
-            </div>
-            <div id="notificationList" class="notification-list">
-                <!-- Notifications will be loaded here via AJAX -->
-            </div>
-        </div>
-    </div>
+    
     <h1 id="h1-products">Products List</h1>
     <div class="container mt-4">
         <!-- Notification Bell -->
@@ -48,10 +35,11 @@ if (!isset($_SESSION['user_id'])) {
 
                 <div class="action-buttons">
                     <button class="import-btn" onclick="triggerImport(); console.log('Import button clicked');">
-                        <i class="fa fa-upload"></i> Import
+                    <i class="fa fa-download"></i> Import
                     </button>
                     <button class="export-btn" onclick="exportToExcel(); console.log('Export button clicked');">
-                        <i class="fa fa-download"></i> Export
+                        
+                        <i class="fa fa-upload"></i> Export
                     </button>
                 </div>
             </div>
