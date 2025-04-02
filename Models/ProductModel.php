@@ -131,7 +131,7 @@ class ProductModel
         return $this->db->query($sql, [$threshold])->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    
+
     public function deleteProduct($id)
     {
         $stmt = $this->db->query("DELETE FROM products WHERE id = :id", [':id' => $id]);
