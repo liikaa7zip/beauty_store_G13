@@ -399,3 +399,10 @@ footer {
         margin-bottom: 20px;
     }
 }
+
+
+body, html {
+ 
+    margin: 0;
+    overflow: hidden; 
+}

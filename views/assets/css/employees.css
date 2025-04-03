@@ -6,6 +6,7 @@
  body {
     font-family: Arial, sans-serif;
     margin: 20px;
+    overflow: hidden; /* Disable scrolling */
 }
 
 /* Employees table */
@@ -499,7 +500,15 @@
     margin-top: 30px;
     padding: 20px;
     border-radius: 8px;
-    
+    overflow: hidden; /* Disable scrolling for this section */
+}
+
+.emp-employee-section::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+}
+.emp-employee-section {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 
 .emp-employee-header {
@@ -817,4 +826,17 @@ form#newAddEmployeeForm {
     background: linear-gradient(90deg, #fd1fb3, #f12db0);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(90, 103, 216, 0.3);
+}
+
+/* Hide scrollbar for specific elements */
+.sales-wrapper {
+    overflow: hidden; /* Disable scrolling for this section */
+}
+
+.sales-wrapper::-webkit-scrollbar {
+    display: none; /* Hide scrollbar */
+}
+.sales-wrapper {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
