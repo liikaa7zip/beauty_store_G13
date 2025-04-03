@@ -99,6 +99,11 @@ if (!isset($_SESSION['user_id'])) {
         </table>
         <div class="pagination" id="pagination"></div>
     </div>
+    <!-- Place this RIGHT AFTER your table -->
+<div class="stock-filter-buttons">
+    <button id="lowStock" class="filter-btn">Low Stock</button>
+    <button id="inStock" class="filter-btn">In Stock</button>
+</div>
         <!-- <div class="stocks-container card grid gap-2 p-4">
             <h3>Stock summary:</h3>
             <div class="row mb-3">

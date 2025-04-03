@@ -602,3 +602,24 @@ document.getElementById("uniqueCloseModal").addEventListener("click", function()
 
 
 
+// Function to filter products based on their stock status
+function filterProducts(status) {
+    const tableBody = document.getElementById('productsTableBody');
+    const rows = tableBody.querySelectorAll('tr');
+
+    rows.forEach(row => {
+        const statusCell = row.querySelector('td:nth-child(5)'); // Get the status cell
+        const rowStatus = statusCell.textContent.trim().toLowerCase(); // Normalize status text
+
+        // Show or hide the row based on the status
+        if (rowStatus === status) {
+            row.style.display = ''; // Show row
+        } else {
+            row.style.display = 'none'; // Hide row
+        }
+    });
+}
+
+// Event listeners for the filter buttons
+document.getElementById('lowStock').addEventListener('click', () => filterProducts('low-stock'));
+document.getElementById('inStock').addEventListener('click', () => filterProducts('in-stock'));
