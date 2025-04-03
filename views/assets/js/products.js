@@ -598,3 +598,7 @@ document.getElementById("uniqueCloseModal").addEventListener("click", function()
     document.getElementById("uniqueSuccessModal").style.display = "none"; // Hide modal
     document.querySelector(".category-container").submit(); // Now submit the form
 });
+
+
+
+
