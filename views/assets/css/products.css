@@ -778,3 +778,246 @@ button#uniqueCloseModal:hover {
   color: white; /* Change text color to white */
 }
 
+/* Create Products */
+
+.product-form-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.form-heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a3c34;
+  margin-bottom: 30px;
+}
+
+.error-alert {
+  background-color: #fef1f1;
+  color: #d32f2f;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.form-main-layout {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 30px;
+  align-items: flex-start; /* Align items at the top */
+}
+
+.image-section {
+  flex: 1;
+  max-width: 300px;
+}
+
+.inputs-section {
+  flex: 2;
+}
+
+.form-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a3c34;
+  margin-bottom: 6px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: #0288d1;
+  box-shadow: 0 0 0 3px rgba(2, 136, 209, 0.1);
+  outline: none;
+}
+
+/* Price field styling */
+.form-group.price-field {
+  position: relative;
+}
+
+.form-group.price-field .form-input {
+  padding-left: 25px;
+}
+
+.form-group.price-field::before {
+  content: '$';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.95rem;
+  color: #78909c;
+  pointer-events: none;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Image Upload Styling */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.image-upload-container {
+  position: relative;
+}
+
+.upload-area {
+  border: 2px dashed #b0bec5;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  background-color: #f5f7fa;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-area:hover,
+.upload-area.dragover {
+  border-color: #0288d1;
+  background-color: #e3f2fd;
+  box-shadow: 0 0 10px rgba(2, 136, 209, 0.2);
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.upload-icon {
+  width: 30px;
+  height: 30px;
+  color: #78909c;
+}
+
+.upload-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #455a64;
+  margin: 0;
+}
+
+.upload-subtext {
+  font-size: 0.8rem;
+  color: #78909c;
+  margin: 0;
+}
+
+.image-preview-box {
+  margin-top: 15px;
+  display: none;
+}
+
+.image-preview-box.active {
+  display: block;
+}
+
+.preview-img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.preview-img:hover {
+  transform: scale(1.02);
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.btn-primary {
+  background-color: #0288d1;
+  color: #ffffff;
+  padding: 12px 40px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0277bd;
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .form-main-layout {
+      flex-direction: column;
+  }
+
+  .image-section {
+      max-width: 100%;
+  }
+
+  .form-layout {
+      grid-template-columns: 1fr;
+  }
+
+  .product-form-container {
+      padding: 20px;
+  }
+}
