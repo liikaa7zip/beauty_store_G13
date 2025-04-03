@@ -6,46 +6,43 @@ if (session_status() == PHP_SESSION_NONE) {
 
 // Check if the user is already logged in
 if (isset($_SESSION['user_id'])) {
-    header("Location: /dashboard/sell");
-    exit();
+    if ($_SERVER['REQUEST_URI'] !== '/dashboard/sell') { // Prevent redirect loop
+        header("Location: /dashboard/sell");
+        exit();
+    }
+}
+
+// Initialize error variable
+$error = "";
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    $password = $_POST['password'] ?? '';
+
+    // Example: Validate credentials
+    if ($email === 'admin@example.com' && $password === 'password') {
+        // Set session and redirect to the dashboard
+        $_SESSION['user_id'] = 1; // Example user ID
+        header("Location: /dashboard/sell");
+        exit();
+    } else {
+        $error = "Invalid email or password.";
+    }
 }
 ?>
 
-<style>
-    body {
-        overflow: hidden; /* Disable scrolling for the entire page */
-    }
-
-    /* Hide scrollbar for modern browsers */
-    body::-webkit-scrollbar {
-        display: none;
-    }
-    body {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-    }
-</style>
-
 <div class="user-container">
     <div class="form-signIn">
-        <form id="signInForm" action="/users/authenticate" method="post">
+        <form id="signInForm" action="/users/signIn" method="post">
             <h1>Login</h1>
 
-            <!-- Success Message -->
-            <?php if (isset($_SESSION['success'])): ?>
-                <div id="successBox" class="success-box">
-                    <?php echo $_SESSION['success']; ?>
-                </div>
-                <?php unset($_SESSION['success']); ?>
-            <?php endif; ?>
-
             <!-- Error Message -->
-            <?php if (isset($_SESSION['error'])): ?>
+            <?php if (!empty($error)): ?>
                 <div id="alertBox" class="error-box">
                     <span id="closeAlert" class="close-btn">&times;</span>
-                    <?php echo $_SESSION['error']; ?>
+                    <?= htmlspecialchars($error) ?>
                 </div>
-                <?php unset($_SESSION['error']); ?>
             <?php endif; ?>
 
             <label for="email">Email</label>

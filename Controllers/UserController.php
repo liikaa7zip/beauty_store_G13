@@ -19,8 +19,10 @@ class UserController extends BaseController
         $excludedMethods = ['signIn', 'authenticate'];
 
         if (!in_array($currentMethod, $excludedMethods) && (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']))) {
-            header("Location: /users/signIn");
-            exit();
+            if ($_SERVER['REQUEST_URI'] !== '/users/signIn') { // Prevent redirect loop
+                header("Location: /users/signIn");
+                exit();
+            }
         }
     }
 
@@ -101,7 +103,9 @@ class UserController extends BaseController
         if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
             $this->view('/users/signIn'); // Render the sign-in view
         } else {
-            $this->redirect("/dashboard/sell"); // Redirect only if user is logged in
+            if ($_SERVER['REQUEST_URI'] !== '/dashboard/sell') { // Prevent redirect loop
+                $this->redirect("/dashboard/sell");
+            }
         }
     }
 }
