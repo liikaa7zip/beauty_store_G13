@@ -23,7 +23,7 @@
               <thead>
                 <tr>
                   <th>Product Name</th>
-                  <th id="quantity">Quantity</th>
+                  <th>Quantity</th>
                 </tr>
               </thead>
               <tbody>
@@ -151,9 +151,63 @@
     doc.save("invoice.pdf");
 }
 
+function addSaleToTable() {
+    const productInput = document.getElementById("sale-product");
+    const quantityInput = document.getElementById("sale-quantity");
+    const table = document.getElementById("sales-record-table").querySelector("tbody");
 
+    const productName = productInput.value;
+    const quantity = quantityInput.value;
 
-    </script>
+    if (productName && quantity > 0) {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${productName}</td>
+            <td>
+                <button class="quantity-btn" onclick="decrementQuantity(this)">-</button>
+                <input type="number" class="quantity-input" value="${quantity}" min="1" onchange="updateQuantity(this)">
+                <button class="quantity-btn" onclick="incrementQuantity(this)">+</button>
+            </td>
+        `;
+
+        table.appendChild(row);
+        document.getElementById("sales-record-table").style.display = "table";
+        document.getElementById("table-buttons").style.display = "block";
+
+        // Clear inputs
+        productInput.value = "";
+        quantityInput.value = "";
+    } else {
+        alert("Please enter a valid product and quantity.");
+    }
+}
+
+function updateQuantity(input) {
+    const newQuantity = input.value;
+    if (newQuantity < 1) {
+        alert("Quantity must be at least 1.");
+        input.value = 1;
+    }
+    console.log(`Updated quantity: ${newQuantity}`);
+}
+
+function incrementQuantity(button) {
+    const input = button.previousElementSibling;
+    input.value = parseInt(input.value) + 1;
+    updateQuantity(input);
+}
+
+function decrementQuantity(button) {
+    const input = button.nextElementSibling;
+    if (parseInt(input.value) > 1) {
+        input.value = parseInt(input.value) - 1;
+        updateQuantity(input);
+    } else {
+        alert("Quantity must be at least 1.");
+    }
+}
+</script>
 
 <style>
         .btn-pdf {
@@ -175,5 +229,30 @@
             float: right;
             cursor: pointer;
             font-size: 20px;
+        }
+
+        .quantity-btn {
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 0 5px;
+        }
+        .quantity-btn:hover {
+            background-color: #0056b3;
+        }
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .quantity-input:focus {
+            outline: none;
+            border-color: #007bff;
         }
     </style>

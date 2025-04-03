@@ -12,11 +12,7 @@ if (session_status() == PHP_SESSION_NONE) {
             <div class="invalid-feedback">Promotion title is required.</div>
         </div>
 
-        <div class="promotion">
-            <label for="promotionDescription" class="form-label">Promotion Description</label>
-            <textarea class="form-control m-0" id="promotionDescription" name="promotion_description" rows="3" placeholder="Provide a brief description of the promotion" required></textarea>
-            <div class="invalid-feedback">Please provide a promotion description.</div>
-        </div>
+
 
         <div class="promotion">
             <label for="promotionDescription" class="form-label">Discount Percentage</label>

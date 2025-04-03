@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: /users/signIn");
     exit();
 }
+// print_r($sellsProd);
 $total = array_reduce($sells, function ($sum, $item) {
     return $sum + $item['total_amount'];
 }, 0);
@@ -43,11 +44,7 @@ $total = array_reduce($sells, function ($sum, $item) {
             <h3 class="overview-title">Total Orders</h3>
             <p class="overview-number">450</p>
         </div>
-        <div class="overview-card card p-3" id="users-card">
-            <i class="fas fa-user-check overview-icon" id="users"></i>
-            <h3 class="overview-title">Active Users</h3>
-            <p class="overview-number">98</p>
-        </div>
+        
     </section>
 
 
@@ -104,7 +101,7 @@ $total = array_reduce($sells, function ($sum, $item) {
 
         <!-- Bar Chart Section -->
         <section class="chart-container">
-            <h3>Product Sales</h3>
+            <h3>Profit</h3>
             <canvas id="productChart"></canvas>
         </section>
     </div>
@@ -165,10 +162,10 @@ $total = array_reduce($sells, function ($sum, $item) {
         var productChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Product A', 'Product B', 'Product C', 'Product D'],
+                labels: <?php echo (json_encode($sellsProd['label'])) ?>,
                 datasets: [{
-                    label: 'Sales',
-                    data: [150, 200, 180, 120],
+                    label: 'profit $',
+                    data: <?php echo (json_encode($sellsProd['data'])) ?>,
                     backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0']
                 }]
             },

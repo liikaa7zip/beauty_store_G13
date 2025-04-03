@@ -12,7 +12,7 @@
     padding: 0;
 }
 
-.form-container {
+.form-signIn {
     width: 400px;
     height: auto;
     min-height: 500px;
@@ -40,15 +40,6 @@ form h1 {
     margin: 0 0 30px;
     font-size: 36px;
     color: #333;
-}
-
-#signInForm h1 {
-    margin-bottom: 20px;
-    margin-top: -20px;
-    font-size: 40px;
-    color: #333;
-    font-family: "Poppins", sans-serif;
-    text-align: center;
 }
 
 #signInForm label {

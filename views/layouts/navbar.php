@@ -145,10 +145,10 @@
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
           <img
-            src="/views/assets/img/profile.jpg"
+            src="<?= !empty($_SESSION['image']) ? htmlspecialchars($_SESSION['image']) : '/views/assets/img/default-profile.jpg' ?>"
             class="user-image rounded-circle shadow"
             alt="User Image" />
-          <span class="d-none d-md-inline"> <?= $_SESSION['user_name'] ? $_SESSION['user_name'] : 'Unknown' ?></span>
+          <span class="d-none d-md-inline"> <?= htmlspecialchars($_SESSION['user_name'] ?? 'Unknown') ?></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
           <!--begin::User Image-->
@@ -177,7 +177,7 @@
           <!--begin::Menu Footer-->
           <li class="user-footer">
             <a href="#" class="btn btn-default btn-flat">Profile</a>
-            <a style="border: 1px solid #ff69b4; margin-top: 10px;" href="/users/logout" class="btn btn-default btn-flat float-end">Sign out</a>
+            <a style="border: 1px solid #ff69b4; margin-top: 10px;" href="/users/signIn" class="btn btn-default btn-flat float-end" onclick="return confirm('Are you sure you want to sign out?');">Sign out</a>
           </li>
           <!--end::Menu Footer-->
         </ul>
@@ -256,6 +256,16 @@
 .user-footer .btn:hover {
   background: #ff85a2;
 }
+
+.app-main {
+  /* width: 82%; */
+  height: 100vh; /* Full height of the viewport */
+  overflow: auto; /* Allow scrolling if content overflows */
+  display: flex;
+  flex-direction: column;
+  margin: 0; /* Remove any default margins */
+  padding: 0; /* Remove any default padding */
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -283,4 +293,3 @@
     });
   });
 </script>
-

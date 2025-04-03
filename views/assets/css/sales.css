@@ -279,10 +279,10 @@
   
 #recipe {
     font-family: Arial, sans-serif;
-    font-size: 0.85em; /* Slightly smaller font size to match the image */
-    color: #333; /* Dark gray color for text */
-    margin: 5px 0; /* Small margin for spacing */
-    line-height: 1.4; /* Adjust line height for readability */
+    font-size: 0.85em; 
+    color: #333; 
+    margin: 5px 0; 
+    line-height: 1.4; 
     text-align: center;
 }
 
@@ -397,17 +397,3 @@
 }
 
 
-.btn-pdf {
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-.btn-pdf:hover {
-    background-color: #218838;
-}

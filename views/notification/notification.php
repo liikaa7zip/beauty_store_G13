@@ -42,7 +42,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Fetch notifications from the database
 $notifications = $notificationModel->getNotifications();
 ?>
-    <style>
+
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    let notificationId = this.getAttribute("data-id");
+                    console.log("Attempting to delete ID:", notificationId); // Log ID
+
+                    if (confirm("Are you sure you want to delete this notification?")) {
+                        fetch(window.location.href, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                            },
+                            body: "delete_id=" + encodeURIComponent(notificationId)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Server response:", data); // Log response
+
+                            if (data.status === "success") {
+                                this.parentElement.remove(); // Remove from UI
+                            } else {
+                                alert("Failed to delete notification: " + data.message);
+                            }
+                        })
+                        .catch(error => console.error("Fetch error:", error));
+                    }
+                });
+            });
+        });
+</script>
+
+
+<style>
         body, html {
             height: 100%;
             margin: 0;
@@ -51,7 +86,7 @@ $notifications = $notificationModel->getNotifications();
         .app-main {
             position: fixed;
             left: 274px;
-            width: 78%;
+            /* width: 78%; */
             height: 100%;
             overflow: auto; /* Allow scrolling within the fixed element */
         }
@@ -70,11 +105,6 @@ $notifications = $notificationModel->getNotifications();
             flex-grow: 1;
         }
         .notification .delete-btn {
-<<<<<<< HEAD
-            width: 40px;
-            margin-left: 500px;
-=======
->>>>>>> 97dbc7fe736cffef6842a720aa7aba81748400c9
             background: none;
             border: none;
             font-size: 2.5em;
@@ -82,7 +112,7 @@ $notifications = $notificationModel->getNotifications();
             position: absolute;
             top: 0.5px;
             
-            left: 460px;
+            left: 410px;
         }
         .delete-btn:hover {
                 color: red;
@@ -92,32 +122,10 @@ $notifications = $notificationModel->getNotifications();
         }
     </style>
 
-
 </head>
 <body>
 <main class="app-main">
     <div class="container">
-<<<<<<< HEAD
-        <!-- <section class="form-container">
-            <h2>Add Notification</h2>
-            <form id="notificationForm">
-                <label for="notification_title">Notification Title:</label>
-                <input type="text" id="notification_title" name="notification_title" required><br><br>
-                <label for="notification_message">Notification Message:</label>
-                <input type="text" id="notification_message" name="notification_message" required><br><br>
-                <label for="notification_type">Notification Type:</label>
-                <input type="text" id="notification_type" name="notification_type" required><br><br>
-                <label for="start_date">Start Date:</label>
-                <input type="datetime-local" id="start_date" name="start_date" required><br><br>
-                <label for="end_date">End Date:</label>
-                <input type="datetime-local" id="end_date" name="end_date" required><br><br>
-                <label for="status">Status:</label>
-                <input type="text" id="status" name="status" required><br><br>
-                <button type="submit">Add Notification</button>
-            </form>
-        </section> -->
-=======
->>>>>>> 97dbc7fe736cffef6842a720aa7aba81748400c9
         <section class="notifications">
             <h2>Alert Notifications</h2>
             <div id="notificationsContainer">
@@ -145,11 +153,4 @@ if (file_exists($layoutPath)) {
     echo "Error: layout.php not found at $layoutPath";
 }
 ?>
-<<<<<<< HEAD
 <?php include __DIR__ . '/../layouts/footer.php'; ?>
-=======
-<?php include __DIR__ . '/../layouts/footer.php'; ?>
-
-
-
->>>>>>> 97dbc7fe736cffef6842a720aa7aba81748400c9

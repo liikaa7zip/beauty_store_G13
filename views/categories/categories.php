@@ -1,7 +1,4 @@
-<?php
-require_once "views/layouts/header.php";
-require_once "views/layouts/sidebar.php";
-require_once "views/layouts/navbar.php"; ?>
+
 
 <div class="products_container">
     <h1 id="h1-products" class="text-center my-4">Categories List</h1>
@@ -9,7 +6,7 @@ require_once "views/layouts/navbar.php"; ?>
         <div class="table-container mb-4">
             <div class="table-header d-flex justify-content-between align-items-center overflow-hidden">
                 <input type="text" id="searchInput" class="form-control w-50" placeholder="Search for categories..." onkeyup="searchProducts()">
-                <a href="/categories/create" class="btn btn-primary">
+                <a href="/categories/create" class="add-category-btn">
                     <i class="fas fa-plus me-2"></i>Add Category
                 </a>
             </div>
@@ -79,4 +76,3 @@ require_once "views/layouts/navbar.php"; ?>
         });
     }
 </script>
-<?php require_once "views/layouts/footer.php"; ?>

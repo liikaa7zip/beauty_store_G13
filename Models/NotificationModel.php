@@ -20,10 +20,16 @@ class NotificationModel {
     }
 
     public function getNotifications() {
-        $query = "SELECT id, notification_title, notification_message, notification_type, 
-                 start_date, end_date, status, created_at 
-                 FROM store_notifications";
-        return $this->db->query($query)->fetchAll(PDO::FETCH_ASSOC);
+        $query = "SELECT id, notification_title, notification_message, notification_type, start_date, end_date, status, created_at FROM store_notifications";
+        $result = $this->db->query($query);
+
+        $notifications = [];
+        if ($result->rowCount() > 0) {
+            while ($row = $result->fetch()) {
+                $notifications[] = $row;
+            }
+        }
+        return $notifications;
     }
 
     public function addNotification($notification_title, $notification_message, $notification_type, 
@@ -57,8 +63,21 @@ class NotificationModel {
     }
 
     public function deleteNotification($id) {
-        $query = "DELETE FROM store_notifications WHERE id = ?";
-        $stmt = $this->db->query($query, [$id]);
-        return $stmt->rowCount();
+        try {
+            $query = "DELETE FROM store_notifications WHERE id = ?";
+            $stmt = $this->db->prepare($query); // Prepare query
+            $stmt->execute([$id]); // Execute with parameter
+    
+            if ($stmt->rowCount() > 0) {
+                error_log("Database delete success for ID: " . $id);
+                return true;
+            } else {
+                error_log("Database delete failed for ID: " . $id);
+                return false;
+            }
+        } catch (PDOException $e) {
+            error_log("PDO Error deleting notification: " . $e->getMessage());
+            return false;
+        }
     }
 }
