@@ -577,7 +577,7 @@ function addRowToTable(product) {
 
 
 
-
+//button low-in stock
 function filterProducts(status) {
     const rows = document.querySelectorAll('#productsTableBody tr');
 
@@ -597,3 +597,24 @@ function filterProducts(status) {
 
 document.getElementById('lowStock').addEventListener('click', () => filterProducts('low-stock'));
 document.getElementById('inStock').addEventListener('click', () => filterProducts('in-stock'));
+
+
+
+
+// select category Function to filter products based on category
+function filterByCategory() {
+    const selectedCategory = document.getElementById('categorySelect').value;
+    const rows = document.querySelectorAll('#productsTableBody tr');
+
+    rows.forEach(row => {
+        const categoryId = row.getAttribute('data-category-id'); // Assuming data-category-id is set
+        if (selectedCategory === '' || categoryId === selectedCategory) {
+            row.style.display = ''; // Show row
+        } else {
+            row.style.display = 'none'; // Hide row
+        }
+    });
+}
+
+// Event listener for category selection
+document.getElementById('categorySelect').addEventListener('change', filterByCategory);
