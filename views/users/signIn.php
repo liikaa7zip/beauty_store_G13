@@ -11,10 +11,22 @@ if (isset($_SESSION['user_id'])) {
 }
 ?>
 
+<style>
+    body {
+        overflow: hidden; /* Disable scrolling for the entire page */
+    }
 
+    /* Hide scrollbar for modern browsers */
+    body::-webkit-scrollbar {
+        display: none;
+    }
+    body {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+</style>
 
-
-    <div class="user-container">
+<div class="user-container">
     <div class="form-signIn">
         <form id="signInForm" action="/users/authenticate" method="post">
             <h1>Login</h1>

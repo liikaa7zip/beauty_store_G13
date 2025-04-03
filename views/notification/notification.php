@@ -86,7 +86,18 @@ $notifications = $notificationModel->getNotifications();
        
         .container {
             padding: 20px;
+            overflow: hidden; /* Disable scrolling for the container */
         }
+
+        /* Hide scrollbar for modern browsers */
+        .container::-webkit-scrollbar {
+            display: none;
+        }
+        .container {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+
         .notification {
             background-color: #d4edda;
             border: 1px solid #c3e6cb;

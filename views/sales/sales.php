@@ -255,4 +255,17 @@ function decrementQuantity(button) {
             outline: none;
             border-color: #007bff;
         }
+
+        .sales-wrapper {
+            overflow: hidden; /* Disable scrolling for this section */
+        }
+
+        /* Hide scrollbar for modern browsers */
+        .sales-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        .sales-wrapper {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
     </style>

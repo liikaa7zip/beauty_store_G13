@@ -1,6 +1,19 @@
-
-
 <h2 id="user-management" style="margin-bottom: 1.5rem; color: var(--text-color);">Users Management</h2>
+
+<style>
+    .emp-employee-section {
+        overflow: hidden; /* Disable scrolling for this section */
+    }
+
+    /* Hide scrollbar for modern browsers */
+    .emp-employee-section::-webkit-scrollbar {
+        display: none;
+    }
+    .emp-employee-section {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+</style>
 
 <div class="emp-employee-section" id="emp-employee-section">
     <header class="emp-employee-header" id="emp-employee-header">
