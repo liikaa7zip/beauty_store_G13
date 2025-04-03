@@ -99,28 +99,28 @@ if (!isset($_SESSION['user_id'])) {
         </table>
         <div class="pagination" id="pagination"></div>
     </div>
-        <div class="stocks-container card grid gap-2 p-4">
+        <!-- <div class="stocks-container card grid gap-2 p-4">
             <h3>Stock summary:</h3>
             <div class="row mb-3">
         <div class="col-4">
             <div class="stock-summary card" id="total-products">
                 <div class="icon">📦</div>
                 <p>Total Products</p>
-                <h3>0.00</h3> <!-- This will be updated -->
+                <h3>0.00</h3> This will be updated
             </div>
         </div>
         <div class="col-4">
             <div class="card" id="low-stocks">
                 <div class="icon low-stock">🔻</div>
                 <p>Low-stocks</p>
-                <h3>0.00</h3> <!-- This will be updated -->
+                <h3>0.00</h3> This will be updated
             </div>
         </div>
         <div class="col-4">
             <div class="card" id="in-stocks">
                 <div class="icon in-stock">📈</div>
                 <p>In-stocks</p>
-                <h3>0.00</h3> <!-- This will be updated -->
+                <h3>0.00</h3> This will be updated
             </div>
         </div>
     </div>
@@ -137,7 +137,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="col-4">
                     <div class="card" id="waste">
                         <div class="icon waste">🗑️</div>
-                        <p>Waste</p>
+                        <p>Waste</p> -->
     <div class="stocks-container card grid gap-2 p-4">
         <h3>Stock summary:</h3>
         <div class="row mb-3">
@@ -199,7 +199,7 @@ if (!isset($_SESSION['user_id'])) {
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="/views/assets/js/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/read-excel-file/5.4.0/read-excel-file.min.js"></script>/
+<script src="https://cdnjs.cloudflare.com/ajax/libs/read-excel-file/5.4.0/read-excel-file.min.js"></script>
 
 <script src="https://unpkg.com/read-excel-file@5.5.4/bundle/read-excel-file.min.js"></script>
 
