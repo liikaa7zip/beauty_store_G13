@@ -139,7 +139,7 @@
 }
 
 .app-main {
-  width: 82%;
+  width: 100%;
   height: 90vh; /* Full height of the viewport */
   overflow: auto; /* Allow scrolling if content overflows */
   display: flex;

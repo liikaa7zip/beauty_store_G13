@@ -15,6 +15,8 @@ require_once "Controllers/SellController.php";
 require_once "Controllers/UserController.php";
 require_once "Models/UserModel.php";
 require_once "Controllers/NotificationController.php"; 
+require_once "Controllers/HistoryController.php";
+require_once "Models/HistoryModel.php";
 
 
 
@@ -100,6 +102,9 @@ $route->get('/employees/delete/{id}', [EmployeeController::class, 'destroy']);  
 $route->get("/sales", [SalesController::class, 'index']);
 $route->post("/sales/create", [SalesController::class, 'store']);
 
+
+// Define routes
+$route->get("/history", [HistoryController::class, 'index']);
 
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);

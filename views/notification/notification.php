@@ -83,13 +83,7 @@ $notifications = $notificationModel->getNotifications();
             margin: 0;
             overflow: hidden; /* Prevent scrolling */
         }
-        .app-main {
-            position: fixed;
-            left: 274px;
-            width: 82%;
-            height: 100%;
-            overflow: auto; /* Allow scrolling within the fixed element */
-        }
+       
         .container {
             padding: 20px;
         }
