@@ -12,76 +12,82 @@
     padding: 0;
 }
 
+/* Sign-in form with glass effect */
 .form-signIn {
     width: 400px;
-    height: auto;
     min-height: 500px;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
+/* Title */
+#signInForm h1 {
+    margin-bottom: 50px;
+    font-size: 32px;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+}
+
+
 #signInForm {
-    width: 100%;
-    max-width: 350px;
-    padding: 0;
-    text-align: center;
+    margin-top: 60px;
 }
-
-form h1 {
-    margin: 0 0 30px;
-    font-size: 36px;
-    color: #333;
-}
-
+/* Labels */
 #signInForm label {
     display: block;
     font-weight: 600;
-    margin-bottom: 8px;
-    color: #666;
+    margin-bottom: 6px;
+    color: #fff;
     text-align: left;
     font-size: 14px;
     font-family: "Poppins", sans-serif;
 }
 
+/* Input fields */
 #signInForm input {
     width: 100%;
     padding: 12px 15px;
-    margin-bottom: 20px;
-    border: 1px solid #e0e0e0;
+    margin-bottom: 18px;
+    border: 2px solid transparent;
     border-radius: 8px;
     font-size: 14px;
     font-family: "Poppins", sans-serif;
-    height: auto;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transition: 0.3s ease;
 }
 
+/* Input Placeholder Color */
+#signInForm input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
 
+/* Input Hover & Focus Effect */
+#signInForm input:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+}
 
-/* form input:focus {
+#signInForm input:focus {
     outline: none;
-    border-color: #00796b;
-    box-shadow: 0 0 4px rgba(0, 121, 107, 0.5);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(182, 42, 42, 0.1);
-} */
-
- button{
-    margin-top: 20px;
-    width: 100%;
-    margin-left: 0;
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.3);
 }
 
+/* Submit Button */
 #submit {
     background: linear-gradient(135deg, #ff69b4, #ff1493);
+    margin-top: 10px;
     color: white;
     border: none;
     padding: 14px;
@@ -96,37 +102,53 @@ form h1 {
     overflow: hidden;
 }
 
-/* Update link styles */
-.form-footer {
-    margin-top: 20px;
-    text-align: center;
-}
-
-#submit::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300%;
-    height: 300%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 50%);
-    transition: transform 0.5s ease;
-    transform: translate(-50%, -50%) scale(0);
-}
-
-#submit:hover::before {
-    transform: translate(-50%, -50%) scale(1);
-}
-
+/* Button Hover Effect */
 #submit:hover {
     background: linear-gradient(135deg, #ff1493, #ff69b4);
     transform: scale(1.08);
     box-shadow: 0 6px 15px rgba(255, 20, 147, 0.6);
 }
 
+/* Button Active Effect */
 #submit:active {
     transform: scale(0.96);
     box-shadow: 0 3px 8px rgba(255, 20, 147, 0.5);
+}
+
+/* Success & Error Box */
+.success-box,
+.error-box {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.success-box {
+    background: rgba(0, 255, 0, 0.2);
+    color: #fff;
+    border: 1px solid rgba(0, 255, 0, 0.5);
+}
+
+.error-box {
+    background: rgba(255, 0, 0, 0.2);
+    color: #fff;
+    border: 1px solid rgba(255, 0, 0, 0.5);
+}
+
+/* Close Button for Alerts */
+.close-btn {
+    float: right;
+    font-size: 18px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.close-btn:hover {
+    color: #ff0000;
 }
 
 
