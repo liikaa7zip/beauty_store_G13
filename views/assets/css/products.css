@@ -92,14 +92,12 @@
 .status-low-stock {
   color: #ff4d4d !important; /* White text */
   padding: 5px 10px;
-  border-radius: 5px;
 }
 
 /* Style for instock status */
 .status-instock {
   color: #0ee415!important; /* White text */
   padding: 5px 10px;
-  border-radius: 5px;
 }
 
 #productTable th,
@@ -1020,4 +1018,12 @@ button#uniqueCloseModal:hover {
   .product-form-container {
       padding: 20px;
   }
+}
+
+#showAll {
+  background: linear-gradient(90deg, #ff0080, #ff8c00); /* Gradient background */
+  box-shadow: 0 0 10px rgba(255, 0, 128, 0.5); /* Glow effect */
+}
+#showAll:hover {
+  box-shadow: 0 0 20px rgba(255, 0, 128, 1); /* Stronger glow on hover */
 }

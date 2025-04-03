@@ -578,48 +578,22 @@ function addRowToTable(product) {
 
 
 
-// Confirm deletion before proceeding
-function confirmDelete(event) {
-    event.preventDefault(); // Prevent the default link behavior
-    const confirmed = confirm("Are you sure you want to delete this product?");
-    if (confirmed) {
-        window.location.href = event.target.closest("a").href; // Proceed to the delete URL
-    }
-    return false; // Prevent further action if not confirmed
-}
-
-// Show success modal when category is added
-document.querySelector(".category-container").addEventListener("submit", function(event) {
-    event.preventDefault(); // Stop form submission
-    document.getElementById("uniqueSuccessModal").style.display = "block"; // Show modal
-});
-
-document.getElementById("uniqueCloseModal").addEventListener("click", function() {
-    document.getElementById("uniqueSuccessModal").style.display = "none"; // Hide modal
-    document.querySelector(".category-container").submit(); // Now submit the form
-});
-
-
-
-
-// Function to filter products based on their stock status
 function filterProducts(status) {
-    const tableBody = document.getElementById('productsTableBody');
-    const rows = tableBody.querySelectorAll('tr');
+    const rows = document.querySelectorAll('#productsTableBody tr');
 
     rows.forEach(row => {
-        const statusCell = row.querySelector('td:nth-child(5)'); // Get the status cell
-        const rowStatus = statusCell.textContent.trim().toLowerCase(); // Normalize status text
+        const statusCell = row.querySelector('td:nth-child(5)'); // Change the index if needed
+        const rowStatus = statusCell.textContent.trim().toLowerCase();
 
-        // Show or hide the row based on the status
-        if (rowStatus === status) {
-            row.style.display = ''; // Show row
+        if (status === 'low-stock' && rowStatus === 'low-stock') {
+            row.style.display = ''; // Show low-stock rows
+        } else if (status === 'in-stock' && rowStatus === 'instock') {
+            row.style.display = ''; // Show in-stock rows
         } else {
-            row.style.display = 'none'; // Hide row
+            row.style.display = 'none'; // Hide other rows
         }
     });
 }
 
-// Event listeners for the filter buttons
 document.getElementById('lowStock').addEventListener('click', () => filterProducts('low-stock'));
 document.getElementById('inStock').addEventListener('click', () => filterProducts('in-stock'));

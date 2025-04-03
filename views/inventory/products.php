@@ -101,6 +101,7 @@ if (!isset($_SESSION['user_id'])) {
     </div>
     <!-- Place this RIGHT AFTER your table -->
 <div class="stock-filter-buttons">
+    <!-- <button id="showAllBtn" class="btn btn-primary">Show All</button> -->
     <button id="lowStock" class="filter-btn">Low Stock</button>
     <button id="inStock" class="filter-btn">In Stock</button>
 </div>
