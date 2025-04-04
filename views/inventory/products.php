@@ -150,6 +150,19 @@ if (!isset($_SESSION['user_id'])) {
     </div>
 </div>
 
+
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
+
 <!-- Custom JavaScript -->
 <script>
     function searchProducts() {
@@ -168,7 +181,6 @@ if (!isset($_SESSION['user_id'])) {
             }
         });
     }
-    
     $(document).ready(function() {
         var table = $('#productTable').DataTable({
             "pageLength": 10,
@@ -211,5 +223,66 @@ if (!isset($_SESSION['user_id'])) {
                 }
             });
         });
+
+        // Notification system
+        loadNotifications();
+        setInterval(loadNotifications, 30000);
+
+        $('#notificationBell').click(function() {
+            $('#notificationDropdown').toggle();
+        });
+
+        $(document).click(function(e) {
+            if (!$(e.target).closest('.notification-container').length) {
+                $('#notificationDropdown').hide();
+            }
+        });
     });
+
+    function loadNotifications() {
+        $.ajax({
+            url: '/notification/low-stock',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                updateNotificationUI(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error loading notifications:", error);
+            }
+        });
+    }
+
+    function updateNotificationUI(products) {
+        const notificationList = $('#notificationList');
+        const notificationCount = $('#notificationCount');
+
+        notificationList.empty();
+
+        if (products.length === 0) {
+            notificationList.append('<div class="notification-item">No low-stock products</div>');
+            notificationCount.text('0');
+        } else {
+            notificationCount.text(products.length);
+
+            products.forEach(product => {
+                const notificationItem = `
+                    <div class="notification-item low-stock">
+                        <div class="notification-title">Low Stock: ${product.name}</div>
+                        <div class="notification-message">Only ${product.stocks} items left</div>
+                        <small class="notification-time">Just now</small>
+                    </div>
+                `;
+                notificationList.append(notificationItem);
+            });
+        }
+    }
+
+    function showModal() {
+        document.getElementById('category-modal').style.display = 'block';
+    }
+
+    function hideModal() {
+        document.getElementById('category-modal').style.display = 'none';
+    }
 </script>
