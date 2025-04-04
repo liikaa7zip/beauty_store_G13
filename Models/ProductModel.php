@@ -49,22 +49,26 @@ class ProductModel
         // Remove the dollar sign if it exists
         $price = str_replace('$', '', $data['price']);
         
-        $sql = "INSERT INTO products (name, description, price, expire_date, category_id, stocks, start_date, status, image) 
-                VALUES (:name, :description, :price, :expire_date, :category_id, :stocks, :start_date, :status, :image)";
+        $sql = "INSERT INTO products (name, description, price, expire_date, original_price, category_id, stocks, start_date, status, image) 
+                VALUES (:name, :description, :price, :expire_date, :origin_price, :category_id, :stocks, :start_date, :status, :image)";
         
         $params = [
             ':name' => $data['name'],
             ':description' => $data['description'],
             ':price' => (float)$price,  
-            ':expire_date' => $data['expire_date'],  // Corrected variable name
-            ':price' => (float)$price,
+            ':expire_date' => $data['expire_date'],
+            ':original_price' => $data['origin_price'],  // Ensure correct binding
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
             ':start_date' => $data['start_date'],
             ':status' => $data['status'],
             ':image' => isset($data['image']) ? $data['image'] : ''
         ];
-        
+
+        // Log the query and parameters for debugging
+        error_log("SQL Query: $sql");
+        error_log("SQL Params: " . json_encode($params));
+
         return $this->db->query($sql, $params);
     }
 
@@ -75,6 +79,7 @@ class ProductModel
                     description = COALESCE(:description, description), 
                     price = COALESCE(:price, price), 
                     expire_date = COALESCE(:expire_date, expire_date), 
+                    original_price = COALESCE(:original_price, original_price), 
                     category_id = COALESCE(:category_id, category_id), 
                     stocks = :stocks, 
                     status = COALESCE(:status, status), 
@@ -88,6 +93,7 @@ class ProductModel
             ':description' => $data['description'] ?? null,
             ':price' => $data['price'] ?? null,
             ':expire_date' => $data['expire_date'] ?? null,
+            ':original_price' => $data['original_price'] ?? null,
             ':category_id' => $data['category_id'] ?? null,
             ':stocks' => $data['stocks'], // Ensure stocks is updated
             ':status' => $data['status'] ?? null,
@@ -131,14 +137,15 @@ class ProductModel
 
     public function createProduct($data)
     {
-        $sql = "INSERT INTO products (name, description, price, expire_date, category_id, stocks, start_date, status, image) 
-                VALUES (:name, :description, :price, :expire_date, :category_id, :stocks, :start_date, :status, :image)";
+        $sql = "INSERT INTO products (name, description, price, expire_date, original_price, category_id, stocks, start_date, status, image) 
+                VALUES (:name, :description, :price, :expire_date, :original_price, :category_id, :stocks, :start_date, :status, :image)";
 
         $params = [
             ':name' => $data['name'],
             ':description' => $data['description'],
             ':price' => $data['price'],
             ':expire_date' => $data['expire_date'],
+            ':original_price' => $data['original_price'],
             ':category_id' => $data['category_id'],
             ':stocks' => $data['stocks'],
             ':start_date' => $data['start_date'],

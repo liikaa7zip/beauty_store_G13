@@ -12,6 +12,9 @@ if (!isset($_SESSION['user_id'])) {
 $total = array_reduce($sells, function ($sum, $item) {
     return $sum + $item['total_amount'];
 }, 0);
+
+// Ensure $sale is defined and is an array
+$sale = $sale ?? []; // Default to an empty array if $sale is not set
 ?>
 <!-- <p>You are logged in!</p>
 <a href="/users/logout.php">Logout</a> -->
@@ -24,34 +27,38 @@ $total = array_reduce($sells, function ($sum, $item) {
     </section>
 
     <section class="store-overview d-flex justify-content-evenly">
-        <div class="overview-card card p-3" id="total-card">
+        <div class="overview-card card p-3" id="total-card" style="width: 20%;">
             <i class="fas fa-box-open overview-icon" id="total"></i>
             <h3 class="overview-title">Total Products</h3>
             <p class="overview-number"><?= count($products) ?></p>
         </div>
-        <div class="overview-card card p-3" id="employee-card">
+        <div class="overview-card card p-3" id="employee-card" style="width: 20%;">
             <i class="fas fa-users overview-icon" id="employee"></i>
             <h3 class="overview-title">Total Employees</h3>
             <p class="overview-number"><?= count($users) ?></p>
         </div>
-        <div class="overview-card card p-3" id="sale-card">
+        <div class="overview-card card p-3" id="sale-card" style="width: 20%;">
             <i class="fas fa-dollar-sign overview-icon" id="sale"></i>
             <h3 class="overview-title">Total Sales</h3>
             <p class="overview-number">$<?= $total ?></p>
         </div>
-        <div class="overview-card card p-3" id="orders-card">
+        <div class="overview-card card p-3" id="orders-card" style="width: 20%;">
             <i class="fas fa-shopping-cart overview-icon" id="orders"></i>
             <h3 class="overview-title">Total Orders</h3>
-            <p class="overview-number">450</p>
+            <p class="overview-number"><?= count($sale) ?></p>
         </div>
-        <div class="overview-card card p-3" id="users-card">
-            <i class="fas fa-user-check overview-icon" id="users"></i>
-            <h3 class="overview-title">Active Users</h3>
-            <p class="overview-number">98</p>
-        </div>
+        
     </section>
 
-
+    <!-- Safely use count() on $sale -->
+    <?php if (count($sale) > 0): ?>
+        <!-- Render sales data -->
+        <?php foreach ($sale as $item): ?>
+            <!-- Display $item -->
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No sales data available.</p>
+    <?php endif; ?>
 
     <!-- Sales Bar Chart -->
     <section class="sales-chart card p-4">
@@ -104,10 +111,35 @@ $total = array_reduce($sells, function ($sum, $item) {
         </section>
 
         <!-- Bar Chart Section -->
-        <section class="chart-container">
-            <h3>Product Sales</h3>
-            <canvas id="productChart"></canvas>
-        </section>
+
+<section class="chart-container">
+    <form method="GET" class="profit_form">
+    <label for="month" class="profit_label">Select Month:</label>
+    <select name="month" id="month">
+        <?php for ($i = 1; $i <= 12; $i++): ?>
+            <option value="<?php echo $i; ?>" <?php echo ($i == $selectedMonth) ? 'selected' : ''; ?>>
+                <?php echo date("F", mktime(0, 0, 0, $i, 1)); ?>
+            </option>
+        <?php endfor; ?>
+    </select>
+
+    <label for="year" class="profit_label">Select Year:</label>
+    <select name="year" id="year" class="profit_select">
+        <?php for ($y = 2020; $y <= date('Y'); $y++): ?>
+            <option value="<?php echo $y; ?>" <?php echo ($y == $selectedYear) ? 'selected' : ''; ?>>
+                <?php echo $y; ?>
+            </option>
+        <?php endfor; ?>
+    </select>
+
+    <button type="submit" class="btn_select">Filter</button>
+</form>
+    <h3>Profit for <span id="selectedMonth"><?php echo date("F", mktime(0, 0, 0, $selectedMonth, 1)); ?></span>:</h3>
+    <p id="totalProfit"><?php echo $sellsProd['total_profit']; ?>$</p>
+    <canvas id="productChart"></canvas>
+</section>
+
+
     </div>
 
     <!-- Motivational Section -->
@@ -161,26 +193,42 @@ $total = array_reduce($sells, function ($sum, $item) {
         });
     };
 
-    document.addEventListener("DOMContentLoaded", function() {
-        var ctx = document.getElementById('productChart').getContext('2d');
-        var productChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: <?php echo (json_encode($sellsProd['label'])) ?>,
-                datasets: [{
-                    label: 'Sales In $',
-                    data: <?php echo (json_encode($sellsProd['data'])) ?>,
-                    backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0']
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+    document.addEventListener("DOMContentLoaded", function() { 
+    var ctx = document.getElementById('productChart').getContext('2d');
+    var profitData = <?php echo json_encode($sellsProd['data']); ?>;
+    
+    // Update total profit in HTML
+    document.getElementById("totalProfit").textContent = "<?php echo $sellsProd['total_profit']; ?>$";
+
+    var productChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode($sellsProd['label']); ?>,
+            datasets: [{
+                label: 'Profit $',
+                data: profitData,
+                backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0']
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
+        }
     });
+
+    // Handle month change without reloading the page (optional)
+    document.querySelector("form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var selectedMonth = document.getElementById("month").value;
+        var selectedYear = document.getElementById("year").value;
+        window.location.href = "?month=" + selectedMonth + "&year=" + selectedYear;
+    });
+});
+
+
+
 </script>

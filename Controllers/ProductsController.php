@@ -93,6 +93,7 @@ class ProductsController extends BaseController
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? '';
             $expire_date = $_POST['expire_date'] ?? '';
+            $original_price = $_POST['original_price'] ?? '';
             $category_id = $_POST['category_id'] ?? '';
             $stocks = $_POST['stocks'] ?? '';
             $start_date = $_POST['start_date'] ?? '';
@@ -114,12 +115,16 @@ class ProductsController extends BaseController
                 'description' => $description,
                 'price' => $price,
                 'expire_date' => $expire_date,
+                'original_price' => $original_price, // Ensure this is passed
                 'category_id' => $category_id,
                 'stocks' => $stocks,
                 'status' => $status,
                 'start_date' => $start_date,
                 'image' => $imagePath
             ];
+
+            // Log the data for debugging
+            error_log("Data passed to storeProduct: " . json_encode($data));
 
             if ($this->productModel->storeProduct($data)) {
                 $_SESSION['success'] = "Product added successfully!";
@@ -140,6 +145,7 @@ class ProductsController extends BaseController
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? '';
             $expire_date = $_POST['expire_date'] ?? '';
+            $original_price = $_POST['original_price'] ?? '';
             $category_id = $_POST['category_id'] ?? '';
             $stocks = $_POST['stocks'] ?? '';
             $start_date = $_POST['start_date'] ?? '';
@@ -178,6 +184,7 @@ class ProductsController extends BaseController
                 'description' => $description,
                 'price' => $price,
                 'expire_date' => $expire_date,
+                'original_price' => $original_price,
                 'category_id' => $category_id,
                 'stocks' => $stocks,
                 'status' => $status,
@@ -214,6 +221,7 @@ class ProductsController extends BaseController
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? ''; 
             $expire_date = $_POST['expire_date'] ?? '';
+            $original_price = $_POST['original_price'] ?? '';
             $stocks = $_POST['stocks'];
             $start_date = $_POST['start_date'] ?? '';
             $category_id = $_POST['category_id'];
@@ -235,6 +243,7 @@ class ProductsController extends BaseController
                 'description' => $description,
                 'price' => $price,
                 'expire_date' => $expire_date,
+                'original_price' => $original_price,
                 'stocks' => $stocks,
                 'category_id' => $category_id,
                 'status' => $status,
@@ -247,6 +256,7 @@ class ProductsController extends BaseController
                 'description' => $description,
                 'price' => $price,
                 'expire_date' => $expire_date,
+                'original_price' => $original_price,
                 'stocks' => $stocks,
                 'category_id' => $category_id,
                 'status' => $status,

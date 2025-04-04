@@ -39,27 +39,33 @@ class SalesModel
         return array_values($totalSales);
     }
 
-    public function getTotalProductSell()
-    {
-        $query = "SELECT 
-                sale_items.id, 
+    public function getTotalProductSell($month, $year)
+{
+    $query = "SELECT 
                 products.name, 
-                sale_items.product_id AS prod_id, 
-                COUNT(sale_items.product_id) AS total_products, 
-                SUM(sale_items.price) - SUM(sale_items.quantity * products.original_price) AS total
-                FROM sale_items 
-                INNER JOIN products ON products.id = sale_items.product_id 
-                GROUP BY sale_items.product_id";
-        $stmt =  $this->db->query($query);
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $result = [
-            'label' => [],
-            'data' => [],
-        ];
-        $result['label'] = array_map(fn($item) => $item['name'], $data);
-        $result['data'] = array_map(fn($item) => $item['total'], $data);
-        return $result;
-    }
+                SUM(sale_items.quantity) AS total_products, 
+                SUM(sale_items.price) AS total_revenue, 
+                SUM(sale_items.quantity * products.original_price) AS total_cost, 
+                (SUM(sale_items.price) - SUM(sale_items.quantity * products.original_price)) AS total_profit
+              FROM sale_items 
+              INNER JOIN products ON products.id = sale_items.product_id 
+              INNER JOIN sales ON sales.id = sale_items.sale_id
+              WHERE MONTH(sales.sale_date) = :month AND YEAR(sales.sale_date) = :year
+              GROUP BY sale_items.product_id";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->execute(['month' => $month, 'year' => $year]);
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $totalProfit = array_sum(array_column($data, 'total_profit')); // Sum all profits
+
+    return [
+        'label' => array_column($data, 'name'),
+        'data' => array_column($data, 'total_profit'),
+        'total_profit' => $totalProfit
+    ];
+}
+
 
 
 

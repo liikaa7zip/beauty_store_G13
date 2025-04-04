@@ -266,9 +266,35 @@
   }
 
 
+  .invoice-details {
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
 
-  /* Custom Modal Background */
- .custom-modal {
+.invoice-details p {
+    text-align: start;
+    font-size: 0.9em;
+    color: #333;
+}
+  
+#recipe {
+    font-family: Arial, sans-serif;
+    font-size: 0.85em; 
+    color: #333; 
+    margin: 5px 0; 
+    line-height: 1.4; 
+    text-align: center;
+}
+
+#h2-recipe {
+    text-align: center;
+    font-size: 1.5em;
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Custom Modal Background */
+.custom-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -371,3 +397,56 @@
 }
 
 
+/* Sale profit in dashboard */
+.chart-container h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#totalProfit {
+    font-size: 24px;
+    font-weight: bold;
+    color: #27ae60;
+    margin: 10px 0;
+}
+
+.profit_form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.profit_label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+}
+
+s.profit_select, button {
+    padding: 2px 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 10px;
+}
+
+.profit_select {
+    background: #f9f9f9;
+    cursor: pointer;
+}
+
+.btn_select {
+    background: #ff6384;
+    border-radius: 5px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn_select:hover {
+    background: #e55374;
+}

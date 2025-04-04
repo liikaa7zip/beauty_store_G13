@@ -83,13 +83,7 @@ $notifications = $notificationModel->getNotifications();
             margin: 0;
             overflow: hidden; /* Prevent scrolling */
         }
-        .app-main {
-            position: fixed;
-            left: 274px;
-            width: 78%;
-            height: 100%;
-            overflow: auto; /* Allow scrolling within the fixed element */
-        }
+       
         .container {
             padding: 20px;
         }
@@ -112,7 +106,7 @@ $notifications = $notificationModel->getNotifications();
             position: absolute;
             top: 0.5px;
             
-            left: 410px;
+            left: 880px;
         }
         .delete-btn:hover {
                 color: red;
