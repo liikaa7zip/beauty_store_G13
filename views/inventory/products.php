@@ -11,23 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 ?>
 
 <div class="products_container">
-    <div class="notification-container">
-        <button id="notificationBell" class="notification-bell">
-            <i class="fa fa-bell"></i>
-            <span id="notificationCount" class="notification-count">0</span>
-        </button>
-        <div id="notificationDropdown" class="notification-dropdown">
-            <div class="notification-header">
-                <h4>Notifications</h4>
-            </div>
-            <div id="notificationList" class="notification-list">
-                <!-- Notifications will be loaded here via AJAX -->
-            </div>
-        </div>
-    </div>
-    
     <h1 id="h1-products">Products List</h1>
-    
     <div class="container mt-4">
         <div class="table-container">
             <div class="table-header">
@@ -166,19 +150,6 @@ if (!isset($_SESSION['user_id'])) {
     </div>
 </div>
 
-
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- DataTables JS -->
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
-
 <!-- Custom JavaScript -->
 <script>
     function searchProducts() {
@@ -197,6 +168,7 @@ if (!isset($_SESSION['user_id'])) {
             }
         });
     }
+    
     $(document).ready(function() {
         var table = $('#productTable').DataTable({
             "pageLength": 10,
@@ -239,151 +211,5 @@ if (!isset($_SESSION['user_id'])) {
                 }
             });
         });
-
-        // Notification system
-        loadNotifications();
-        setInterval(loadNotifications, 30000);
-
-        $('#notificationBell').click(function() {
-            $('#notificationDropdown').toggle();
-        });
-
-        $(document).click(function(e) {
-            if (!$(e.target).closest('.notification-container').length) {
-                $('#notificationDropdown').hide();
-            }
-        });
     });
-
-    function loadNotifications() {
-        $.ajax({
-            url: '/notification/low-stock',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                updateNotificationUI(data);
-            },
-            error: function(xhr, status, error) {
-                console.error("Error loading notifications:", error);
-            }
-        });
-    }
-
-    function updateNotificationUI(products) {
-        const notificationList = $('#notificationList');
-        const notificationCount = $('#notificationCount');
-
-        notificationList.empty();
-
-        if (products.length === 0) {
-            notificationList.append('<div class="notification-item">No low-stock products</div>');
-            notificationCount.text('0');
-        } else {
-            notificationCount.text(products.length);
-
-            products.forEach(product => {
-                const notificationItem = `
-                    <div class="notification-item low-stock">
-                        <div class="notification-title">Low Stock: ${product.name}</div>
-                        <div class="notification-message">Only ${product.stocks} items left</div>
-                        <small class="notification-time">Just now</small>
-                    </div>
-                `;
-                notificationList.append(notificationItem);
-            });
-        }
-    }
-
-    function showModal() {
-        document.getElementById('category-modal').style.display = 'block';
-    }
-
-    function hideModal() {
-        document.getElementById('category-modal').style.display = 'none';
-    }
 </script>
-
-<style>
-    /* Notification styles */
-    .notification-container {
-        position: relative;
-        /* display: inline-block; */
-        margin-left: auto;
-        margin-right: 20px;
-        float: right;
-    }
-
-    .notification-bell {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: #333;
-        cursor: pointer;
-        position: relative;
-    }
-
-    .notification-count {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background: #ff4757;
-        color: white;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.7rem;
-    }
-
-    .notification-dropdown {
-        display: none;
-        position: absolute;
-        right: 0;
-        top: 100%;
-        width: 300px;
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-    }
-
-    .notification-header {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-        background: #f8f9fa;
-    }
-
-    .notification-list {
-        max-height: 400px;
-        overflow-y: auto;
-    }
-
-    .notification-item {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .notification-item.low-stock {
-        border-left: 3px solid #ff4757;
-    }
-
-    .notification-title {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .notification-message {
-        color: #666;
-        font-size: 0.9rem;
-    }
-
-    .notification-time {
-        color: #999;
-        font-size: 0.8rem;
-        display: block;
-        margin-top: 5px;
-    }
-</style>
