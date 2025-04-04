@@ -50,6 +50,12 @@ class HistoryController extends BaseController
         }
         $this->view('/history/userHistory', ['history' => $history]);
     }
+
+    public function productHistory()
+    {
+        $history = $this->historyModel->getProductHistory();
+        $this->view('history/productHistory', ['history' => $history]);
+    }
 }
 
 // Example: Define $userId for testing or ensure it is retrieved from the session

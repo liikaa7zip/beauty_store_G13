@@ -105,7 +105,8 @@ $route->post("/sales/create", [SalesController::class, 'store']);
 
 // Define routes
 $route->get("/history", [HistoryController::class, 'index']);
-
+$route->get("/history/product", [HistoryController::class, 'productHistory']);
+// $route->get("/dashboard/sell", [HistoryController::class, 'productHistory']);
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);
 

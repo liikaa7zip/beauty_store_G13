@@ -10,14 +10,6 @@ class HistoryModel
         $this->db = (new Database())->getConnection();
     }
 
-    /**
-     * Logs a user login event.
-     *
-     * @param int $userId The ID of the user.
-     * @param string $ipAddress The IP address of the user.
-     * @param string $userAgent The user agent string of the user's browser.
-     * @param string $status The status of the login attempt ('success' or 'failed').
-     */
     public function logLogin($userId, $ipAddress, $userAgent, $status)
     {
         if (!empty($userId) && !empty($ipAddress) && !empty($userAgent) && !empty($status)) {
@@ -40,11 +32,6 @@ class HistoryModel
         }
     }
 
-    /**
-     * Logs a user logout event.
-     *
-     * @param int $userId The ID of the user.
-     */
     public function logLogout($userId)
     {
         if (!empty($userId)) {
@@ -57,11 +44,6 @@ class HistoryModel
         }
     }
 
-    /**
-     * Retrieves the login history of all users.
-     *
-     * @return array The login history records.
-     */
     public function getLoginHistory()
     {
         $query = "SELECT ulh.*, u.username, u.role 
@@ -70,5 +52,26 @@ class HistoryModel
                   ORDER BY ulh.login_time DESC";
         $stmt = $this->db->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+
+    public function getProductHistory()
+    {
+        $query = "SELECT ph.product_name, ph.action, u.username AS performed_by, ph.date
+                  FROM product_history ph
+                  JOIN users u ON ph.user_id = u.id
+                  ORDER BY ph.date DESC";
+        $stmt = $this->db->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+
+    public function logProductAction($productName, $action, $userId)
+    {
+        $query = "INSERT INTO product_history (product_name, action, user_id, date)
+                  VALUES (:product_name, :action, :user_id, CURRENT_TIMESTAMP)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':product_name', $productName);
+        $stmt->bindParam(':action', $action);
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->execute();
     }
 }
