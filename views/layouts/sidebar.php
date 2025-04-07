@@ -1,3 +1,5 @@
+
+
 <aside class="app-sidebar bg-body-secondary shadow">
     <!--begin::Sidebar Brand-->
     <div class="sidebar-brand" style="padding: 33px;">
@@ -31,14 +33,9 @@
                 <li class="nav-item"><a href="/customers" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>
                         <p>Customers</p>
                     </a></li>
-                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
-                    <li class="nav-item">
-                        <a href="/employees" class="nav-link">
-                            <i class="nav-icon bi bi-people-fill"></i>
-                            <p>User Management</p>
-                        </a>
-                    </li>
-                <?php endif; ?>
+                <li class="nav-item"><a href="/employees" class="nav-link"><i class="nav-icon bi bi-person-badge-fill"></i>
+                        <p>Users Management</p>
+                    </a></li>
                 <li class="nav-item"><a href="/notification" class="nav-link"><i class="nav-icon bi bi-tree-fill"></i>
                         <p>Notification</p>
                     </a></li>

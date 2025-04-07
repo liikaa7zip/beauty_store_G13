@@ -572,3 +572,32 @@ function addRowToTable(product) {
 // };
 
 // addRowToTable(newProduct);
+
+
+
+
+function filterStocks() {
+    const selectValue = document.getElementById('create-stock').value;
+    const productRows = document.querySelectorAll('#productsTableBody tr');
+
+    // Show all rows initially
+    productRows.forEach(row => {
+        row.style.display = ''; // Show all rows
+    });
+
+    // Filter based on selection
+    productRows.forEach(row => {
+        const statusCell = row.querySelector('td:nth-child(5)'); // Get the Status cell
+        const rowStatus = statusCell.textContent.trim().toLowerCase();
+
+        // Debugging: Show the selected value and current row status
+        console.log(`Selected: ${selectValue}, Row Status: ${rowStatus}`);
+
+        // Adjusting the comparison for case sensitivity
+        if (selectValue === 'low' && rowStatus !== 'low-stock') {
+            row.style.display = 'none'; // Hide rows that are not low-stock
+        } else if (selectValue === 'in' && rowStatus !== 'in-stock') {
+            row.style.display = 'none'; // Hide rows that are not in-stock
+        }
+    });
+}
