@@ -247,7 +247,7 @@ if (!isset($_SESSION['user_id'])) {
             "lengthChange": false,
             "empty": "No products found",
             "searching": true,
-            "dom": '<"top"i>rt<"bottom"lp><"clear">'l
+            "dom": '<"top"i>rt<"bottom"lp><"clear">',
         });
 
         // Search functionality
