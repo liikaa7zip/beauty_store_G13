@@ -17,6 +17,7 @@ require_once "Models/UserModel.php";
 require_once "Controllers/NotificationController.php"; 
 require_once "Controllers/HistoryController.php";
 require_once "Models/HistoryModel.php";
+require_once "Controllers/CustomerController.php";
 
 
 
@@ -108,6 +109,18 @@ $route->get("/history", [HistoryController::class, 'index']);
 
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);
+
+
+
+
+/// Update these customer routes
+$route->get("/customers", [CustomerController::class, 'index']);
+$route->get("/customers/view/{id}", [CustomerController::class, 'viewCustomerDetails']);
+$route->post("/customers/create", [CustomerController::class, 'create']);
+$route->get("/customers/edit/{id}", [CustomerController::class, 'edit']);
+$route->get("/customers/delete/{id}", [CustomerController::class, 'delete']);
+$route->post("/customers/pay", [CustomerController::class, 'pay']);
+
 
 $route->route();
 ?>

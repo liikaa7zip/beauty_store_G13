@@ -21,4 +21,16 @@ class SellModel
         // Return the created sale record
         return $this->db->query("SELECT * FROM sales WHERE id = LAST_INSERT_ID()")->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getSaleById($id)
+{
+    $query = "SELECT * FROM sales WHERE id = ?";
+    return $this->db->query($query, [$id])->fetch();
+}
+
+public function getSaleItems($saleId)
+{
+    $query = "SELECT * FROM sale_items WHERE sale_id = ?";
+    return $this->db->query($query, [$saleId])->fetchAll();
+}
 }
