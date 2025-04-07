@@ -221,7 +221,19 @@ public function viewCustomer($customerId)
     }
 }
 
+    public function delete($customerId)
+{
+    try {
+        // Delete customer
+        $this->customerModel->delete($customerId);
+        
+        $_SESSION['success'] = "Customer deleted successfully!";
+        $this->redirect('/customers');
+    } catch (Exception $e) {
+       
+        $this->redirect('/customers');
+    }
 
 
-
+    }
 }

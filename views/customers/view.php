@@ -1,5 +1,5 @@
 <?php if (isset($_SESSION['success'])): ?>
-    <div class="success-message"><?= $_SESSION['success'] ?></div>
+    
     <?php unset($_SESSION['success']); ?>
 <?php endif; ?>
 
@@ -89,39 +89,175 @@
                     <?php endif; ?>
                 </td>
                 <td>
-    <div class="dropdown">
-        <button class="btn btn-light btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none; font-size: 20px;">
-            &#x22EE; <!-- Vertical Ellipsis -->
-        </button>
-        <ul class="dropdown-menu shadow-sm" style="min-width: 120px; border-radius: 8px;">
-            <li>
-                <a class="dropdown-item d-flex align-items-center" href="/customers/view/<?= $customer['id'] ?>">
-                    <i class="bi bi-eye me-2"></i> View
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item d-flex align-items-center" href="/customers/edit/<?= $customer['id'] ?>">
-                    <i class="bi bi-pencil me-2"></i> Edit
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item text-danger d-flex align-items-center" href="/customers/delete/<?= $customer['id'] ?>">
-                    <i class="bi bi-trash me-2"></i> Delete
-                </a>
-            </li>
+                <div class="dropdown">
+    <button class="dropdown-toggle" type="button">
+        &#x22EE; <!-- Vertical Ellipsis -->
+    </button>
+    <div class="dropdown-menu">
+        <a href="/customers/view/<?= $customer['id'] ?>">
+            <i class="bi bi-eye"></i> View
+        </a>
+        <a href="/customers/edit/<?= $customer['id'] ?>">
+            <i class="bi bi-pencil"></i> Edit
+        </a>
+        <a href="#" class="text-danger" onclick="showModal(<?= $customer['id'] ?>)">
+            <i class="bi bi-trash"></i> Delete
+        </a>
+    </div>
+</div>
+
+<!-- Update the modal structure -->
+<div id="deleteModal<?= $customer['id'] ?>" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Confirm Deletion</h5>
+            <span class="close-modal" onclick="closeModal(<?= $customer['id'] ?>)">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete <?= htmlspecialchars($customer['name']) ?>?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-cancel" onclick="closeModal(<?= $customer['id'] ?>)">Cancel</button>
+            <a href="/customers/delete/<?= $customer['id'] ?>" class="btn btn-delete">Delete</a>
+        </div>
+    </div>
+</div>
+
         </ul>
     </div>
 </td>
-
-
-
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 </div>
 
+<script>
+// Add this at the beginning of your script section
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle dropdown toggle clicks
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const dropdown = this.nextElementSibling;
+            
+            // Close all other dropdowns first
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                if (menu !== dropdown) {
+                    menu.style.display = 'none';
+                }
+            });
+            
+            // Toggle current dropdown
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.style.display = 'none';
+            });
+        }
+    });
+});
+
+// Your existing modal functions
+function showModal(id) {
+    const modal = document.getElementById('deleteModal' + id);
+    if (modal) {
+        modal.style.display = 'block';
+    }
+}
+
+function closeModal(id) {
+    const modal = document.getElementById('deleteModal' + id);
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            modal.style.display = 'none';
+        });
+    }
+}
+
+// Prevent modal from closing when clicking inside modal-content
+document.querySelectorAll('.modal-content').forEach(content => {
+    content.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+});
+</script>
+
+<!-- Update the dropdown CSS -->
 <style>
+/* Add these styles to your existing CSS */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #333;
+}
+
+.dropdown-toggle:hover {
+    color: #007bff;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    min-width: 150px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 1000;
+    margin-top: 5px;
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-menu a.text-danger {
+    color: #dc3545;
+}
+
+.dropdown-menu a.text-danger:hover {
+    background-color: #fff5f5;
+}
+
+.dropdown-menu i {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+
+
 .customers-list {
     padding: 20px;
 }
@@ -185,4 +321,122 @@
     text-align: center;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.close-modal {
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
+.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+
+.modal-body {
+    margin-bottom: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Update the three dots button style */
+.dropdown-toggle {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background: white;
+    min-width: 120px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    z-index: 100;
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-menu i {
+    margin-right: 8px;
+}
 </style>
