@@ -34,13 +34,13 @@
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
           <!--begin::User Image-->
           <li class="user-header text-bg-primary">
-          <img
-            src="<?= !empty($_SESSION['image']) ? htmlspecialchars($_SESSION['image']) : '/views/assets/img/default-profile.jpg' ?>"
-            class="user-image rounded-circle shadow"
-            alt="User Image" />
+            <img
+              src="/views/assets/img/profile.jpg"
+              class="rounded-circle shadow"
+              alt="User Image" />
             <p style="font-size: 22px;">
               <?= $_SESSION['user_name'] ? $_SESSION['user_name'] : 'Unknown' ?>
-              <small>Role: <?= isset($_SESSION['role']) ? ($_SESSION['role'] === 'admin' ? 'Admin' : 'Staff') : 'Not set' ?></small>
+              <small>Member since Nov. 2023</small>
             </p>
           </li>
           <!--end::User Image-->

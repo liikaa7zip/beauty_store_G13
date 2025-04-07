@@ -85,8 +85,6 @@ class UserController extends BaseController {
             if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['username'];
-                $_SESSION['image'] = $user['image'];
-                $_SESSION['role'] = strtolower($user['role']); // Ensure role is stored in lowercase
                 $this->redirect("/dashboard/sell");
             } else {
                 $_SESSION['error'] = "Invalid email or password.";

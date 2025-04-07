@@ -1,19 +1,6 @@
-<h2 id="user-management" style="margin-bottom: 1.5rem; color: var(--text-color);">Users Management</h2>
 
-<!-- <div class="current-user-info" style="margin-bottom: 20px; padding: 10px; background: #f8f9fa; border-radius: 8px;">
-    <p style="margin: 0;">
-        
-        <span class="badge" style="
-            background: <?= $currentUser['role'] === 'admin' ? '#e3f2fd' : '#e8f5e9' ?>; 
-            color: <?= $currentUser['role'] === 'admin' ? '#1976d2' : '#388e3c' ?>;
-            padding: 4px 8px;
-            border-radius: 12px;
-            margin-left: 8px;
-        ">
-            <?= ucfirst(htmlspecialchars($currentUser['role'])) ?>  
-        </span>
-    </p>
-</div> -->
+
+<h2 id="user-management" style="margin-bottom: 1.5rem; color: var(--text-color);">Users Management</h2>
 
 <div class="emp-employee-section" id="emp-employee-section">
     <header class="emp-employee-header" id="emp-employee-header">
