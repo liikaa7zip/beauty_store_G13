@@ -101,6 +101,13 @@ public function logPayment($customerId, $paymentAmount)
         throw new Exception('Failed to log payment');
     }
 }
+
+    public function delete($customerId)
+    {
+        $sql = "DELETE FROM customers WHERE id = :customer_id";
+        $params = [':customer_id' => $customerId];
+        return $this->db->query($sql, $params);
+    }
   
     
 
