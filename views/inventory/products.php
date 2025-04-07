@@ -99,7 +99,51 @@ if (!isset($_SESSION['user_id'])) {
         </table>
         <div class="pagination" id="pagination"></div>
     </div>
-    
+    <!-- Place this RIGHT AFTER your table -->
+<div class="stock-filter-buttons">
+    <!-- <button id="showAllBtn" class="btn btn-primary">Show All</button> -->
+    <button id="lowStock" class="filter-btn">Low Stock</button>
+    <button id="inStock" class="filter-btn">In Stock</button>
+</div>
+        <!-- <div class="stocks-container card grid gap-2 p-4">
+            <h3>Stock summary:</h3>
+            <div class="row mb-3">
+        <div class="col-4">
+            <div class="stock-summary card" id="total-products">
+                <div class="icon">📦</div>
+                <p>Total Products</p>
+                <h3>0.00</h3> This will be updated
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card" id="low-stocks">
+                <div class="icon low-stock">🔻</div>
+                <p>Low-stocks</p>
+                <h3>0.00</h3> This will be updated
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card" id="in-stocks">
+                <div class="icon in-stock">📈</div>
+                <p>In-stocks</p>
+                <h3>0.00</h3> This will be updated
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <a href="/categories/create" style="text-decoration: none;"><div class="card" id="add-product">
+            <div class="icon add">➕</div>
+            <p>Add New Categories</p>
+        </div>
+            </a>
+
+              </div>
+                <div class="col-4">
+                    <div class="card" id="waste">
+                        <div class="icon waste">🗑️</div>
+                        <p>Waste</p> -->
     <div class="stocks-container card grid gap-2 p-4">
         <h3>Stock summary:</h3>
         <div class="row mb-3">
@@ -158,6 +202,13 @@ if (!isset($_SESSION['user_id'])) {
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="/views/assets/js/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/read-excel-file/5.4.0/read-excel-file.min.js"></script>
+
+<script src="https://unpkg.com/read-excel-file@5.5.4/bundle/read-excel-file.min.js"></script>
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -165,6 +216,7 @@ if (!isset($_SESSION['user_id'])) {
 <!-- DataTables JS -->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
 
 <!-- Custom JavaScript -->
 <script>
@@ -192,7 +244,7 @@ if (!isset($_SESSION['user_id'])) {
             "lengthChange": false,
             "empty": "No products found",
             "searching": true,
-            "dom": '<"top"i>rt<"bottom"lp><"clear">'
+            "dom": '<"top"i>rt<"bottom"lp><"clear">',
         });
 
         // Search functionality
@@ -285,8 +337,13 @@ if (!isset($_SESSION['user_id'])) {
         document.getElementById('category-modal').style.display = 'block';
     }
 
-    function hideModal() {
-        document.getElementById('category-modal').style.display = 'none';
-    }
+// Hide the modal
+function hideModal() {
+    document.getElementById('category-modal').style.display = 'none';
+}
+
+
+    
+    
 </script>
 
