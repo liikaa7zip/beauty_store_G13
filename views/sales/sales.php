@@ -1,5 +1,6 @@
 <div class="sales-wrapper">
     <!-- Left: Sales Form -->
+     
     <div class="sales-form">
         <h1 class="sales-header">Sales Management</h1>
         <div class="sales-container">
