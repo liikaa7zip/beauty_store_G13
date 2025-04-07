@@ -89,10 +89,31 @@
                     <?php endif; ?>
                 </td>
                 <td>
-    <a href="/customers/view/<?= $customer['id'] ?>">View</a> |
-    <a href="/customers/edit/<?= $customer['id'] ?>">Edit</a> |
-    <a href="/customers/delete/<?= $customer['id'] ?>">Delete</a>
+    <div class="dropdown">
+        <button class="btn btn-light btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none; font-size: 20px;">
+            &#x22EE; <!-- Vertical Ellipsis -->
+        </button>
+        <ul class="dropdown-menu shadow-sm" style="min-width: 120px; border-radius: 8px;">
+            <li>
+                <a class="dropdown-item d-flex align-items-center" href="/customers/view/<?= $customer['id'] ?>">
+                    <i class="bi bi-eye me-2"></i> View
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item d-flex align-items-center" href="/customers/edit/<?= $customer['id'] ?>">
+                    <i class="bi bi-pencil me-2"></i> Edit
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item text-danger d-flex align-items-center" href="/customers/delete/<?= $customer['id'] ?>">
+                    <i class="bi bi-trash me-2"></i> Delete
+                </a>
+            </li>
+        </ul>
+    </div>
 </td>
+
+
 
             </tr>
             <?php endforeach; ?>
@@ -152,4 +173,16 @@
 .btn-primary:hover {
     background-color: #0056b3;
 }
+
+.table th:nth-child(2),
+.table td:nth-child(2),
+.table th:nth-child(3),
+.table td:nth-child(3),
+.table th:nth-child(4),
+.table td:nth-child(4),
+.table th:nth-child(5),
+.table td:nth-child(5) {
+    text-align: center;
+}
+
 </style>
