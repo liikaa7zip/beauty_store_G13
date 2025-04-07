@@ -1,10 +1,10 @@
 <?php if (!empty($history)): ?>
     <div class="history-container">
-        <h1>Product History for Session</h1>
+        <h1>Promotion History</h1>
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>Product Name</th>
+                    <th>Promotion Name</th>
                     <th>Action</th>
                     <th>Performed By</th>
                     <th>Date</th>
@@ -13,7 +13,7 @@
             <tbody>
                 <?php foreach ($history as $record): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($record['product_name']); ?></td>
+                        <td><?php echo htmlspecialchars($record['promotion_name']); ?></td>
                         <td><?php echo htmlspecialchars($record['action']); ?></td>
                         <td><?php echo htmlspecialchars($record['performed_by']); ?></td>
                         <td><?php echo htmlspecialchars($record['date']); ?></td>
@@ -24,7 +24,7 @@
     </div>
 <?php else: ?>
     <div class="empty-state">
-        <h4>No Product History Found for This Session</h4>
-        <p>There is no product history to display for the selected session.</p>
+        <h4>No Promotion History Found</h4>
+        <p>There is no promotion history to display at the moment.</p>
     </div>
 <?php endif; ?>

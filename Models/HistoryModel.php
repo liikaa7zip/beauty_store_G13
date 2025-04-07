@@ -18,7 +18,7 @@ class HistoryModel
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':user_id', $userId);
             $stmt->execute();
-    
+
             if ($stmt->fetchColumn() == 0) {
                 $query = "INSERT INTO user_login_history (user_id, ip_address, user_agent, status) 
                           VALUES (:user_id, :ip_address, :user_agent, :status)";
@@ -73,5 +73,101 @@ class HistoryModel
         $stmt->bindParam(':action', $action);
         $stmt->bindParam(':user_id', $userId);
         $stmt->execute();
+    }
+
+    public function getProductHistoryByUser($userId)
+    {
+        $query = "SELECT ph.product_name, ph.action, u.username AS performed_by, ph.date
+                  FROM product_history ph
+                  JOIN users u ON ph.user_id = u.id
+                  WHERE ph.user_id = :user_id
+                  ORDER BY ph.date DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+
+    public function getCategoryHistory()
+    {
+        $query = "SELECT ch.category_name, ch.action, ch.user_id, u.username AS performed_by, ch.date
+              FROM category_history ch
+              JOIN users u ON ch.user_id = u.id
+              ORDER BY ch.date DESC";
+        $stmt = $this->db->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+
+    public function getCategoryHistoryByUser($userId)
+    {
+        $query = "SELECT ch.category_name, ch.action, u.username AS performed_by, ch.date
+              FROM category_history ch
+              JOIN users u ON ch.user_id = u.id
+              WHERE ch.user_id = :user_id
+              ORDER BY ch.date DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+
+
+    public function logCategoryAction($categoryName, $action, $userId)
+    {
+        $query = "INSERT INTO category_history (category_name, action, user_id, date)
+              VALUES (:category_name, :action, :user_id, CURRENT_TIMESTAMP)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':category_name', $categoryName);
+        $stmt->bindParam(':action', $action);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+
+    public function getPromotionHistory()
+    {
+        $query = "SELECT ph.promotion_name, ph.action, u.username AS performed_by, ph.date
+              FROM promotion_history ph
+              JOIN users u ON ph.user_id = u.id
+              ORDER BY ph.date DESC";
+        $stmt = $this->db->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+    public function getPromotionHistoryByUser($userId)
+    {
+        $query = "SELECT ph.promotion_name, ph.action, u.username AS performed_by, ph.date
+              FROM promotion_history ph
+              JOIN users u ON ph.user_id = u.id
+              WHERE ph.user_id = :user_id
+              ORDER BY ph.date DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+
+    public function getSellHistory()
+    {
+        $query = "SELECT si.product_name, si.price AS amount, si.quantity, u.username AS performed_by, s.sale_date AS date
+              FROM sale_items si
+              JOIN sales s ON si.sale_id = s.id
+              JOIN users u ON s.user_id = u.id
+              ORDER BY s.sale_date DESC";
+        $stmt = $this->db->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+
+    public function getSellHistoryByUser($userId)
+    {
+        $query = "SELECT si.product_name, si.price AS amount, si.quantity, u.username AS performed_by, s.sale_date AS date
+              FROM sale_items si
+              JOIN sales s ON si.sale_id = s.id
+              JOIN users u ON s.user_id = u.id
+              WHERE s.user_id = :user_id
+              ORDER BY s.sale_date DESC";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 }

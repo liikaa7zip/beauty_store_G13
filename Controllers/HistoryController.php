@@ -11,27 +11,13 @@ class HistoryController extends BaseController
         $this->historyModel = new HistoryModel();
     }
 
-    /**
-     * Logs a user login event.
-     *
-     * @param int $userId The ID of the user.
-     * @param string $ipAddress The IP address of the user.
-     * @param string $userAgent The user agent string of the user's browser.
-     * @param string $status The status of the login attempt ('success' or 'failed').
-     */
     public function logLogin($userId, $ipAddress, $userAgent, $status)
     {
-        error_log("logLogin called for user ID: $userId");
         if (!empty($userId) && !empty($ipAddress) && !empty($userAgent) && !empty($status)) {
             $this->historyModel->logLogin($userId, $ipAddress, $userAgent, $status);
         }
     }
 
-    /**
-     * Logs a user logout event.
-     *
-     * @param int $userId The ID of the user.
-     */
     public function logLogout($userId)
     {
         if (!empty($userId)) {
@@ -39,31 +25,46 @@ class HistoryController extends BaseController
         }
     }
 
-    /**
-     * Displays the user login history.
-     */
+
     public function index()
     {
-        $history = $this->historyModel->getLoginHistory();
-        if (!is_array($history)) {
-            $history = [];
-        }
-        $this->view('/history/userHistory', ['history' => $history]);
-    }
+        $type = $_GET['type'] ?? 'login'; // Default to 'login' history
+        $userId = $_GET['user_id'] ?? null; // Get the user ID if provided
 
-    public function productHistory()
-    {
-        $history = $this->historyModel->getProductHistory();
-        $this->view('history/productHistory', ['history' => $history]);
+        switch ($type) {
+            case 'product':
+                $history = $userId ? $this->historyModel->getProductHistoryByUser($userId) : $this->historyModel->getProductHistory();
+                $this->view('/history/productHistory', ['history' => $history]);
+                break;
+
+                case 'sell':
+                $history = $userId ? $this->historyModel->getSellHistoryByUser($userId) : $this->historyModel->getSellHistory();
+                $this->view('/history/sellHistory', ['history' => $history]);
+                break;
+            case 'category':
+                $history = $userId ? $this->historyModel->getCategoryHistoryByUser($userId) : $this->historyModel->getCategoryHistory();
+                $this->view('/history/categoryHistory', ['history' => $history]);
+                break;
+
+            case 'promotion':
+                $history = $userId ? $this->historyModel->getPromotionHistoryByUser($userId) : $this->historyModel->getPromotionHistory();
+                $this->view('/history/promotionHistory', ['history' => $history]);
+                break;
+
+            default: // Default to login history
+                $history = $this->historyModel->getLoginHistory();
+                $this->view('/history/userHistory', ['history' => $history]);
+                break;
+        }
     }
 }
 
-// Example: Define $userId for testing or ensure it is retrieved from the session
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-$userId = $_SESSION['user_id'] ?? null; // Retrieve user ID from session
+$userId = $_SESSION['user_id'] ?? null;
 
 if ($userId) {
     $historyController = new HistoryController();

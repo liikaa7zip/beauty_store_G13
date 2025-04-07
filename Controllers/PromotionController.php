@@ -89,36 +89,40 @@ class PromotionController extends BaseController
     }
 
     public function sendPromotion($promotionId)
-    {
-        try {
-            header('Content-Type: application/json');
-            $promotion = $this->promotionModel->getPromotionById($promotionId);
+{
+    try {
+        header('Content-Type: application/json');
+        $promotion = $this->promotionModel->getPromotionById($promotionId);
 
-            if (!$promotion) {
-                echo json_encode(['success' => false, 'message' => 'Promotion not found!']);
-                return;
-            }
-
-            $db = new Database();
-            $customers = $db->query("SELECT telegram_chat_id FROM telegram_promotions WHERE telegram_chat_id IS NOT NULL")->fetchAll();
-
-            if (empty($customers)) {
-                echo json_encode(['success' => false, 'message' => 'No customers with Telegram chat IDs found!']);
-                return;
-            }
-
-            include "views/promotion/telegram-bot.php";
-            $telegramBot = new TelegramBot();
-
-            foreach ($customers as $customer) {
-                $telegramBot->sendMessage($customer['telegram_chat_id'], $this->formatPromotionMessage($promotion));
-            }
-
-            echo json_encode(['success' => true, 'message' => 'Promotion sent successfully to all customers!']);
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => 'An error occurred: ' . $e->getMessage()]);
+        if (!$promotion) {
+            echo json_encode(['success' => false, 'message' => 'Promotion not found!']);
+            return;
         }
+
+        $db = (new Database())->getConnection();
+        $stmt = $db->query("SELECT telegram_chat_id FROM telegram_promotions WHERE telegram_chat_id IS NOT NULL");
+        $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($customers)) {
+            echo json_encode(['success' => false, 'message' => 'No customers with Telegram chat IDs found!']);
+            return;
+        }
+
+        include "views/promotion/telegram-bot.php";
+        $telegramBot = new TelegramBot();
+
+        foreach ($customers as $customer) {
+            $telegramBot->sendMessage($customer['telegram_chat_id'], $this->formatPromotionMessage($promotion));
+        }
+
+        // Log the action in promotion history
+        $this->promotionModel->logPromotionAction($promotion['promotion_name'], 'sent', $_SESSION['user_id']);
+
+        echo json_encode(['success' => true, 'message' => 'Promotion sent successfully to all customers!']);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'An error occurred: ' . $e->getMessage()]);
     }
+}
 
     private function formatPromotionMessage($promotion)
     {

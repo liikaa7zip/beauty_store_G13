@@ -42,9 +42,6 @@
                 <li class="nav-item"><a href="/history" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>
                         <p>Histories</p>
                     </a></li>
-                    <li class="nav-item"><a href="/history/product" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>
-                        <p>Product History</p>
-                    </a></li>
             </ul>
         </nav>
     </div>

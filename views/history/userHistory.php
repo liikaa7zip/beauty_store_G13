@@ -1,4 +1,4 @@
-<h2 id="user-management" class="dashboard-section-title">User Login History</h2>
+<h2 id="user-management" class="dashboard-section-title">User History</h2>
 <div class="dashboard-card">
 
     <!-- Search and Filter Bar -->
@@ -6,7 +6,7 @@
         <div class="search-container">
             <div class="search-input-group">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" id="search-user-history" class="search-input" placeholder="Search by username, role, or IP..." onkeyup="filterTable()">
+                <input type="text" id="search-user-history" class="search-input" placeholder="Search by username, role, or product..." onkeyup="filterTable()">
             </div>
         </div>
         <div class="filter-group">
@@ -36,11 +36,21 @@
                     <option value="month">This Month</option>
                 </select>
             </div>
+            <div class="filter-item">
+                <label for="history-type-filter" class="filter-label">History Type:</label>
+                <select id="history-type-filter" class="form-select filter-select">
+                    <option value="product">Product</option>
+                    <option value="category">Category</option>
+                    <option value="payment">Payment</option>
+                    <option value="promotion">Promotion</option>
+                </select>
+            </div>
         </div>
     </div>
 
-
+    <!-- User Login History Table -->
     <div class="table-container">
+        <h3>User Login History</h3>
         <table class="data-table">
             <thead>
                 <tr>
@@ -72,14 +82,14 @@
                         $logoutTime = !empty($record['logout_time']) ? new DateTime($record['logout_time']) : null;
                         $duration = $logoutTime ? $logoutTime->diff($loginTime) : $now->diff($loginTime);
                 ?>
-                        <tr>
+                        <tr data-user-id="<?php echo $record['user_id']; ?>">
                             <td>
                                 <div class="user-info">
                                     <div class="user-avatar">
                                         <?php echo strtoupper(substr($record['username'] ?? '?', 0, 1)); ?>
                                     </div>
                                     <div class="user-details">
-                                        <span class="username"><?php echo htmlspecialchars($record['username'] ?? 'N/A'); ?></span>
+                                        <?php echo htmlspecialchars($record['username'] ?? 'N/A'); ?>
                                     </div>
                                 </div>
                             </td>
@@ -144,6 +154,43 @@
         </table>
     </div>
 
+    <!-- Product History Table
+    <div class="table-container">
+        <h3>User Product History</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Action</th>
+                    <th>Performed By</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($productHistory)): ?>
+                    <?php foreach ($productHistory as $record): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($record['product_name']); ?></td>
+                            <td><?php echo htmlspecialchars($record['action']); ?></td>
+                            <td><?php echo htmlspecialchars($record['performed_by']); ?></td>
+                            <td><?php echo htmlspecialchars($record['date']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr class="no-data-row">
+                        <td colspan="4">
+                            <div class="empty-state">
+                                <i class="fas fa-box-open empty-icon"></i>
+                                <h4>No product history found</h4>
+                                <p>There are no product-related records to display at this time</p>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div> -->
+
     <!-- Pagination -->
     <div class="table-footer">
         <div class="showing-entries" id="showing-entries">
@@ -153,15 +200,16 @@
 </div>
 
 <?php
-function timeAgo($date, $now) {
+function timeAgo($date, $now)
+{
     $diff = $date->diff($now);
-    
+
     if ($diff->y > 0) {
         return $diff->y . ' year' . ($diff->y > 1 ? 's' : '') . ' ago';
-    } 
+    }
     if ($diff->m > 0) {
         return $diff->m . ' month' . ($diff->m > 1 ? 's' : '') . ' ago';
-    } 
+    }
     if ($diff->d > 0) {
         if ($diff->d == 1) return 'yesterday';
         if ($diff->d < 7) return $diff->d . ' days ago';
@@ -181,9 +229,10 @@ function timeAgo($date, $now) {
     return 'just now';
 }
 
-function formatDuration($diff) {
+function formatDuration($diff)
+{
     $parts = [];
-    
+
     // More readable duration formatting
     if ($diff->d > 0) {
         $parts[] = $diff->d . ' day' . ($diff->d > 1 ? 's' : '');
@@ -197,17 +246,17 @@ function formatDuration($diff) {
     if ($diff->s > 0 && count($parts) < 2) {
         $parts[] = $diff->s . ' second' . ($diff->s > 1 ? 's' : '');
     }
-    
+
     if (empty($parts)) {
         return '0 seconds';
     }
-    
+
     // Join with commas and "and" for the last item
     if (count($parts) > 1) {
         $last = array_pop($parts);
         return implode(', ', $parts) . ' and ' . $last;
     }
-    
+
     return $parts[0];
 }
 ?>
@@ -230,7 +279,7 @@ function formatDuration($diff) {
             const logoutText = row.cells[4].textContent.trim();
             const loginTimeStr = row.cells[3].querySelector('.datetime')?.textContent;
             const logoutTimeStr = row.cells[4].querySelector('.datetime')?.textContent;
-            
+
             return {
                 element: row,
                 username: row.cells[0].querySelector('.username').textContent.toLowerCase(),
@@ -251,7 +300,7 @@ function formatDuration($diff) {
         let startDate = null;
 
         // Set start date based on date range filter
-        switch(dateRangeFilter) {
+        switch (dateRangeFilter) {
             case 'today':
                 startDate = new Date(now);
                 startDate.setHours(0, 0, 0, 0);
@@ -269,12 +318,12 @@ function formatDuration($diff) {
         let visibleCount = 0;
 
         tableData.forEach(data => {
-            const matchesSearch = data.username.includes(searchInput) || 
-                                data.role.includes(searchInput);
-            const matchesStatus = statusFilter === 'all' || 
-                                data.status === statusFilter;
-            const matchesDateRange = dateRangeFilter === 'all' || 
-                                   (data.loginTime && (!startDate || data.loginTime >= startDate));
+            const matchesSearch = data.username.includes(searchInput) ||
+                data.role.includes(searchInput);
+            const matchesStatus = statusFilter === 'all' ||
+                data.status === statusFilter;
+            const matchesDateRange = dateRangeFilter === 'all' ||
+                (data.loginTime && (!startDate || data.loginTime >= startDate));
 
             if (matchesSearch && matchesStatus && matchesDateRange) {
                 data.element.style.display = '';
@@ -299,7 +348,7 @@ function formatDuration($diff) {
         rowsPerPage = parseInt(document.getElementById('rows-per-page').value);
         const totalRows = totalVisible || tableData.filter(data => data.element.style.display !== 'none').length;
         const pageCount = Math.ceil(totalRows / rowsPerPage) || 1;
-        
+
         // Ensure current page is within bounds
         currentPage = Math.max(1, Math.min(currentPage, pageCount));
 
@@ -317,7 +366,7 @@ function formatDuration($diff) {
 
         // Update showing entries text
         const showingEnd = Math.min(end, totalRows);
-        document.getElementById('showing-entries').textContent = 
+        document.getElementById('showing-entries').textContent =
             `Showing ${totalRows > 0 ? start + 1 : 0} to ${showingEnd} of ${totalRows} entries`;
     }
 
@@ -332,8 +381,8 @@ function formatDuration($diff) {
 
         tableData.sort((a, b) => {
             let valA, valB;
-            
-            switch(columnIndex) {
+
+            switch (columnIndex) {
                 case 0: // Username
                     valA = a.username;
                     valB = b.username;
@@ -370,20 +419,36 @@ function formatDuration($diff) {
         // Re-apply pagination after sorting
         updatePagination();
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        const rows = document.querySelectorAll('#historyTable tr');
+        const historyTypeFilter = document.getElementById('history-type-filter');
+
+        rows.forEach(row => {
+            row.addEventListener('click', function() {
+                const userId = this.getAttribute('data-user-id');
+                const historyType = historyTypeFilter.value;
+
+                if (userId && historyType) {
+                    window.location.href = `/history?type=${historyType}&user_id=${userId}`;
+                }
+            });
+        });
+    });
 </script>
 <style>
     .search-input {
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    height: 40px;
-    transition: all 0.2s;
-}
-.table-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-}
+        padding-left: 40px;
+        padding-right: 40px;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        height: 40px;
+        transition: all 0.2s;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+    }
 </style>
