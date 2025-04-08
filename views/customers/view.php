@@ -8,25 +8,25 @@
 
     <!-- Create Customer Form -->
     <h2>Add New Customer</h2>
-    <form method="post" action="/customers/create">
-        <div class="input-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div class="input-group">
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" required>
-        </div>
-        <div class="input-group">
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" required>
-        </div>
-        <div class="input-group">
-            <label for="total_debt">Total Debt:</label>
-            <input type="number" id="total_debt" name="total_debt" step="0.01" min="0" value="0" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Add Customer</button>
-    </form>
+    <form action="/customers/create" method="POST">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" name="phone" required>
+    </div>
+    <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" required>
+    </div>
+    <div class="form-group">
+        <label for="total_debt">Initial Debt (optional)</label>
+        <input type="number" id="total_debt" name="total_debt" step="0.01" value="0">
+    </div>
+    <button type="submit" class="btn btn-primary">Create Customer</button>
+</form>
 
     <?php if (isset($_SESSION['error'])): ?>
         <div class="alert alert-danger"><?= $_SESSION['error'] ?></div>

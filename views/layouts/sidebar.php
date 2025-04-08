@@ -28,8 +28,8 @@
                 <li class="nav-item"><a href="/sales" class="nav-link"><i id="sales" class="bi bi-cash"></i></i></i>
                         <p id="sale-nav">Sales</p>
                     </a></li>
-                <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>
-                        <p>Expiration</p>
+                <li class="nav-item"><a href="/customers" class="nav-link"><i class="nav-icon bi bi-clipboard-fill"></i>
+                        <p>Customer</p>
                     </a></li>
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
                     <li class="nav-item">

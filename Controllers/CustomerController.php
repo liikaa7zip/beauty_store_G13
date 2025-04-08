@@ -144,7 +144,7 @@ public function show($customerId)
          return $this->db->query($sql, $params);
      }
 
-    public function create() 
+     public function create() 
 {
     try {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
