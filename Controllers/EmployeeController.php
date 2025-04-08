@@ -11,16 +11,24 @@ class EmployeeController extends BaseController
     {
         $this->employeesModel = new EmployeesModel();
     }
-
     public function index()
     {
-        // Fetch employees from the database
+        if ($_SESSION['role'] === 'staff') {
+           
+            $this->redirect('/dashboard');
+            exit;
+        }
+
         $employees = $this->employeesModel->getAllEmployees();
-
-        // Pass employees data to the view
-        $this->view('employees/employees', ['employees' => $employees]);
+        $currentUser = [
+            'role' => $_SESSION['role'] ?? 'unknown',
+            'username' => $_SESSION['user_name'] ?? 'unknown'
+        ];
+        $this->view('employees/employees', [
+            'employees' => $employees,
+            'currentUser' => $currentUser
+        ]);
     }
-
     public function create()
     {
         // Render the create employee form

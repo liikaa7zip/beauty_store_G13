@@ -1,6 +1,19 @@
-
-
 <h2 id="user-management" style="margin-bottom: 1.5rem; color: var(--text-color);">Users Management</h2>
+
+<!-- <div class="current-user-info" style="margin-bottom: 20px; padding: 10px; background: #f8f9fa; border-radius: 8px;">
+    <p style="margin: 0;">
+        
+        <span class="badge" style="
+            background: <?= $currentUser['role'] === 'admin' ? '#e3f2fd' : '#e8f5e9' ?>; 
+            color: <?= $currentUser['role'] === 'admin' ? '#1976d2' : '#388e3c' ?>;
+            padding: 4px 8px;
+            border-radius: 12px;
+            margin-left: 8px;
+        ">
+            <?= ucfirst(htmlspecialchars($currentUser['role'])) ?>  
+        </span>
+    </p>
+</div> -->
 
 <div class="emp-employee-section" id="emp-employee-section">
     <header class="emp-employee-header" id="emp-employee-header">
@@ -62,7 +75,7 @@
                             <span style="font-family: monospace;"><?= htmlspecialchars(substr($employee['password'], 0, 5)) ?>•••••</span>
                         </td>
                         <td class="emp-table-data">
-                            <div class="emp-dropdown-menu">
+                            <!-- <div class="emp-dropdown-menu">
                                 <button class="emp-dropdown-toggle btn btn-sm" onclick="toggleDropdown(this)">
                                     <span class="material-symbols-outlined">more_horiz</span>
                                 </button>
@@ -72,6 +85,20 @@
                                     </a>
                                     <a href="/employees/delete/<?= htmlspecialchars($employee['id']) ?>" class="emp-dropdown-item">
                                         <span class="material-symbols-outlined">delete</span> Delete
+                                    </a>
+                                </div>
+                            </div> -->
+
+                            <div class="dropdown">
+                                <button class="dropdown-toggle" type="button">
+                                    &#x22EE; <!-- Vertical Ellipsis -->
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="text-edit" href="/employees/edit/<?= htmlspecialchars($employee['id']) ?>" >
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    <a class="text-danger"  href="/employees/delete/<?= htmlspecialchars($employee['id']) ?>" >
+                                        <i class="bi bi-trash"></i> Delete
                                     </a>
                                 </div>
                             </div>

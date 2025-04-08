@@ -28,67 +28,76 @@ class SalesController extends BaseController
     }
     
     public function store()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $data = $_POST['sales'];
-            $totalAmount = 0;
-            $saleItems = [];
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = $_POST['sales'];
+        $totalAmount = 0;
+        $saleItems = [];
+        $customerId = $_POST['customer_id'];  // Assuming you're passing customer_id with the sale
 
-            if (is_array($data)) {
-                foreach ($data as $prod) {
-                    $decodedProduct = json_decode($prod, true);
-                    $productId = $decodedProduct['product_id'];
-                    $quantity = $decodedProduct['quantity'];
-                    $product = $this->productModel->getProductByID($productId);
+        // Process sale data
+        if (is_array($data)) {
+            foreach ($data as $prod) {
+                $decodedProduct = json_decode($prod, true);
+                $productId = $decodedProduct['product_id'];
+                $quantity = $decodedProduct['quantity'];
+                $product = $this->productModel->getProductByID($productId);
 
-                    // Log product details for debugging
-                    error_log("Product ID: $productId, Current Stock: {$product['stocks']}, Quantity Sold: $quantity");
+                // Calculate total amount for the sale
+                $totalAmount += $product['price'] * $quantity;
 
-                    // Calculate total amount for the sale
-                    $totalAmount += $product['price'] * $quantity;
+                $saleItemData = [
+                    'sale_id' => null, // Sale ID will be set after creating the sale
+                    'product_id' => $productId,
+                    'price' => $product['price'] * $quantity,
+                    'quantity' => $quantity,
+                ];
 
-                    $saleItemData = [
-                        'sale_id' => null, // Sale ID will be set after creating the sale
-                        'product_id' => $productId,
-                        'price' => $product['price'] * $quantity,
-                        'quantity' => $quantity,
-                    ];
-
-                    // Store sale item data temporarily
-                    $saleItems[] = $saleItemData;
-                }
+                // Store sale item data temporarily
+                $saleItems[] = $saleItemData;
             }
-
-            // Create the sale record
-            $sale = $this->sellModel->create([
-                'sale_date' => date('Y-m-d'),
-                'total_amount' => $totalAmount,
-            ]);
-
-            // Use the created sale ID to store sale items
-            foreach ($saleItems as &$item) {
-                $item['sale_id'] = $sale['id'];
-                $this->salesModel->create($item);
-
-                // Update product stock
-                $product = $this->productModel->getProductByID($item['product_id']);
-                $newStock = $product['stocks'] - $item['quantity'];
-
-                // Log stock update details for debugging
-                error_log("Updating Product ID: {$item['product_id']}, New Stock: $newStock");
-
-                // Ensure stock is not negative
-                if ($newStock < 0) {
-                    $_SESSION['error'] = "Insufficient stock for product ID: {$item['product_id']}";
-                    $this->redirect('/sales');
-                    return;
-                }
-
-                $this->productModel->updateProduct($item['product_id'], ['stocks' => $newStock]);
-            }
-
-            $this->redirect('/sales');
         }
+
+        // Create the sale record
+        $sale = $this->sellModel->create([
+            'sale_date' => date('Y-m-d'),
+            'total_amount' => $totalAmount,
+        ]);
+
+        // Handle customer debt update
+        if ($customerId) {
+            $customer = $this->customerModel->getCustomerById($customerId);
+            $remainingDebt = $customer['total_debt'];
+
+            // Update the debt (subtract the total amount of the sale)
+            $newDebt = $remainingDebt + $totalAmount;
+
+            // Update the customer's debt
+            $this->customerModel->updateCustomerDebt($customerId, $newDebt);
+        }
+
+        // Store sale items and update stock
+        foreach ($saleItems as &$item) {
+            $item['sale_id'] = $sale['id'];
+            $this->salesModel->create($item);
+
+            // Update product stock
+            $product = $this->productModel->getProductByID($item['product_id']);
+            $newStock = $product['stocks'] - $item['quantity'];
+
+            // Ensure stock is not negative
+            if ($newStock < 0) {
+                $_SESSION['error'] = "Insufficient stock for product ID: {$item['product_id']}";
+                $this->redirect('/sales');
+                return;
+            }
+
+            $this->productModel->updateProduct($item['product_id'], ['stocks' => $newStock]);
+        }
+
+        $this->redirect('/sales');
     }
+}
+
     
 }

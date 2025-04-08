@@ -28,6 +28,15 @@ if (!isset($_SESSION['user_id'])) {
                         <?php endforeach; ?>
                     </select>
                 </div>
+
+                <div id="stockWrapper">
+                    <select id="create-stock" name="stocks" class="custom-select" onchange="filterStocks()">
+                        <option value="">Select a stock</option>
+                        <option value="low">Low Stock</option>
+                        <option value="in">In Stock</option>
+                    </select>
+                </div>
+
                 
                 <div class="spacer"></div>
                 
@@ -78,7 +87,7 @@ if (!isset($_SESSION['user_id'])) {
                             <?= ucfirst(htmlspecialchars($product['status'])) ?>
                         </td>
                         <td>
-                            <div class="dropdown">
+                            <!-- <div class="dropdown">
                                 <button class="dropbtn btn btn-sm" onclick="toggleDropdown(this)">
                                     <span class="material-symbols-outlined">more_horiz</span>
                                 </button>
@@ -90,6 +99,20 @@ if (!isset($_SESSION['user_id'])) {
                                         <span class="material-symbols-outlined">delete</span> Delete
                                     </a>
                                 </div>
+                            </div> -->
+
+                            <div class="dropdown">
+                                <button class="dropdown-toggle" type="button">
+                                    &#x22EE; <!-- Vertical Ellipsis -->
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="text-edit" href="/inventory/edit/<?= $product['id'] ?>">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    <a class="text-danger" href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </a>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -98,12 +121,6 @@ if (!isset($_SESSION['user_id'])) {
         </table>
         <div class="pagination" id="pagination"></div>
     </div>
-    <!-- Place this RIGHT AFTER your table -->
-<div class="stock-filter-buttons">
-    <!-- <button id="showAllBtn" class="btn btn-primary">Show All</button> -->
-    <button id="lowStock" class="filter-btn">Low Stock</button>
-    <button id="inStock" class="filter-btn">In Stock</button>
-</div>
         <!-- <div class="stocks-container card grid gap-2 p-4">
             <h3>Stock summary:</h3>
             <div class="row mb-3">
