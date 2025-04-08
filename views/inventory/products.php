@@ -88,7 +88,7 @@ if (!isset($_SESSION['user_id'])) {
                             <?= ucfirst(htmlspecialchars($product['status'])) ?>
                         </td>
                         <td>
-                            <div class="dropdown">
+                            <!-- <div class="dropdown">
                                 <button class="dropbtn btn btn-sm" onclick="toggleDropdown(this)">
                                     <span class="material-symbols-outlined">more_horiz</span>
                                 </button>
@@ -98,6 +98,20 @@ if (!isset($_SESSION['user_id'])) {
                                     </a>
                                     <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
                                         <span class="material-symbols-outlined">delete</span> Delete
+                                    </a>
+                                </div>
+                            </div> -->
+
+                            <div class="dropdown">
+                                <button class="dropdown-toggle" type="button">
+                                    &#x22EE; <!-- Vertical Ellipsis -->
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="text-edit" href="/inventory/edit/<?= $product['id'] ?>">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    <a class="text-danger" href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
+                                        <i class="bi bi-trash"></i> Delete
                                     </a>
                                 </div>
                             </div>

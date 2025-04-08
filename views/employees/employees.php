@@ -75,7 +75,7 @@
                             <span style="font-family: monospace;"><?= htmlspecialchars(substr($employee['password'], 0, 5)) ?>•••••</span>
                         </td>
                         <td class="emp-table-data">
-                            <div class="emp-dropdown-menu">
+                            <!-- <div class="emp-dropdown-menu">
                                 <button class="emp-dropdown-toggle btn btn-sm" onclick="toggleDropdown(this)">
                                     <span class="material-symbols-outlined">more_horiz</span>
                                 </button>
@@ -85,6 +85,20 @@
                                     </a>
                                     <a href="/employees/delete/<?= htmlspecialchars($employee['id']) ?>" class="emp-dropdown-item">
                                         <span class="material-symbols-outlined">delete</span> Delete
+                                    </a>
+                                </div>
+                            </div> -->
+
+                            <div class="dropdown">
+                                <button class="dropdown-toggle" type="button">
+                                    &#x22EE; <!-- Vertical Ellipsis -->
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="text-edit" href="/employees/edit/<?= htmlspecialchars($employee['id']) ?>" >
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    <a class="text-danger"  href="/employees/delete/<?= htmlspecialchars($employee['id']) ?>" >
+                                        <i class="bi bi-trash"></i> Delete
                                     </a>
                                 </div>
                             </div>

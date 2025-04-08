@@ -1018,3 +1018,11 @@ button#uniqueCloseModal:hover {
 #create-stock.custom-select:hover {
   border-color: #00cfe6;
 }
+
+
+.dropdown-menu a.text-danger {
+  color: #dc3545;
+}
+  .dropdown-menu a.text-edit {
+  color:rgb(13, 209, 6);
+}

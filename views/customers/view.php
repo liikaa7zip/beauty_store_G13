@@ -99,9 +99,6 @@
         <a href="/customers/view/<?= $customer['id'] ?>">
             <i class="bi bi-eye"></i> View
         </a>
-        <a href="/customers/edit/<?= $customer['id'] ?>">
-            <i class="bi bi-pencil"></i> Edit
-        </a>
         <a href="#" class="text-danger" onclick="showModal(<?= $customer['id'] ?>)">
             <i class="bi bi-trash"></i> Delete
         </a>
