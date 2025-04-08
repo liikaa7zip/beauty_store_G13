@@ -239,6 +239,8 @@ if (!isset($_SESSION['user_id'])) {
             }
         });
     }
+
+    
     $(document).ready(function() {
         var table = $('#productTable').DataTable({
             "pageLength": 10,
