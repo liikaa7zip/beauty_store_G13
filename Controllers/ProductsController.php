@@ -31,55 +31,6 @@ class ProductsController extends BaseController
     }
 
 
-    public function create()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'] ?? '';
-            $description = $_POST['description'] ?? '';
-            $price = $_POST['price'] ?? '';
-            $stocks = $_POST['stocks'] ?? '';
-            $category_id = $_POST['category_id'] ?? '';
-            $status = $_POST['status'] ?? 'in-stock';
-
-            // Handle image upload
-            $imagePath = isset($_FILES['productImage']) && $_FILES['productImage']['error'] === UPLOAD_ERR_OK
-                ? $this->uploadImage($_FILES['productImage'])
-                : 'uploads/default-image.jpg';
-
-            // Validate required fields
-            if (empty($name) || empty($price) || empty($category_id)) {
-                $_SESSION['error'] = "Please fill all required fields.";
-                $this->redirect("/inventory/products/create");
-                return;
-            }
-
-            $data = [
-                'name' => $name,
-                'description' => $description,
-                'price' => $price,
-                'stocks' => $stocks,
-                'category_id' => $category_id,
-                'status' => $status,
-                'image' => $imagePath
-            ];
-
-            if ($this->productModel->createProduct($data)) {
-                $userId = $_SESSION['user_id'] ?? null;
-                $this->historyModel->logProductAction($name, 'created', $userId);
-
-                $_SESSION['success'] = "Product created successfully!";
-                $this->redirect("/inventory/products");
-            } else {
-                $_SESSION['error'] = "Failed to create product.";
-                $this->redirect("/inventory/products/create");
-            }
-        }
-
-        // Fetch categories for the form
-        $categories = $this->categoryModel->getAllCategories();
-        $this->view("inventory/create", ['categories' => $categories]);
-    }
-
     public function filter()
     {
         $category_id = $_GET['category'] ?? null;
@@ -121,6 +72,7 @@ class ProductsController extends BaseController
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? '';
             $expire_date = $_POST['expire_date'] ?? '';
+            $original_price = $_POST['original_price'] ?? '';
             $category_id = $_POST['category_id'] ?? '';
             $stocks = $_POST['stocks'] ?? '';
             $start_date = $_POST['start_date'] ?? '';
@@ -141,12 +93,16 @@ class ProductsController extends BaseController
                 'description' => $description,
                 'price' => $price,
                 'expire_date' => $expire_date,
+                'original_price' => $original_price, // Ensure this is passed
                 'category_id' => $category_id,
                 'stocks' => $stocks,
                 'status' => $status,
                 'start_date' => $start_date,
                 'image' => $imagePath
             ];
+
+            // Log the data for debugging
+            error_log("Data passed to storeProduct: " . json_encode($data));
 
             if ($this->productModel->storeProduct($data)) {
                 $userId = $_SESSION['user_id'] ?? null;
@@ -168,6 +124,7 @@ class ProductsController extends BaseController
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? '';
             $expire_date = $_POST['expire_date'] ?? '';
+            $original_price = $_POST['original_price'] ?? '';
             $category_id = $_POST['category_id'] ?? '';
             $stocks = $_POST['stocks'] ?? '';
             $start_date = $_POST['start_date'] ?? '';
@@ -203,6 +160,7 @@ class ProductsController extends BaseController
                 'description' => $description,
                 'price' => $price,
                 'expire_date' => $expire_date,
+                'original_price' => $original_price,
                 'category_id' => $category_id,
                 'stocks' => $stocks,
                 'status' => $status,
@@ -236,6 +194,73 @@ class ProductsController extends BaseController
         }
         $this->redirect("/inventory/products");
     }
+
+    public function create()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'] ?? '';
+            $description = $_POST['description'] ?? '';
+            $price = $_POST['price'] ?? '';
+            $expire_date = $_POST['expire_date'] ?? '';
+            $original_price = $_POST['original_price'] ?? '';
+            $stocks = $_POST['stocks'];
+            $start_date = $_POST['start_date'] ?? '';
+            $category_id = $_POST['category_id'];
+            $price = $_POST['price'] ?? '';
+            $expire_date = $_POST['expire_date'] ?? '';
+            $stocks = $_POST['stocks'] ?? '';
+            $start_date = $_POST['start_date'] ?? '';
+            $category_id = $_POST['category_id'] ?? '';
+            $status = $_POST['status'] ?? 'in-stock';
+
+            // Handle image upload
+            $imagePath = isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0
+                ? $this->uploadImage($_FILES['productImage'])
+                : 'uploads/default-image.jpg';
+
+            // Log the data being passed to the model
+            error_log("Product Data: " . json_encode([
+                'name' => $name,
+                'description' => $description,
+                'price' => $price,
+                'expire_date' => $expire_date,
+                'original_price' => $original_price,
+                'stocks' => $stocks,
+                'category_id' => $category_id,
+                'status' => $status,
+                'start_date' => $start_date,
+                'image' => $imagePath
+            ]));
+
+            $data = [
+                'name' => $name,
+                'description' => $description,
+                'price' => $price,
+                'expire_date' => $expire_date,
+                'original_price' => $original_price,
+                'stocks' => $stocks,
+                'category_id' => $category_id,
+                'status' => $status,
+                'start_date' => $start_date,
+                'image' => $imagePath
+            ];
+
+            if ($this->productModel->createProduct($data)) {
+                $userId = $_SESSION['user_id'] ?? null;
+                $this->historyModel->logProductAction($name, 'created', $userId);
+
+                $_SESSION['success'] = "Product created successfully!";
+                $this->redirect("/inventory/products");
+            } else {
+                $_SESSION['error'] = "Failed to create product.";
+                $this->redirect("/inventory/products/create");
+            }
+        }
+
+        $categories = $this->categoryModel->getAllCategories();
+        $this->view("inventory/create", ['categories' => $categories]);
+    }
+
 
     private function uploadImage($file)
     {

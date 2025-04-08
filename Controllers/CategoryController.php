@@ -38,7 +38,7 @@ class CategoryController extends BaseController
                     $result = $this->categoryModel->createCategories($category_name, $category_description);
                     if ($result) {
                         // Log the action to category_history
-                        $this->historyModel->logCategoryAction($category_name, 'add', $userId);
+                        $this->historyModel->logCategoryAction($category_name, 'created', $userId);
                         $this->redirect('/categories');
                     } else {
                         echo "Error inserting data into the database.";
@@ -73,7 +73,7 @@ class CategoryController extends BaseController
                 $result = $this->categoryModel->updateCategory($id, $category_name, $category_description);
                 if ($result) {
                     // Log the action to category_history
-                    $this->historyModel->logCategoryAction($category_name, 'update', $userId);
+                    $this->historyModel->logCategoryAction($category_name, 'updated', $userId);
                     $this->redirect('/categories');
                 } else {
                     echo "Error updating category.";
@@ -92,7 +92,7 @@ class CategoryController extends BaseController
         $result = $this->categoryModel->deleteCategoryById($id);
         if ($result) {
             // Log the action to category_history
-            $this->historyModel->logCategoryAction($categoryName, 'delete', $userId);
+            $this->historyModel->logCategoryAction($categoryName, 'deleted', $userId);
             $this->redirect('/categories');
         } else {
             echo "Error deleting category.";

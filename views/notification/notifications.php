@@ -1,45 +1,32 @@
-<?php
-ob_start(); // Start output buffering
-
-// // Require the NotificationModel class
-require_once __DIR__ . '/../../Models/NotificationModel.php';
-
-// Create a new instance of the NotificationModel class
-$notificationModel = new NotificationModel();
-
-// Handle form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['delete_id'])) {
-        $id = $_POST['delete_id'];
-        $notificationModel->deleteNotification($id);
-        echo json_encode(['status' => 'success']);
-        exit;
-    } else {
-        $notification_title = $_POST['notification_title'];
-        $notification_message = $_POST['notification_message'];
-        $notification_type = $_POST['notification_type'];
-        $start_date = $_POST['start_date'];
-        $end_date = $_POST['end_date'];
-        $status = $_POST['status'];
-
-        $id = $notificationModel->addNotification($notification_title, $notification_message, $notification_type, $start_date, $end_date, $status);
-
-        // Return the inserted data as JSON
-        echo json_encode([
-            'id' => $id,
-            'notification_title' => $notification_title,
-            'notification_message' => $notification_message,
-            'notification_type' => $notification_type,
-            'start_date' => $start_date,
-            'end_date' => $end_date,
-            'status' => $status,
-            'created_at' => date('Y-m-d H:i:s')
-        ]);
-        exit;
-    }
-}
-
-// Fetch notifications from the database
-$notifications = $notificationModel->getNotifications();
-?>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <style>
+        .notification-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 5px solid #ff4757;
+        }
+    </style>
+</head>
+<body>
+    <h1>Notifications</h1>
+    <div class="notification-list">
+        <?php if (empty($notifications)): ?>
+            <p>No notifications available.</p>
+        <?php else: ?>
+            <?php foreach ($notifications as $notification): ?>
+                <div class="notification-item">
+                    <h4><?= htmlspecialchars($notification['notification_title']) ?></h4>
+                    <p><?= htmlspecialchars($notification['notification_message']) ?></p>
+                    <small>Valid until: <?= htmlspecialchars($notification['end_date']) ?></small>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</body>
+</html>

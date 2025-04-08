@@ -62,6 +62,20 @@ class NotificationModel {
         );
     }
 
+    public function createLowStockNotification($productName, $stocks) {
+        $title = "Low Stock Alert: $productName";
+        $message = "The product '$productName' is running low with only $stocks items left in stock.";
+        $type = 'low-stock';
+        $startDate = date('Y-m-d H:i:s');
+        $endDate = date('Y-m-d H:i:s', strtotime('+7 days'));
+        $status = 'active';
+    
+        $query = "INSERT INTO store_notifications 
+                  (notification_title, notification_message, notification_type, start_date, end_date, status, created_at) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $this->db->query($query, [$title, $message, $type, $startDate, $endDate, $status, $startDate]);
+    }
+
     public function deleteNotification($id) {
         try {
             $query = "DELETE FROM store_notifications WHERE id = ?";

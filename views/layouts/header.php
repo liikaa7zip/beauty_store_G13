@@ -57,6 +57,7 @@
   <link rel="stylesheet" href="/views/assets/css/addemployees.css">
   <link rel="stylesheet" href="/views/assets/css/dashboard.css">
   <link rel="stylesheet" href="/views/assets/css/UserHistory.css">
+  <link rel="stylesheet" href="/views/assets/css/customers.css">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -91,6 +92,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
   <!-- DataTables JS -->
+  <script src="https://cdn.jsdelivr.net/npm/read-excel-file@5.x/bundle/read-excel-file.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
   <!-- DataTables Bootstrap 5 JS -->
