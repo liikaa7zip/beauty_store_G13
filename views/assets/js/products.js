@@ -572,3 +572,99 @@ function addRowToTable(product) {
 // };
 
 // addRowToTable(newProduct);
+
+
+
+//button low-in stock
+// function filterProducts(status) {
+//     const rows = document.querySelectorAll('#productsTableBody tr');
+
+//     rows.forEach(row => {
+//         const statusCell = row.querySelector('td:nth-child(5)'); // Change the index if needed
+//         const rowStatus = statusCell.textContent.trim().toLowerCase();
+
+//         if (status === 'low-stock' && rowStatus === 'low-stock') {
+//             row.style.display = ''; // Show low-stock rows
+//         } else if (status === 'in-stock' && rowStatus === 'instock') {
+//             row.style.display = ''; // Show in-stock rows
+//         } else {
+//             row.style.display = 'none'; // Hide other rows
+//         }
+//     });
+// }
+
+// document.getElementById('lowStock').addEventListener('click', () => filterProducts('low-stock'));
+// document.getElementById('inStock').addEventListener('click', () => filterProducts('in-stock'));
+
+
+
+
+// select category Function to filter products based on category
+function filterByCategory() {
+    const selectedCategory = document.getElementById('categorySelect').value;
+    const rows = document.querySelectorAll('#productsTableBody tr');
+
+    rows.forEach(row => {
+        const categoryId = row.getAttribute('data-category-id'); // Assuming data-category-id is set
+        if (selectedCategory === '' || categoryId === selectedCategory) {
+            row.style.display = ''; // Show row
+        } else {
+            row.style.display = 'none'; // Hide row
+        }
+    });
+}
+
+// Event listener for category selection
+document.getElementById('categorySelect').addEventListener('change', filterByCategory);
+
+
+
+function filterByCategory() {
+    const selectedCategory = document.getElementById('categorySelect').value.trim().toLowerCase();
+    const productRows = document.querySelectorAll('#productsTableBody tr');
+
+    console.log("Selected Category ID:", selectedCategory); // Log selected category
+
+    productRows.forEach(row => {
+        const categoryId = row.getAttribute('data-category-id').trim().toLowerCase(); // Get category ID from the row
+        console.log("Row Category ID:", categoryId); // Log row category ID
+
+        // Show all rows initially
+        row.style.display = ''; // Reset display for all rows
+
+        // Hide rows that don't match the selected category
+        if (selectedCategory && categoryId !== selectedCategory) {
+            row.style.display = 'none'; // Hide this row
+        }
+    });
+}
+
+
+function filterStocks() {
+    const selectValue = document.getElementById('create-stock').value;
+    const productRows = document.querySelectorAll('#productsTableBody tr');
+
+    // Show all rows initially
+    productRows.forEach(row => {
+        row.style.display = ''; // Reset display for all rows
+    });
+
+    // Filter based on selection
+    productRows.forEach(row => {
+        const statusCell = row.querySelector('td:nth-child(5)'); // Get the Status cell
+        const rowStatus = statusCell.textContent.trim().toLowerCase();
+
+        // Debugging: Show the selected value and current row status
+        console.log(`Selected: ${selectValue}, Row Status: ${rowStatus}`);
+
+        // Adjusting the comparison for case sensitivity
+        if (selectValue === 'low' && rowStatus !== 'low-stock') {
+            row.style.display = 'none'; // Hide rows that are not low-stock
+        } else if (selectValue === 'in' && rowStatus !== 'instock') {
+            row.style.display = 'none'; // Hide rows that are not in-stock
+        }
+    });
+}
+
+// Attach the function to the change event of the select element
+document.getElementById('create-stock').addEventListener('change', filterStocks);

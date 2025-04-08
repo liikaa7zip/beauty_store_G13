@@ -1,0 +1,136 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h2, h3 {
+    color: #ff66b2; /* Pink color for headings */
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+/* Section Container */
+.customer-details-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+/* Paragraphs */
+.customer-info p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.customer-info p:first-of-type {
+    font-weight: bold;
+}
+
+/* List Styles */
+.unpaid-product-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.unpaid-product-list li {
+    background-color: #f8f8f8;
+    border: 1px solid #e1e1e1;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.unpaid-product-list li small {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Total Section */
+.total-unpaid-info {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #ff66b2; /* Pink color for total */
+}
+
+/* Form Styles */
+.payment-form-container {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.payment-form-group {
+    margin-bottom: 15px;
+}
+
+.payment-form-group label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.payment-form-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.payment-form-group input[type="number"]:focus {
+    border-color: #ff66b2;
+    outline: none;
+}
+
+.payment-submit-button {
+    background-color: #ff66b2;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.payment-submit-button:hover {
+    background-color: #ff3399;
+}
+
+.payment-submit-button:focus {
+    outline: none;
+}
+
+/* Error and Success Messages */
+.response-message {
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.response-message.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.response-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
