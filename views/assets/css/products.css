@@ -1,42 +1,42 @@
+/* Dropdown container */
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
-
-.dropbtn {
-  background-color: #f1f1f1;
+/* Dropdown toggle button */
+.dropdown-toggle {
+  background: none;
   border: none;
-  padding: 5px 10px;
+  font-size: 16px;
   cursor: pointer;
-  border-radius: 4px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.dropdown-content {
+/* Dropdown menu */
+.dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0; /* Aligns dropdown to the left of the button */
+  right: 0;
   background-color: white;
   min-width: 120px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
-  z-index: 1;
+  z-index: 1000;
   display: none; /* Hidden by default */
 }
 
-.dropdown-content a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 15px;
-  text-decoration: none;
-  color: #333;
-  font-size: 14px;
+/* Show dropdown menu when active */
+.dropdown.active .dropdown-menu {
+  display: block;
 }
 
-.dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
+
+
+
 
 .material-symbols-outlined {
   font-size: 18px;
@@ -1025,4 +1025,260 @@ button#uniqueCloseModal:hover {
 }
   .dropdown-menu a.text-edit {
   color:rgb(13, 209, 6);
+}
+
+/* Responsive Styles for Inventory/Products */
+
+
+@media (max-width: 767.98px) {
+  /* Hide Category and Status columns */
+  #productTable th:nth-child(4), /* Category header */
+  #productTable td:nth-child(4), /* Category data */
+  #productTable th:nth-child(5), /* Status header */
+  #productTable td:nth-child(5) { /* Status data */
+    display: none;
+  }
+
+  /* Adjust remaining columns' widths */
+  #productTable {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    overflow-x: auto;
+    display: block; /* Allows horizontal scrolling if needed */
+  }
+
+  #productTable thead,
+  #productTable tbody,
+  #productTable tr {
+    width: 100%;
+    display: table; /* Keeps table structure intact */
+  }
+
+  /* Define column widths for visible columns */
+  #productTable th:nth-child(1), /* Name header */
+  #productTable td:nth-child(1) { /* Name data */
+    width: 40% !important; /* Increased width for name + image */
+    padding: 5px;
+  }
+
+  #productTable th:nth-child(2), /* Price header */
+  #productTable td:nth-child(2) { /* Price data */
+    width: 20% !important;
+    padding: 5px;
+  }
+
+  #productTable th:nth-child(3), /* Stock header */
+  #productTable td:nth-child(3) { /* Stock data */
+    width: 20% !important;
+    padding: 5px;
+  }
+
+  #productTable th:nth-child(6), /* Actions header */
+  #productTable td:nth-child(6) { /* Actions data */
+    width: 20% !important;
+    padding: 5px;
+  }
+
+  /* Adjust product image and text alignment */
+  .product-image {
+    display: none
+  }
+
+  #productsTableBody td div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align image and name to the left */
+    font-size: 12px; /* Reduce font size for better fit */
+  }
+
+  /* Adjust dropdown button */
+  .dropdown .dropbtn,
+  .dropdown .dropdown-toggle {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+
+  .dropdown-menu {
+    min-width: 100px; /* Reduce dropdown width */
+    font-size: 12px;
+  }
+
+  /* Ensure table container fits screen */
+  .table-container {
+    width: 100% !important;
+    padding: 10px !important;
+    overflow-x: auto;
+    box-sizing: border-box;
+  }
+
+  /* Adjust table header for mobile */
+  .table-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  #searchInput,
+  #categoryWrapper,
+  #stockWrapper {
+    width: 100%;
+    max-width: 100%;
+    margin-right: 0;
+  }
+
+  .action-buttons {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .import-btn,
+  .export-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
+
+/* For very small screens (e.g., <375px) */
+@media (max-width: 375px) {
+  #productTable th,
+  #productTable td {
+    font-size: 10px; /* Further reduce font size */
+    padding: 3px;
+  }
+
+  .product-image {
+    width: 25px;
+    height: 25px;
+  }
+
+  .dropdown .dropbtn,
+  .dropdown .dropdown-toggle {
+    padding: 3px 5px;
+  }
+
+  .dropdown-menu {
+    min-width: 80px;
+  }
+}
+
+
+/* Fix for dropdown in responsive mobile view */
+@media (max-width: 767.98px) {
+  /* Ensure dropdown is hidden by default */
+  .dropdown-content,
+  .dropdown-menu {
+    display: none !important;
+  }
+  
+  /* Only show dropdown when active class is applied */
+  .dropdown.active .dropdown-content,
+  .dropdown.active .dropdown-menu {
+    display: block !important;
+    position: absolute;
+    right: 0;
+    left: auto;
+    top: 100%;
+    width: 120px;
+    z-index: 1000;
+  }
+  
+  /* Position the dropdown properly */
+  .dropdown {
+    position: relative !important;
+  }
+  
+  /* Make dropdown items more touch-friendly */
+  .dropdown-content a,
+  .dropdown-menu a {
+    padding: 12px 15px !important;
+    font-size: 14px !important;
+  }
+  
+  /* Ensure dropdown doesn't overflow the screen */
+  .dropdown-content,
+  .dropdown-menu {
+    max-width: 150px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+
+/* Total Products - Teal Border */
+#total-products {
+  border: 1px solid #12e0e0; 
+}
+
+/* Low Stock - Red Border */
+#low-stocks {
+  border: 1px solid #ff4848;
+}
+
+/* In Stock - Green Border */
+#in-stocks {
+  border: 1px solid #21fb2c; /* Deep Green */
+}
+
+/* Waste - Orange Border */
+#waste {
+  border: 1px solid #f42020; /* Deep Orange */
+}
+
+/* Add Product - Purple Border */
+#add-product {
+  border: 1px solid #a028eb; /* Dark Purple */
+}
+
+/* Date Card - Blue Border */
+#date {
+  border: 1px solid #2b8eff; /* Deep Blue */
+}
+
+/* Make stock summary cards full width on mobile */
+@media (max-width: 767.98px) {
+  /* Target the container of the cards */
+  .stocks-container .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
+  
+  /* Make each card column take full width */
+  .stocks-container .col-md-4,
+  .stocks-container .col-lg-4,
+  .stocks-container .col-sm-6,
+  .stocks-container [class*="col-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-bottom: 15px;
+  }
+  
+  /* Make the cards themselves take full width */
+  #total-products,
+  #low-stocks,
+  #in-stocks,
+  #waste,
+  #add-product,
+  #date,
+  .card {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border-radius: 8px !important;
+  }
+  
+  /* Adjust card content for better mobile display */
+  .card-body {
+    padding: 15px !important;
+  }
+  
+  /* Remove any extra margins or padding from container */
+  .container-fluid,
+  .content-wrapper {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
 }
