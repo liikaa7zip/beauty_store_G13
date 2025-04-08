@@ -28,3 +28,5 @@
         <p>There is no product history to display for the selected session.</p>
     </div>
 <?php endif; ?>
+
+

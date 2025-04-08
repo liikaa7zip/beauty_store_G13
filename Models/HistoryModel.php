@@ -4,12 +4,12 @@ require_once "Database/Database.php";
 class HistoryModel
 {
     private $db;
-
+    
     public function __construct()
     {
         $this->db = (new Database())->getConnection();
     }
-
+    
     public function logLogin($userId, $ipAddress, $userAgent, $status)
     {
         if (!empty($userId) && !empty($ipAddress) && !empty($userAgent) && !empty($status)) {
