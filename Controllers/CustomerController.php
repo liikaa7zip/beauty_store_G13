@@ -6,6 +6,7 @@
 {
     private $customerModel;
     private $db;
+    private $productModel;
 
 
     public function __construct()
