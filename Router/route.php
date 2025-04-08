@@ -24,9 +24,9 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Initialize the role key in the session if not set
+
 if (!isset($_SESSION['role'])) {
-    $_SESSION['role'] = null; // Default to null or another appropriate value
+    $_SESSION['role'] = null; 
 }
 
 

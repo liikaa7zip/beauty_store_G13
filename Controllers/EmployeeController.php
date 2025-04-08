@@ -14,7 +14,7 @@ class EmployeeController extends BaseController
     public function index()
     {
         if ($_SESSION['role'] === 'staff') {
-            // Redirect staff users to another page
+           
             $this->redirect('/dashboard');
             exit;
         }
