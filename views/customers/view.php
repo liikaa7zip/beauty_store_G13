@@ -3,6 +3,8 @@
     <?php unset($_SESSION['success']); ?>
 <?php endif; ?>
 
+
+
 <div class="customers-list">
     <h1>Customers</h1>
 
