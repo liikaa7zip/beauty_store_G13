@@ -37,10 +37,11 @@ class HistoryController extends BaseController
                 $this->view('/history/productHistory', ['history' => $history]);
                 break;
 
-                case 'sell':
+            case 'sell': // Handle sell history
                 $history = $userId ? $this->historyModel->getSellHistoryByUser($userId) : $this->historyModel->getSellHistory();
                 $this->view('/history/sellHistory', ['history' => $history]);
                 break;
+
             case 'category':
                 $history = $userId ? $this->historyModel->getCategoryHistoryByUser($userId) : $this->historyModel->getCategoryHistory();
                 $this->view('/history/categoryHistory', ['history' => $history]);

@@ -48,7 +48,7 @@
                 <select id="history-type-filter" class="form-select filter-select">
                     <option value="product">Product</option>
                     <option value="category">Category</option>
-                    <option value="payment">Sales</option>
+                    <option value="sell">Sell</option>
                     <option value="promotion">Promotion</option>
                 </select>
             </div>

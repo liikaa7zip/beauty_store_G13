@@ -4,12 +4,12 @@ require_once "Database/Database.php";
 class HistoryModel
 {
     private $db;
-    
+
     public function __construct()
     {
         $this->db = (new Database())->getConnection();
     }
-    
+
     public function logLogin($userId, $ipAddress, $userAgent, $status)
     {
         if (!empty($userId) && !empty($ipAddress) && !empty($userAgent) && !empty($status)) {
@@ -146,6 +146,17 @@ class HistoryModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 
+    // public function getSellHistory()
+    // {
+    //     $query = "SELECT si.product_name, si.price AS amount, si.quantity, u.username AS performed_by, s.sale_date AS date
+    //           FROM sale_items si
+    //           JOIN sales s ON si.sale_id = s.id
+    //           JOIN users u ON s.user_id = u.id
+    //           ORDER BY s.sale_date DESC";
+    //     $stmt = $this->db->query($query);
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    // }
+
     public function getSellHistory()
     {
         $query = "SELECT si.product_name, si.price AS amount, si.quantity, u.username AS performed_by, s.sale_date AS date
@@ -158,16 +169,20 @@ class HistoryModel
     }
 
     public function getSellHistoryByUser($userId)
-    {
-        $query = "SELECT si.product_name, si.price AS amount, si.quantity, u.username AS performed_by, s.sale_date AS date
-              FROM sale_items si
-              JOIN sales s ON si.sale_id = s.id
-              JOIN users u ON s.user_id = u.id
-              WHERE s.user_id = :user_id
-              ORDER BY s.sale_date DESC";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
-    }
+{
+    $query = "SELECT 
+                sh.product_name, 
+                sh.amount, 
+                sh.quantity, 
+                u.username AS performed_by, 
+                sh.sale_date
+              FROM sell_history sh
+              JOIN users u ON sh.performed_by = u.id
+              WHERE sh.performed_by = :user_id
+              ORDER BY sh.sale_date DESC";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+}
 }

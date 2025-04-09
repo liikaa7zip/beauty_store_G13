@@ -1,6 +1,6 @@
 <?php if (!empty($history)): ?>
     <div class="history-container">
-        <h1>Payment History</h1>
+        <h1>Sale History</h1>
         <table class="data-table">
             <thead>
                 <tr>
@@ -18,7 +18,7 @@
                         <td><?php echo htmlspecialchars($record['amount']); ?></td>
                         <td><?php echo htmlspecialchars($record['quantity']); ?></td>
                         <td><?php echo htmlspecialchars($record['performed_by']); ?></td>
-                        <td><?php echo htmlspecialchars($record['date']); ?></td>
+                        <td><?php echo htmlspecialchars($record['sale_date']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -26,7 +26,7 @@
     </div>
 <?php else: ?>
     <div class="empty-state">
-        <h4>No Payment History Found</h4>
-        <p>There is no payment history to display at the moment.</p>
+        <h4>No Sale History Found</h4>
+        <p>There is no sale history to display at the moment.</p>
     </div>
 <?php endif; ?>

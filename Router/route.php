@@ -116,6 +116,7 @@ $route->get("/history", [HistoryController::class, 'index']);
 $route->get("/history/payment", [HistoryController::class, 'index']);
 $route->get("/history/category", [HistoryController::class, 'index']);
 $route->get("/history/promotion", [HistoryController::class, 'index']);
+$route->get("/history/sell", [HistoryController::class, 'index']);
 $route->get("/history/product", [HistoryController::class, 'productHistory']);
 // Dashboard
 $route->get("/dashboard/sell", [SellController::class, 'index']);

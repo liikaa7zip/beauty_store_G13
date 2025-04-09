@@ -86,4 +86,18 @@ class SalesModel
         // Execute query
         return $this->db->query($sql, $params);
     }
+
+    public function insertSellHistory($data)
+{
+    $query = "INSERT INTO sell_history (sale_id, product_name, amount, quantity, performed_by, sale_date)
+              VALUES (:sale_id, :product_name, :amount, :quantity, :performed_by, :sale_date)";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':sale_id', $data['sale_id']);
+    $stmt->bindParam(':product_name', $data['product_name']);
+    $stmt->bindParam(':amount', $data['amount']);
+    $stmt->bindParam(':quantity', $data['quantity']);
+    $stmt->bindParam(':performed_by', $data['performed_by']);
+    $stmt->bindParam(':sale_date', $data['sale_date']);
+    $stmt->execute();
+}
 }
