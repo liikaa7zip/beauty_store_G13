@@ -77,44 +77,6 @@ $notifications = $notificationModel->getNotifications();
 </script>
 
 
-<style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            overflow: hidden; /* Prevent scrolling */
-        }
-       
-        .container {
-            padding: 20px;
-        }
-        .notification {
-            background-color: #d4edda;
-            border: 1px solid #c3e6cb;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
-            position: relative;
-        }
-        .notification .content {
-            flex-grow: 1;
-        }
-        .notification .delete-btn {
-            background: none;
-            border: none;
-            font-size: 2.5em;
-            cursor: pointer;
-            position: absolute;
-            top: 0.5px;
-            
-            left: 880px;
-        }
-        .delete-btn:hover {
-                color: red;
-            }
-        .form-container {
-            margin-bottom: 20px;
-        }
-    </style>
 
 </head>
 <body>

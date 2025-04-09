@@ -6,6 +6,7 @@
 {
     private $customerModel;
     private $db;
+    private $productModel; // Assuming you have a ProductModel for product-related operations
 
 
     public function __construct()
