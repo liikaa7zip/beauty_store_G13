@@ -270,23 +270,23 @@
       width: 90%;
   }
 } */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .store-overview {
-      flex-direction: column; /* Stack cards vertically */
+      flex-direction: column; 
       align-items: center;
-      width: 900px; /* Center the cards */
+      width: 900px; 
       
   }
 
   .overview-card {
-      width: 95%; /* Full width on mobile */
-      max-width: 500px; /* Maintain larger max width */
-      height: auto; /* Allow height to adjust for mobile */
-      padding: 70px; /* Adjust padding for mobile if needed */
-      margin: 1rem auto; /* Center cards with margin */
+      width: 95%; 
+      max-width: 500px; 
+      height: auto; 
+      padding: 70px; 
+      margin: 1rem auto; 
 
   }
-}
+} */
 
 .activity-feed {
   background: #fff;
