@@ -48,6 +48,7 @@
                                 <img src="<?= htmlspecialchars($employee['image']); ?>"
                                     onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png';"
                                     alt="Profile Image"
+                                    style="border-radius: 50%;"
                                     width="50"
                                     height="50"
                                     loading="lazy">

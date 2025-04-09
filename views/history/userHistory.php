@@ -1,167 +1,168 @@
-<div class="container py-4">
-    <!-- Header -->
+
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
-      <div>
-        <h2 class="fw-bold">User History</h2>
-        <p class="text-muted">View and manage system history records</p>
-      </div>
-    </div>
-<div class="dashboard-card">
-
-    <!-- Search and Filter Bar -->
-    <div class="filter-controls">
-        <div class="search-container">
-            <div class="search-input-group">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" id="search-user-history" class="search-input" placeholder="Search by username, role, or product..." onkeyup="filterTable()">
-            </div>
-        </div>
-        <div class="filter-group">
-            <div class="filter-item">
-                <label for="rows-per-page" class="filter-label">Rows:</label>
-                <select id="rows-per-page" class="form-select filter-select" onchange="updatePagination()">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-            </div>
-            <div class="filter-item">
-                <label for="status-filter" class="filter-label">Status:</label>
-                <select id="status-filter" class="form-select filter-select" onchange="filterTable()">
-                    <option value="all">All</option>
-                    <option value="active">Active</option>
-                    <option value="logged-out">Logged Out</option>
-                </select>
-            </div>
-            <div class="filter-item">
-                <label for="date-range-filter" class="filter-label">Date Range:</label>
-                <select id="date-range-filter" class="form-select filter-select" onchange="filterTable()">
-                    <option value="all">All Time</option>
-                    <option value="today">Today</option>
-                    <option value="week">This Week</option>
-                    <option value="month">This Month</option>
-                </select>
-            </div>
-            <div class="filter-item">
-                <label for="history-type-filter" class="filter-label">History Type:</label>
-                <select id="history-type-filter" class="form-select filter-select">
-                    <option value="product">Product</option>
-                    <option value="category">Category</option>
-                    <option value="sell">Sell</option>
-                    <option value="promotion">Promotion</option>
-                </select>
-            </div>
+        <div>
+            <h2 class="fw-bold">User History</h2>
+            <p class="text-muted">View and manage system history records</p>
         </div>
     </div>
+    <div class="dashboard-card">
+        <!-- Search and Filter Bar -->
+        <div class="filter-controls">
+            <div class="search-container">
+                <div class="search-input-group">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-user-history" class="search-input" placeholder="Search by username, role, or product..." onkeyup="filterTable()">
+                </div>
+            </div>
+            <div class="filter-group">
+                <div class="filter-item">
+                    <label for="rows-per-page" class="filter-label">Rows:</label>
+                    <select id="rows-per-page" class="form-select filter-select" onchange="updatePagination()">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="status-filter" class="filter-label">Status:</label>
+                    <select id="status-filter" class="form-select filter-select" onchange="filterTable()">
+                        <option value="all">All</option>
+                        <option value="active">Active</option>
+                        <option value="logged-out">Logged Out</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="date-range-filter" class="filter-label">Date Range:</label>
+                    <select id="date-range-filter" class="form-select filter-select" onchange="filterTable()">
+                        <option value="all">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="history-type-filter" class="filter-label">History Type:</label>
+                    <select id="history-type-filter" class="form-select filter-select">
+                        <option value="product">Product</option>
+                        <option value="category">Category</option>
+                        <option value="sell">Sell</option>
+                        <option value="promotion">Promotion</option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
-    <!-- User Login History Table -->
-    <div class="table-container">
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th scope="col" style="width: 20%;" onclick="sortTable(0)">
-                        <div class="th-content">User Name</div>
-                    </th>
-                    <th scope="col" style="width: 12%;" onclick="sortTable(1)">
-                        <div class="th-content">Role</div>
-                    </th>
-                    <th scope="col" style="width: 15%;" onclick="sortTable(3)">
-                        <div class="th-content">Status</div>
-                    </th>
-                    <th scope="col" style="width: 20%;" onclick="sortTable(4)">
-                        <div class="th-content">Login Time</div>
-                    </th>
-                    <th scope="col" style="width: 20%;" onclick="sortTable(5)">
-                        <div class="th-content">Logout Time</div>
-                    </th>
-                    <th scope="col" style="width: 13%;">Time Spent</th>
-                </tr>
-            </thead>
-            <tbody id="historyTable">
-                <?php
-                date_default_timezone_set('Asia/Phnom_Penh');
-                if (!empty($history) && is_array($history)):
-                    $now = new DateTime();
-                    foreach ($history as $record):
-                        $loginTime = new DateTime($record['login_time']);
-                        $logoutTime = !empty($record['logout_time']) ? new DateTime($record['logout_time']) : null;
-                        $duration = $logoutTime ? $logoutTime->diff($loginTime) : $now->diff($loginTime);
-                ?>
-                        <tr data-user-id="<?php echo $record['user_id']; ?>">
-                            <td>
-                                <div class="user-info">
-                                    <div class="user-avatar">
-                                        <?php echo strtoupper(substr($record['username'] ?? '?', 0, 1)); ?>
+        <!-- User Login History Table -->
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 20%;" onclick="sortTable(0)">
+                            <div class="th-content">User Name</div>
+                        </th>
+                        <th scope="col" style="width: 12%;" onclick="sortTable(1)">
+                            <div class="th-content">Role</div>
+                        </th>
+                        <th scope="col" style="width: 15%;" onclick="sortTable(3)">
+                            <div class="th-content">Status</div>
+                        </th>
+                        <th scope="col" style="width: 20%;" onclick="sortTable(4)">
+                            <div class="th-content">Login Time</div>
+                        </th>
+                        <th scope="col" style="width: 20%;" onclick="sortTable(5)">
+                            <div class="th-content">Logout Time</div>
+                        </th>
+                        <th scope="col" style="width: 13%;">Duration</th>
+                    </tr>
+                </thead>
+                <tbody id="historyTable">
+                    <?php
+                    date_default_timezone_set('Asia/Phnom_Penh');
+                    if (!empty($history) && is_array($history)):
+                        $now = new DateTime();
+                        foreach ($history as $record):
+                            $loginTime = new DateTime($record['login_time']);
+                            $logoutTime = !empty($record['logout_time']) ? new DateTime($record['logout_time']) : null;
+                            $duration = $logoutTime ? $logoutTime->diff($loginTime) : $now->diff($loginTime);
+                    ?>
+                            <tr data-user-id="<?php echo $record['user_id']; ?>">
+                                <td>
+                                    <div class="user-info">
+                                        <div class="user-avatar">
+                                            <?php echo strtoupper(substr($record['username'] ?? '?', 0, 1)); ?>
+                                        </div>
+                                        <div class="user-details">
+                                            <?php echo htmlspecialchars($record['username'] ?? 'N/A'); ?>
+                                        </div>
                                     </div>
-                                    <div class="user-details">
-                                        <?php echo htmlspecialchars($record['username'] ?? 'N/A'); ?>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="role-badge" data-role="<?php echo htmlspecialchars($record['role'] ?? ''); ?>">
-                                    <?php echo htmlspecialchars($record['role'] ?? 'N/A'); ?>
-                                </span>
-                            </td>
-                            <td>
-                                <?php if (empty($record['logout_time'])): ?>
-                                    <span class="status-badge active">
-                                        <i class="fas fa-circle status-icon"></i> Active
+                                </td>
+                                <td>
+                                    <span class="role-badge" data-role="<?php echo htmlspecialchars($record['role'] ?? ''); ?>">
+                                        <?php echo htmlspecialchars($record['role'] ?? 'N/A'); ?>
                                     </span>
-                                <?php else: ?>
-                                    <span class="status-badge inactive">
-                                        <i class="fas fa-power-off status-icon"></i> Logged Out
-                                    </span>
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <div class="timestamp">
-                                    <div class="datetime"><?php echo $loginTime->format('Y-m-d H:i:s'); ?></div>
-                                    <div class="time-ago"><?php echo timeAgo($loginTime, $now); ?></div>
-                                </div>
-                            </td>
-                            <td>
-                                <?php if (empty($record['logout_time'])): ?>
-                                    <span class="text-warning">Still Active</span>
-                                <?php else: ?>
+                                </td>
+                                <td>
+                                    <?php if (empty($record['logout_time'])): ?>
+                                        <span class="status-badge active">
+                                            <i class="fas fa-circle status-icon"></i> Active
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="status-badge inactive">
+                                            <i class="fas fa-power-off status-icon"></i> Logged Out
+                                        </span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
                                     <div class="timestamp">
-                                        <div class="datetime"><?php echo $logoutTime->format('Y-m-d H:i:s'); ?></div>
-                                        <div class="time-ago"><?php echo timeAgo($logoutTime, $now); ?></div>
+                                        <div class="datetime"><?php echo $loginTime->format('Y-m-d H:i:s'); ?></div>
+                                        <div class="time-ago"><?php echo timeAgo($loginTime, $now); ?></div>
                                     </div>
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <?php if ($logoutTime): ?>
-                                    <span class="session-duration">
-                                        <?php echo formatDuration($duration); ?>
-                                    </span>
-                                <?php else: ?>
-                                    <span class="session-duration active">
-                                        <?php echo formatDuration($duration); ?>
-                                        <span class="live-indicator"></span>
-                                    </span>
-                                <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if (empty($record['logout_time'])): ?>
+                                        <span class="text-warning">Still Active</span>
+                                    <?php else: ?>
+                                        <div class="timestamp">
+                                            <div class="datetime"><?php echo $logoutTime->format('Y-m-d H:i:s'); ?></div>
+                                            <div class="time-ago"><?php echo timeAgo($logoutTime, $now); ?></div>
+                                        </div>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if ($logoutTime): ?>
+                                        <span class="session-duration">
+                                            <?php echo formatDuration($duration); ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="session-duration active">
+                                            <?php echo formatDuration($duration); ?>
+                                            <span class="live-indicator"></span>
+                                        </span>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr class="no-data-row">
+                            <td colspan="7">
+                                <div class="empty-state">
+                                    <i class="fas fa-user-clock empty-icon"></i>
+                                    <h4>No login history found</h4>
+                                    <p>There are no records to display at this time</p>
+                                </div>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr class="no-data-row">
-                        <td colspan="7">
-                            <div class="empty-state">
-                                <i class="fas fa-user-clock empty-icon"></i>
-                                <h4>No login history found</h4>
-                                <p>There are no records to display at this time</p>
-                            </div>
-                        </td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
-    
-    <div id="showing-entries" class="pagination-info mt-3">
-        Showing 0 to 0 of 0 entries
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="mobile-view" id="mobile-view">
+            <!-- Mobile cards will be populated by JavaScript -->
+        </div>
+        <div id="showing-entries" class="pagination-info mt-3">
+            Showing 0 to 0 of 0 entries
+        </div>
     </div>
 </div>
 
@@ -227,63 +228,7 @@ function formatDuration($diff)
 }
 ?>
 
-<style>
-    .search-input {
-        padding-left: 40px;
-        padding-right: 40px;
-        border-radius: 8px;
-        border: 1px solid #e0e0e0;
-        height: 40px;
-        transition: all 0.2s;
-    }
 
-    .table-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        border-radius: 8px;
-        border: 1px solid #e0e0e0;
-    }
-    
-    /* Pagination styles */
-    .pagination-controls {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .pagination-btn {
-        min-width: 32px;
-        height: 32px;
-        padding: 0 8px;
-        border: 1px solid #ddd;
-        background: white;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-
-    .pagination-btn:hover:not(.disabled) {
-        background: #f5f5f5;
-    }
-
-    .pagination-btn.active {
-        background: #007bff;
-        color: white;
-        border-color: #007bff;
-    }
-
-    .pagination-btn.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-
-    .pagination-ellipsis {
-        padding: 0 8px;
-    }
-</style>
 
 <script>
     // Global variables for table management
@@ -298,11 +243,11 @@ function formatDuration($diff)
     document.addEventListener('DOMContentLoaded', function() {
         // Set initial rows per page from select element
         rowsPerPage = parseInt(document.getElementById('rows-per-page').value);
-        
+
         // Initialize table data and display
         initializeTable();
         updatePagination();
-        
+
         // Set up event listeners
         setupEventListeners();
     });
@@ -355,7 +300,7 @@ function formatDuration($diff)
 
         // Initially, filteredData is the same as tableData
         filteredData = [...tableData];
-        
+
         // Set up row click handlers
         setupRowClickHandlers();
     }
@@ -364,17 +309,17 @@ function formatDuration($diff)
     function setupRowClickHandlers() {
         const rows = document.querySelectorAll('#historyTable tr[data-user-id]');
         const historyTypeFilter = document.getElementById('history-type-filter');
-        
+
         rows.forEach(row => {
             row.addEventListener('click', function(event) {
                 // Don't navigate if clicking on a link or button inside the row
                 if (event.target.tagName === 'A' || event.target.tagName === 'BUTTON') {
                     return;
                 }
-                
+
                 const userId = row.getAttribute('data-user-id');
                 const historyType = historyTypeFilter.value;
-                
+
                 if (userId && historyType) {
                     window.location.href = `/history?type=${historyType}&user_id=${userId}`;
                 }
@@ -412,15 +357,14 @@ function formatDuration($diff)
         // Filter the data
         filteredData = tableData.filter(data => {
             // Search filter
-            const matchesSearch = searchInput === '' || 
+            const matchesSearch = searchInput === '' ||
                 data.username.includes(searchInput) ||
                 data.role.includes(searchInput);
-            
+
             // Status filter
-            const matchesStatus = statusFilter === 'all' || 
+            const matchesStatus = statusFilter === 'all' ||
                 data.status === statusFilter;
-            
-            // Date range filter
+
             let matchesDateRange = true;
             if (startDate && data.loginTime) {
                 matchesDateRange = data.loginTime >= startDate;
@@ -429,23 +373,20 @@ function formatDuration($diff)
             return matchesSearch && matchesStatus && matchesDateRange;
         });
 
-        // Apply sorting if a column is selected
         if (sortColumn >= 0) {
-            sortTable(sortColumn, true); // true means we're preserving the current sort
+            sortTable(sortColumn, true); 
         } else {
             updateDisplay();
         }
     }
 
-    // Sort the table data
     function sortTable(columnIndex, preserveDirection = false) {
         if (!preserveDirection) {
-            // Toggle sort direction if clicking the same column
             if (sortColumn === columnIndex) {
                 sortDirection *= -1;
             } else {
                 sortColumn = columnIndex;
-                sortDirection = 1; // Default to ascending
+                sortDirection = 1; 
             }
         }
 
@@ -453,27 +394,27 @@ function formatDuration($diff)
             let valA, valB;
 
             switch (columnIndex) {
-                case 0: // Username
+                case 0: 
                     valA = a.username;
                     valB = b.username;
                     break;
-                case 1: // Role
+                case 1: 
                     valA = a.role;
                     valB = b.role;
                     break;
-                case 2: // Status
+                case 2: 
                     valA = a.status;
                     valB = b.status;
                     break;
-                case 3: // Login Time
+                case 3: 
                     valA = a.loginTime?.getTime() || 0;
                     valB = b.loginTime?.getTime() || 0;
                     break;
-                case 4: // Logout Time
+                case 4: 
                     valA = a.logoutTime?.getTime() || 0;
                     valB = b.logoutTime?.getTime() || 0;
                     break;
-                case 5: // Session Duration
+                case 5:
                     valA = a.sessionDuration;
                     valB = b.sessionDuration;
                     break;
@@ -489,45 +430,36 @@ function formatDuration($diff)
         updateDisplay();
     }
 
-    // Update the table display with pagination
     function updateDisplay() {
-        // Hide all rows first
         tableData.forEach(data => {
             data.element.style.display = 'none';
         });
 
-        // Calculate pagination
         const start = (currentPage - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         const paginatedData = filteredData.slice(start, end);
 
-        // Show the paginated rows
         paginatedData.forEach(data => {
             data.element.style.display = '';
         });
 
-        // Handle empty state
         const emptyState = document.querySelector('.no-data-row');
         if (emptyState) {
             emptyState.style.display = filteredData.length === 0 ? '' : 'none';
         }
 
-        // Update pagination info
         updatePaginationInfo();
     }
 
-    // Update pagination information display
     function updatePaginationInfo() {
         const totalRows = filteredData.length;
         const pageCount = Math.ceil(totalRows / rowsPerPage) || 1;
-        
-        // Ensure current page is within bounds
+
         currentPage = Math.max(1, Math.min(currentPage, pageCount));
-        
+
         const start = (currentPage - 1) * rowsPerPage + 1;
         const end = Math.min(currentPage * rowsPerPage, totalRows);
-        
-        // Update showing entries text
+
         const showingElement = document.getElementById('showing-entries');
         showingElement.innerHTML = `
             <div class="d-flex justify-content-between align-items-center">
@@ -537,30 +469,25 @@ function formatDuration($diff)
                 </div>
             </div>
         `;
-        
-        // Add event listeners to pagination buttons
+
         addPaginationEventListeners();
     }
 
     // Generate pagination controls HTML
     function generatePaginationControls(currentPage, totalPages) {
         let html = '';
-        
-        // Previous button
+
         html += `<button class="pagination-btn ${currentPage === 1 ? 'disabled' : ''}" data-page="prev">
             <i class="fas fa-chevron-left"></i>
         </button>`;
-        
-        // Page numbers
-        const maxVisiblePages = 3; // Show up to 3 page numbers
+
+        const maxVisiblePages = 3; 
         let startPage, endPage;
-        
+
         if (totalPages <= maxVisiblePages) {
-            // Show all pages
             startPage = 1;
             endPage = totalPages;
         } else {
-            // Calculate start and end pages
             const half = Math.floor(maxVisiblePages / 2);
             if (currentPage <= half) {
                 startPage = 1;
@@ -573,43 +500,38 @@ function formatDuration($diff)
                 endPage = currentPage + half;
             }
         }
-        
-        // First page button if needed
+
         if (startPage > 1) {
             html += `<button class="pagination-btn" data-page="1">1</button>`;
             if (startPage > 2) {
                 html += `<span class="pagination-ellipsis">...</span>`;
             }
         }
-        
-        // Page number buttons
+
         for (let i = startPage; i <= endPage; i++) {
             html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
         }
-        
-        // Last page button if needed
+
         if (endPage < totalPages) {
             if (endPage < totalPages - 1) {
                 html += `<span class="pagination-ellipsis">...</span>`;
             }
             html += `<button class="pagination-btn" data-page="${totalPages}">${totalPages}</button>`;
         }
-        
-        // Next button
+
         html += `<button class="pagination-btn ${currentPage === totalPages ? 'disabled' : ''}" data-page="next">
             <i class="fas fa-chevron-right"></i>
         </button>`;
-        
+
         return html;
     }
 
-    // Add event listeners to pagination buttons
     function addPaginationEventListeners() {
         document.querySelectorAll('.pagination-btn').forEach(button => {
             button.addEventListener('click', function() {
                 const totalPages = Math.ceil(filteredData.length / rowsPerPage) || 1;
                 let newPage = currentPage;
-                
+
                 if (this.dataset.page === 'prev') {
                     newPage = Math.max(1, currentPage - 1);
                 } else if (this.dataset.page === 'next') {
@@ -617,7 +539,7 @@ function formatDuration($diff)
                 } else {
                     newPage = parseInt(this.dataset.page);
                 }
-                
+
                 if (newPage !== currentPage) {
                     currentPage = newPage;
                     updateDisplay();
@@ -626,9 +548,156 @@ function formatDuration($diff)
         });
     }
 
-    // Update pagination (called when rows per page changes)
     function updatePagination() {
         currentPage = 1;
         updateDisplay();
     }
+
+    function updateDisplay() {
+        tableData.forEach(data => {
+            data.element.style.display = 'none';
+        });
+
+        // Calculate pagination
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = filteredData.slice(start, end);
+
+        // Show paginated rows for desktop
+        paginatedData.forEach(data => {
+            data.element.style.display = '';
+        });
+
+        // Render mobile cards
+        renderMobileCards(paginatedData);
+
+        // Handle empty state for desktop
+        const emptyState = document.querySelector('.no-data-row');
+        if (emptyState) {
+            emptyState.style.display = filteredData.length === 0 ? '' : 'none';
+        }
+
+        // Update pagination info
+        updatePaginationInfo();
+
+        // Force correct display based on screen size
+        adjustDisplayForScreenSize();
+    }
+
+    // New function to adjust display based on screen size
+    function adjustDisplayForScreenSize() {
+        const tableContainer = document.querySelector('.table-container');
+        const mobileView = document.querySelector('.mobile-view');
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+        if (isMobile) {
+            tableContainer.style.display = 'none';
+            mobileView.style.display = 'block';
+        } else {
+            tableContainer.style.display = 'block';
+            mobileView.style.display = 'none';
+        }
+    }
+
+    // Add resize listener
+    window.addEventListener('resize', adjustDisplayForScreenSize);
+
+    // Modified renderMobileCards with better mobile optimization
+    function renderMobileCards(records) {
+        const mobileView = document.getElementById('mobile-view');
+        mobileView.innerHTML = '';
+
+        if (records.length === 0) {
+            mobileView.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-user-clock empty-icon"></i>
+                    <h4>No login history found</h4>
+                    <p>There are no records to display at this time</p>
+                </div>
+            `;
+            return;
+        }
+
+        records.forEach(data => {
+            const row = data.element;
+            const cells = row.cells;
+
+            const userInfo = cells[0].querySelector('.user-info');
+            const avatar = userInfo.querySelector('.user-avatar').textContent.trim();
+            const username = userInfo.querySelector('.user-details').textContent.trim();
+            const role = cells[1].querySelector('.role-badge').textContent.trim();
+            const isActive = cells[2].textContent.toLowerCase().includes('active');
+            const loginTimeEl = cells[3].querySelector('.timestamp');
+            const loginDateTime = loginTimeEl ? loginTimeEl.querySelector('.datetime').textContent : '';
+            const loginTimeAgo = loginTimeEl ? loginTimeEl.querySelector('.time-ago').textContent : '';
+            const logoutCell = cells[4];
+            const isStillActive = logoutCell.textContent.includes('Still Active');
+            const logoutTimeEl = logoutCell.querySelector('.timestamp');
+            const logoutDateTime = logoutTimeEl ? logoutTimeEl.querySelector('.datetime').textContent : '';
+            const logoutTimeAgo = logoutTimeEl ? logoutTimeEl.querySelector('.time-ago').textContent : '';
+            const durationEl = cells[5].querySelector('.session-duration');
+            const duration = durationEl ? durationEl.textContent.trim() : '';
+
+            const card = document.createElement('div');
+            card.className = 'mobile-card';
+            card.innerHTML = `
+                <div class="mobile-card-header">
+                    <div class="user-info">
+                        <div class="user-avatar">${avatar}</div>
+                        <div>
+                            <div class="fw-medium">${username}</div>
+                            <span class="role-badge" data-role="${role.toLowerCase()}">${role}</span>
+                        </div>
+                    </div>
+                    <span class="status-badge ${isActive ? 'active' : 'inactive'}">
+                        <i class="fas fa-${isActive ? 'circle' : 'power-off'} status-icon"></i>
+                        ${isActive ? 'Active' : 'Logged Out'}
+                    </span>
+                </div>
+                <div class="mobile-card-body">
+                    <div class="mobile-card-field">
+                        <div class="mobile-card-label">Login</div>
+                        <div class="mobile-card-value">${loginDateTime}</div>
+                        <div class="time-ago">${loginTimeAgo}</div>
+                    </div>
+                    <div class="mobile-card-field">
+                        <div class="mobile-card-label">Logout</div>
+                        ${isStillActive 
+                            ? '<span class="text-warning">Still Active</span>' 
+                            : `<div class="mobile-card-value">${logoutDateTime}</div>
+                               <div class="time-ago">${logoutTimeAgo}</div>`
+                        }
+                    </div>
+                    <div class="mobile-card-field">
+                        <div class="mobile-card-label">Duration</div>
+                        <span class="session-duration ${isActive ? 'active' : ''}">
+                            ${duration}
+                            ${isActive ? '<span class="live-indicator"></span>' : ''}
+                        </span>
+                    </div>
+                </div>
+            `;
+
+            const userId = row.getAttribute('data-user-id');
+            if (userId) {
+                card.addEventListener('click', function(event) {
+                    if (event.target.tagName !== 'A' && event.target.tagName !== 'BUTTON') {
+                        const historyType = document.getElementById('history-type-filter').value;
+                        window.location.href = `/history?type=${historyType}&user_id=${userId}`;
+                    }
+                });
+                card.style.cursor = 'pointer';
+            }
+
+            mobileView.appendChild(card);
+        });
+    }
+
+    // Call adjustDisplayForScreenSize on initial load
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeTable();
+        updatePagination();
+        setupEventListeners();
+        adjustDisplayForScreenSize();
+    });
 </script>
