@@ -35,3 +35,43 @@ body, html {
 .form-container {
     margin-bottom: 20px;
 }
+
+@media screen and (max-width: 900px) {
+    .notification .delete-btn {
+        left: 92%; /* Adjust the position for smaller screens */
+        font-size: 2em;
+    }
+    .notification {
+        width: 100%;
+        margin: 0 auto;
+        border-radius: 0px;
+    }
+    .form-container {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .form-container input[type="text"] {
+        width: 100%;
+    }
+    
+}
+
+@media screen and (max-width: 600px) {
+    .notification .delete-btn {
+        left: 85%; /* Adjust the position for smaller screens */
+        font-size: 1.5em;
+    }
+    .notification {
+        width: 100%;
+        margin: 0 auto;
+        border-radius: 0px;
+    }
+    .form-container {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .form-container input[type="text"] {
+        width: 100%;
+    }
+    
+}
