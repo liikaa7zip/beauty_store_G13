@@ -76,19 +76,7 @@
                             <span style="font-family: monospace;"><?= htmlspecialchars(substr($employee['password'], 0, 5)) ?>•••••</span>
                         </td>
                         <td class="emp-table-data">
-                            <!-- <div class="emp-dropdown-menu">
-                                <button class="emp-dropdown-toggle btn btn-sm" onclick="toggleDropdown(this)">
-                                    <span class="material-symbols-outlined">more_horiz</span>
-                                </button>
-                                <div class="emp-dropdown-options">
-                                    <a href="/employees/edit/<?= htmlspecialchars($employee['id']) ?>" class="emp-dropdown-item">
-                                        <span class="material-symbols-outlined">edit</span> Edit
-                                    </a>
-                                    <a href="/employees/delete/<?= htmlspecialchars($employee['id']) ?>" class="emp-dropdown-item">
-                                        <span class="material-symbols-outlined">delete</span> Delete
-                                    </a>
-                                </div>
-                            </div> -->
+
 
                             <div class="dropdown">
                                 <button class="dropdown-toggle" type="button">
@@ -219,4 +207,177 @@
             });
         }
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const imageOverlay = document.getElementById('newImageOverlay');
+    const imageUpload = document.getElementById('newImageUpload');
+    
+    // If imageUpload doesn't exist in the DOM, create it
+    if (!imageUpload) {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.id = 'newImageUpload';
+        input.name = 'image';
+        input.style.display = 'none';
+        input.accept = 'image/*';
+        document.body.appendChild(input);
+    }
+    
+    // Handle click on the image overlay
+    if (imageOverlay) {
+        imageOverlay.addEventListener('click', function() {
+            document.getElementById('newImageUpload').click();
+        });
+    }
+    
+    // Handle image selection
+    document.getElementById('newImageUpload').addEventListener('change', function(e) {
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                imageOverlay.style.backgroundImage = `url(${event.target.result})`;
+                
+                // Hide the placeholder text when an image is selected
+                const placeholder = document.querySelector('.new-image-placeholder');
+                if (placeholder) {
+                    placeholder.style.display = 'none';
+                }
+            };
+            
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+    
+    // Add touch support for mobile devices
+    if (imageOverlay) {
+        imageOverlay.addEventListener('touchstart', function() {
+            // Show the overlay on touch
+            const overlay = this.querySelector('.new-image-overlay');
+            if (overlay) {
+                overlay.style.opacity = '1';
+            }
+        });
+        
+        imageOverlay.addEventListener('touchend', function() {
+            // Hide the overlay after touch
+            setTimeout(() => {
+                const overlay = this.querySelector('.new-image-overlay');
+                if (overlay) {
+                    overlay.style.opacity = '0';
+                }
+            }, 300);
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const imageOverlay = document.getElementById('newImageOverlay');
+    const imageUpload = document.getElementById('newImageUpload');
+    
+    // Handle click on the image overlay
+    if (imageOverlay) {
+        imageOverlay.addEventListener('click', function() {
+            imageUpload.click();
+        });
+    }
+    
+    // Handle image selection
+    if (imageUpload) {
+        imageUpload.addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    imageOverlay.style.backgroundImage = `url(${event.target.result})`;
+                    
+                    // Hide the placeholder text when an image is selected
+                    const placeholder = document.querySelector('.new-image-placeholder');
+                    if (placeholder) {
+                        placeholder.style.display = 'none';
+                    }
+                };
+                
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+    }
+    
+    // Add touch support for mobile devices
+    if (imageOverlay) {
+        imageOverlay.addEventListener('touchstart', function() {
+            // Show the overlay on touch
+            const overlay = this.querySelector('.new-image-overlay');
+            if (overlay) {
+                overlay.style.opacity = '1';
+            }
+        });
+        
+        imageOverlay.addEventListener('touchend', function() {
+            // Hide the overlay after touch
+            setTimeout(() => {
+                const overlay = this.querySelector('.new-image-overlay');
+                if (overlay) {
+                    overlay.style.opacity = '0';
+                }
+            }, 300);
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const imageOverlay = document.getElementById('newImageOverlay');
+    const imageUpload = document.getElementById('newImageUpload');
+    
+    // Handle click on the image overlay
+    if (imageOverlay) {
+        imageOverlay.addEventListener('click', function() {
+            imageUpload.click();
+        });
+    }
+    
+    // Handle image selection
+    if (imageUpload) {
+        imageUpload.addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    imageOverlay.style.backgroundImage = `url(${event.target.result})`;
+                    
+                    // Hide the placeholder text when an image is selected
+                    const placeholder = document.querySelector('.new-image-placeholder');
+                    if (placeholder) {
+                        placeholder.style.display = 'none';
+                    }
+                };
+                
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+    }
+    
+    // Add touch support for mobile devices
+    if (imageOverlay) {
+        imageOverlay.addEventListener('touchstart', function() {
+            // Show the overlay on touch
+            const overlay = this.querySelector('.new-image-overlay');
+            if (overlay) {
+                overlay.style.opacity = '1';
+            }
+        });
+        
+        imageOverlay.addEventListener('touchend', function() {
+            // Hide the overlay after touch
+            setTimeout(() => {
+                const overlay = this.querySelector('.new-image-overlay');
+                if (overlay) {
+                    overlay.style.opacity = '0';
+                }
+            }, 300);
+        });
+    }
+});
 </script>
+
+
