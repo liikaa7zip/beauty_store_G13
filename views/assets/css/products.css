@@ -506,33 +506,18 @@
   transition: all 0.3s ease-in-out;
 }
 
-.import-btn {
+.export-btn {
   background-color: #f1ced5; /* Light blue background */
   color: #d4467f; /* Blue text */
 }
 
-.import-btn:hover {
+.export-btn:hover {
   background-color: #d1e3f6; /* Slightly darker light blue */
   box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
 }
 
-.import-btn i {
-  color: #d4467f; /* Blue icon to match text */
-  font-size: 14px;
-}
-
-.export-btn {
-  background-color: #e8f5e9; /* Light green background */
-  color: #4a90e2; /* Green text */
-}
-
-.export-btn:hover {
-  background-color: #d1e3f6; /* Slightly darker light green */
-  box-shadow: 0 0 5px rgba(46, 125, 50, 0.3);
-}
-
 .export-btn i {
-  color: #4a90e2; /* Green icon to match text */
+  color: #d4467f; /* Blue icon to match text */
   font-size: 14px;
 }
 
