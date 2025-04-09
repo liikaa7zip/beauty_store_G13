@@ -218,47 +218,47 @@ function exportToExcel() {
 // }
 
 
-function triggerImport() {
-    console.log('Import button clicked'); // Confirms button click
+// function triggerImport() {
+//     console.log('Import button clicked'); // Confirms button click
     
-    // Create file input element
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.accept = '.xlsx, .xls, .csv';
-    fileInput.style.display = 'none';
+//     // Create file input element
+//     const fileInput = document.createElement('input');
+//     fileInput.type = 'file';
+//     fileInput.accept = '.xlsx, .xls, .csv';
+//     fileInput.style.display = 'none';
     
-    // Add to DOM and trigger click
-    document.body.appendChild(fileInput);
-    fileInput.click();
+//     // Add to DOM and trigger click
+//     document.body.appendChild(fileInput);
+//     fileInput.click();
     
-    // Handle file selection
-    fileInput.addEventListener('change', async (event) => {
-        const file = event.target.files[0];
-        if (!file) {
-            document.body.removeChild(fileInput);
-            return;
-        }
+//     // Handle file selection
+//     fileInput.addEventListener('change', async (event) => {
+//         const file = event.target.files[0];
+//         if (!file) {
+//             document.body.removeChild(fileInput);
+//             return;
+//         }
 
-        console.log('Selected file:', file.name);
+//         console.log('Selected file:', file.name);
         
-        try {
-            // Read Excel file
-            const rows = await readXlsxFile(file);
-            console.log('File contents:', rows);
+//         try {
+//             // Read Excel file
+//             const rows = await readXlsxFile(file);
+//             console.log('File contents:', rows);
             
-            // Process and display data
-            displayExcelData(rows);
+//             // Process and display data
+//             displayExcelData(rows);
             
-            // Show success message
-            showImportStatus('File imported successfully!', 'success');
-        } catch (error) {
-            console.error('Import failed:', error);
-            showImportStatus('Import failed: ' + error.message, 'error');
-        } finally {
-            document.body.removeChild(fileInput);
-        }
-    });
-}
+//             // Show success message
+//             showImportStatus('File imported successfully!', 'success');
+//         } catch (error) {
+//             console.error('Import failed:', error);
+//             showImportStatus('Import failed: ' + error.message, 'error');
+//         } finally {
+//             document.body.removeChild(fileInput);
+//         }
+//     });
+// }
 
 function displayExcelData(rows) {
     const table = document.getElementById('excel-table');

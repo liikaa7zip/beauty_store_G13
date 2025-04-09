@@ -41,9 +41,9 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="spacer"></div>
                 
                 <div class="action-buttons">
-                    <button class="import-btn" onclick="triggerImport(); console.log('Import button clicked');">
+                    <!-- <button class="import-btn" onclick="triggerImport(); console.log('Import button clicked');">
                     <i class="fa fa-download"></i> Import
-                    </button>
+                    </button> -->
                     <button class="export-btn" onclick="exportToExcel(); console.log('Export button clicked');">
                         
                         <i class="fa fa-upload"></i> Export
