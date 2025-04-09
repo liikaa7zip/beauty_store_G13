@@ -226,3 +226,30 @@ function toggleQRCode() {
         toggleButton.innerText = 'Show Khmer QR'; // Change button text to show Khmer QR
     }
 }
+
+
+function toggleQRCode() {
+    // Get both the main page QR code and the modal QR code
+    var mainQRCode = document.getElementById("qr-code");
+    var modalQRCode = document.getElementById("qr-code-modal");
+    var mainToggleBtn = document.getElementById("toggle-btn");
+    var modalToggleBtn = document.getElementById("toggle-btn-modal");
+    
+    // Check which image is currently displayed
+    const isDollarQR = mainQRCode.src.includes("qr-dollar.jpg");
+    
+    if (isDollarQR) {
+        // Switch to Khmer QR
+        mainQRCode.src = "/views/assets/img/qr-khmer.jpg"; 
+        modalQRCode.src = "/views/assets/img/qr-khmer.jpg";
+        mainToggleBtn.textContent = "Show Dollar QR";
+        modalToggleBtn.textContent = "Show Dollar QR";
+    } else {
+        // Switch back to Dollar QR
+        mainQRCode.src = "/views/assets/img/qr-dollar.jpg";
+        modalQRCode.src = "/views/assets/img/qr-dollar.jpg";
+        mainToggleBtn.textContent = "Show Khmer QR";
+        modalToggleBtn.textContent = "Show Khmer QR";
+    }
+}
+

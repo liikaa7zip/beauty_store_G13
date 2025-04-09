@@ -40,56 +40,66 @@
                 <button onclick="submitSales()" class="submit-button" style="border:none">Submit</button>
 
                 <!-- Modal Structure -->
-    <div id="recipeModal" class="modal">
-        <div id="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <header>
-                <h1>Beauty Store</h1>
-                <p id="recipe">Address: BP 511 St. 371 Phum Tropeang Chhuk (Borey Sorla) Sangkat, Tek Thla Khan Sen Sok, Phnom Penh, CAMBODIA</p>
-            </header>
-            <h2 id="h2-recipe">Invoice</h2>
-            <div class="invoice-details">
-                <p><strong>Date:</strong> <?= date('Y-m-d') ?></p>
-                <p><strong>Time:</strong> <?= date('h:i A') ?></p>
-            </div>
-            <table id="invoice-table"> <!-- Unique ID for invoice table -->
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Price per Unit</th>
-                        <th>Total Price</th>
-                    </tr>
-                </thead>
-                <tbody id="order-list">
-                    <!-- Dynamic rows will be added here -->
-                </tbody>
-            </table>
-            <div class="total">
-                <p><strong>TOTAL:</strong> $<span id="total-amount">0.00</span></p> <!-- Total amount in div -->
-            </div>
-            <!-- Button to Download PDF -->
-    <button class="btn-pdf" onclick="exportToPDF()">Download PDF</button>
-        </div>
-    </div>
-
+                <div id="recipeModal" class="modal">
+                    <div id="modal-content">
+                        <span class="close-btn" onclick="closeModal()">&times;</span>
+                        <header>
+                            <h1>Beauty Store</h1>
+                            <p id="recipe">Address: BP 511 St. 371 Phum Tropeang Chhuk (Borey Sorla) Sangkat, Tek Thla Khan Sen Sok, Phnom Penh, CAMBODIA</p>
+                        </header>
+                        <h2 id="h2-recipe">Invoice</h2>
+                        <div class="invoice-details">
+                            <p><strong>Date:</strong> <?= date('Y-m-d') ?></p>
+                        </div>
+                        <table id="invoice-table"> <!-- Unique ID for invoice table -->
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price per Unit</th>
+                                    <th>Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="order-list">
+                                <!-- Dynamic rows will be added here -->
+                            </tbody>
+                        </table>
+                        <div class="total">
+                            <p><strong>TOTAL:</strong> $<span id="total-amount">0.00</span></p> 
+                        </div>
+                        <!-- Button to Download PDF -->
+                        <button class="btn-pdf" onclick="exportToPDF()">Download PDF</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="sales-image" style="text-align: center;">
-      <img id="qr-code" src="/views/assets/img/qr-dollar.jpg" alt="Sales QR Code">
-      <!-- Button placed under the image -->
-      <button id="toggle-btn" onclick="toggleQRCode()">Show Khmer QR</button>
+        <!-- New button for mobile, hidden by default on larger screens -->
+        <button id="show-qr-btn" onclick="openQRCodePopup()">Show QR Image</button>
+        <img id="qr-code" src="/views/assets/img/qr-dollar.jpg" alt="Sales QR Code">
+    
+        <!-- Button placed under the image -->
+        <button id="toggle-btn" onclick="toggleQRCode()">Show Khmer QR</button>
     </div>
 
+    <!-- Modal for QR Code (pop-up) -->
+    <div id="qr-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeQRCodePopup()">&times;</span>
+            <img id="qr-code-modal" src="/views/assets/img/qr-dollar.jpg" alt="Sales QR Code">
+            <!-- Button placed inside the modal -->
+            <button id="toggle-btn-modal" onclick="toggleQRCode()">Show Khmer QR</button>
+        </div>
+    </div>
 
-<div id="stockModal" class="custom-modal">
-     <div id="modalContent" class="modal-content">
-         <h2 id="modalMessage" class="modal-message"></h2>
-         <button id="closeModalBtn" class="modal-close-btn">Close</button>
-     </div>
- </div>
+    <div id="stockModal" class="custom-modal">
+        <div id="modalContent" class="modal-content">
+            <h2 id="modalMessage" class="modal-message"></h2>
+            <button id="closeModalBtn" class="modal-close-btn">Close</button>
+        </div>
+    </div>
  
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
  <script>
@@ -119,7 +129,7 @@
     let x = 20;
     let y = 60;
     const cellHeight = 10;
-    const cellWidth = [70, 30, 40, 40]; // Adjusting width of each column
+    const cellWidth = [70, 30, 40, 40];
 
     // Header
     doc.setFont("helvetica", "bold");
@@ -208,6 +218,46 @@ function decrementQuantity(button) {
         alert("Quantity must be at least 1.");
     }
 }
+
+
+function toggleQR() {
+    var qrCode = document.getElementById("qr-code");
+    var showBtn = document.getElementById("show-qr-btn");
+    var toggleBtn = document.getElementById("toggle-btn");
+
+    if (qrCode.style.display === "none") {
+        qrCode.style.display = "block"; 
+        showBtn.style.display = "none";
+        toggleBtn.style.display = "block"; 
+    } else {
+        qrCode.style.display = "none"; 
+        toggleBtn.style.display = "none"; 
+        showBtn.style.display = "block"; 
+    }
+}
+
+function openQRCodePopup() {
+    // Display the modal with QR code on mobile
+    var modal = document.getElementById("qr-modal");
+    modal.style.display = "flex";  
+
+    // Hide the "Show QR Image" button after opening the modal
+    var showBtn = document.getElementById("show-qr-btn");
+    showBtn.style.display = "none";
+}
+
+function closeQRCodePopup() {
+    // Close the modal
+    var modal = document.getElementById("qr-modal");
+    modal.style.display = "none";
+
+    // Show the "Show QR Image" button again
+    var showBtn = document.getElementById("show-qr-btn");
+    showBtn.style.display = "block";
+}
+
+
+
 </script>
 
 <style>
