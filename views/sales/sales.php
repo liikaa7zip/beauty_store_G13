@@ -50,7 +50,6 @@
             <h2 id="h2-recipe">Invoice</h2>
             <div class="invoice-details">
                 <p><strong>Date:</strong> <?= date('Y-m-d') ?></p>
-                <p><strong>Time:</strong> <?= date('h:i A') ?></p>
             </div>
             <table id="invoice-table"> <!-- Unique ID for invoice table -->
                 <thead>
@@ -77,11 +76,27 @@
         </div>
     </div>
 
-    <div class="sales-image" style="text-align: center;">
-      <img id="qr-code" src="/views/assets/img/qr-dollar.jpg" alt="Sales QR Code">
-      <!-- Button placed under the image -->
-      <button id="toggle-btn" onclick="toggleQRCode()">Show Khmer QR</button>
+<div class="sales-image" style="text-align: center;">
+    <!-- New button for mobile, hidden by default on larger screens -->
+    <button id="show-qr-btn" onclick="openQRCodePopup()">Show QR Image</button>
+    <img id="qr-code" src="/views/assets/img/qr-dollar.jpg" alt="Sales QR Code">
+    
+    <!-- Button placed under the image -->
+    <button id="toggle-btn" onclick="toggleQRCode()">Show Khmer QR</button>
+</div>
+
+<!-- Modal for QR Code (pop-up) -->
+<div id="qr-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeQRCodePopup()">&times;</span>
+        <img id="qr-code-modal" src="/views/assets/img/qr-dollar.jpg" alt="Sales QR Code">
+        <!-- Button placed inside the modal -->
+        <button id="toggle-btn-modal" onclick="toggleQRCode()">Show Khmer QR</button>
     </div>
+</div>
+
+
+
 
 
 <div id="stockModal" class="custom-modal">
@@ -208,6 +223,57 @@ function decrementQuantity(button) {
         alert("Quantity must be at least 1.");
     }
 }
+
+
+function toggleQR() {
+    var qrCode = document.getElementById("qr-code");
+    var showBtn = document.getElementById("show-qr-btn");
+    var toggleBtn = document.getElementById("toggle-btn");
+
+    if (qrCode.style.display === "none") {
+        qrCode.style.display = "block"; // Show the QR code image
+        showBtn.style.display = "none"; // Hide the "Show QR Image" button
+        toggleBtn.style.display = "block"; // Show the "Show Khmer QR" button
+    } else {
+        qrCode.style.display = "none"; // Hide the QR code image
+        toggleBtn.style.display = "none"; // Hide the "Show Khmer QR" button
+        showBtn.style.display = "block"; // Show the "Show QR Image" button again
+    }
+}
+
+function openQRCodePopup() {
+    // Display the modal with QR code on mobile
+    var modal = document.getElementById("qr-modal");
+    modal.style.display = "flex";  // Show the modal
+
+    // Hide the "Show QR Image" button after opening the modal
+    var showBtn = document.getElementById("show-qr-btn");
+    showBtn.style.display = "none";
+}
+
+function closeQRCodePopup() {
+    // Close the modal
+    var modal = document.getElementById("qr-modal");
+    modal.style.display = "none";
+
+    // Show the "Show QR Image" button again
+    var showBtn = document.getElementById("show-qr-btn");
+    showBtn.style.display = "block";
+}
+
+function toggleQRCode() {
+    var qrCode = document.getElementById("qr-code-modal");
+    var toggleBtn = document.getElementById("toggle-btn-modal");
+
+    if (qrCode.style.display === "none") {
+        qrCode.style.display = "block"; // Show the QR code image
+        toggleBtn.style.display = "block"; // Show the "Show Khmer QR" button
+    } else {
+        qrCode.style.display = "none"; // Hide the QR code image
+        toggleBtn.style.display = "none"; // Hide the "Show Khmer QR" button
+    }
+}
+
 </script>
 
 <style>
