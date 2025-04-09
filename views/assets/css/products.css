@@ -764,7 +764,7 @@ button#uniqueCloseModal:hover {
   display: flex;
   gap: 40px;
   margin-bottom: 30px;
-  align-items: flex-start; /* Align items at the top */
+  align-items: flex-start; 
 }
 
 .image-section {
@@ -976,6 +976,9 @@ button#uniqueCloseModal:hover {
   }
 }
 
+#stock-export-container{
+  display: flex;
+}
 #stockWrapper {
   display: inline-block;
   margin-right: 10px;
@@ -1032,10 +1035,10 @@ button#uniqueCloseModal:hover {
 
 @media (max-width: 767.98px) {
   /* Hide Category and Status columns */
-  #productTable th:nth-child(4), /* Category header */
-  #productTable td:nth-child(4), /* Category data */
-  #productTable th:nth-child(5), /* Status header */
-  #productTable td:nth-child(5) { /* Status data */
+  #productTable th:nth-child(4), 
+  #productTable td:nth-child(4), 
+  #productTable th:nth-child(5), 
+  #productTable td:nth-child(5) {
     display: none;
   }
 
@@ -1045,31 +1048,31 @@ button#uniqueCloseModal:hover {
     max-width: 100% !important;
     table-layout: fixed !important;
     overflow-x: auto;
-    display: block; /* Allows horizontal scrolling if needed */
+    display: block; 
   }
 
   #productTable thead,
   #productTable tbody,
   #productTable tr {
     width: 100%;
-    display: table; /* Keeps table structure intact */
+    display: table; 
   }
 
   /* Define column widths for visible columns */
-  #productTable th:nth-child(1), /* Name header */
-  #productTable td:nth-child(1) { /* Name data */
-    width: 40% !important; /* Increased width for name + image */
+  #productTable th:nth-child(1), 
+  #productTable td:nth-child(1) { 
+    width: 40% !important; 
     padding: 5px;
   }
 
-  #productTable th:nth-child(2), /* Price header */
-  #productTable td:nth-child(2) { /* Price data */
+  #productTable th:nth-child(2), 
+  #productTable td:nth-child(2) { 
     width: 20% !important;
     padding: 5px;
   }
 
-  #productTable th:nth-child(3), /* Stock header */
-  #productTable td:nth-child(3) { /* Stock data */
+  #productTable th:nth-child(3), 
+  #productTable td:nth-child(3) { 
     width: 20% !important;
     padding: 5px;
   }
@@ -1132,39 +1135,12 @@ button#uniqueCloseModal:hover {
     width: 100%;
   }
 
-  .import-btn,
+
   .export-btn {
     padding: 8px 12px;
     font-size: 14px;
   }
-}
 
-/* For very small screens (e.g., <375px) */
-@media (max-width: 375px) {
-  #productTable th,
-  #productTable td {
-    font-size: 10px; /* Further reduce font size */
-    padding: 3px;
-  }
-
-  .product-image {
-    width: 25px;
-    height: 25px;
-  }
-
-  .dropdown .dropbtn,
-  .dropdown .dropdown-toggle {
-    padding: 3px 5px;
-  }
-
-  .dropdown-menu {
-    min-width: 80px;
-  }
-}
-
-
-/* Fix for dropdown in responsive mobile view */
-@media (max-width: 767.98px) {
   /* Ensure dropdown is hidden by default */
   .dropdown-content,
   .dropdown-menu {
@@ -1201,41 +1177,7 @@ button#uniqueCloseModal:hover {
     max-width: 150px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   }
-}
 
-
-/* Total Products - Teal Border */
-#total-products {
-  border: 1px solid #12e0e0; 
-}
-
-/* Low Stock - Red Border */
-#low-stocks {
-  border: 1px solid #ff4848;
-}
-
-/* In Stock - Green Border */
-#in-stocks {
-  border: 1px solid #21fb2c; /* Deep Green */
-}
-
-/* Waste - Orange Border */
-#waste {
-  border: 1px solid #f42020; /* Deep Orange */
-}
-
-/* Add Product - Purple Border */
-#add-product {
-  border: 1px solid #a028eb; /* Dark Purple */
-}
-
-/* Date Card - Blue Border */
-#date {
-  border: 1px solid #2b8eff; /* Deep Blue */
-}
-
-/* Make stock summary cards full width on mobile */
-@media (max-width: 767.98px) {
   /* Target the container of the cards */
   .stocks-container .row {
     margin-left: 0 !important;
@@ -1280,5 +1222,605 @@ button#uniqueCloseModal:hover {
   .content-wrapper {
     padding-left: 10px !important;
     padding-right: 10px !important;
+  }
+
+  /* Keep the search and category in their own rows */
+  #searchInput,
+  #categoryWrapper {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  /* Create a flex container for stockWrapper and action-buttons */
+  .stock-export-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  /* Make stockWrapper take 50% width */
+  #stockWrapper {
+    width: 50%;
+    padding-right: 5px;
+  }
+  
+  /* Make action-buttons take 50% width */
+  .action-buttons {
+    width: 50%;
+    padding-left: 5px;
+    justify-content: flex-end;
+  }
+  
+  /* Ensure the select fits properly */
+  #create-stock.custom-select {
+    width: 100%;
+    min-width: 0;
+  }
+  
+  /* Make export button take full width of its container */
+  .export-btn {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    white-space: nowrap;
+  }
+  
+  /* Remove the spacer in mobile view */
+  .spacer {
+    display: none;
+  }
+}
+
+/* For very small screens (e.g., <375px) */
+@media (max-width: 375px) {
+  #productTable th,
+  #productTable td {
+    font-size: 10px; 
+    padding: 3px;
+  }
+
+  .product-image {
+    width: 25px;
+    height: 25px;
+  }
+
+  .dropdown .dropbtn,
+  .dropdown .dropdown-toggle {
+    padding: 3px 5px;
+  }
+
+  .dropdown-menu {
+    min-width: 80px;
+  }
+}
+
+
+
+/* Total Products - Teal Border */
+#total-products {
+  border: 1px solid #12e0e0; 
+}
+
+/* Low Stock - Red Border */
+#low-stocks {
+  border: 1px solid #ff4848;
+}
+
+/* In Stock - Green Border */
+#in-stocks {
+  border: 1px solid #21fb2c;
+}
+
+/* Waste - Orange Border */
+#waste {
+  border: 1px solid #f42020; 
+}
+
+/* Add Product - Purple Border */
+#add-product {
+  border: 1px solid #a028eb;
+}
+
+/* Date Card - Blue Border */
+#date {
+  border: 1px solid #2b8eff; 
+}
+
+
+
+/* Product Form Container */
+.product-form-container {
+  margin: 30px auto;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+/* Form Heading */
+.form-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Error Alert */
+.error-alert {
+  padding: 15px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+/* Form Main Layout */
+.form-main-layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Image Section */
+.image-section {
+  width: 40%;
+  min-width: 300px;
+}
+
+.image-upload-container {
+  position: relative;
+}
+
+.form-input.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.upload-area {
+  border: 2px dashed #ced4da;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-icon {
+  width: 40px;
+  height: 40px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.upload-text {
+  font-size: 1rem;
+  color: #555;
+}
+
+.upload-subtext {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.image-preview-box {
+  display: none; /* Show only when image is uploaded */
+}
+
+.preview-img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+/* Inputs Section */
+.inputs-section {
+  width: 55%;
+  min-width: 300px;
+}
+
+/* Form Layout for Pairs */
+.form-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Default for desktop */
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* Remove Form Section Influence */
+.form-section {
+  display: contents; /* Let grid control layout */
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Full-width fields outside the pairing grid */
+.form-group:has(#prod-stocks),
+.form-group.full-width {
+  grid-column: 1 / -1; /* Span both columns */
+}
+
+/* Form Actions */
+.form-actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-primary {
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design for Mobile Phones */
+@media (max-width: 768px) {
+  .product-form-container {
+      max-width: 90%;
+      padding: 15px;
+  }
+
+  .form-heading {
+      font-size: 2rem;
+  }
+
+  .form-main-layout {
+      display: block; /* Stack image and inputs vertically */
+  }
+
+  .image-section, .inputs-section {
+      width: 60%;
+  }
+
+  .form-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two columns for pairs */
+      gap: 15px;
+      align-items: center; /* Vertically center pairs */
+  }
+
+  .form-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Center content vertically within each group */
+  }
+
+  .form-group:has(#prod-stocks),
+  .form-group.full-width {
+      grid-column: 1 / -1; /* Span full width for Stocks and Description */
+  }
+
+  .btn-primary {
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-form-container {
+      max-width: 95%;
+      padding: 10px;
+  }
+
+  .form-heading {
+      font-size: 1.5rem;
+  }
+
+  .form-label {
+      font-size: 1rem;
+  }
+
+  .form-input, .form-select, .form-textarea {
+      padding: 10px;
+      font-size: 0.9rem;
+  }
+
+  .form-layout {
+      grid-template-columns: 1fr 1fr; /* Maintain two columns for pairs */
+      gap: 10px;
+  }
+
+  .btn-primary {
+      width: 100%;
+      text-align: center;
+  }
+
+  .upload-text {
+      font-size: 0.9rem;
+  }
+
+  .upload-subtext {
+      font-size: 0.8rem;
+  }
+
+
+}
+
+
+
+
+
+
+/* Edit products */
+
+/* Base Styles */
+.edit-product-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.edit-product-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.edit-product-alert {
+  margin-bottom: 20px;
+}
+
+.edit-product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.edit-product-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.edit-product-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-form-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.edit-form-control,
+.edit-form-select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.edit-form-control-lg {
+  font-size: 1.25rem;
+}
+
+.edit-product-description {
+  margin-top: 30px;
+}
+
+.edit-product-image-upload {
+  margin-top: 30px;
+}
+
+.edit-product-image-preview {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.product-preview {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.edit-product-button {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.btn {
+  font-size: 1.25rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.text-muted {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+/* Responsive Styles */
+
+/* Mobile-first layout */
+@media (max-width: 768px) {
+  .edit-product-title {
+      font-size: 1.5rem;
+  }
+
+  /* Adjust grid layout for mobile */
+  .edit-product-grid {
+      grid-template-columns: 1fr; /* Single column layout on mobile */
+  }
+
+  /* Center fields for mobile */
+  .edit-product-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center the fields horizontally */
+      gap: 20px;
+  }
+
+  .edit-product-field {
+      width: 100%;
+      max-width: 350px; /* Restrict the width for better alignment */
+  }
+
+  .edit-product-field:nth-child(odd) {
+      margin-right: 10px; /* Add space between odd columns if necessary */
+  }
+
+  .edit-form-control,
+  .edit-form-select {
+      font-size: 1rem; /* Slightly smaller font size for mobile */
+      width: 100%; /* Ensure input fields take full width */
+      max-width: 350px; /* Keep consistent width */
+  }
+
+  .edit-product-button {
+      margin-top: 30px;
+      width: 100%;
+      max-width: 350px; /* Button width consistent with form controls */
+  }
+
+  .btn {
+      font-size: 1.125rem;
+      padding: 12px 25px; /* Bigger padding for easier interaction */
+  }
+
+  .product-preview {
+      width: 100%; /* Ensure image fits container on smaller screens */
+  }
+
+  .text-muted {
+      font-size: 0.75rem; /* Smaller text for less important details */
+  }
+}
+
+/* Tablet and above (larger screens) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .edit-product-title {
+      font-size: 1.75rem;
+  }
+
+  .edit-product-grid {
+      grid-template-columns: 1fr 1fr; /* Two column layout for tablets */
+  }
+
+  .edit-product-column {
+      gap: 20px;
+  }
+
+  .edit-product-description,
+  .edit-product-image-upload {
+      margin-top: 25px;
+  }
+
+  .edit-product-button {
+      margin-top: 30px;
+  }
+}
+
+/* Mobile-first layout */
+@media (max-width: 480px) {
+  .edit-product-title {
+      font-size: 1.5rem;
+  }
+
+  /* Adjust grid layout for mobile */
+  .edit-product-grid {
+      grid-template-columns: 1fr; 
+  }
+
+  /* Center fields for mobile */
+  .edit-product-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center; 
+      gap: 20px;
+  }
+
+  .edit-product-field {
+      width: 100%;
+      max-width: 350px; 
+  }
+
+  .edit-product-field:nth-child(odd) {
+      margin-right: 10px; 
+  }
+
+  .edit-form-control,
+  .edit-form-select {
+      font-size: 1rem; 
+      width: 100%; 
+      max-width: 350px; 
+  }
+
+  .edit-product-button {
+      margin-top: 30px;
+      width: 100%;
+      max-width: 350px; 
+  }
+
+  .btn {
+      font-size: 1.125rem;
+      padding: 12px 25px; 
+  }
+
+  .product-preview {
+      width: 100%; 
+  }
+
+  .text-muted {
+      font-size: 0.75rem; 
   }
 }
