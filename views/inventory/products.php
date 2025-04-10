@@ -29,25 +29,24 @@ if (!isset($_SESSION['user_id'])) {
                     </select>
                 </div>
 
-                
-
-                <div class="filter-import-container">
-        <div id="stockWrapper">
-            <select id="create-stock" name="stocks" class="custom-select" onchange="filterStocks()">
-                <option value="">Select a stock</option>
-                <option value="low">Low Stock</option>
-                <option value="in">In Stock</option>
-            </select>
-        </div>
-        
-    </div>
-    
-    <div class="action-buttons">
-        <button class="export-btn" onclick="exportToExcel(); console.log('Export button clicked');">
-            <i class="fa fa-download"></i> Export
-        </button>
-    </div>
-</div>
+                <div class="stock-export-wrapper">
+                    <div class="stock-export-inner">
+                        <div id="stockWrapper">
+                            <select id="create-stock" name="stocks" class="custom-select" onchange="filterStocks()">
+                                <option value="">Select a stock</option>
+                                <option value="low">Low Stock</option>
+                                <option value="in">In Stock</option>
+                            </select>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button class="export-btn" onclick="exportToExcel();">
+                                <i class="fa fa-download"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <table id="productTable" class="table table-striped table-bordered display">
             <thead>

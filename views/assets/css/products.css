@@ -1271,6 +1271,34 @@ button#uniqueCloseModal:hover {
   .spacer {
     display: none;
   }
+
+  /* Create a flex container for stockWrapper and export button */
+  .filter-import-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  #stockWrapper {
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  .action-buttons {
+    flex: 1;
+  }
+
+  #create-stock.custom-select {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .export-btn {
+    width: 100%;
+    white-space: nowrap;
+  }
 }
 
 /* For very small screens (e.g., <375px) */
@@ -1823,4 +1851,155 @@ button#uniqueCloseModal:hover {
   .text-muted {
       font-size: 0.75rem; 
   }
+}
+
+/* Stock and Export button wrapper */
+.stock-export-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+#stockWrapper {
+  margin-right: 0;
+}
+
+.action-buttons {
+  margin-left: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .table-header {
+    flex-direction: column;
+  }
+  
+  #searchInput,
+  #categoryWrapper {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .stock-export-wrapper {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  #stockWrapper {
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  .action-buttons {
+    flex: 0 0 auto;
+    margin-left: 10px;
+  }
+
+  #create-stock.custom-select,
+  .export-btn {
+    width: 100%;
+  }
+}
+
+/* Stock and Export button wrapper */
+.stock-export-wrapper {
+    width: 100%;
+    margin-left: auto; /* Push to the right */
+}
+
+.stock-export-inner {
+    display: flex;
+    gap: 10px;
+    width: 50%;
+}
+
+#stockWrapper,
+.action-buttons {
+    flex: 1;
+}
+
+#create-stock.custom-select,
+.export-btn {
+    width: 100%;
+    height: 45px;
+    box-sizing: border-box;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .stock-export-wrapper {
+        width: 100%;
+        margin-left: 0; /* Reset margin for mobile */
+    }
+
+    .stock-export-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    #stockWrapper,
+    .action-buttons {
+        width: 50%;
+    }
+
+    #create-stock.custom-select,
+    .export-btn {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+        white-space: nowrap;
+    }
+}
+
+/* Stock and Export button wrapper */
+.stock-export-wrapper {
+    margin-left: auto; /* Push to the right on desktop */
+    width: auto; /* Allow natural width on desktop */
+}
+
+.stock-export-inner {
+    display: flex;
+    gap: 10px;
+    width: 400px; /* Fixed width for desktop */
+}
+
+#stockWrapper,
+.action-buttons {
+    flex: 1;
+}
+
+#create-stock.custom-select,
+.export-btn {
+    width: 100%;
+    height: 45px;
+    box-sizing: border-box;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .stock-export-wrapper {
+        width: 100%; /* Full width on mobile */
+        margin-left: 0; /* Reset margin for mobile */
+    }
+
+    .stock-export-inner {
+        width: 100%; /* Full width on mobile */
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #stockWrapper,
+    .action-buttons {
+        width: 48%; /* Slightly less than 50% to maintain gap */
+    }
+
+    #create-stock.custom-select,
+    .export-btn {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+        white-space: nowrap;
+    }
 }
