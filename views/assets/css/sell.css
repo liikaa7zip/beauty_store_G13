@@ -1,0 +1,312 @@
+/* Dashboard Responsive Styles */
+
+/* Base styles */
+main {
+    padding: 1.5rem;
+}
+
+.welcome {
+    margin-bottom: 2rem;
+}
+
+.welcome h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.welcome p {
+    color: #6c757d;
+}
+
+.store-overview {
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.overview-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 1.5rem !important;
+}
+
+.overview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.overview-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+#total {
+    color: #007bff;
+}
+
+#employee {
+    color: #28a745;
+}
+
+#sale {
+    color: #dc3545;
+}
+
+#orders {
+    color: #fd7e14;
+}
+
+.overview-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.overview-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.sales-chart {
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.activity-feed {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.activity-feed h3 {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+}
+
+.activity-details {
+    flex: 1;
+}
+
+.activity-time {
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-top: 0.25rem;
+}
+
+.chart-container {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container h3 {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.profit_form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+}
+
+.profit_label {
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+}
+
+.profit_select, #month, #year {
+    padding: 0.375rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+.btn_select {
+    padding: 0.375rem 0.75rem;
+    background-color: #ff0099;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.btn_select:hover {
+    background-color: #ff87cb;
+}
+
+#totalProfit {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #28a745;
+}
+
+.motivational {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.motivational h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Tablet Styles */
+@media screen and (max-width: 991px) {
+    .store-overview {
+        gap: 1rem;
+    }
+    
+    .overview-card {
+        width: 45% !important;
+        margin-bottom: 1rem;
+    }
+    
+    .dashboard-container {
+        flex-direction: column;
+    }
+    
+    .activity-feed, .chart-container {
+        width: 100%;
+    }
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 767px) {
+    main {
+        padding: 1rem;
+    }
+    
+    .welcome h2 {
+        font-size: 1.5rem;
+    }
+    
+    .store-overview {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .overview-card {
+        width: 100% !important;
+        margin-bottom: 1rem;
+    }
+    
+    .overview-icon {
+        font-size: 2rem;
+    }
+    
+    .overview-number {
+        font-size: 1.5rem;
+    }
+    
+    .sales-chart {
+        padding: 1rem !important;
+    }
+    
+    .sales-chart h3 {
+        font-size: 1.2rem;
+    }
+    
+    .profit_form {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .profit_label {
+        margin-bottom: 0.5rem;
+    }
+    
+    .profit_select, #month, #year, .btn_select {
+        width: 100%;
+    }
+    
+    .activity-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+    }
+}
+
+/* Small Mobile Styles */
+@media screen and (max-width: 480px) {
+    .welcome h2 {
+        font-size: 1.3rem;
+    }
+    
+    .welcome p {
+        font-size: 0.9rem;
+    }
+    
+    .overview-title {
+        font-size: 0.9rem;
+    }
+    
+    .overview-number {
+        font-size: 1.3rem;
+    }
+    
+    .activity-item {
+        flex-direction: column;
+    }
+    
+    .activity-icon {
+        margin-bottom: 0.5rem;
+    }
+    
+    .motivational {
+        padding: 1rem !important;
+    }
+    
+    .motivational h3 {
+        font-size: 1.2rem;
+    }
+    
+    .motivational p {
+        font-size: 0.9rem;
+    }
+}

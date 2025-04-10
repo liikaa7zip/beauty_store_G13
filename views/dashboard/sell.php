@@ -68,47 +68,7 @@ $sale = $sale ?? []; // Default to an empty array if $sale is not set
 
     <!-- Activity Feed Section -->
     <div class="dashboard-container">
-        <!-- Activity Feed Section -->
-        <section class="activity-feed">
-            <h3>Recent Activity</h3>
-            <ul class="activity-list">
-                <li class="activity-item">
-                    <div class="activity-icon icon-product">🛒</div>
-                    <div class="activity-details">
-                        <strong>User "Jane"</strong> added a new product
-                        <div class="activity-time">10 mins ago</div>
-                    </div>
-                </li>
-                <li class="activity-item">
-                    <div class="activity-icon icon-order">✅</div>
-                    <div class="activity-details">
-                        <strong>Order #1254</strong> completed successfully
-                        <div class="activity-time">30 mins ago</div>
-                    </div>
-                </li>
-                <li class="activity-item">
-                    <div class="activity-icon icon-user">👤</div>
-                    <div class="activity-details">
-                        <strong>User "Tom"</strong> updated profile information
-                        <div class="activity-time">1 hour ago</div>
-                    </div>
-                </li>
-                <li class="activity-item">
-                    <div class="activity-icon icon-stock">📦</div>
-                    <div class="activity-details">
-                        <strong>New stock</strong> of product "Laptop XYZ" received
-                        <div class="activity-time">3 hours ago</div>
-                    </div>
-                </li>
-                <li class="activity-item">
-                    <div class="activity-icon icon-order">🚚</div>
-                    <div class="activity-details">
-                        <strong>Order #1200</strong> shipped to customer
-                        <div class="activity-time">5 hours ago</div>
-                    </div>
-                </li>
-            </ul>
-        </section>
+        
 
         <!-- Bar Chart Section -->
 
