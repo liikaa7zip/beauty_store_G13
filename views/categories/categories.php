@@ -1,12 +1,10 @@
-
-
 <div class="products_container">
     <h1 id="h1-products" class="text-center my-4">Categories List</h1>
     <div class="container mt-4">
-        <div class="table-container mb-4">
-            <div class="table-header d-flex justify-content-between align-items-center overflow-hidden">
-                <input type="text" id="searchInput" class="form-control w-50" placeholder="Search for categories..." onkeyup="searchProducts()">
-                <a href="/categories/create" class="add-category-btn">
+        <div class="table-container1 mb-4">
+            <div class="table-header d-flex justify-content-between align-items-center">
+                <input type="text" id="searchInput1" class="form-control p-2" placeholder="Search for categories...">
+                <a href="/categories/create" class="add-category-btn p-2 text-nowrap">
                     <i class="fas fa-plus me-2"></i>Add Category
                 </a>
             </div>
@@ -47,32 +45,15 @@
                                     </div>
                                 </td>
                             </tr>
+
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else : ?>
+                <div class="col-12 text-center">
+                    <p class="text-muted">No categories available. Please add a new category.</p>
+                </div>
+            <?php endif; ?>
         </div>
-    <?php endforeach; ?>
-    </tbody>
-    </table>
-
-<?php else : ?>
-    <div class="col-12 text-center">
-        <p class="text-muted">No categories available. Please add a new category.</p>
-    </div>
-<?php endif; ?>
     </div>
 </div>
-</div>
-<script>
-    function searchCategories() {
-        const input = document.getElementById('searchInput').value.toLowerCase();
-        const rows = document.querySelectorAll('#categoryTableBody tr');
-
-        rows.forEach(row => {
-            const name = row.cells[1].textContent.toLowerCase();
-            const description = row.cells[2].textContent.toLowerCase();
-            if (name.includes(input) || description.includes(input)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-    }
-</script>

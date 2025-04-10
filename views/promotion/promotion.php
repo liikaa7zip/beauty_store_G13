@@ -9,14 +9,14 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 
-<div class="header m-0">
+<div class="header m-0 p-0">
     <h1>Promotions</h1>
-    <div class="search-container m-0">
-        <div class="search-bar ">
-            <div class="search-input">
-                <input type="text" id="searchInput" placeholder="Search promotions...">
+    <div class="search-container m-0 pb-4">
+        <div class="search-bar d-flex justify-content-between align-items-center gap-2">
+            <div class="search-input w-100 d-flex align-items-center gap-2">
+                <input type="text" class="form-control p-2" id="searchInput1" placeholder="Search promotions...">
             </div>
-            <a href="/promotion/create" class="btn btn-primary" id="addNewButton">
+            <a href="/promotion/create" class="btn text-nowrap d-flex align-items-center p-2" id="addPromotionButton">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M5 12h14" />
                     <path d="M12 5v14" />
@@ -33,7 +33,7 @@ if (!isset($_SESSION['user_id'])) {
     <?php else: ?>
     <?php endif; ?>
 </div>
-<div class="promotion-container m-0">
+<div class="promotion-container m-0 p-0">
     <?php foreach ($promotions as $promotion): ?>
         <div class="promotion-card">
             <div class="promotion-header"><?= htmlspecialchars($promotion['promotion_name']) ?></div>
@@ -192,7 +192,7 @@ if (!isset($_SESSION['user_id'])) {
         });
     };
 
-    document.getElementById('searchInput').addEventListener('input', function() {
+    document.getElementById('searchInput1').addEventListener('input', function() {
         const searchQuery = this.value.toLowerCase();
         const promotionCards = document.querySelectorAll('.promotion-card');
         const clearButton = document.getElementById('clearSearchButton');

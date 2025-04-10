@@ -643,7 +643,7 @@
   padding: 11px 12px;
   background: linear-gradient(135deg, #ff3399, #ff66b2);
   color: white;
-  margin-top: 8px;
+  /* margin-top: 8px; */
   font-size: 16px;
   font-weight: bold;
   border-radius: 5px;

@@ -9,38 +9,46 @@
     margin-bottom: 20px;
 }
 
-/* Container for search bar and Add New button */
-.search-input {
-  position: relative;
-  display: flex;
-  align-items: center;
-  
-}
 
-.search-input input {
-  width: 100%;
+
+.search-input #searchInput1 {
+  width: 35%;
   padding: 10px 40px 10px 10px; /* Make space for the icon */
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
 }
 
-.search-icon {
-  position: absolute;
-  right: 10px; /* Adjust the position */
-  width: 20px;
-  height: 20px;
-  color: #888;
-  pointer-events: none; /* Prevents interaction with the icon */
+@media (max-width: 768px) {
+  .search-input #searchInput1 {
+    width: 100%;
+    padding: 10px 20px;
+  }
+}
+
+#addPromotionButton {
+  padding: 10px 20px; 
+  background-color: #ff69b4; 
+  color: white; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out; 
+  font-size: 16px; 
+  font-weight: bold; 
+}
+
+#addPromotionButton:hover {
+  background-color: #ff69b4; 
+  color: white; 
+  cursor: pointer;
+  transform: scale(1.05); 
+  transition: all 0.3s ease-in-out; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+
 }
 
 
-
-
-
-
-
-/* Floating Animation */
 @keyframes float {
   0% {
     transform: translateY(0);
@@ -321,7 +329,6 @@
   position: relative;
   overflow: hidden;
   animation: float 2s infinite alternate ease-in-out;
-  margin-top: 20px;
 }
 
 .btn-primary svg {
