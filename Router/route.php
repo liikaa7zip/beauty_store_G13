@@ -62,7 +62,7 @@ $route->post("/inventory/products/store", [ProductsController::class, 'store']);
 $route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
 $route->get("/inventory/create", [ProductsController::class, 'create']);
 
-$route->get("/inventory/product/category/{id}", [ProductsController::class, 'getProductsByCategory']);
+$route->get("/inventory/product/category/{id}", [ProductsController::class, 'getProductsByCategory']); 
 
 // Categories
 

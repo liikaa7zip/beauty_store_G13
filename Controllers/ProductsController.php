@@ -288,4 +288,18 @@ class ProductsController extends BaseController
         }
         return $defaultImage;
     }
+
+    public function getProductsByCategory($category_id)
+    {
+        $products = $this->productModel->getProductsByCategory($category_id);
+        $categories = $this->categoryModel->getAllCategories();
+
+        foreach ($products as &$product) {
+            $product['category_name'] = $this->categoryModel->getCategoryNameById($product['category_id']);
+            $product['image'] = $this->getImageUrl($product['image']);
+            $product['formatted_price'] = '$' . number_format($product['price'], 2);
+        }
+
+        $this->view("inventory/product", ['products' => $products, 'categories' => $categories]);
+    }
 }
