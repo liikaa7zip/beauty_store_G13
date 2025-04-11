@@ -52,6 +52,12 @@ class HistoryController extends BaseController
                 $this->view('/history/promotionHistory', ['history' => $history]);
                 break;
 
+            case 'activity':
+                $limit = $_GET['limit'] ?? 20;
+                $activities = $this->historyModel->getActivityFeed($limit);
+                $this->view('/history/activityFeed', ['activities' => $activities]);
+                break;
+
             default: // Default to login history
                 $history = $this->historyModel->getLoginHistory();
                 $this->view('/history/userHistory', ['history' => $history]);

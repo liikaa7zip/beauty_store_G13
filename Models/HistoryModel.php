@@ -185,4 +185,62 @@ class HistoryModel
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
 }
+
+public function getActivityFeed($limit = 20)
+{
+    $query = "(
+        SELECT 
+            'login' AS type,
+            CONCAT('User login: ', u.username) AS description,
+            u.username AS performed_by,
+            ulh.login_time AS timestamp
+        FROM user_login_history ulh
+        JOIN users u ON ulh.user_id = u.id
+        
+        UNION ALL
+        
+        SELECT 
+            'product' AS type,
+            CONCAT('Product ', ph.action, ': ', ph.product_name) AS description,
+            u.username AS performed_by,
+            ph.date AS timestamp
+        FROM product_history ph
+        JOIN users u ON ph.user_id = u.id
+        
+        UNION ALL
+        
+        SELECT 
+            'category' AS type,
+            CONCAT('Category ', ch.action, ': ', ch.category_name) AS description,
+            u.username AS performed_by,
+            ch.date AS timestamp
+        FROM category_history ch
+        JOIN users u ON ch.user_id = u.id
+        
+        UNION ALL
+        
+        SELECT 
+            'promotion' AS type,
+            CONCAT('Promotion ', ph.action, ': ', ph.promotion_name) AS description,
+            u.username AS performed_by,
+            ph.date AS timestamp
+        FROM promotion_history ph
+        JOIN users u ON ph.user_id = u.id
+        
+        UNION ALL
+        
+        SELECT 
+            'sale' AS type,
+            CONCAT('Sale: ', sh.product_name, ' (', sh.quantity, 'x)') AS description,
+            u.username AS performed_by,
+            sh.sale_date AS timestamp
+        FROM sell_history sh
+        JOIN users u ON sh.performed_by = u.id
+    ) ORDER BY timestamp DESC LIMIT :limit";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+}
 }

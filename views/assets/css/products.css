@@ -415,7 +415,6 @@
   align-items: center; /* Vertically centers items */
   gap: 15px; /* Space between elements */
   width: 100%;
-  overflow-x: auto; /* Scroll if overflow */
 }
 
 /* Spacer to push action buttons to the right */
