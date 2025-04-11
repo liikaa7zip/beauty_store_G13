@@ -27,11 +27,12 @@
                                 <td><?= $category['name'] ?></td>
                                 <td><?= $category['description'] ?></td>
                                 <td class="d-flex justify-content-around">
+
                                     <div class="dropdown">
-                                        <button class="drop btn btn btn-sm" onclick="toggleDropdown(this)">
-                                            <span class="material-symbols-outlined">more_horiz</span>
+                                        <button class="dropdown-toggle" type="button">
+                                            &#x22EE; <!-- Vertical Ellipsis -->
                                         </button>
-                                        <div class="dropdown-content" style="display: none;">
+                                        <div class="dropdown-menu">
                                             <a href="/categories/edit/<?= $category['id'] ?>">
                                                 <span class="material-symbols-outlined" id="edit-pro">border_color</span> Edit
                                             </a>
@@ -43,6 +44,7 @@
                                             </a>
                                         </div>
                                     </div>
+
                                 </td>
                             </tr>
 
