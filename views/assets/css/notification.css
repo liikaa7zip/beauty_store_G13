@@ -27,7 +27,7 @@ body, html {
     position: absolute;
     top: 0.5px;
     
-    left: 880px;
+    margin-left: 93%;
 }
 .delete-btn:hover {
         color: red;

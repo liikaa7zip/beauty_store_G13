@@ -29,28 +29,24 @@ if (!isset($_SESSION['user_id'])) {
                     </select>
                 </div>
 
-                <div id="stockWrapper">
-                    <select id="create-stock" name="stocks" class="custom-select" onchange="filterStocks()">
-                        <option value="">Select a stock</option>
-                        <option value="low">Low Stock</option>
-                        <option value="in">In Stock</option>
-                    </select>
-                </div>
-
-                
-                <div class="spacer"></div>
-                
-                <div class="action-buttons">
-                    <!-- <button class="import-btn" onclick="triggerImport(); console.log('Import button clicked');">
-                    <i class="fa fa-download"></i> Import
-                    </button> -->
-                    <button class="export-btn" onclick="exportToExcel(); console.log('Export button clicked');">
+                <div class="stock-export-wrapper">
+                    <div class="stock-export-inner">
+                        <div id="stockWrapper">
+                            <select id="create-stock" name="stocks" class="custom-select" onchange="filterStocks()">
+                                <option value="">Select a stock</option>
+                                <option value="low">Low Stock</option>
+                                <option value="in">In Stock</option>
+                            </select>
+                        </div>
                         
-                        <i class="fa fa-upload"></i> Export
-                    </button>
+                        <div class="action-buttons">
+                            <button class="export-btn" onclick="exportToExcel();">
+                                <i class="fa fa-download"></i> Export
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
         <table id="productTable" class="table table-striped table-bordered display">
             <thead>
@@ -160,55 +156,54 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="card" id="waste">
                         <div class="icon waste">🗑️</div>
                         <p>Waste</p> -->
-    <div class="stocks-container card grid gap-2 p-4">
-        <h3>Stock summary:</h3>
-        <div class="row mb-3">
-            <div class="col-4">
-                <div class="stock-summary card" id="total-products">
-                    <div class="icon">📦</div>
-                    <p>Total Products</p>
-                    <h3>0.00</h3>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card" id="low-stocks">
-                    <div class="icon low-stock">🔻</div>
-                    <p>Low-stocks</p>
-                    <h3>0.00</h3>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card" id="in-stocks">
-                    <div class="icon in-stock">📈</div>
-                    <p>In-stocks</p>
-                    <h3>0.00</h3>
-                </div>
+                        <div class="stocks-container card grid gap-2 p-4">
+    <h3>Stock summary:</h3>
+    <div class="row mb-3">
+        <div class="col-4">
+            <div class="stock-summary card" id="total-products">
+                <div class="icon">📦</div>
+                <p>Total Products</p>
+                <h3>22</h3>
             </div>
         </div>
-        
-        <div class="row">
         <div class="col-4">
-                <a href="/categories" class="text-decoration-none">
-                    <div class="card" id="add-product">
-                        <div class="icon add">📂</div>
-                        <p>View Categories</p>
-                    </div>
-                </a>
+            <div class="card" id="low-stocks">
+                <div class="icon low-stock">🔻</div>
+                <p>Low-stocks</p>
+                <h3>4</h3>
             </div>
-            <div class="col-4">
-                <div class="card" id="waste">
-                    <div class="icon waste">🗑️</div>
-                    <p>Waste</p>
+        </div>
+        <div class="col-4">
+            <div class="card" id="in-stocks">
+                <div class="icon in-stock">📈</div>
+                <p>In-stocks</p>
+                <h3>0.00</h3>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-4">
+            <a href="/categories" class="text-decoration-none">
+                <div class="card" id="add-product">
+                    <div class="icon add">📂</div>
+                    <p>View Categories</p>
                 </div>
+            </a>
+        </div>
+        <div class="col-4">
+            <div class="card" id="waste">
+                <div class="icon waste">🗑️</div>
+                <p>Waste</p>
             </div>
-            <div class="col-4">
-                <a href="/inventory/create" class="text-decoration-none">
-                    <div class="card" id="add-product">
-                        <div class="icon add">➕</div>
-                        <p>Add Products</p>
-                    </div>
-                </a>
-            </div>
+        </div>
+        <div class="col-4">
+            <a href="/inventory/create" class="text-decoration-none">
+                <div class="card" id="add-product">
+                    <div class="icon add">➕</div>
+                    <p>Add Products</p>
+                </div>
+            </a>
         </div>
     </div>
 </div>
@@ -359,6 +354,28 @@ function hideModal() {
 }
 
 
-    
-    
+document.querySelectorAll('.dropdown-toggle').forEach(button => {
+  button.addEventListener('click', function(e) {
+    e.stopPropagation();
+    // Close all other open dropdowns
+    document.querySelectorAll('.dropdown.active').forEach(dropdown => {
+      if (dropdown !== this.parentElement) {
+        dropdown.classList.remove('active');
+      }
+    });
+    // Toggle current dropdown
+    this.parentElement.classList.toggle('active');
+  });
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function() {
+  document.querySelectorAll('.dropdown.active').forEach(dropdown => {
+    dropdown.classList.remove('active');
+  });
+});
+
+
+
+
 </script>
