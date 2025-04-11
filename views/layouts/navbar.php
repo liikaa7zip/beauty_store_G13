@@ -26,7 +26,7 @@
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
           <img
-            src="<?= !empty($_SESSION['image']) ? htmlspecialchars($_SESSION['image']) : '/views/assets/img/default-profile.jpg' ?>"
+            src="<?= !empty($_SESSION['image']) ? htmlspecialchars($_SESSION['image']) : 'https://cdn-icons-png.flaticon.com/512/149/149071.png' ?>"
             class="user-image rounded-circle shadow"
             alt="User Image" />
           <span class="d-none d-md-inline"> <?= htmlspecialchars($_SESSION['user_name'] ?? 'Unknown') ?></span>
@@ -35,7 +35,7 @@
           <!--begin::User Image-->
           <li class="user-header text-bg-primary">
           <img
-            src="<?= !empty($_SESSION['image']) ? htmlspecialchars($_SESSION['image']) : '/views/assets/img/default-profile.jpg' ?>"
+            src="<?= !empty($_SESSION['image']) ? htmlspecialchars($_SESSION['image']) : "https://cdn-icons-png.flaticon.com/512/149/149071.png" ?>"
             class="user-image rounded-circle shadow"
             alt="User Image" />
             <p style="font-size: 22px;">
