@@ -194,6 +194,94 @@ document.querySelectorAll('.modal-content').forEach(content => {
         e.stopPropagation();
     });
 });
+
+// Only run this code on mobile devices
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're on a mobile device
+    if (window.innerWidth <= 767) {
+        // Process table for mobile view
+        const table = document.querySelector('.table');
+        if (table) {
+            // Add data-label attributes to cells
+            const headerCells = table.querySelectorAll('thead th');
+            const headerTexts = Array.from(headerCells).map(cell => cell.textContent.trim());
+            
+            const rows = table.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                
+                // Get the name cell and actions cell
+                const nameCell = cells[0];
+                const actionsCell = cells[cells.length - 1];
+                
+                if (nameCell && actionsCell) {
+                    // Get customer name
+                    const customerNameText = nameCell.textContent.trim();
+                    
+                    // Clear the name cell content
+                    nameCell.innerHTML = '';
+                    
+                    // Create customer name element
+                    const customerName = document.createElement('div');
+                    customerName.style.fontWeight = '600';
+                    customerName.style.fontSize = '18px';
+                    customerName.style.flex = '1';
+                    customerName.textContent = customerNameText;
+                    nameCell.appendChild(customerName);
+                    
+                    // Get the dropdown from actions cell
+                    const dropdown = actionsCell.querySelector('.dropdown');
+                    if (dropdown) {
+                        // Clone the dropdown to preserve event listeners
+                        const clonedDropdown = dropdown.cloneNode(true);
+                        
+                        // Style the dropdown for mobile
+                        clonedDropdown.style.position = 'relative';
+                        clonedDropdown.style.display = 'inline-block';
+                        
+                        // Add the dropdown to the name cell
+                        nameCell.appendChild(clonedDropdown);
+                        
+                        // Re-attach event listeners to the cloned dropdown
+                        const dropdownToggle = clonedDropdown.querySelector('.dropdown-toggle');
+                        if (dropdownToggle) {
+                            dropdownToggle.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                const dropdown = this.nextElementSibling;
+                                
+                                // Close all other dropdowns first
+                                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                                    if (menu !== dropdown) {
+                                        menu.style.display = 'none';
+                                    }
+                                });
+                                
+                                // Toggle current dropdown
+                                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                            });
+                        }
+                    }
+                }
+                
+                // Add data-label attributes to all cells
+                cells.forEach((cell, index) => {
+                    if (index < headerTexts.length) {
+                        cell.setAttribute('data-label', headerTexts[index]);
+                    }
+                });
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.style.display = 'none';
+                    });
+                }
+            });
+        }
+    }
+});
 </script>
 
 <!-- Update the dropdown CSS -->
@@ -438,4 +526,69 @@ document.querySelectorAll('.modal-content').forEach(content => {
 .dropdown-menu i {
     margin-right: 8px;
 }
+
+/* Mobile-only responsive styles - only applies to screens below 768px */
+@media screen and (max-width: 767px) {
+    /* Hide table headers on mobile */
+    .table thead {
+        display: none;
+    }
+    
+    /* Convert table to cards */
+    .table, 
+    .table tbody {
+        display: block;
+        width: 100%;
+    }
+    
+    /* Style each row as a card */
+    .table tr {
+        display: block;
+        background: white;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+    
+    /* Style each cell */
+    .table td {
+        display: block;
+        padding: 15px;
+        border-bottom: 1px solid #f0f0f0;
+        position: relative;
+    }
+    
+    /* Add labels to cells */
+    .table td:before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #495057;
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+    
+    /* Style customer name cell to include actions */
+    .table td:first-child {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-bottom: 2px solid #e9ecef;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    /* Remove label from name cell */
+    .table td:first-child:before {
+        display: none;
+    }
+    
+    /* Hide the original actions cell */
+    .table td:last-child {
+        display: none;
+    }
+}
 </style>
+
+
