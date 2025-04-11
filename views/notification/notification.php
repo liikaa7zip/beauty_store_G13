@@ -78,8 +78,7 @@ $notifications = $notificationModel->getNotifications();
 
 
 
-</head>
-<body>
+
 <main class="app-main">
     <div class="container">
         <section class="notifications">
