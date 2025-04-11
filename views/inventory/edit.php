@@ -23,35 +23,35 @@ $product = $product ?? [
 ];
 ?>
 
-<div class="container mt-5">
-    <h1 class="text-center mb-5">Edit Product</h1> <!-- Updated title -->
+<div class="edit-product-container">
+    <h1 class="edit-product-title text-center">Edit Product</h1>
 
     <?php if (isset($_SESSION['error'])): ?>
-        <div class="alert alert-danger"><?= $_SESSION['error'] ?></div>
+        <div class="edit-product-alert alert alert-danger"><?= $_SESSION['error'] ?></div>
         <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
     <form action="/inventory/update/<?= $product['id'] ?>" method="POST" enctype="multipart/form-data">
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="mb-4">
-                    <label for="name" class="form-label" id="name-create">Product Name</label>
-                    <input type="text" id="create-name" name="name" class="form-control form-control-lg" value="<?= htmlspecialchars($product['name']) ?>" required>
+        <div class="edit-product-grid">
+            <div class="edit-product-column">
+                <div class="edit-product-field">
+                    <label for="name" class="edit-form-label" id="name-create">Product Name</label>
+                    <input type="text" id="create-name" name="name" class="edit-form-control edit-form-control-lg" value="<?= htmlspecialchars($product['name']) ?>" required>
                 </div>
-                <div class="mb-4">
-                    <label for="stocks" class="form-label" id="name-create">Stocks</label>
-                    <input type="number" id="stocks" name="stocks" class="form-control form-control-lg" value="<?= htmlspecialchars($product['stocks']) ?>" required>
+                <div class="edit-product-field">
+                    <label for="stocks" class="edit-form-label" id="name-create">Stocks</label>
+                    <input type="number" id="stocks" name="stocks" class="edit-form-control edit-form-control-lg" value="<?= htmlspecialchars($product['stocks']) ?>" required>
                 </div>
-                <div class="mb-4">
-                    <label for="start-date" class="form-label" id="start-date-label">Start-date</label>
-                    <input type="date" id="start-date" name="start_date" class="form-control form-control-lg" value="<?= htmlspecialchars($product['start_date']) ?>" required>
+                <div class="edit-product-field">
+                    <label for="start-date" class="edit-form-label" id="start-date-label">Start Date</label>
+                    <input type="date" id="start-date" name="start_date" class="edit-form-control edit-form-control-lg" value="<?= htmlspecialchars($product['start_date']) ?>" required>
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="mb-4">
-                    <label for="category_id" class="form-label" id="cat-create">Category</label>
-                    <select id="category_id" name="category_id" class="form-select form-select-lg" required>
+            <div class="edit-product-column">
+                <div class="edit-product-field">
+                    <label for="category_id" class="edit-form-label" id="cat-create">Category</label>
+                    <select id="category_id" name="category_id" class="edit-form-select edit-form-select-lg" required>
                         <?php foreach ($categories as $category): ?>
                             <option value="<?= $category['id'] ?>" <?= $category['id'] == $product['category_id'] ? 'selected' : '' ?>>
                                 <?= htmlspecialchars($category['name']) ?>
@@ -59,42 +59,42 @@ $product = $product ?? [
                         <?php endforeach; ?>
                     </select>
                 </div>
-
-                <div class="mb-4">
-                    <label for="price" class="form-label" id="cat-create">Price</label>
-                    <input type="number" id="price" name="price" class="form-control form-control-lg" value="<?= htmlspecialchars($product['price']) ?>" required>
+                <div class="edit-product-field">
+                    <label for="price" class="edit-form-label" id="cat-create">Price</label>
+                    <input type="number" id="price" name="price" class="edit-form-control edit-form-control-lg" value="<?= htmlspecialchars($product['price']) ?>" required>
                 </div>
-                <div class="mb-4">
-                    <label for="expire-date" class="form-label" id="expire-date-label">Expire-date</label>
-                    <input type="date" id="expire-date" name="expire_date" class="form-control form-control-lg" value="<?= htmlspecialchars($product['expire_date']) ?>" required>
-
-                </div>
-            </div>
-            <div class="mb-4">
-                <label for="description" class="form-label" id="name-created">Description</label>
-                <textarea id="description" name="description" class="form-control form-control-lg" rows="4" required><?= htmlspecialchars($product['description']) ?></textarea>
-            </div>
-            <div class="mb-4">
-                <label for="productImage" class="form-label" id="name-created">Product Image</label>
-                <input type="file" id="productImage" name="productImage" class="form-control form-control-lg" accept="image/*" onchange="showFileName()">
-                <small id="fileName" class="text-muted mt-2"></small>
-                <div class="mt-3">
-                    <img src="<?= !empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])
-                                    ? '/' . htmlspecialchars($product['image'])
-                                    : 'https://i.pinimg.com/1200x/69/96/2f/69962f39b03a5ba0e49f4668523b5d61.jpg' ?>"
-                        alt="<?= htmlspecialchars($product['name']) ?>"
-                        class="product-image-preview"
-                        style="max-width: 200px; max-height: 200px; object-fit: cover; border: 1px solid #ddd; border-radius: 8px;">
-                    <p class="text-muted mt-2"><?= !empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image']) ? 'Current Image' : 'Default Image' ?></p>
+                <div class="edit-product-field">
+                    <label for="expire-date" class="edit-form-label" id="expire-date-label">Expire Date</label>
+                    <input type="date" id="expire-date" name="expire_date" class="edit-form-control edit-form-control-lg" value="<?= htmlspecialchars($product['expire_date']) ?>" required>
                 </div>
             </div>
         </div>
 
-        <div class="text-center mt-5">
-            <button id="pro-create" type="submit" class="btn btn-primary btn-lg px-5" style="background-color: #FF1493; border: none;">UPDATE PRODUCT</button> <!-- Updated button text -->
+        <div class="edit-product-description">
+            <label for="description" class="edit-form-label" id="name-created">Description</label>
+            <textarea id="description" name="description" class="edit-form-control edit-form-control-lg" rows="4" required><?= htmlspecialchars($product['description']) ?></textarea>
+        </div>
+
+        <div class="edit-product-image-upload">
+            <label for="productImage" class="edit-form-label" id="name-created">Product Image</label>
+            <input type="file" id="productImage" name="productImage" class="edit-form-control edit-form-control-lg" accept="image/*" onchange="showFileName()">
+            <small id="fileName" class="text-muted mt-2"></small>
+            <div class="edit-product-image-preview">
+                <img src="<?= !empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])
+                                ? '/' . htmlspecialchars($product['image'])
+                                : 'https://i.pinimg.com/1200x/69/96/2f/69962f39b03a5ba0e49f4668523b5d61.jpg' ?>"
+                    alt="<?= htmlspecialchars($product['name']) ?>"
+                    class="product-preview">
+                <p class="text-muted"><?= !empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image']) ? 'Current Image' : 'Default Image' ?></p>
+            </div>
+        </div>
+
+        <div class="edit-product-button text-center">
+            <button id="pro-create" type="submit" class="btn btn-primary btn-lg px-5">UPDATE PRODUCT</button>
         </div>
     </form>
 </div>
+
 
 <script>
     function showFileName() {
@@ -108,29 +108,3 @@ $product = $product ?? [
     }
 </script>
 
-<style>
-    .form-label {
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-        color: #444;
-    }
-
-    .form-control,
-    .form-select {
-        border: 1px solid #ddd;
-        padding: 0.75rem;
-        border-radius: 8px;
-        background-color: #fff;
-    }
-
-    .form-control:focus,
-    .form-select:focus {
-        border-color: #FF1493;
-        box-shadow: 0 0 0 0.2rem rgba(255, 20, 147, 0.25);
-    }
-
-    .btn-primary:hover {
-        background-color: #FF1493 !important;
-        opacity: 0.9;
-    }
-</style>
