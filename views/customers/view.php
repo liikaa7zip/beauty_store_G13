@@ -20,7 +20,7 @@
         <input type="text" id="phone" name="phone" required>
     </div>
     <div class="form-group">
-        <label for="address">Address</label>
+        <label for="address">Unpaid Products</label>
         <input type="text" id="address" name="address" required>
     </div>
     <div class="form-group">
@@ -77,89 +77,74 @@
                         <p><?= number_format($customer['total_debt'], 2) ?></p>
                     <?php endif; ?>
                 </td>
+                <td><?php echo htmlspecialchars($customer['address']); ?></td>
                 <td>
-                    <?php if (!empty($unpaidProducts[$customer['id']])): ?>
-                        <ul>
-                            <?php foreach ($unpaidProducts[$customer['id']] as $product): ?>
-                                <li><?php echo htmlspecialchars($product['name']); ?> - 
-                                    <?php echo $product['quantity']; ?> x $<?php echo number_format($product['price'], 2); ?>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php else: ?>
-                        <p>No unpaid products.</p>
-                    <?php endif; ?>
+                    <div class="alt-dropdown-box">
+                        <button class="alt-dropdown-toggle" type="button" onclick="toggleAltDropdown(this)">
+                            Actions
+                        </button>
+                        <div class="alt-dropdown-menu">
+                            <a href="/customers/view/<?= $customer['id'] ?>" class="alt-dropdown-item">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                            <a href="#" class="alt-dropdown-item text-danger" onclick="showModal(<?= $customer['id'] ?>)">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </div>
+                    </div>
                 </td>
-                <td>
-                <div class="dropdown">
-    <button class="dropdown-toggle" type="button">
-        &#x22EE; <!-- Vertical Ellipsis -->
-    </button>
-    <div class="dropdown-menu">
-        <a href="/customers/view/<?= $customer['id'] ?>">
-            <i class="bi bi-eye"></i> View
-        </a>
-        <a href="#" class="text-danger" onclick="showModal(<?= $customer['id'] ?>)">
-            <i class="bi bi-trash"></i> Delete
-        </a>
-    </div>
-</div>
 
-<!-- Update the modal structure -->
-<div id="deleteModal<?= $customer['id'] ?>" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5>Confirm Deletion</h5>
-            <span class="close-modal" onclick="closeModal(<?= $customer['id'] ?>)">&times;</span>
+                <!-- Update the modal structure -->
+                <div id="deleteModal<?= $customer['id'] ?>" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5>Confirm Deletion</h5>
+                            <span class="close-modal" onclick="closeModal(<?= $customer['id'] ?>)">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete <?= htmlspecialchars($customer['name']) ?>?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-cancel" onclick="closeModal(<?= $customer['id'] ?>)">Cancel</button>
+                            <a href="/customers/delete/<?= $customer['id'] ?>" class="btn btn-delete">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </ul>
         </div>
-        <div class="modal-body">
-            <p>Are you sure you want to delete <?= htmlspecialchars($customer['name']) ?>?</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-cancel" onclick="closeModal(<?= $customer['id'] ?>)">Cancel</button>
-            <a href="/customers/delete/<?= $customer['id'] ?>" class="btn btn-delete">Delete</a>
-        </div>
-    </div>
-</div>
-
-        </ul>
-    </div>
-</td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
+    </td>
+    </tr>
+    <?php endforeach; ?>
+    </tbody>
     </table>
 </div>
 
 <script>
-// Add this at the beginning of your script section
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Handle dropdown toggle clicks
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle-btn');
     dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const dropdown = this.nextElementSibling;
-            
+        toggle.addEventListener('click', function (e) {
+            e.stopPropagation(); // Prevent event propagation
+            const dropdownContent = this.nextElementSibling;
+
             // Close all other dropdowns first
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                if (menu !== dropdown) {
-                    menu.style.display = 'none';
+            document.querySelectorAll('.dropdown-content').forEach(content => {
+                if (content !== dropdownContent) {
+                    content.style.display = 'none';
                 }
             });
-            
-            // Toggle current dropdown
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+
+            // Toggle the current dropdown
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
         });
     });
-    
+
     // Close dropdowns when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.dropdown')) {
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.style.display = 'none';
-            });
-        }
+    document.addEventListener('click', function () {
+        document.querySelectorAll('.dropdown-content').forEach(content => {
+            content.style.display = 'none';
+        });
     });
 });
 
@@ -177,6 +162,16 @@ function closeModal(id) {
         modal.style.display = 'none';
     }
 }
+
+// Ensure the "Cancel" button and close button call the correct function
+document.querySelectorAll('.btn-cancel, .close-modal').forEach(button => {
+    button.addEventListener('click', function () {
+        const modal = this.closest('.modal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
 
 // Close modal when clicking outside
 window.onclick = function(event) {
@@ -282,6 +277,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+
+function toggleAltDropdown(button) {
+    var menu = button.nextElementSibling;
+    menu.classList.toggle('show');
+
+    // Optional: close other dropdowns
+    document.addEventListener('click', function (e) {
+        if (!button.parentElement.contains(e.target)) {
+            menu.classList.remove('show');
+        }
+    }, { once: true });
+}
 </script>
 
 <!-- Update the dropdown CSS -->
@@ -589,6 +597,188 @@ document.addEventListener('DOMContentLoaded', function() {
         display: none;
     }
 }
+
+/* NES Dropdown Styles */
+.nes-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nes-dropdown .dropdown-toggle {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nes-dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    min-width: 150px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1000;
+    margin-top: 5px;
+    padding: 8px 0;
+}
+
+.nes-dropdown .dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.2s;
+    font-size: 14px;
+}
+
+.nes-dropdown .dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.nes-dropdown .dropdown-item.text-danger {
+    color: #dc3545;
+}
+
+.nes-dropdown .dropdown-item.text-danger:hover {
+    background-color: #fff5f5;
+}
+
+.nes-dropdown .dropdown-item i {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+/* New Dropdown Styles */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.dropdown-toggle-btn:hover {
+    background-color: #0056b3;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    min-width: 150px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1000;
+    margin-top: 5px;
+    padding: 8px 0;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.2s;
+    font-size: 14px;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-item.text-danger {
+    color: #dc3545;
+}
+
+.dropdown-item.text-danger:hover {
+    background-color: #fff5f5;
+}
+
+.dropdown-item i {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+.alt-dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    padding: 8px 0;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    z-index: 100;
+    margin-top: 8px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.alt-dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.alt-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-radius: 8px;
+}
+
+.alt-dropdown-item i {
+    font-size: 16px;
+    color: #666;
+    transition: color 0.2s ease;
+}
+
+.alt-dropdown-item:hover {
+    background-color: #f0f0f5;
+    color: #000;
+}
+
+.alt-dropdown-item:hover i {
+    color: #000;
+}
+
+
+.alt-dropdown-toggle {
+    background-color: #f7f7f7;
+    color: #333;
+    padding: 8px 14px;
+    font-size: 14px;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.alt-dropdown-toggle:hover {
+    background-color: #e9ecef;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 </style>
 
 

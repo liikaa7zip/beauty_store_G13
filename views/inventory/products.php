@@ -18,7 +18,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="table-header">
                 <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
                 
-                <div id="categoryWrapper">
+                <div id="categoryWrapper" style="padding: 5px; border-radius: 10px;">
                     <select id="categorySelect" name="category">
                         <option value="">Select a category</option>
                         <?php foreach ($categories as $category): ?>
@@ -41,7 +41,7 @@ if (!isset($_SESSION['user_id'])) {
                         
                         <div class="action-buttons">
                             <button class="export-btn" onclick="exportToExcel();">
-                                <i class="fa fa-download"></i> Export
+                                <i class="fa fa-upload"></i> Export
                             </button>
                         </div>
                     </div>
@@ -78,7 +78,11 @@ if (!isset($_SESSION['user_id'])) {
                         </td>
                         <td><?= htmlspecialchars($product["price"]) ?></td>
                         <td><?= htmlspecialchars($product['stocks']) ?></td>
-                        <td><?= htmlspecialchars($product['category_name'] ?? 'N/A') ?></td>
+                        <td>
+                            <span class="category-label" style="color: <?= getRandomColor($product['category_id']) ?>;">
+                                <?= htmlspecialchars($product['category_name'] ?? 'N/A') ?>
+                            </span>
+                        </td>
                         <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
                             <?= ucfirst(htmlspecialchars($product['status'])) ?>
                         </td>
@@ -375,7 +379,92 @@ document.addEventListener('click', function() {
   });
 });
 
+function applyCategoryBorder(selectElement) {
+    const categoryWrapper = document.getElementById('categoryWrapper');
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+
+    // Reset the border style
+    categoryWrapper.style.border = '';
+
+    // Apply a random border color if a category is selected
+    if (selectedOption.value) {
+        const randomColor = getRandomColor();
+        categoryWrapper.style.border = `2px solid ${randomColor}`;
+        categoryWrapper.style.borderRadius = '10px'; // Optional: Add rounded corners
+        categoryWrapper.style.padding = '5px'; // Optional: Add padding for better appearance
+    }
+}
+
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+// Attach the event listener to the category dropdown
+document.addEventListener('DOMContentLoaded', function () {
+    const categorySelect = document.getElementById('categorySelect');
+    categorySelect.addEventListener('change', function () {
+        applyCategoryBorder(this);
+    });
+});
+
+function applyCategoryBorder(selectElement) {
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const categoryWrapper = document.getElementById('categoryWrapper');
+
+    // Remove existing border classes
+    categoryWrapper.className = '';
+
+    // Add the border class based on the selected option
+    if (selectedOption.value) {
+        categoryWrapper.classList.add(`category-border-${selectedOption.value}`);
+    }
+}
 
 
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
 
+// Apply random colors when the page loads
+document.addEventListener('DOMContentLoaded', applyRandomCategoryColors);
+
+function applyRandomCategoryStyles() {
+    const categoryOptions = document.querySelectorAll('#categorySelect option');
+
+    categoryOptions.forEach(option => {
+        if (option.value) { // Skip the default "Select a category" option
+            const randomColor = getRandomColor();
+            option.style.border = `2px solid ${randomColor}`;
+            option.style.borderRadius = '15px'; // Rounded-pill style
+            option.style.padding = '5px 10px'; // Add padding for better appearance
+            option.style.color = randomColor; // Match text color with border
+            option.style.backgroundColor = 'transparent'; // Transparent background
+           
+        }
+    });
+}
+
+// Apply random styles when the page loads
+document.addEventListener('DOMContentLoaded', applyRandomCategoryStyles);
 </script>
+
+<?php
+// Update the function to generate unique colors using a hash
+function getRandomColor($categoryId) {
+    // Generate a hash-based color
+    $hash = md5($categoryId); // Create a hash from the category ID
+    return '#' . substr($hash, 0, 6); // Use the first 6 characters of the hash for the color
+}
+?>
+
+

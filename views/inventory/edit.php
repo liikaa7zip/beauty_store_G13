@@ -23,77 +23,95 @@ $product = $product ?? [
 ];
 ?>
 
-<div class="edit-product-container">
-    <h1 class="edit-product-title text-center">Edit Product</h1>
+<div class="product-form-container">
+    <h1 class="form-heading">Edit Product</h1>
 
     <?php if (isset($_SESSION['error'])): ?>
-        <div class="edit-product-alert alert alert-danger"><?= $_SESSION['error'] ?></div>
+        <div class="error-alert"><?= $_SESSION['error'] ?></div>
         <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
     <form action="/inventory/update/<?= $product['id'] ?>" method="POST" enctype="multipart/form-data">
-        <div class="edit-product-grid">
-            <div class="edit-product-column">
-                <div class="edit-product-field">
-                    <label for="name" class="edit-form-label" id="name-create">Product Name</label>
-                    <input type="text" id="create-name" name="name" class="edit-form-control edit-form-control-lg" value="<?= htmlspecialchars($product['name']) ?>" required>
-                </div>
-                <div class="edit-product-field">
-                    <label for="stocks" class="edit-form-label" id="name-create">Stocks</label>
-                    <input type="number" id="stocks" name="stocks" class="edit-form-control edit-form-control-lg" value="<?= htmlspecialchars($product['stocks']) ?>" required>
-                </div>
-                <div class="edit-product-field">
-                    <label for="start-date" class="edit-form-label" id="start-date-label">Start Date</label>
-                    <input type="date" id="start-date" name="start_date" class="edit-form-control edit-form-control-lg" value="<?= htmlspecialchars($product['start_date']) ?>" required>
+        <div class="form-main-layout">
+            <!-- Left Section: Product Image -->
+            <div class="image-section">
+                <div class="form-group">
+                    <label for="productImage" class="form-label">Product Image</label>
+                    <div class="image-upload-container" id="image-upload-container">
+                        <input type="file" id="productImage" name="productImage" class="form-input visually-hidden" accept="image/*">
+                        <div class="upload-area" id="upload-area">
+                            <div class="upload-placeholder">
+                                <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m-7-7h14" />
+                                </svg>
+                                <p class="upload-text">Drag & Drop or Click to Upload</p>
+                                <p class="upload-subtext">Supports JPG, PNG, up to 5MB</p>
+                            </div>
+                            <div class="image-preview-box" id="image-preview-box">
+                                <img id="preview-img" src="<?= !empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])
+                                    ? '/' . htmlspecialchars($product['image'])
+                                    : 'https://i.pinimg.com/1200x/69/96/2f/69962f39b03a5ba0e49f4668523b5d61.jpg' ?>"
+                                    alt="Product Image" class="preview-img">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="edit-product-column">
-                <div class="edit-product-field">
-                    <label for="category_id" class="edit-form-label" id="cat-create">Category</label>
-                    <select id="category_id" name="category_id" class="edit-form-select edit-form-select-lg" required>
-                        <?php foreach ($categories as $category): ?>
-                            <option value="<?= $category['id'] ?>" <?= $category['id'] == $product['category_id'] ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($category['name']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+            <!-- Right Section: All Inputs -->
+            <div class="inputs-section">
+                <div class="form-layout">
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Product Name</label>
+                            <input type="text" id="prod-name" name="name" class="form-input" value="<?= htmlspecialchars($product['name']) ?>" required>
+                        </div>
+
+                        <div class="form-group price-field">
+                            <label for="original_price" class="form-label">Original Price</label>
+                            <input type="number" id="prod-origin-price" name="original_price" class="form-input" value="<?= htmlspecialchars($product['original_price'] ?? '') ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="category_id" class="form-label">Category</label>
+                            <select id="prod-category" name="category_id" class="form-select" required>
+                                <?php foreach ($categories as $category): ?>
+                                    <option value="<?= $category['id'] ?>" <?= $category['id'] == $product['category_id'] ? 'selected' : '' ?>>
+                                        <?= htmlspecialchars($category['name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group price-field">
+                            <label for="price" class="form-label">Sale Price</label>
+                            <input type="number" id="prod-price" name="price" class="form-input" value="<?= htmlspecialchars($product['price']) ?>" required>
+                        </div>
+                    </div>
                 </div>
-                <div class="edit-product-field">
-                    <label for="price" class="edit-form-label" id="cat-create">Price</label>
-                    <input type="number" id="price" name="price" class="edit-form-control edit-form-control-lg" value="<?= htmlspecialchars($product['price']) ?>" required>
+
+                <div class="form-group">
+                    <label for="stocks" class="form-label">Stocks</label>
+                    <input type="number" id="prod-stocks" name="stocks" class="form-input" value="<?= htmlspecialchars($product['stocks']) ?>" required>
                 </div>
-                <div class="edit-product-field">
-                    <label for="expire-date" class="edit-form-label" id="expire-date-label">Expire Date</label>
-                    <input type="date" id="expire-date" name="expire_date" class="edit-form-control edit-form-control-lg" value="<?= htmlspecialchars($product['expire_date']) ?>" required>
+
+                <div class="form-group full-width">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="prod-description" name="description" class="form-textarea" rows="5" required><?= htmlspecialchars($product['description']) ?></textarea>
                 </div>
             </div>
         </div>
 
-        <div class="edit-product-description">
-            <label for="description" class="edit-form-label" id="name-created">Description</label>
-            <textarea id="description" name="description" class="edit-form-control edit-form-control-lg" rows="4" required><?= htmlspecialchars($product['description']) ?></textarea>
-        </div>
-
-        <div class="edit-product-image-upload">
-            <label for="productImage" class="edit-form-label" id="name-created">Product Image</label>
-            <input type="file" id="productImage" name="productImage" class="edit-form-control edit-form-control-lg" accept="image/*" onchange="showFileName()">
-            <small id="fileName" class="text-muted mt-2"></small>
-            <div class="edit-product-image-preview">
-                <img src="<?= !empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image'])
-                                ? '/' . htmlspecialchars($product['image'])
-                                : 'https://i.pinimg.com/1200x/69/96/2f/69962f39b03a5ba0e49f4668523b5d61.jpg' ?>"
-                    alt="<?= htmlspecialchars($product['name']) ?>"
-                    class="product-preview">
-                <p class="text-muted"><?= !empty($product['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $product['image']) ? 'Current Image' : 'Default Image' ?></p>
-            </div>
-        </div>
-
-        <div class="edit-product-button text-center">
-            <button id="pro-create" type="submit" class="btn btn-primary btn-lg px-5">UPDATE PRODUCT</button>
+        <div class="form-action-wrap">
+            <a href="/inventory/products" id="btn-cancel-product" class="btn-cancel-product">Cancel</a>
+            <button id="btn-create-product" type="submit" class="btn-create-product">Update Product</button>
         </div>
     </form>
 </div>
+
 
 
 <script>

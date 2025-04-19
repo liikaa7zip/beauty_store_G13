@@ -14,10 +14,8 @@ $product = $product ?? [
     'name' => '',
     'price' => '',
     'stocks' => '',
-    'start_date' => '',
     'category_id' => '',
     'status' => '',
-    'expire_date' => '',
     'original_price' => '',
     'description' => '',
     'image' => ''
@@ -73,10 +71,6 @@ $product = $product ?? [
                             <label for="prod-origin-price" class="form-label">Original Price</label>
                             <input type="number" id="prod-origin-price" name="original_price" class="form-input" value="<?= htmlspecialchars($product['original_price'] ?? '') ?>" required>
                         </div>
-                        <div class="form-group">
-                            <label for="prod-start-date" class="form-label">Start Date</label>
-                            <input type="date" id="prod-start-date" name="start_date" class="form-input" value="<?= htmlspecialchars($product['start_date']) ?>" required>
-                        </div>
                     </div>
 
                     <div class="form-section">
@@ -94,10 +88,6 @@ $product = $product ?? [
                             <label for="prod-price" class="form-label">Sale Price</label>
                             <input type="number" id="prod-price" name="price" class="form-input" value="<?= htmlspecialchars($product['price']) ?>" required>
                         </div>
-                        <div class="form-group">
-                            <label for="prod-expire-date" class="form-label">Expire Date</label>
-                            <input type="date" id="prod-expire-date" name="expire_date" class="form-input" value="<?= htmlspecialchars($product['expire_date']) ?>" required>
-                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -112,8 +102,13 @@ $product = $product ?? [
             </div>
         </div>
 
-        <div class="form-actions">
-            <button id="create-prod-btn" type="submit" class="btn-primary">Create Product</button>
+        <div class="form-action-wrap">
+            <a href="/inventory/products" id="btn-cancel-product" class="btn-cancel-product">
+                Cancel
+            </a>
+            <button id="btn-create-product" type="submit" class="btn-create-product">
+                Create Product
+            </button>
         </div>
     </form>
 </div>

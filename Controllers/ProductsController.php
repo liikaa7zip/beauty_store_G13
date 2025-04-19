@@ -71,11 +71,9 @@ class ProductsController extends BaseController
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? '';
-            $expire_date = $_POST['expire_date'] ?? '';
             $original_price = $_POST['original_price'] ?? '';
             $category_id = $_POST['category_id'] ?? '';
             $stocks = $_POST['stocks'] ?? '';
-            $start_date = $_POST['start_date'] ?? '';
             $status = $_POST['status'] ?? 'instock';
 
             $imagePath = isset($_FILES['productImage']) && $_FILES['productImage']['error'] == 0
@@ -92,12 +90,10 @@ class ProductsController extends BaseController
                 'name' => $name,
                 'description' => $description,
                 'price' => $price,
-                'expire_date' => $expire_date,
                 'original_price' => $original_price, // Ensure this is passed
                 'category_id' => $category_id,
                 'stocks' => $stocks,
                 'status' => $status,
-                'start_date' => $start_date,
                 'image' => $imagePath
             ];
 
@@ -123,11 +119,9 @@ class ProductsController extends BaseController
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? '';
-            $expire_date = $_POST['expire_date'] ?? '';
             $original_price = $_POST['original_price'] ?? '';
             $category_id = $_POST['category_id'] ?? '';
             $stocks = $_POST['stocks'] ?? '';
-            $start_date = $_POST['start_date'] ?? '';
             $status = $_POST['status'] ?? 'instock';
 
             $existingProduct = $this->productModel->getProductByID($id);
@@ -159,12 +153,10 @@ class ProductsController extends BaseController
                 'name' => $name,
                 'description' => $description,
                 'price' => $price,
-                'expire_date' => $expire_date,
                 'original_price' => $original_price,
                 'category_id' => $category_id,
                 'stocks' => $stocks,
                 'status' => $status,
-                'start_date' => $start_date,
                 'image' => $imagePath
             ];
 
@@ -201,15 +193,11 @@ class ProductsController extends BaseController
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
             $price = $_POST['price'] ?? '';
-            $expire_date = $_POST['expire_date'] ?? '';
             $original_price = $_POST['original_price'] ?? '';
             $stocks = $_POST['stocks'];
-            $start_date = $_POST['start_date'] ?? '';
             $category_id = $_POST['category_id'];
             $price = $_POST['price'] ?? '';
-            $expire_date = $_POST['expire_date'] ?? '';
             $stocks = $_POST['stocks'] ?? '';
-            $start_date = $_POST['start_date'] ?? '';
             $category_id = $_POST['category_id'] ?? '';
             $status = $_POST['status'] ?? 'in-stock';
 
@@ -223,12 +211,10 @@ class ProductsController extends BaseController
                 'name' => $name,
                 'description' => $description,
                 'price' => $price,
-                'expire_date' => $expire_date,
                 'original_price' => $original_price,
                 'stocks' => $stocks,
                 'category_id' => $category_id,
                 'status' => $status,
-                'start_date' => $start_date,
                 'image' => $imagePath
             ]));
 
@@ -236,12 +222,10 @@ class ProductsController extends BaseController
                 'name' => $name,
                 'description' => $description,
                 'price' => $price,
-                'expire_date' => $expire_date,
                 'original_price' => $original_price,
                 'stocks' => $stocks,
                 'category_id' => $category_id,
                 'status' => $status,
-                'start_date' => $start_date,
                 'image' => $imagePath
             ];
 
