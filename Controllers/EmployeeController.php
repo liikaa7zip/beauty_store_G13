@@ -13,9 +13,9 @@ class EmployeeController extends BaseController
     }
     public function index()
     {
-        if ($_SESSION['role'] === 'staff') {
-           
-            $this->redirect('/dashboard');
+        // Ensure session is started and role is checked
+        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+            $this->redirect('/dashboard'); // Redirect staff or unauthorized users
             exit;
         }
 
