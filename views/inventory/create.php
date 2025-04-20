@@ -61,6 +61,7 @@ $product = $product ?? [
             <!-- Right Section: All Inputs -->
             <div class="inputs-section">
                 <div class="form-layout">
+
                     <div class="form-section">
                         <div class="form-group">
                             <label for="prod-name" class="form-label">Product Name</label>
@@ -90,10 +91,11 @@ $product = $product ?? [
                         </div>
                     </div>
                 </div>
+
                 <div class="form-group">
-                            <label for="prod-stocks" class="form-label">Stocks</label>
-                            <input type="number" id="prod-stocks" name="stocks" class="form-input" value="<?= htmlspecialchars($product['stocks']) ?>" required>
-                        </div>
+                    <label for="prod-stocks" class="form-label">Stocks</label>
+                    <input type="number" id="prod-stocks" name="stocks" class="form-input" value="<?= htmlspecialchars($product['stocks']) ?>" required>
+                </div>
 
                 <div class="form-group full-width">
                     <label for="prod-description" class="form-label">Description</label>
@@ -103,16 +105,14 @@ $product = $product ?? [
         </div>
 
         <div class="form-action-wrap">
-            <a href="/inventory/products" id="btn-cancel-product" class="btn-cancel-product">
-                Cancel
-            </a>
-            <button id="btn-create-product" type="submit" class="btn-create-product">
-                Create Product
-            </button>
+            <a href="/inventory/products" id="btn-cancel-product" class="btn-cancel-product">Cancel</a>
+            <button id="btn-create-product" type="submit" class="btn-create-product">Create Product</button>
         </div>
     </form>
 </div>
 
+<!-- Include QR Code Library -->
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -175,4 +175,61 @@ $product = $product ?? [
         uploadPlaceholder.style.display = 'none';
     }
 });
+
+
+
+document.getElementById('scan-code').addEventListener('change', function () {
+    const code = this.value;
+
+    console.log("Sending scan request for code:", code); // Log the code being sent
+
+    fetch('/inventory/scan?code=' + encodeURIComponent(code))
+        .then(response => {
+            console.log("Fetch Response:", response); // Log the response
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Fetch Data:", data); // Log the data
+            if (data.success) {
+                const product = data.product;
+                document.getElementById('prod-name').value = product.name;
+                document.getElementById('prod-origin-price').value = product.original_price;
+                document.getElementById('prod-price').value = product.price;
+                document.getElementById('prod-stocks').value = product.stocks;
+                document.getElementById('prod-description').value = product.description;
+                document.getElementById('prod-category').value = product.category_id;
+            } else {
+                alert(data.message || "Product not found.");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching product:", error); // Log the error
+            alert("Error retrieving product. Please try again.");
+        });
+});
+
+function startScan() {
+    const html5QrCode = new Html5Qrcode("scanner");
+    const config = { fps: 10, qrbox: 250 };
+
+    html5QrCode.start(
+        { facingMode: "environment" }, // Rear camera
+        config,
+        (decodedText, decodedResult) => {
+            console.log("Scanned Barcode:", decodedText); // Log the scanned barcode
+            const scanCodeInput = document.getElementById("scan-code");
+            scanCodeInput.value = decodedText; // Display the barcode in the input field
+            scanCodeInput.dispatchEvent(new Event('change')); // Trigger a change event for further processing
+            html5QrCode.stop(); // Stop the scanner after a successful scan
+        },
+        (errorMessage) => {
+            console.error("Scanning Error:", errorMessage); // Optional: Log scanning errors
+        }
+    ).catch(err => {
+        alert("Camera permission denied or scanner error: " + err);
+    });
+}
 </script>

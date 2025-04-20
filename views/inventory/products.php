@@ -196,12 +196,6 @@ if (!isset($_SESSION['user_id'])) {
             </a>
         </div>
         <div class="col-4">
-            <div class="card" id="waste">
-                <div class="icon waste">🗑️</div>
-                <p>Waste</p>
-            </div>
-        </div>
-        <div class="col-4">
             <a href="/inventory/create" class="text-decoration-none">
                 <div class="card" id="add-product">
                     <div class="icon add">➕</div>

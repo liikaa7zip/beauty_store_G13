@@ -54,6 +54,12 @@ class ProductsController extends BaseController
 
     public function edit($id)
     {
+        if ($_SESSION['role'] !== 'admin') {
+            $_SESSION['error'] = "Access denied. Only admins can access the edit product page.";
+            $this->redirect("/inventory/products");
+            return;
+        }
+
         $product = $this->productModel->getProductByID($id);
         $categories = $this->categoryModel->getAllCategories();
 
@@ -67,6 +73,12 @@ class ProductsController extends BaseController
 
     public function store()
     {
+        if ($_SESSION['role'] !== 'admin') {
+            $_SESSION['error'] = "Access denied. Only admins can add products.";
+            $this->redirect("/inventory/products");
+            return;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
@@ -115,6 +127,12 @@ class ProductsController extends BaseController
 
     public function update($id)
     {
+        if ($_SESSION['role'] !== 'admin') {
+            $_SESSION['error'] = "Access denied. Only admins can update products.";
+            $this->redirect("/inventory/products");
+            return;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
@@ -175,6 +193,12 @@ class ProductsController extends BaseController
 
     public function delete($id)
     {
+        if ($_SESSION['role'] !== 'admin') {
+            $_SESSION['error'] = "Access denied. Only admins can delete products.";
+            $this->redirect("/inventory/products");
+            return;
+        }
+
         $product = $this->productModel->getProductByID($id);
         if ($this->productModel->deleteProduct($id)) {
             $userId = $_SESSION['user_id'] ?? null;
@@ -189,6 +213,12 @@ class ProductsController extends BaseController
 
     public function create()
     {
+        if ($_SESSION['role'] !== 'admin') {
+            $_SESSION['error'] = "Access denied. Only admins can access the create product page.";
+            $this->redirect("/inventory/products");
+            return;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
@@ -286,4 +316,8 @@ class ProductsController extends BaseController
 
         $this->view("inventory/product", ['products' => $products, 'categories' => $categories]);
     }
+
+
+
+
 }

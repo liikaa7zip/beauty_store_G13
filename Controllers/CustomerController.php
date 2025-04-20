@@ -35,6 +35,12 @@
 // In CustomerController.php
 public function viewCustomerDetails($id)
 {
+    if ($_SESSION['role'] !== 'admin') {
+        $_SESSION['error'] = "Access denied. Only admins can view customer details.";
+        $this->redirect('/customers');
+        return;
+    }
+
     try {
         // Fetch the customer details from the database
         $customer = $this->customerModel->getCustomerById($id);
@@ -88,6 +94,12 @@ public function show($customerId)
     // In CustomerController.php
     public function pay()
 {
+    if ($_SESSION['role'] !== 'admin') {
+        $_SESSION['error'] = "Access denied. Only admins can process payments.";
+        $this->redirect('/customers');
+        return;
+    }
+
     try {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             throw new Exception('Invalid request method');
@@ -147,6 +159,12 @@ public function show($customerId)
 
      public function create() 
 {
+    if ($_SESSION['role'] !== 'admin') {
+        $_SESSION['error'] = "Access denied. Only admins can create customers.";
+        $this->redirect('/customers');
+        return;
+    }
+
     try {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             throw new Exception('Invalid request method');
@@ -187,6 +205,12 @@ public function show($customerId)
     // In CustomerController.php
 public function showCustomersWithDebt()
 {
+    if ($_SESSION['role'] !== 'admin') {
+        $_SESSION['error'] = "Access denied. Only admins can view customers with debt.";
+        $this->redirect('/customers');
+        return;
+    }
+
     try {
         // Fetch customers with debt
         $customersWithDebt = $this->customerModel->getCustomersWithDebt();
@@ -224,6 +248,12 @@ public function viewCustomer($customerId)
 
     public function delete($customerId)
 {
+    if ($_SESSION['role'] !== 'admin') {
+        $_SESSION['error'] = "Access denied. Only admins can delete customers.";
+        $this->redirect('/customers');
+        return;
+    }
+
     try {
         // Delete customer
         $this->customerModel->delete($customerId);

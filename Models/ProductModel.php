@@ -161,4 +161,7 @@ class ProductModel
                 WHERE p.category_id = ?";
         return $this->db->query($sql, [$categoryId])->fetchAll();
     }
+
+
+
 }
