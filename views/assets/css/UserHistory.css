@@ -639,27 +639,23 @@
 
 /* Ensure table is properly hidden on mobile */
 @media (max-width: 768px) {
-  .table-container {
-    display: none !important;
-  }
+
 
   .mobile-view {
     display: block !important;
   }
 }
 
-/* Show table on desktop */
+
 @media (min-width: 769px) {
-  .table-container {
-    display: block !important;
-  }
+
 
   .mobile-view {
     display: none !important;
   }
 }
 
-/* Additional mobile optimizations */
+
 @media (max-width: 480px) {
   h2 {
     font-size: 1.25rem;

@@ -78,11 +78,11 @@
                         <td class="emp-table-data">
 
 
-                            <div class="dropdown">
-                                <button class="dropdown-toggle" type="button">
+                            <div class="dropdown-emp">
+                                <button class="dropdown-toggle-emp" type="button">
                                     &#x22EE; <!-- Vertical Ellipsis -->
                                 </button>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu-emp">
                                     <a class="text-edit" href="/employees/edit/<?= htmlspecialchars($employee['id']) ?>" >
                                         <i class="bi bi-pencil"></i> Edit
                                     </a>
@@ -193,7 +193,7 @@
     });
 
     // Prevent dropdown from closing when clicking inside
-    document.querySelectorAll('.emp-dropdown-menu').forEach(menu => {
+    document.querySelectorAll('.emp-dropdown-menu-emp').forEach(menu => {
         menu.addEventListener('click', function(event) {
             event.stopPropagation();
         });
@@ -377,6 +377,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         });
     }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const dropdowns = document.querySelectorAll('.dropdown-emp');
+
+    dropdowns.forEach(function (dropdown) {
+        const toggle = dropdown.querySelector('.dropdown-toggle-emp');
+        const menu = dropdown.querySelector('.dropdown-menu-emp');
+
+        toggle.addEventListener('click', function (e) {
+            e.stopPropagation(); // Prevent click from bubbling
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', function () {
+            menu.style.display = 'none';
+        });
+    });
 });
 </script>
 

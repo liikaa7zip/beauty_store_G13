@@ -701,3 +701,17 @@ function formatDuration($diff)
         adjustDisplayForScreenSize();
     });
 </script>
+
+<style>
+    @media (max-width: 768px) {
+  .table-container {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .table-container {
+    display: block !important;
+  }
+}
+</style>

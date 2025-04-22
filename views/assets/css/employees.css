@@ -804,6 +804,48 @@ form#newAddEmployeeForm {
 
 
 
+.dropdown-emp {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle-emp {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.dropdown-menu-emp {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: white;
+    min-width: 140px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 1;
+    border-radius: 8px;
+    padding: 0.5rem 0;
+}
+
+.dropdown-menu-emp a {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.dropdown-menu-emp a:hover {
+    background-color: #f2f2f2;
+}
+
+.text-edit i,
+.text-danger i {
+    margin-right: 8px;
+}
 
 
 
@@ -916,41 +958,7 @@ form#newAddEmployeeForm {
         flex: 0 0 auto;
     }
 
-    .dropdown-toggle {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: #666;
-        cursor: pointer;
-        padding: 0.25rem;
-    }
-
-    .dropdown-menu {
-        position: absolute;
-        right: 0;
-        top: 100%;
-        background: #fff;
-        border-radius: 6px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        display: none;
-        z-index: 10;
-    }
-
-    .dropdown:hover .dropdown-menu {
-        display: block;
-    }
-
-    .dropdown-menu a {
-        display: block;
-        padding: 0.5rem 1rem;
-        text-decoration: none;
-        color: #333;
-        font-size: 0.9rem;
-    }
-
-    .dropdown-menu a:hover {
-        background: #f5f5f5;
-    }
+    
 
     .text-edit {
         color: #1976d2;
@@ -967,6 +975,52 @@ form#newAddEmployeeForm {
         align-items: center;
         text-align: center;
     }
+
+    /* Dropdown Wrapper - Align top right inside card */
+.dropdown-emp {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+}
+
+/* Dropdown Toggle Button */
+.dropdown-toggle-emp {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Dropdown Menu Style */
+.dropdown-menu-emp {
+    display: none;
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background-color: white;
+    min-width: 120px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+}
+
+/* Mobile Friendly Dropdown Items */
+.dropdown-menu-emp a {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.dropdown-menu-emp a:hover {
+    background-color: #f5f5f5;
+}
+
 }
 
 
