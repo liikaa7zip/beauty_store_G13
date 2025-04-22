@@ -168,3 +168,140 @@ h3 {
     border-bottom: none;
 }
 
+/* Enhanced responsive styles for mobile devices */
+@media (max-width: 767px) {
+    .table {
+        border: 0;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table tr {
+        display: block;
+        margin-bottom: 15px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+    }
+
+    .table td {
+        display: flex;
+        justify-content: space-between; /* Ensure label and content are spaced */
+        align-items: center;
+        padding: 10px 15px;
+        border: none;
+        border-bottom: 1px solid #e9ecef;
+        font-size: 14px;
+        text-align: right; /* Align content to the right */
+    }
+
+    .table td span {
+        text-align: right; /* Ensure span content is aligned to the right */
+        flex: 1; /* Allow span to take up remaining space */
+    }
+
+    .table td:last-child {
+        border-bottom: none;
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #495057;
+        text-align: left; /* Align labels to the left */
+        margin-right: 10px; /* Add spacing between label and content */
+    }
+
+    .alt-dropdown-box {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .alt-dropdown-toggle {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .alt-dropdown-menu {
+        min-width: 140px;
+    }
+
+    .customers-list h1 {
+        font-size: 1.8rem;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .customers-list h2 {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+    }
+
+    .form-group input {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+
+    #name {
+        display: flex;
+        justify-content: space-between; /* Ensure label and content are spaced */
+        align-items: center;
+        padding: 10px 15px;
+        border: none;
+        border-bottom: 1px solid #e9ecef;
+        font-size: 14px;
+        text-align: right; /* Align content to the right */
+    }
+}
+
+/* Dropdown styles */
+.alt-dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    padding: 8px 0;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    z-index: 100;
+    margin-bottom: 8px; /* Add margin below the dropdown */
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    opacity: 0;
+    transform: translateY(10px); /* Default position below */
+}
+
+.alt-dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(-100%); /* Move dropdown above the button */
+}
+
+.alt-dropdown-toggle {
+    background-color: #f7f7f7;
+    color: #333;
+    padding: 8px 14px;
+    font-size: 14px;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.alt-dropdown-toggle:hover {
+    background-color: #e9ecef;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+

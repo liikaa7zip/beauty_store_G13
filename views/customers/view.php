@@ -40,83 +40,85 @@
         <?php unset($_SESSION['success']); ?>
     <?php endif; ?>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Total Debt</th>
-                <th>Unpaid Products</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($customers as $customer): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($customer['name']); ?></td>
-                <td><?php echo htmlspecialchars($customer['phone']); ?></td>
-                <td>
-                    <?php 
-                    $totalUnpaid = 0;
-                    if (!empty($unpaidProducts[$customer['id']])): ?>
-                        <ul class="unpaid-list">
-                            <?php foreach ($unpaidProducts[$customer['id']] as $product): 
-                                $totalUnpaid += $product['price']; ?>
-                                <li>
-                                    <?= htmlspecialchars($product['name']) ?> - 
-                                    <?= $product['quantity'] ?> x $<?= number_format($product['price'], 2) ?>
-                                    <br>
-                                    <small>Date: <?= $product['sale_date'] ?></small>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <div class="total-unpaid">
-                            Total Unpaid: $<?= number_format($totalUnpaid, 2) ?>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Total Debt</th>
+                    <th>Unpaid Products</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($customers as $customer): ?>
+                <tr>
+                    <td data-label="Name" id="name"><?php echo htmlspecialchars($customer['name']); ?></td>
+                    <td data-label="Phone"><?php echo htmlspecialchars($customer['phone']); ?></td>
+                    <td data-label="Total Debt">
+                        <?php 
+                        $totalUnpaid = 0;
+                        if (!empty($unpaidProducts[$customer['id']])): ?>
+                            <ul class="unpaid-list">
+                                <?php foreach ($unpaidProducts[$customer['id']] as $product): 
+                                    $totalUnpaid += $product['price']; ?>
+                                    <li>
+                                        <?= htmlspecialchars($product['name']) ?> - 
+                                        <?= $product['quantity'] ?> x $<?= number_format($product['price'], 2) ?>
+                                        <br>
+                                        <small>Date: <?= $product['sale_date'] ?></small>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <div class="total-unpaid">
+                                Total Unpaid: $<?= number_format($totalUnpaid, 2) ?>
+                            </div>
+                        <?php else: ?>
+                            <p><?= number_format($customer['total_debt'], 2) ?></p>
+                        <?php endif; ?>
+                    </td>
+                    <td data-label="Unpaid Products"><?php echo htmlspecialchars($customer['address']); ?></td>
+                    <td data-label="Actions">
+                        <div class="alt-dropdown-box">
+                            <button class="alt-dropdown-toggle" type="button" onclick="toggleAltDropdown(this)">
+                                Actions
+                            </button>
+                            <div class="alt-dropdown-menu">
+                                <a href="/customers/view/<?= $customer['id'] ?>" class="alt-dropdown-item">
+                                    <i class="bi bi-eye"></i> View
+                                </a>
+                                <a href="#" class="alt-dropdown-item text-danger" onclick="showModal(<?= $customer['id'] ?>)">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
+                            </div>
                         </div>
-                    <?php else: ?>
-                        <p><?= number_format($customer['total_debt'], 2) ?></p>
-                    <?php endif; ?>
-                </td>
-                <td><?php echo htmlspecialchars($customer['address']); ?></td>
-                <td>
-                    <div class="alt-dropdown-box">
-                        <button class="alt-dropdown-toggle" type="button" onclick="toggleAltDropdown(this)">
-                            Actions
-                        </button>
-                        <div class="alt-dropdown-menu">
-                            <a href="/customers/view/<?= $customer['id'] ?>" class="alt-dropdown-item">
-                                <i class="bi bi-eye"></i> View
-                            </a>
-                            <a href="#" class="alt-dropdown-item text-danger" onclick="showModal(<?= $customer['id'] ?>)">
-                                <i class="bi bi-trash"></i> Delete
-                            </a>
-                        </div>
-                    </div>
-                </td>
+                    </td>
 
-                <!-- Update the modal structure -->
-                <div id="deleteModal<?= $customer['id'] ?>" class="modal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5>Confirm Deletion</h5>
-                            <span class="close-modal" onclick="closeModal(<?= $customer['id'] ?>)">&times;</span>
-                        </div>
-                        <div class="modal-body">
-                            <p>Are you sure you want to delete <?= htmlspecialchars($customer['name']) ?>?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-cancel" onclick="closeModal(<?= $customer['id'] ?>)">Cancel</button>
-                            <a href="/customers/delete/<?= $customer['id'] ?>" class="btn btn-delete">Delete</a>
+                    <!-- Update the modal structure -->
+                    <div id="deleteModal<?= $customer['id'] ?>" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5>Confirm Deletion</h5>
+                                <span class="close-modal" onclick="closeModal(<?= $customer['id'] ?>)">&times;</span>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete <?= htmlspecialchars($customer['name']) ?>?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-cancel" onclick="closeModal(<?= $customer['id'] ?>)">Cancel</button>
+                                <a href="/customers/delete/<?= $customer['id'] ?>" class="btn btn-delete">Delete</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </ul>
-        </div>
-    </td>
-    </tr>
-    <?php endforeach; ?>
-    </tbody>
-    </table>
+                </ul>
+            </div>
+        </td>
+        </tr>
+        <?php endforeach; ?>
+        </tbody>
+        </table>
+    </div>
 </div>
 
 <script>
@@ -294,62 +296,7 @@ function toggleAltDropdown(button) {
 
 <!-- Update the dropdown CSS -->
 <style>
-/* Add these styles to your existing CSS */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
 
-.dropdown-toggle {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 5px 10px;
-    color: #333;
-}
-
-.dropdown-toggle:hover {
-    color: #007bff;
-}
-
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    right: 0;
-    background: white;
-    min-width: 150px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    z-index: 1000;
-    margin-top: 5px;
-}
-
-.dropdown-menu a {
-    display: flex;
-    align-items: center;
-    padding: 8px 16px;
-    text-decoration: none;
-    color: #333;
-    transition: background-color 0.2s;
-}
-
-.dropdown-menu a:hover {
-    background-color: #f8f9fa;
-}
-
-.dropdown-menu a.text-danger {
-    color: #dc3545;
-}
-
-.dropdown-menu a.text-danger:hover {
-    background-color: #fff5f5;
-}
-
-.dropdown-menu i {
-    margin-right: 8px;
-    font-size: 16px;
-}
 
 
 
@@ -500,219 +447,6 @@ function toggleAltDropdown(button) {
     background-color: #c82333;
 }
 
-/* Update the three dots button style */
-.dropdown-toggle {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 5px 10px;
-}
-
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background: white;
-    min-width: 120px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    z-index: 100;
-}
-
-.dropdown-menu a {
-    display: flex;
-    align-items: center;
-    padding: 8px 16px;
-    text-decoration: none;
-    color: #333;
-}
-
-.dropdown-menu a:hover {
-    background-color: #f8f9fa;
-}
-
-.dropdown-menu i {
-    margin-right: 8px;
-}
-
-/* Mobile-only responsive styles - only applies to screens below 768px */
-@media screen and (max-width: 767px) {
-    /* Hide table headers on mobile */
-    .table thead {
-        display: none;
-    }
-    
-    /* Convert table to cards */
-    .table, 
-    .table tbody {
-        display: block;
-        width: 100%;
-    }
-    
-    /* Style each row as a card */
-    .table tr {
-        display: block;
-        background: white;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        overflow: hidden;
-    }
-    
-    /* Style each cell */
-    .table td {
-        display: block;
-        padding: 15px;
-        border-bottom: 1px solid #f0f0f0;
-        position: relative;
-    }
-    
-    /* Add labels to cells */
-    .table td:before {
-        content: attr(data-label);
-        font-weight: 600;
-        color: #495057;
-        display: block;
-        margin-bottom: 8px;
-        font-size: 14px;
-    }
-    
-    /* Style customer name cell to include actions */
-    .table td:first-child {
-        background-color: #f8f9fa;
-        padding: 15px;
-        border-bottom: 2px solid #e9ecef;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    /* Remove label from name cell */
-    .table td:first-child:before {
-        display: none;
-    }
-    
-    /* Hide the original actions cell */
-    .table td:last-child {
-        display: none;
-    }
-}
-
-/* NES Dropdown Styles */
-.nes-dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.nes-dropdown .dropdown-toggle {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.nes-dropdown .dropdown-menu {
-    display: none;
-    position: absolute;
-    right: 0;
-    background: white;
-    min-width: 150px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    z-index: 1000;
-    margin-top: 5px;
-    padding: 8px 0;
-}
-
-.nes-dropdown .dropdown-item {
-    display: flex;
-    align-items: center;
-    padding: 8px 16px;
-    text-decoration: none;
-    color: #333;
-    transition: background-color 0.2s;
-    font-size: 14px;
-}
-
-.nes-dropdown .dropdown-item:hover {
-    background-color: #f8f9fa;
-}
-
-.nes-dropdown .dropdown-item.text-danger {
-    color: #dc3545;
-}
-
-.nes-dropdown .dropdown-item.text-danger:hover {
-    background-color: #fff5f5;
-}
-
-.nes-dropdown .dropdown-item i {
-    margin-right: 8px;
-    font-size: 16px;
-}
-
-/* New Dropdown Styles */
-.dropdown-container {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-toggle-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.dropdown-toggle-btn:hover {
-    background-color: #0056b3;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background: white;
-    min-width: 150px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    z-index: 1000;
-    margin-top: 5px;
-    padding: 8px 0;
-}
-
-.dropdown-item {
-    display: flex;
-    align-items: center;
-    padding: 8px 16px;
-    text-decoration: none;
-    color: #333;
-    transition: background-color 0.2s;
-    font-size: 14px;
-}
-
-.dropdown-item:hover {
-    background-color: #f8f9fa;
-}
-
-.dropdown-item.text-danger {
-    color: #dc3545;
-}
-
-.dropdown-item.text-danger:hover {
-    background-color: #fff5f5;
-}
-
-.dropdown-item i {
-    margin-right: 8px;
-    font-size: 16px;
-}
 
 .alt-dropdown-menu {
     display: none;
@@ -778,6 +512,8 @@ function toggleAltDropdown(button) {
     background-color: #e9ecef;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
+
 
 </style>
 
