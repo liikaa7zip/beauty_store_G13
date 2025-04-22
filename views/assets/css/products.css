@@ -569,7 +569,7 @@
 }
 
 /* Category Form Container */
-.category-container {
+/* .category-container {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   border-radius: 15px;
@@ -582,14 +582,14 @@
   text-align: center;
 }
 
-/* Title */
+
 .category-title {
   font-size: 26px;
   margin-top: 10px;
   color: #565656;
 }
 
-/* Labels */
+
 .category-label {
   font-size: 14px;
   font-weight: bold;
@@ -599,7 +599,7 @@
   margin: 10px 0 5px;
 }
 
-/* Input & Textarea */
+
 .category-input,
 .category-textarea {
   width: 100%;
@@ -629,14 +629,14 @@
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
-/* Button Group */
+
 .button-group {
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
 }
 
-/* Cancel Button */
+
 .category-cancel {
   width: 48%;
   padding: 12px;
@@ -656,7 +656,7 @@
   box-shadow: 0 4px 15px rgba(100, 100, 100, 0.5);
 }
 
-/* Submit Button */
+
 .category-submit {
   width: 48%;
   padding: 12px;
@@ -676,7 +676,6 @@
   padding: 11px 12px;
   background: linear-gradient(135deg, #ff3399, #ff66b2);
   color: white;
-  /* margin-top: 8px; */
   font-size: 16px;
   font-weight: bold;
   border-radius: 5px;
@@ -685,17 +684,17 @@
 }
 
 .add-category-btn:hover {
-  background-color: #ff4d97; /* Darker pink on hover */
-  transform: scale(1.05); /* Slight scaling effect */
+  background-color: #ff4d97; 
+  transform: scale(1.05); 
 }
 
 .add-category-btn i {
-  margin-right: 8px; /* Spacing between icon and text */
+  margin-right: 8px;
 }
 
 .add-category-btn:focus {
   outline: none;
-  box-shadow: 0 0 5px 2px rgba(255, 105, 180, 0.6); /* Pink focus ring */
+  box-shadow: 0 0 5px 2px rgba(255, 105, 180, 0.6); 
 }
 
 
@@ -703,6 +702,168 @@
   background: linear-gradient(135deg, #ff0066, #ff3385);
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(255, 0, 102, 0.5);
+} */
+
+.category-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.category-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.category-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
+}
+
+.category-input,
+.category-textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.category-input:focus,
+.category-textarea:focus {
+  border-color: #6c63ff;
+  outline: none;
+}
+
+.category-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.category-cancel {
+  color: #888;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.category-cancel:hover {
+  background-color: #f2f2f2;
+  color: #000;
+  border-color: #999;
+}
+
+.category-submit {
+  background: linear-gradient(135deg, #ff3399, #ff66b2);
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.category-submit:hover {
+  background-color: #574de8;
+}
+
+.category-submit:hover {
+  background: linear-gradient(135deg, #ff0066, #ff3385);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 0, 102, 0.5);
+} 
+
+/* Modal Styling */
+.unique-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.unique-modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px 30px;
+  border: 1px solid #888;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#uniqueCloseModal {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#uniqueCloseModal:hover {
+  background-color: #574de8;
+}
+
+/* 🔁 Responsive Breakpoints */
+@media (max-width: 768px) {
+  .category-container {
+      padding: 20px;
+  }
+
+  .category-title {
+      font-size: 1.6rem;
+  }
+
+  .button-group {
+      flex-direction: column;
+      align-items: stretch;
+  }
+
+  .category-cancel,
+  .category-submit {
+      width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-title {
+      font-size: 1.4rem;
+      margin-top: 15px;
+      margin-bottom: 20px;
+  }
+
+  .unique-modal-content {
+      padding: 20px;
+  }
 }
 
 /* Categories alert when create successfully */

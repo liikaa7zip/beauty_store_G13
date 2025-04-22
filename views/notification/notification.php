@@ -91,7 +91,10 @@ $notifications = $notificationModel->getNotifications();
                             <?php echo htmlspecialchars($notification['notification_message']); ?><br>
                             <?php echo htmlspecialchars($notification['created_at']); ?>
                         </div>
-                        <button class="delete-btn" data-id="<?php echo $notification['id']; ?>">×</button>
+                        
+                        <a class="delete-btn" href="/notification/delete/<?= $notification['id'] ?>" onclick="return confirmDelete(event);">
+                        ×
+                                    </a>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -108,4 +111,3 @@ if (file_exists($layoutPath)) {
     echo "Error: layout.php not found at $layoutPath";
 }
 ?>
-<?php include __DIR__ . '/../layouts/footer.php'; ?>

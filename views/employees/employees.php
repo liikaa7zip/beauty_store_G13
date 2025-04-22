@@ -103,6 +103,32 @@
 </div>
 
 <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+        const cateDropdowns = document.querySelectorAll('.dropdown-emp');
+
+        cateDropdowns.forEach(function (dropdown) {
+            const toggle = dropdown.querySelector('.dropdown-toggle-emp');
+            const menu = dropdown.querySelector('.dropdown-menu-emp');
+
+            toggle.addEventListener('click', function (e) {
+                e.stopPropagation();
+
+                // Close all others
+                document.querySelectorAll('.dropdown-menu-emp').forEach(m => {
+                    if (m !== menu) m.style.display = 'none';
+                });
+
+                // Toggle current
+                menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            document.addEventListener('click', function () {
+                menu.style.display = 'none';
+            });
+        });
+    });
+
     // Search function for employee table
     function searchEmployees() {
         const searchInput = document.getElementById('emp-search-employee');
@@ -379,23 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const dropdowns = document.querySelectorAll('.dropdown-emp');
 
-    dropdowns.forEach(function (dropdown) {
-        const toggle = dropdown.querySelector('.dropdown-toggle-emp');
-        const menu = dropdown.querySelector('.dropdown-menu-emp');
-
-        toggle.addEventListener('click', function (e) {
-            e.stopPropagation(); // Prevent click from bubbling
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-        });
-
-        document.addEventListener('click', function () {
-            menu.style.display = 'none';
-        });
-    });
-});
 </script>
 
 

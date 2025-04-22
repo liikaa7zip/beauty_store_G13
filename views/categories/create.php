@@ -7,7 +7,7 @@
     <textarea id="category_description" name="category_description" class="category-textarea" required></textarea>
 
     <div class="button-group">
-        <a href="/inventory/products" class="category-cancel" style="text-decoration: none;">Back</a>
+        <a href="/categories" class="category-cancel" style="text-decoration: none;">Back</a>
         <button type="submit" class="category-submit">Create Category</button>
     </div>
 </form>
@@ -18,3 +18,5 @@
         <button id="uniqueCloseModal">OK</button>
     </div>
 </div>
+
+

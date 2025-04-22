@@ -1,8 +1,4 @@
-<?php
-require_once "views/layouts/header.php";
-require_once "views/layouts/sidebar.php";
-require_once "views/layouts/navbar.php"; 
-?>
+
 
 <div class="container mt-5">
     <h1 class="text-center">Edit Category</h1>
@@ -15,11 +11,10 @@ require_once "views/layouts/navbar.php";
             <label for="category_description" class="form-label">Category Description</label>
             <textarea class="form-control" id="category_description" name="category_description" rows="4" required><?= htmlspecialchars($category['description']) ?></textarea>
         </div>
-        <div class="d-flex justify-content-between">
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a href="/categories" class="btn btn-secondary">Cancel</a>
+        <div class="button-group">
+            <a href="/categories" class="category-cancel" style="text-decoration: none;">Back</a>
+            <button type="submit" class="category-submit">Update Category</button>
         </div>
     </form>
 </div>
 
-<?php require_once "views/layouts/footer.php"; ?>
