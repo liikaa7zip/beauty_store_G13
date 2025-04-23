@@ -127,26 +127,26 @@
 }
 
 /* More options button (three dots) */
-.more-options {
+/* .more-options-pro {
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 10; /* Ensure the button is on top */
-}
+  z-index: 10; 
+} */
 
-.more-button {
+/* .more-button {
   background: transparent;
   border: none;
-  font-size: 24px; /* Size for the three dots */
+  font-size: 24px; 
   color: #333;
   cursor: pointer;
 }
 
-/* Dropdown menu */
+
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 100%; /* Align to the button's bottom */
+  top: 100%; 
   right: 0;
   background-color: white;
   border: 1px solid #ddd;
@@ -165,10 +165,53 @@
 
 .dropdown-menu a:hover {
   background-color: #f0f0f0;
-}
+} */
 
 /* .edit-button { background-color: #28a745; color: white; }
 .delete-button { background-color: #dc3545; color: white; } */
+
+
+.more-options-pro {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10; 
+}
+
+.more-button-pro {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.dropdown-menu-pro {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 1000;
+  min-width: 150px;
+}
+
+.dropdown-menu-pro a {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s ease;
+  border-radius: 5px;
+}
+
+.dropdown-menu-pro a:hover {
+  background-color: #f0f0f0;
+}
+
+
 
 .mobile-cards {
   display: none;
@@ -496,4 +539,157 @@
 
 .datepicker-dropdown .datepicker-footer .today-btn:hover {
   text-decoration: underline; /* Underline on hover */
+}
+
+
+/* Wrapper */
+.promotion-form-wrapper {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px 25px;
+  border-radius: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.promotion-form-wrapper h1 {
+  margin-top: -40px;
+}
+
+/* Form group */
+.form-group-promo {
+  margin-bottom: 24px;
+}
+
+/* Label styling */
+.label-promo {
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+/* Inputs, textareas, and selects */
+.input-promo,
+.textarea-promo,
+.select-promo {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #f9f9f9;
+}
+
+.input-promo:focus,
+.textarea-promo:focus,
+.select-promo:focus {
+  border-color: #ff4d6d;
+  box-shadow: 0 0 0 3px rgba(255, 77, 109, 0.2);
+  background-color: #fff;
+  outline: none;
+}
+
+/* Textarea */
+.textarea-promo {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Validation feedback */
+.feedback-promo {
+  font-size: 14px;
+  color: #dc3545;
+  margin-top: 6px;
+}
+
+/* Date fields layout */
+.form-dates-promo {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.date-group-promo {
+  flex: 1 1 200px;
+}
+
+/* Submit button */
+.btn-submit-promo {
+  background: linear-gradient(90deg, #fd1fb3, #f12db0);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+  width: 100%;
+}
+
+.btn-submit-promo:hover {
+  background-color: #e03e59;
+  transform: scale(1.02);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .promotion-form-wrapper {
+      padding: 20px 15px;
+  }
+
+  .btn-submit-promo {
+      font-size: 15px;
+      padding: 12px 20px;
+  }
+}
+
+
+.form-buttons-promo {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.btn-submit-promo,
+.btn-cancel-promo {
+  flex: 1 1 200px;
+  text-align: center;
+  text-decoration: none;
+  padding: 14px 20px;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Cancel Button Styling */
+.btn-cancel-promo {
+  background-color: #f2f2f2;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.btn-cancel-promo:hover {
+  background-color: #e4e4e4;
+  transform: scale(1.02);
+}
+
+
+/* Dropdown Menu Fix for Responsive */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%; /* Ensure dropdown appears below the button */
+  right: 0; /* Align dropdown to the right */
+  background-color: #ffffff;
+  border-radius: 8px;
+  min-width: 160px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  padding: 0.5rem 0;
+  animation: dropdownFade 0.2s ease;
 }
