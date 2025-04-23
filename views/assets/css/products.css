@@ -1,5 +1,90 @@
 /* Dropdown container */
 .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown toggle button */
+.dropdown-toggle {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.dropdown-toggle:hover {
+    transform: rotate(90deg);
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%; /* Ensure dropdown appears below the button */
+    right: 0; /* Align dropdown to the right */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    min-width: 140px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    padding: 5px 0;
+}
+
+/* Show dropdown menu when active */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Dropdown menu items */
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-menu a.text-edit i {
+    color: #1976d2;
+    margin-right: 8px;
+}
+
+.dropdown-menu a.text-danger i {
+    color: #d32f2f;
+    margin-right: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        right: 10px; /* Add some padding from the edge */
+        left: auto; /* Ensure left alignment is not applied */
+    }
+
+    .dropdown-toggle {
+        font-size: 18px; /* Adjust size for smaller screens */
+    }
+
+    .dropdown-menu a {
+        font-size: 13px; /* Adjust font size for smaller screens */
+    }
+}
+
+/* Dropdown container */
+.dropdown {
   position: relative;
   display: inline-block;
 }
@@ -34,22 +119,15 @@
   display: block;
 }
 
-
-
-
-
 .material-symbols-outlined {
   font-size: 18px;
 }
-
-
 
 #h1-products {
   text-align: center;
     color: #565656;
     margin-bottom: 20px;
 }
-
 
 #productTable thead th {
   padding: 16px 8px; /* Increased height, but kept width small */
@@ -58,7 +136,6 @@
   background: linear-gradient(135deg, #ff7eb9, #ff61a6); /* Gradient from light to dark pink */
   color: white;
 }
-
 
 #productsTableBody td{
   padding: 10px;
@@ -69,8 +146,6 @@
 #pro-name {
   margin-right: 40px;
 }
-
-
 
 .stocks-container {
   margin-top: 50px;
@@ -109,37 +184,31 @@
 /* Total Products - Teal Border */
 #total-products {
   border: 1px solid #12e0e0; 
-
 }
 
 /* Low Stock - Red Border */
 #low-stocks {
   border: 1px solid #ff4848;
-
 }
 
 /* In Stock - Green Border */
 #in-stocks {
   border: 1px solid #21fb2c; /* Deep Green */
-
 }
 
 /* Waste - Orange Border */
 #waste {
   border: 1px solid #f42020; /* Deep Orange */
-
 }
 
 /* Add Product - Purple Border */
 #add-product {
   border: 1px solid #a028eb; /* Dark Purple */
-
 }
 
 /* Date Card - Blue Border */
 #date {
   border: 1px solid #2b8eff; /* Deep Blue */
-
 }
 
 /* Icon Styling */
@@ -152,7 +221,6 @@
 .card:hover {
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
-
 
 .product-image {
   width: 45px;
@@ -238,8 +306,6 @@
   display: flex;
   justify-content: space-between;
 }
-
-
 
 #catBtn{
   text-align: center;
@@ -401,7 +467,6 @@
   color: red;
 }
 
-
 /* Table Container (basic styling, adjust as needed) */
 .table-container {
   width: 100%;
@@ -542,7 +607,6 @@
   text-align: center;
 }
 
-
 .export-btn {
   display: inline-flex; /* Use inline-flex for proper button alignment */
   align-items: center; /* Vertically center the content */
@@ -582,13 +646,11 @@
   text-align: center;
 }
 
-
 .category-title {
   font-size: 26px;
   margin-top: 10px;
   color: #565656;
 }
-
 
 .category-label {
   font-size: 14px;
@@ -598,7 +660,6 @@
   text-align: left;
   margin: 10px 0 5px;
 }
-
 
 .category-input,
 .category-textarea {
@@ -629,13 +690,11 @@
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
-
 .button-group {
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
 }
-
 
 .category-cancel {
   width: 48%;
@@ -655,7 +714,6 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(100, 100, 100, 0.5);
 }
-
 
 .category-submit {
   width: 48%;
@@ -696,7 +754,6 @@
   outline: none;
   box-shadow: 0 0 5px 2px rgba(255, 105, 180, 0.6); 
 }
-
 
 .category-submit:hover {
   background: linear-gradient(135deg, #ff0066, #ff3385);
@@ -1216,7 +1273,6 @@ button#uniqueCloseModal:hover {
   border-color: #00cfe6;
 }
 
-
 .dropdown-menu a.text-danger {
   color: #dc3545;
 }
@@ -1225,7 +1281,6 @@ button#uniqueCloseModal:hover {
 }
 
 /* Responsive Styles for Inventory/Products */
-
 
 @media (max-width: 767.98px) {
   /* Hide Category and Status columns */
@@ -1328,7 +1383,6 @@ button#uniqueCloseModal:hover {
     justify-content: space-between;
     width: 100%;
   }
-
 
   .export-btn {
     padding: 8px 12px;
@@ -1520,8 +1574,6 @@ button#uniqueCloseModal:hover {
   }
 }
 
-
-
 /* Total Products - Teal Border */
 #total-products {
   border: 1px solid #12e0e0; 
@@ -1551,8 +1603,6 @@ button#uniqueCloseModal:hover {
 #date {
   border: 1px solid #2b8eff; 
 }
-
-
 
 /* Product Form Container */
 .product-form-container {
@@ -1787,7 +1837,6 @@ button#uniqueCloseModal:hover {
   transform: scale(0.97);
 }
 
-
 /* Responsive Design for Mobile Phones */
 @media (max-width: 768px) {
   .product-form-container {
@@ -1868,14 +1917,7 @@ button#uniqueCloseModal:hover {
   .upload-subtext {
       font-size: 0.8rem;
   }
-
-
 }
-
-
-
-
-
 
 /* Edit products */
 
@@ -2260,3 +2302,125 @@ button#uniqueCloseModal:hover {
         text-align: center;
     }
 }
+
+.dropdown-products {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle-products {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #333;
+    transition: color 0.2s ease;
+}
+
+.dropdown-toggle-products:hover {
+    color: #007BFF;
+}
+
+.dropdown-menu-products {
+    display: none;
+    position: absolute;
+    right: 0;
+    min-width: 120px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.dropdown-products:hover .dropdown-menu-products {
+    display: block;
+}
+
+.dropdown-menu-products a {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
+}
+
+.dropdown-menu-products a:hover {
+    background: #f5f5f5;
+}
+
+.text-edit {
+    color: #007BFF;
+}
+
+.text-danger {
+    color: #DC3545;
+}
+
+.text-edit:hover {
+    color: #0056b3;
+    background: #f5f5f5;
+}
+
+.text-danger:hover {
+    color: #b02a37;
+    background: #f5f5f5;
+}
+
+.bi {
+    margin-right: 5px;
+}
+
+/* Dropdown container */
+.dropdown-product {
+  position: relative;
+  display: inline-block;
+}
+
+/* Toggle button */
+.dropdown-toggle-product {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Dropdown menu */
+.dropdown-menu-product {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  min-width: 150px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1;
+  border-radius: 8px;
+  padding: 8px 0;
+}
+
+/* Show dropdown */
+.dropdown-product.show .dropdown-menu-product {
+  display: block;
+}
+
+/* Dropdown items */
+.dropdown-menu-product a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+/* Hover effect */
+.dropdown-menu-product a:hover {
+  background-color: #f1f1f1;
+}
+
+

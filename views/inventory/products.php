@@ -86,30 +86,16 @@ if (!isset($_SESSION['user_id'])) {
                         <td class="<?= ($product['status'] === 'low-stock') ? 'status-low-stock' : 'status-instock' ?>">
                             <?= ucfirst(htmlspecialchars($product['status'])) ?>
                         </td>
-                        <td>
-                            <!-- <div class="dropdown">
-                                <button class="dropbtn btn btn-sm" onclick="toggleDropdown(this)">
-                                    <span class="material-symbols-outlined">more_horiz</span>
-                                </button>
-                                <div class="dropdown-content" style="display: none;">
-                                    <a href="/inventory/edit/<?= $product['id'] ?>">
-                                        <span class="material-symbols-outlined">border_color</span> Edit
-                                    </a>
-                                    <a href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
-                                        <span class="material-symbols-outlined">delete</span> Delete
-                                    </a>
-                                </div>
-                            </div> -->
-
+                        <td class="text-center"> <!-- Center-align the Actions column -->
                             <div class="dropdown">
                                 <button class="dropdown-toggle" type="button">
                                     &#x22EE; <!-- Vertical Ellipsis -->
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="text-edit" href="/inventory/edit/<?= $product['id'] ?>">
+                                    <a href="/products/edit/<?= $product['id'] ?>" class="text-edit">
                                         <i class="bi bi-pencil"></i> Edit
                                     </a>
-                                    <a class="text-danger" href="/inventory/delete/<?= $product['id'] ?>" onclick="return confirmDelete(event);">
+                                    <a href="/products/delete/<?= $product['id'] ?>" class="text-danger" onclick="return confirm('Are you sure you want to delete this product?');">
                                         <i class="bi bi-trash"></i> Delete
                                     </a>
                                 </div>
@@ -229,6 +215,8 @@ if (!isset($_SESSION['user_id'])) {
 
 <!-- Custom JavaScript -->
 <script>
+
+
     function searchProducts() {
         const input = document.getElementById('searchInput').value.toLowerCase();
         const rows = document.querySelectorAll('#productsTableBody tr');
@@ -355,18 +343,18 @@ function hideModal() {
 document.querySelectorAll('.dropdown-toggle').forEach(button => {
   button.addEventListener('click', function(e) {
     e.stopPropagation();
-    // Close all other open dropdowns
+    
     document.querySelectorAll('.dropdown.active').forEach(dropdown => {
       if (dropdown !== this.parentElement) {
         dropdown.classList.remove('active');
       }
     });
-    // Toggle current dropdown
+    
     this.parentElement.classList.toggle('active');
   });
 });
 
-// Close dropdown when clicking outside
+
 document.addEventListener('click', function() {
   document.querySelectorAll('.dropdown.active').forEach(dropdown => {
     dropdown.classList.remove('active');
