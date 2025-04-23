@@ -11,8 +11,15 @@ $notificationModel = new NotificationModel();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['delete_id'])) {
         $id = $_POST['delete_id'];
-        $notificationModel->deleteNotification($id);
-        echo json_encode(['status' => 'success']);
+
+        // Call the deleteNotification method to remove the notification from the database
+        $isDeleted = $notificationModel->deleteNotification($id);
+
+        if ($isDeleted) {
+            echo json_encode(['status' => 'success', 'message' => 'Notification deleted successfully.']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to delete notification.']);
+        }
         exit;
     } else {
         $notification_title = $_POST['notification_title'];
@@ -44,40 +51,63 @@ $notifications = $notificationModel->getNotifications();
 ?>
 
 
-        <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".delete-btn").forEach(button => {
-                button.addEventListener("click", function () {
-                    let notificationId = this.getAttribute("data-id");
-                    console.log("Attempting to delete ID:", notificationId); // Log ID
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent default link behavior
 
-                    if (confirm("Are you sure you want to delete this notification?")) {
-                        fetch(window.location.href, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/x-www-form-urlencoded",
-                            },
-                            body: "delete_id=" + encodeURIComponent(notificationId)
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log("Server response:", data); // Log response
+            const notificationId = this.getAttribute("data-id");
+            const modal = document.getElementById("deleteModal");
 
-                            if (data.status === "success") {
-                                this.parentElement.remove(); // Remove from UI
-                            } else {
-                                alert("Failed to delete notification: " + data.message);
-                            }
-                        })
-                        .catch(error => console.error("Fetch error:", error));
+            // Show the modal
+            modal.style.display = "block";
+
+            // Handle confirm delete
+            const confirmButton = modal.querySelector(".confirm-delete");
+            confirmButton.onclick = function () {
+                fetch(`/notification/delete/${notificationId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
                     }
-                });
-            });
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Remove the notification from the UI
+                        const notificationElement = button.closest(".notification");
+                        if (notificationElement) {
+                            notificationElement.remove();
+                        }
+                        modal.style.display = "none"; // Close the modal
+                    } else {
+                        alert("Failed to delete notification.");
+                    }
+                })
+                .catch(error => console.error("Error deleting notification:", error));
+            };
+
+            // Handle cancel delete
+            const cancelButton = modal.querySelector(".cancel-delete");
+            cancelButton.onclick = function () {
+                modal.style.display = "none"; // Close the modal
+            };
         });
+    });
+});
 </script>
 
-
-
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Confirm Deletion</h3>
+        <p>Are you sure you want to delete this notification?</p>
+        <div class="modal-actions">
+            <button class="cancel-delete">Cancel</button>
+            <button class="confirm-delete">Delete</button>
+        </div>
+    </div>
+</div>
 
 <main class="app-main">
     <div class="container">
@@ -91,10 +121,7 @@ $notifications = $notificationModel->getNotifications();
                             <?php echo htmlspecialchars($notification['notification_message']); ?><br>
                             <?php echo htmlspecialchars($notification['created_at']); ?>
                         </div>
-                        
-                        <a class="delete-btn" href="/notification/delete/<?= $notification['id'] ?>" onclick="return confirmDelete(event);">
-                        ×
-                                    </a>
+                        <a class="delete-btn" href="#" data-id="<?= $notification['id'] ?>">×</a>
                     </div>
                 <?php endforeach; ?>
             </div>

@@ -38,16 +38,14 @@ class NotificationModel {
             $query = "DELETE FROM store_notifications WHERE id = ?";
             $stmt = $this->db->prepare($query); // Prepare query
             $stmt->execute([$id]); // Execute with parameter
-    
+
             if ($stmt->rowCount() > 0) {
-                error_log("Database delete success for ID: " . $id);
-                return true;
+                return true; // Successfully deleted
             } else {
-                error_log("Database delete failed for ID: " . $id);
-                return false;
+                return false; // No rows affected
             }
         } catch (PDOException $e) {
-            error_log("PDO Error deleting notification: " . $e->getMessage());
+            error_log("Error deleting notification: " . $e->getMessage());
             return false;
         }
     }

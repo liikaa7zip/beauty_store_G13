@@ -209,3 +209,40 @@ h3 {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Ensure delete button stays in the top-right corner for responsive design */
+.notification {
+    position: relative; /* Ensure the delete button is positioned relative to the notification */
+}
+
+.delete-btn {
+    position: absolute;
+    top: 10px; /* Adjust spacing from the top */
+    right: 10px; /* Adjust spacing from the right */
+    font-size: 1.5rem;
+    color: #e53e3e;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.delete-btn:hover {
+    color: #c53030;
+    transform: scale(1.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .notification {
+        padding: 15px; /* Add padding for better spacing */
+    }
+
+    .delete-btn {
+        top: 5px; /* Adjust spacing for smaller screens */
+        right: 5px; /* Adjust spacing for smaller screens */
+        font-size: 1.2rem; /* Slightly smaller font size */
+    }
+}
+
