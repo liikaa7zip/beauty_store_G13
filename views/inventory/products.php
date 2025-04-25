@@ -17,37 +17,28 @@ if (!isset($_SESSION['user_id'])) {
         <div class="table-container">
             <div class="table-header">
                 <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
-                
-                <div id="categoryWrapper" style="padding: 5px; border-radius: 10px;">
-                    <select id="categorySelect" name="category">
-                        <option value="">Select a category</option>
-                        <?php foreach ($categories as $category): ?>
-                            <option value="<?= $category['id'] ?>">
-                                <?= htmlspecialchars($category['name']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
                 <div class="stock-export-wrapper">
                     <div class="stock-export-inner">
                         <div id="stockWrapper">
-                            <select id="create-stock" name="stocks" class="custom-select" onchange="filterStocks()">
-                                <option value="">Select a stock</option>
+                            <select id="create-stock" name="stocks" class="custom-dropdown" onchange="filterStocks()">
+                                <option value="">Select stock</option>
                                 <option value="low">Low Stock</option>
                                 <option value="in">In Stock</option>
                             </select>
                         </div>
-                        
-                        <div class="action-buttons">
-                            <button class="export-btn" onclick="exportToExcel();">
-                                <i class="fa fa-upload"></i> Export
-                            </button>
+                        <div id="categoryWrapper" style="padding: 5px; border-radius: 10px;">
+                            <select id="categorySelect" name="category" class="custom-dropdown">
+                                <option value="">Select category</option>
+                                    <?php foreach ($categories as $category): ?>
+                                        <option value="<?= $category['id'] ?>">
+                                        <?= htmlspecialchars($category['name']) ?>
+                                </option>
+                                    <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
-
         <table id="productTable" class="table table-striped table-bordered display">
             <thead>
                 <tr>
@@ -92,12 +83,12 @@ if (!isset($_SESSION['user_id'])) {
                                     &#x22EE; <!-- Vertical Ellipsis -->
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a href="/products/edit/<?= $product['id'] ?>" class="text-edit">
+                                    <a href="/inventory/edit/<?= $product['id'] ?>" class="text-edit">
                                         <i class="bi bi-pencil"></i> Edit
                                     </a>
-                                    <a href="/products/delete/<?= $product['id'] ?>" class="text-danger" onclick="return confirm('Are you sure you want to delete this product?');">
+                                    <a href="/inventory/delete/<?= $product['id'] ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');" class="text-danger">
                                         <i class="bi bi-trash"></i> Delete
-                                    </a>
+                                    </a>                                   
                                 </div>
                             </div>
                         </td>

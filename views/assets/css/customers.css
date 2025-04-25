@@ -16,7 +16,6 @@ h3 {
     font-size: 1.2rem;
 }
 
-
 /* Section Container */
 .customer-details-container {
     background-color: #ffffff;
@@ -144,7 +143,8 @@ h3 {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background: white;
+    position: relative;
+    z-index: 1; 
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -172,41 +172,65 @@ h3 {
 
 
 /* Dropdown styles */
+/* Dropdown styles */
+.alt-dropdown-box {
+    position: relative;
+    z-index: 100; /* Ensure dropdown box is above other elements */
+}
+
 .alt-dropdown-menu {
-    display: none;
+    display: none; /* Hidden by default */
     position: absolute;
+    left: -80px; /* Adjust position to the left */
+    top: calc(-100% + 5px); /* Add spacing between the button and dropdown */
     background-color: #ffffff;
-    min-width: 160px;
-    padding: 8px 0;
-    border-radius: 12px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-    z-index: 100;
-    margin-bottom: 8px; /* Add margin below the dropdown */
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    min-width: 120px; /* Reduce width */
+    padding: 5px 0; /* Reduce padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+    z-index: 1050; /* Ensure dropdown is above the table */
     opacity: 0;
-    transform: translateY(10px); /* Default position below */
+    transform: translateY(5px); /* Smaller hidden state */
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .alt-dropdown-menu.show {
     display: block;
     opacity: 1;
-    transform: translateY(-100%); /* Move dropdown above the button */
+    transform: translateY(0);
 }
 
-.alt-dropdown-toggle {
-    background-color: #f7f7f7;
+.alt-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Reduce gap */
+    padding: 6px 10px; /* Reduce padding */
     color: #333;
-    padding: 8px 14px;
-    font-size: 14px;
-    border: 1px solid #d0d0d0;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    font-size: 12px; /* Smaller font size */
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-radius: 6px; /* Smaller border radius */
 }
 
-.alt-dropdown-toggle:hover {
-    background-color: #e9ecef;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.alt-dropdown-item:hover {
+    background-color: #f0f0f5; /* Slightly lighter hover effect */
+    color: #000;
+}
+
+.alt-dropdown-item i {
+    font-size: 14px; /* Smaller icon size */
+    color: #666;
+    transition: color 0.2s ease;
+}
+
+.alt-dropdown-item:hover i {
+    color: #000;
+}
+
+.table-responsive {
+    position: relative;
+    z-index: 1; /* Ensure table is below dropdown */
+    overflow: visible !important; /* Prevent clipping of dropdown */
 }
 
 /* Ensure delete button stays in the top-right corner for responsive design */

@@ -14,7 +14,7 @@ if (!isset($_SESSION['user_id'])) {
     <div class="search-container m-0 pb-4">
         <div class="search-bar d-flex justify-content-between align-items-center gap-2">
             <div class="search-input w-100 d-flex align-items-center gap-2">
-                <input type="text" class="form-control p-2" id="searchInput" placeholder="Search promotions...">
+                <input type="text" class="form-control p-2" id="searchInput1" placeholder="Search promotions...">
             </div>
             <a href="/promotion/create" class="btn text-nowrap d-flex align-items-center p-2" id="addPromotionButton">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -90,9 +90,9 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
             </div>
 
-            <div class="more-options-pro">
-                <button class="more-button-pro" >&#x22EE;</button>
-                <div class="dropdown-menu-pro">
+            <div class="more-options">
+                <button class="more-button" onclick="toggleDropdown(this)">&#x22EE;</button>
+                <div class="dropdown-menu">
                     <a href="/promotion/edit/<?= $promotion['id'] ?>" class="edit-button d-flex flex-row align-items-center gap-2 fw-bold">
                         <span class="material-symbols-outlined" id="edit" style="color:pink;">edit</span> Edit
                     </a>
@@ -126,33 +126,6 @@ if (!isset($_SESSION['user_id'])) {
 </div>
 
 <script>
-
-document.addEventListener("DOMContentLoaded", function () {
-        const cateDropdowns = document.querySelectorAll('.more-options-pro');
-
-        cateDropdowns.forEach(function (dropdown) {
-            const toggle = dropdown.querySelector('.more-button-pro');
-            const menu = dropdown.querySelector('.dropdown-menu-pro');
-
-            toggle.addEventListener('click', function (e) {
-                e.stopPropagation();
-
-                // Close all others
-                document.querySelectorAll('.dropdown-menu-pro').forEach(m => {
-                    if (m !== menu) m.style.display = 'none';
-                });
-
-                // Toggle current
-                menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-            });
-
-            document.addEventListener('click', function () {
-                menu.style.display = 'none';
-            });
-        });
-    });
-
-    
     function sendPromotion(button, event) {
         event.preventDefault();
         var promotionId = button.getAttribute('data-promotion-id');
@@ -219,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 
-    document.getElementById('searchInput').addEventListener('input', function() {
+    document.getElementById('searchInput1').addEventListener('input', function() {
         const searchQuery = this.value.toLowerCase();
         const promotionCards = document.querySelectorAll('.promotion-card');
         const clearButton = document.getElementById('clearSearchButton');

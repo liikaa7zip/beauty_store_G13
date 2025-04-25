@@ -123,33 +123,43 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Handle dropdown toggle clicks
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle-btn');
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function (e) {
-            e.stopPropagation(); // Prevent event propagation
-            const dropdownContent = this.nextElementSibling;
+    // Add event listeners to toggle the dropdown visibility
+    document.querySelectorAll('.alt-dropdown-toggle').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent event from bubbling up and closing dropdown
 
-            // Close all other dropdowns first
-            document.querySelectorAll('.dropdown-content').forEach(content => {
-                if (content !== dropdownContent) {
-                    content.style.display = 'none';
+            const dropdownMenu = this.nextElementSibling; // Get the dropdown menu (the .alt-dropdown-menu element)
+
+            // Close all other dropdowns
+            document.querySelectorAll('.alt-dropdown-menu.show').forEach(function(menu) {
+                if (menu !== dropdownMenu) {
+                    menu.classList.remove('show');
                 }
             });
 
-            // Toggle the current dropdown
-            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+            // Toggle visibility of the clicked dropdown
+            dropdownMenu.classList.toggle('show');
+
+            // Ensure dropdown is fully visible within the viewport
+            const rect = dropdownMenu.getBoundingClientRect();
+            if (rect.left < 0) {
+                dropdownMenu.style.left = '0'; // Adjust to prevent overflow on the left
+            }
         });
     });
 
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function () {
-        document.querySelectorAll('.dropdown-content').forEach(content => {
-            content.style.display = 'none';
-        });
+    // Close dropdown if clicking outside of it
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.alt-dropdown-box')) {
+            document.querySelectorAll('.alt-dropdown-menu.show').forEach(function(menu) {
+                menu.classList.remove('show');
+            });
+        }
     });
 });
+</script>
 
+<script>
 // Your existing modal functions
 function showModal(id) {
     const modal = document.getElementById('deleteModal' + id);
@@ -279,29 +289,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-
-
-function toggleAltDropdown(button) {
-    var menu = button.nextElementSibling;
-    menu.classList.toggle('show');
-
-    // Optional: close other dropdowns
-    document.addEventListener('click', function (e) {
-        if (!button.parentElement.contains(e.target)) {
-            menu.classList.remove('show');
-        }
-    }, { once: true });
-}
 </script>
 
 <!-- Update the dropdown CSS -->
 <style>
 
-
-
-
 .customers-list {
     padding: 20px;
+    
 }
 
 .input-group {
@@ -324,7 +319,22 @@ function toggleAltDropdown(button) {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    position: relative;
+    z-index: 1; 
 }
+
+.table-responsive {
+    overflow-x: visible !important; /* Prevent clipping */
+    position: relative;
+    z-index: 2; /* Allow elements to stack on top */
+    margin-bottom: 10%;
+}
+
+.table td {
+    overflow: visible;
+    position: relative;
+}
+
 
 .table th,
 .table td {
@@ -448,7 +458,7 @@ function toggleAltDropdown(button) {
 }
 
 
-.alt-dropdown-menu {
+/* .alt-dropdown-menu {
     display: none;
     position: absolute;
     background-color: #ffffff;
@@ -456,7 +466,7 @@ function toggleAltDropdown(button) {
     padding: 8px 0;
     border-radius: 12px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-    z-index: 100;
+    z-index: 9999;
     margin-top: 8px;
     transition: opacity 0.2s ease, transform 0.2s ease;
     opacity: 0;
@@ -467,7 +477,7 @@ function toggleAltDropdown(button) {
     display: block;
     opacity: 1;
     transform: translateY(0);
-}
+} */
 
 .alt-dropdown-item {
     display: flex;
@@ -611,7 +621,6 @@ function toggleAltDropdown(button) {
         text-align: right; /* Align content to the right */
     }
 }
-
 </style>
 
 

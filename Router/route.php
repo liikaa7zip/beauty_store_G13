@@ -59,7 +59,7 @@ $route->get("/inventory/products", [ProductsController::class, 'index']);
 $route->get("/inventory/edit/{id}", [ProductsController::class, 'edit']);
 $route->put("/inventory/update/{id}", [ProductsController::class, 'update']);
 $route->post("/inventory/products/store", [ProductsController::class, 'store']);
-$route->get("/inventory/delete/{id}", [ProductsController::class, 'delete']);
+$route->post("/inventory/delete/{id}", [ProductsController::class, 'delete']); // Change to POST for delete
 $route->get("/inventory/create", [ProductsController::class, 'create']);
 
 $route->get("/inventory/product/category/{id}", [ProductsController::class, 'getProductsByCategory']); 

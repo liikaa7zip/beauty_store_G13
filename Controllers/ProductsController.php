@@ -64,7 +64,7 @@ class ProductsController extends BaseController
         $categories = $this->categoryModel->getAllCategories();
 
         if ($product) {
-            $this->view("inventory/edit", ['product' => $product, 'categories' => $categories]);
+            $this->view("/inventory/edit", ['product' => $product, 'categories' => $categories]);
         } else {
             $_SESSION['error'] = "Product not found!";
             $this->redirect("/inventory/products");
@@ -193,22 +193,16 @@ class ProductsController extends BaseController
 
     public function delete($id)
     {
-        if ($_SESSION['role'] !== 'admin') {
-            $_SESSION['error'] = "Access denied. Only admins can delete products.";
-            $this->redirect("/inventory/products");
-            return;
-        }
+        $productModel = new ProductModel();
 
-        $product = $this->productModel->getProductByID($id);
-        if ($this->productModel->deleteProduct($id)) {
-            $userId = $_SESSION['user_id'] ?? null;
-            $this->historyModel->logProductAction($product['name'], 'deleted', $userId);
-
+        if ($productModel->deleteProduct($id)) {
             $_SESSION['success'] = "Product deleted successfully!";
         } else {
             $_SESSION['error'] = "Failed to delete product.";
         }
-        $this->redirect("/inventory/products");
+
+        header("Location: /inventory/products");
+        exit;
     }
 
     public function create()

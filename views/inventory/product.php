@@ -19,27 +19,27 @@ if (!isset($_SESSION['user_id'])) {
                 <input type="text" id="searchInput" placeholder="Search for products..." onkeyup="searchProducts()">
                 
 
-                <div id="stockWrapper">
-                    <select id="create-stock" name="stocks" class="custom-select" onchange="filterStocks()">
-                        <option value="">Select a stock</option>
-                        <option value="low">Low Stock</option>
-                        <option value="in">In Stock</option>
-                    </select>
+                <div class="stock-export-wrapper">
+                        <div id="categoryWrapper" style="padding: 5px; border-radius: 10px;">
+                            <!-- <select id="categorySelect" name="category" class="custom-dropdown">
+                                <option value="">Select category</option>
+                                    <?php foreach ($categories as $category): ?>
+                                        <option value="<?= $category['id'] ?>">
+                                        <?= htmlspecialchars($category['name']) ?>
+                                </option>
+                                    <?php endforeach; ?>
+                            </select> -->
+                        </div>
+                        <div class="stock-export-inner">
+                        <div id="stockWrapper">
+                            <select id="create-stock" name="stocks" class="custom-dropdown" onchange="filterStocks()">
+                                <option value="">Select stock</option>
+                                <option value="low">Low Stock</option>
+                                <option value="in">In Stock</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-
-                
-                <div class="spacer"></div>
-                
-                <div class="action-buttons">
-                    <!-- <button class="import-btn" onclick="triggerImport(); console.log('Import button clicked');">
-                    <i class="fa fa-download"></i> Import
-                    </button> -->
-                    <button class="export-btn" onclick="exportToExcel(); console.log('Export button clicked');">
-                        
-                        <i class="fa fa-upload"></i> Export
-                    </button>
-                </div>
-            </div>
         </div>
 
         <table id="productTable" class="table table-striped table-bordered display">

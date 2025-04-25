@@ -127,26 +127,26 @@
 }
 
 /* More options button (three dots) */
-/* .more-options-pro {
+.more-options {
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 10; 
-} */
+  z-index: 10; /* Ensure the button is on top */
+}
 
-/* .more-button {
+.more-button {
   background: transparent;
   border: none;
-  font-size: 24px; 
+  font-size: 24px; /* Size for the three dots */
   color: #333;
   cursor: pointer;
 }
 
-
+/* Dropdown menu */
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 100%; 
+  top: 100%; /* Align to the button's bottom */
   right: 0;
   background-color: white;
   border: 1px solid #ddd;
@@ -165,53 +165,10 @@
 
 .dropdown-menu a:hover {
   background-color: #f0f0f0;
-} */
+}
 
 /* .edit-button { background-color: #28a745; color: white; }
 .delete-button { background-color: #dc3545; color: white; } */
-
-
-.more-options-pro {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 10; 
-}
-
-.more-button-pro {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.dropdown-menu-pro {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 100%;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  border-radius: 8px;
-  z-index: 1000;
-  min-width: 150px;
-}
-
-.dropdown-menu-pro a {
-  display: block;
-  padding: 8px 12px;
-  text-decoration: none;
-  color: #333;
-  transition: background 0.2s ease;
-  border-radius: 5px;
-}
-
-.dropdown-menu-pro a:hover {
-  background-color: #f0f0f0;
-}
-
-
 
 .mobile-cards {
   display: none;
@@ -618,7 +575,7 @@
 
 /* Submit button */
 .btn-submit-promo {
-  background: linear-gradient(90deg, #fd1fb3, #f12db0);
+  background-color: #ff4d6d;
   color: white;
   border: none;
   border-radius: 10px;

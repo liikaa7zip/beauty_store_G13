@@ -118,8 +118,16 @@ class ProductModel
 
     public function deleteProduct($id)
     {
-        $stmt = $this->db->query("DELETE FROM products WHERE id = :id", [':id' => $id]);
-        return $stmt->rowCount() > 0;
+        try {
+            $stmt = $this->db->prepare("DELETE FROM products WHERE id = :id");
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->rowCount() > 0; // Return true if a row was deleted
+        } catch (PDOException $e) {
+            error_log("Error deleting product: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function deleteProducts($id)

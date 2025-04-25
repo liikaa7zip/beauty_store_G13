@@ -211,6 +211,10 @@
   border: 1px solid #2b8eff; /* Deep Blue */
 }
 
+.text-delete {
+  color: #d32f2f;
+}
+
 /* Icon Styling */
 .card .icon {
   font-size: 32px;
@@ -533,16 +537,16 @@
   transition: all 0.3s ease-in-out;
 }
 
-#categoryWrapper::after {
-  content: "\25BC"; /* Down arrow */
+/* #categoryWrapper::after {
+  content: "\25BC"; 
   font-size: 14px;
-  color: #ff69b4; /* Pink arrow */
+  color: #efe3e9; 
   position: absolute;
   top: 50%;
   right: 15px;
   transform: translateY(-50%);
   pointer-events: none;
-}
+} */
 
 #categorySelect:focus {
   border-color: #ff1493; /* Darker pink when focused */
@@ -1236,10 +1240,13 @@ button#uniqueCloseModal:hover {
   vertical-align: top;
 }
 
-#create-stock.custom-select {
-  min-width: 150px; /* Set a minimum width */
-  height: 45px; /* Set height */
+#create-stock {
+  /* min-width: 150px;  */
+  height: 45px; 
+  width: 100%;
+  max-width: 180px;
   padding: 10px 20px; 
+  margin-left: 15%;
   border: 2px solid #00e1ff;
   border-radius: 25px;
   background-color: white;
@@ -1252,12 +1259,12 @@ button#uniqueCloseModal:hover {
   box-sizing: border-box;
   cursor: pointer;
   line-height: 1.2;
-  text-align: center; /* Center text */
+  text-align: center; 
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   transition: border-color 0.3s ease;
-  
+  margin-top: 7px;
   background-image: url("data:image/svg+xml;utf8,<svg fill='%23ff69b4' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 12px center;
@@ -1279,6 +1286,31 @@ button#uniqueCloseModal:hover {
   .dropdown-menu a.text-edit {
   color:rgb(13, 209, 6);
 }
+
+/* .custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 10px 40px 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23999' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.custom-select:focus {
+  border-color: #eb3d83;
+  outline: none;
+} */
+
+
 
 /* Responsive Styles for Inventory/Products */
 
@@ -2151,16 +2183,13 @@ button#uniqueCloseModal:hover {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-left: auto;
 }
 
 #stockWrapper {
   margin-right: 0;
 }
 
-.action-buttons {
-  margin-left: 10px;
-}
+
 
 /* Responsive adjustments */
 @media (max-width: 767.98px) {
@@ -2176,21 +2205,18 @@ button#uniqueCloseModal:hover {
 
   .stock-export-wrapper {
     width: 100%;
-    justify-content: space-between;
+    flex-direction: column;
   }
 
   #stockWrapper {
     flex: 1;
-    margin-right: 10px;
   }
 
   .action-buttons {
     flex: 0 0 auto;
-    margin-left: 10px;
   }
 
-  #create-stock.custom-select,
-  .export-btn {
+  #create-stoc {
     width: 100%;
     text-align: center;
   }
@@ -2208,10 +2234,6 @@ button#uniqueCloseModal:hover {
     width: 50%;
 }
 
-#stockWrapper,
-.action-buttons {
-    flex: 1;
-}
 
 #create-stock.custom-select,
 .export-btn {
@@ -2225,12 +2247,11 @@ button#uniqueCloseModal:hover {
 @media (max-width: 767.98px) {
     .stock-export-wrapper {
         width: 100%;
-        margin-left: 0; /* Reset margin for mobile */
+        flex-direction: column;
     }
 
     .stock-export-inner {
         display: flex;
-        justify-content: space-between;
         gap: 10px;
     }
 
@@ -2251,7 +2272,6 @@ button#uniqueCloseModal:hover {
 
 /* Stock and Export button wrapper */
 .stock-export-wrapper {
-    margin-left: auto; /* Push to the right on desktop */
     width: auto; /* Allow natural width on desktop */
 }
 
@@ -2279,18 +2299,18 @@ button#uniqueCloseModal:hover {
     .stock-export-wrapper {
         width: 100%; /* Full width on mobile */
         margin-left: 0; /* Reset margin for mobile */
+        flex-direction: column;
     }
 
     .stock-export-inner {
         width: 100%; /* Full width on mobile */
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         text-align: center  ;
     }
 
-    #stockWrapper,
-    .action-buttons {
-        width: 48%; /* Slightly less than 50% to maintain gap */
+    #stockWrapper {
+        width: 100%; /* Slightly less than 50% to maintain gap */
     }
 
     #create-stock.custom-select,
@@ -2423,4 +2443,74 @@ button#uniqueCloseModal:hover {
   background-color: #f1f1f1;
 }
 
+/* Base styling for the custom dropdown */
+.custom-dropdown {
+  padding: 10px 15px;
+  border: 2px solid #a3d8ff;
+  border-radius: 25px;
+  background-color: #f7faff;
+  font-size: 16px;
+  color: #333;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  outline: none;
+  width: 100%; /* Full width for responsiveness */
+  max-width: 200px; /* Max width for larger screens */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
 
+/* Custom dropdown arrow */
+.custom-dropdown {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23ff6f91" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 20px;
+}
+
+/* Base layout for the wrapper */
+.stock-export-inner {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: center; /* Center the dropdowns */
+}
+
+/* Remove extra padding from wrapper divs */
+#stockWrapper, #categoryWrapper {
+  padding: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .stock-export-inner {
+      flex-direction: column; /* Stack dropdowns vertically on smaller screens */
+      align-items: center; /* Center align the dropdowns */
+  }
+
+  .custom-dropdown {
+      max-width: 100%; /* Full width on smaller screens */
+      width: 90vw; /* 90% of viewport width for better fit */
+      font-size: 14px; /* Slightly smaller font for mobile */
+      padding: 8px 12px; /* Slightly smaller padding */
+  }
+
+  .custom-dropdown {
+      background-position: right 10px center; /* Adjust arrow position for smaller screens */
+      background-size: 18px; /* Slightly smaller arrow */
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-dropdown {
+      font-size: 12px; /* Even smaller font for very small screens */
+      padding: 6px 10px; /* Smaller padding */
+      width: 85vw; /* Slightly smaller width for very small screens */
+  }
+
+  .custom-dropdown {
+      background-size: 16px; /* Smaller arrow for very small screens */
+      background-position: right 8px center;
+  }
+}
