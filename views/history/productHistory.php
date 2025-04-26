@@ -1,6 +1,6 @@
 <?php if (!empty($history)): ?>
     <div class="history-container">
-        <h1>Product History for Session</h1>
+        <h1>Product History</h1>
         <table class="data-table">
             <thead>
                 <tr>
