@@ -18,16 +18,17 @@
     transition: transform 0.2s ease;
 }
 
-.dropdown-toggle:hover {
-    transform: rotate(90deg);
+/* Remove style change on click */
+.dropdown-toggle:active {
+    transform: none;
 }
 
 /* Dropdown menu */
 .dropdown-menu {
     display: none;
     position: absolute;
-    top: 100%; /* Ensure dropdown appears below the button */
-    right: 0; /* Align dropdown to the right */
+    top: 100%;
+    right: 0;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 6px;
@@ -38,7 +39,7 @@
 }
 
 /* Show dropdown menu when active */
-.dropdown:hover .dropdown-menu {
+.dropdown.active .dropdown-menu {
     display: block;
 }
 
@@ -1138,7 +1139,7 @@ button#uniqueCloseModal:hover {
 .upload-area.dragover {
   border-color: #0288d1;
   background-color: #e3f2fd;
-  box-shadow: 0 0 10px rgba(2, 136, 209, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .upload-placeholder {

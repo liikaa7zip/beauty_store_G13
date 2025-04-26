@@ -48,16 +48,16 @@
           <li class="user-body">
             <!--begin::Row-->
             <div class="row">
-              <div class="col-4 text-center"><a href="#">Followers</a></div>
-              <div class="col-4 text-center"><a href="#">Sales</a></div>
-              <div class="col-4 text-center"><a href="#">Friends</a></div>
+              <div class="col-4 text-center"><a href="/notification">Notification</a></div>
+              <div class="col-4 text-center" ><a href="/sales">Sales</a></div>
+              <div class="col-4 text-center" ><a href="/history" style="margin-left: -55%;">Histories</a></div>
             </div>
             <!--end::Row-->
           </li>
           <!--end::Menu Body-->
           <!--begin::Menu Footer-->
           <li class="user-footer">
-            <a href="#" class="btn btn-default btn-flat">Profile</a>
+            <a href="#" class="btn btn-default btn-flat"></a>
             <a style="border: 1px solid #ff69b4; margin-top: 10px;"
               href="#"
               class="btn btn-default btn-flat float-end"
@@ -173,6 +173,98 @@
     padding: 0;
     /* Remove any default padding */
   }
+
+  /* User Menu Dropdown Styles */
+.user-menu .dropdown-menu {
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  border: none;
+  overflow: hidden;
+  min-width: 250px;
+}
+
+.user-header {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, rgb(189, 189, 189), rgb(148, 185, 194));
+  color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.user-header img {
+  width: 80px;
+  height: 80px;
+  border: 3px solid white;
+}
+
+.user-header p {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.user-body .row {
+  padding: 10px 0;
+}
+
+.user-body a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.user-body a:hover {
+  color: #ff69b4;
+}
+
+.user-footer {
+  padding: 10px;
+  background: #f8f9fa;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.user-footer a {
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.user-footer .btn {
+  color: #fff;
+  border: none;
+}
+
+.user-footer .btn:hover {
+  background: #ff85a2;
+}
+
+.app-main {
+  width: 100%;
+  height: 90vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+/* Responsive on Mobile */
+@media (max-width: 576px) {
+  .user-menu .dropdown-menu {
+    width: 95vw !important;
+    right: 2.5% !important;
+    left: auto !important;
+    transform: none !important;
+    top: 100% !important;
+    margin-top: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+  }
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -199,4 +291,31 @@
       });
     });
   });
+
+  // Hide the modal
+function hideModal() {
+    document.getElementById('category-modal').style.display = 'none';
+}
+
+
+document.querySelectorAll('.dropdown-toggle').forEach(button => {
+  button.addEventListener('click', function(e) {
+    e.stopPropagation();
+    
+    document.querySelectorAll('.dropdown.active').forEach(dropdown => {
+      if (dropdown !== this.parentElement) {
+        dropdown.classList.remove('active');
+      }
+    });
+    
+    this.parentElement.classList.toggle('active');
+  });
+});
+
+
+document.addEventListener('click', function() {
+  document.querySelectorAll('.dropdown.active').forEach(dropdown => {
+    dropdown.classList.remove('active');
+  });
+});
 </script>
