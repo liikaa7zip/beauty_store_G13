@@ -1,3 +1,7 @@
+html, body {
+  overflow: auto !important;
+}
+
 .header {
   margin-bottom: 2rem;
   padding: 1rem 1.5rem 0rem 1.5rem;
@@ -34,12 +38,6 @@
   pointer-events: none; /* Prevents interaction with the icon */
 }
 
-
-
-
-
-
-
 /* Floating Animation */
 @keyframes float {
   0% {
@@ -49,8 +47,6 @@
     transform: translateY(5px);
   }
 }
-
-
 
 .promotion-container {
     display: grid;
@@ -213,8 +209,6 @@
   color: #666;
 }
 
-
-
 @media (max-width: 768px) {
   .mobile-cards {
       display: block;
@@ -225,29 +219,32 @@
   }
 }
 
-
 /* Full Screen Form Container */
 .full-screen-form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Full viewport height */
-  background-color: #f7f7f7; /* Light background */
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100% - 260px); /* Account for sidebar */
+  height: 100vh;
+  background-color: #f7f7f7;
   padding: 20px;
   box-sizing: border-box;
+  overflow-y: auto; /* Enable scrolling */
 }
 
 /* Form Styling */
 #createPromotionForm {
   width: 100%;
-  max-width: 900px; /* Maximum width to avoid stretching too much on large screens */
+  max-width: 900px;
   background: #fff;
   border-radius: 10px;
   padding: 30px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   position: relative;
-  margin-top: 10px;
+  margin: 80px auto; /* Increased top margin */
+  height: auto;
+  min-height: min-content;
 }
 
 /* Form Inputs and Labels */
@@ -336,13 +333,9 @@
   width: 300%;
   height: 300%;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 10%, transparent 70%);
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.5s ease-out;
 }
 
-.btn-primary:hover::before {
-  transform: translate(-50%, -50%) scale(1);
-}
+
 
 .btn-primary:hover {
   background: linear-gradient(135deg, #ff00ff, #ff007f); /* Reverse Gradient */
@@ -350,19 +343,6 @@
   transform: translateY(-4px);
 }
 
-.btn-primary:hover svg {
-  transform: rotate(360deg) scale(1.2);
-}
-
-.btn-primary:active {
-  transform: scale(0.95);
-  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-}
-
-.btn-primary:focus {
-  outline: none;
-  box-shadow: 0 0 15px rgba(255, 0, 255, 0.8); /* Keeps the glow effect */
-}
 
 #promotionDescription {
   margin-left: -8px;
@@ -378,9 +358,6 @@
   width: 130px;
   padding: 12px;
 }
-
-
-
 
 /* Responsive Design: Form adjusts for smaller screens */
 @media (max-width: 768px) {
@@ -489,4 +466,83 @@
 
 .datepicker-dropdown .datepicker-footer .today-btn:hover {
   text-decoration: underline; /* Underline on hover */
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.btn-primary-pro,
+.btn-cancel-pro {
+    flex: 0 0 200px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Add text shadow for better readability */
+}
+
+.btn-primary-pro:hover,
+.btn-cancel-pro:hover {
+    background: linear-gradient(135deg, #ff00ff, #ff007f);
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+}
+
+.btn-primary-pro {
+    background: linear-gradient(135deg, #ff007f, #ff00ff);
+    color: #ffffff !important; /* Force white text */
+    border: none;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+}
+
+.btn-primary-pro:hover {
+    background: linear-gradient(135deg, #ff00ff, #ff007f);
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+}
+
+.btn-cancel-pro {
+    background: #4a4a4a;
+    color: white;
+    border: none;
+    box-shadow: 0 0 10px rgba(74, 74, 74, 0.5);
+}
+
+.btn-cancel-pro:hover {
+    background: #333333;
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(51, 51, 51, 0.8);
+}
+
+.btn-primary-pro:active,
+.btn-cancel-pro:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .button-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .btn-primary,
+    .btn-cancel-pro {
+        flex: none;
+        width: 100%;
+    }
 }
