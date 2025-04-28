@@ -5,7 +5,9 @@ if (session_status() == PHP_SESSION_NONE) {
 ?>
 
 <div class="full-screen-form-container">
+    
     <form id="createPromotionForm" action="/promotion/store" method="POST">
+    <h1>Create promotions</h1>
         <div class="promotion">
             <label for="promotionName" class="form-label">Promotion Title</label>
             <input type="text" class="form-control" id="promotionName" name="promotion_name" placeholder="Enter the promotion title" required>
@@ -49,7 +51,10 @@ if (session_status() == PHP_SESSION_NONE) {
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Create Promotion</button>
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary-pro">Create Promotion</button>
+            <a href="/promotion" class="btn btn-cancel-pro">Cancel</a>
+        </div>
     </form>
 </div>
 
