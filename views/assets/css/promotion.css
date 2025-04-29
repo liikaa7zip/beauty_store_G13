@@ -480,14 +480,7 @@ html, body {
 .datepicker-dropdown .datepicker-footer .today-btn:hover {
   text-decoration: underline; /* Underline on hover */
 }
-
-.button-group {
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-    margin-top: 30px;
-    width: 100%;
-}
+x
 
 .btn-primary-pro,
 .btn-cancel-pro {
