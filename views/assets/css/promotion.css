@@ -317,7 +317,6 @@ html, body {
   box-shadow: 0 0 10px rgba(197, 179, 88, 0.5);
   position: relative;
   overflow: hidden;
-  animation: float 2s infinite alternate ease-in-out;
   margin-top: 20px;
 }
 
@@ -545,4 +544,17 @@ html, body {
         flex: none;
         width: 100%;
     }
+}
+
+
+#addPromotionButton{
+  background: linear-gradient(135deg, #ff00ff, #ff007f);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#addPromotionButton:hover{
+    background: linear-gradient(135deg, #ff00ff, #ff007f);
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
 }

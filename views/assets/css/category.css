@@ -50,8 +50,10 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .add-category-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(106, 17, 203, 0.4);
+    background: linear-gradient(135deg, #ff00ff, #ff007f);
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+    color: #fff;
 }
 
 /* ========== Table ========== */

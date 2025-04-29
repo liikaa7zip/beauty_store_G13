@@ -787,6 +787,18 @@ form#newAddEmployeeForm {
     box-shadow: 0 4px 8px rgba(90, 103, 216, 0.3);
 }
 
+#emp-add-employee{
+    background: linear-gradient(135deg, #ff00ff, #ff007f);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #emp-add-employee:hover{
+      background: linear-gradient(135deg, #ff00ff, #ff007f);
+      transform: translateY(-4px);
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+  }
+
 /* Hide scrollbar for specific elements */
 .sales-wrapper {
     overflow: hidden; /* Disable scrolling for this section */

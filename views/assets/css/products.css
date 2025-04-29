@@ -1205,7 +1205,6 @@ button#uniqueCloseModal:hover {
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn-primary:hover {
@@ -1809,7 +1808,6 @@ button#uniqueCloseModal:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .btn-primary:hover {

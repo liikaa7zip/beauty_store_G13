@@ -21,7 +21,7 @@
             <input type="text" class="emp-search-employee" id="emp-search-employee" placeholder="Search by name, email, or role...">
         </div>
         <div class="emp-header-right emp-action-buttons">
-            <a href="/employees/create" class="emp-add-employee-btn btn btn-primary">
+            <a href="/employees/create" class="emp-add-employee btn btn-primary">
                 <i class="fas fa-plus-circle" style="margin-right: 0.25rem;"></i> Add User
             </a>
         </div>
