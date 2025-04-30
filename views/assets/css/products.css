@@ -476,6 +476,7 @@
 .table-container {
   width: 100%;
   padding: 20px;
+  overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
 /* Table Header */
@@ -2512,4 +2513,24 @@ button#uniqueCloseModal:hover {
       background-size: 16px; /* Smaller arrow for very small screens */
       background-position: right 8px center;
   }
+}
+
+/* Hide scrollbar for the entire page */
+html {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.products_container {
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.products_container::-webkit-scrollbar {
+    display: none;
 }

@@ -12,7 +12,7 @@ class CategoryController extends BaseController
     {
         $this->categoryModel = new CategoryModel($db);
         $this->productModel = new ProductModel($db);
-        $this->historyModel = new HistoryModel(); // Initialize the HistoryModel
+        $this->historyModel = new HistoryModel();
     }
 
     public function index()

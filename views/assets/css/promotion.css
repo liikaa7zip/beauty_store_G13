@@ -1,6 +1,4 @@
-html, body {
-  overflow: auto !important;
-}
+
 
 .header {
   margin-bottom: 2rem;
@@ -230,6 +228,12 @@ html, body {
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto; /* Enable scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.full-screen-form-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 /* Form Styling */
