@@ -124,5 +124,9 @@ $product = $product ?? [
             fileNameDisplay.textContent = '';
         }
     }
+
+    document.querySelector('.upload-placeholder').addEventListener('click', function () {
+    document.getElementById('productImage').click();
+});
 </script>
 
